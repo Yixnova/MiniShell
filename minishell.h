@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/19 13:38:44 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/19 14:36:55 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,18 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-typedef	struct s_shelldata
-{
-	char		*input;
-	t_tokens 	*tokens;
-};	t_shelldata
-
 typedef	struct s_tokens
 {
 //token types = " ' < > >> << $? $characters=something
 	int			type;
+	char		*content;
+	struct s_tokens 	*next;
+}	t_tokens;
+
+typedef	struct s_shelldata
+{
+	char		*input;
 	t_tokens 	*tokens;
-};	t_tokens
+}	t_shelldata;
 
 #endif
