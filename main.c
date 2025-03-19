@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:53:08 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/19 12:50:08 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/19 14:35:36 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ int	is_all_spaces(char *line)
 	while(line[i])
 	{
 		if(!is_space_character(line[i]))
-			return (1);
+			return (0);
 		i++;
 	}
-	return (0);
+	return (1);
 }
 int is_empty_line(char *line)
 {
@@ -36,10 +36,10 @@ int is_empty_line(char *line)
 
 void	handle_input_and_history(t_shelldata *shelldata)
 {
-	while(1)
+	while (1)
 	{
 		shelldata->input = readline("prompt$ ");
-		if(!is_empty_line(shelldata->input))
+		if (!is_empty_line(shelldata->input))
 			add_history(shelldata->input);
 		free(shelldata->input);
 	}
