@@ -6,20 +6,20 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/19 12:58:18 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/19 13:25:06 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-typedef	s_shelldata
+typedef	struct s_shelldata
 {
 	char		*input;
 	t_tokens 	*tokens;
 };	t_shelldata
 
-typedef	s_tokens
+typedef	struct s_tokens
 {
 //token types = " ' < > >> << $? $characters=something
 	int			type;
