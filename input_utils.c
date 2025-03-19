@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   input_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/19 10:53:08 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/19 14:42:27 by busseven         ###   ########.fr       */
+/*   Created: 2025/03/19 14:42:30 by busseven          #+#    #+#             */
+/*   Updated: 2025/03/19 14:43:11 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"minishell.h"
-
-void	handle_input_and_history(t_shelldata *shelldata)
+int	is_space_character(char c)
 {
-	while (1)
-	{
-		shelldata->input = readline("prompt$ ");
-		if (!is_empty_line(shelldata->input))
-			add_history(shelldata->input);
-		free(shelldata->input);
-	}
+	return (c == ' ' || (c >= 9 && c <= 13));
 }
 
-int	main()
+int	is_all_spaces(char *line)
 {
-	t_shelldata	*shelldata;
+	int	i;
+	i = 0;
+	
+	while (line[i])
+	{
+		if (!is_space_character(line[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
-	shelldata = ft_calloc(1, sizeof(shelldata));
-	handle_input_and_history(shelldata);
+int	is_empty_line(char *line)
+{
+	return (!line || line[0] == '\0' || is_all_spaces(line));
 }
