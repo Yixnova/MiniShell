@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:53:08 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/19 14:42:27 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/19 17:58:16 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"minishell.h"
+#include "minishell.h"
 
 void	handle_input_and_history(t_shelldata *shelldata)
 {

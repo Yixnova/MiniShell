@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:42:30 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/19 14:43:11 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/19 17:58:21 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_all_spaces(char *line)
 {
 	int	i;
 	i = 0;
-	
+
 	while (line[i])
 	{
 		if (!is_space_character(line[i]))
