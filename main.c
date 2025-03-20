@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:53:08 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/20 14:40:55 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:44:41 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	handle_input_and_history(t_shelldata *shelldata)
 	}
 }
 
-int	main()
+int	main(void)
 {
 	t_shelldata	*shelldata;
 

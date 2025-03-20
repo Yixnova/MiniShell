@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/20 14:38:39 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:46:16 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,11 @@
 # include <signal.h>
 # include <stdlib.h>
 
-
 typedef struct s_shelldata
 {
 	char		*input;
 	char		**tokens;
 }	t_shelldata;
-
 
 int		is_space_character(char c);
 int		is_all_spaces(char *line);
