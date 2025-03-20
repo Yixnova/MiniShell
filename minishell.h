@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/20 13:25:45 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:34:20 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,27 @@
 
 # include "./ft_printf/ft_printf.h"
 # include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <signal.h>
+# include <stdlib.h>
+
+
+typedef struct s_tokens
+{
+	// token types = " ' < > >> << $? $characters=something
+	int			type;
+	char		*content;
+	struct s_tokens *next;
+}	t_tokens;
+
+
+typedef struct s_shelldata
+{
+	char		*input;
+	t_tokens 	*tokens;
+}	t_shelldata;
+
 
 typedef	struct s_vars
 {
@@ -37,5 +56,8 @@ int		is_all_spaces(char *line);
 int		is_empty_line(char *line);
 
 void	handle_input_and_history(t_shelldata *shelldata);
+void	free_shell_data(t_shelldata *shelldata);
+void	sigint_handler(int signum);
+void	setup_signals(void);
 
 #endif
