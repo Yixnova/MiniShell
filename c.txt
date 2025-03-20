@@ -1,2 +1,0 @@
-var value hello$
-var value hello$

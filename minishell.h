@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/20 09:31:03 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/20 13:25:45 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-typedef	struct s_tokens
+typedef	struct s_vars
 {
-//token types = " ' < > >> << $? $characters=something
-	int			type;
-	char		*content;
-	struct s_tokens 	*next;
-}	t_tokens;
+	char			*name;
+	char			*value;
+	struct s_vars	*next;
+} t_vars;
 
 typedef	struct s_shelldata
 {
 	char		*input;
-	t_tokens 	*tokens;
-}	t_shelldata;
+	char		**tokens_arr;
+	t_vars		*variables;
+} t_shelldata;
 
 int		is_space_character(char c);
 int		is_all_spaces(char *line);
