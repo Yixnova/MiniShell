@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/19 16:44:01 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/03/20 09:31:03 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,6 @@
 # include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-
-int		is_space_character(char c);
-int		is_all_spaces(char *line);
-int		is_empty_line(char *line);
-
-void	handle_input_and_history(t_shelldata *shelldata);
 
 typedef	struct s_tokens
 {
@@ -37,5 +31,11 @@ typedef	struct s_shelldata
 	char		*input;
 	t_tokens 	*tokens;
 }	t_shelldata;
+
+int		is_space_character(char c);
+int		is_all_spaces(char *line);
+int		is_empty_line(char *line);
+
+void	handle_input_and_history(t_shelldata *shelldata);
 
 #endif
