@@ -1,35 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_utils.c                                      :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/19 14:42:30 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/20 08:53:03 by yigsahin         ###   ########.fr       */
+/*   Created: 2025/03/20 08:58:49 by yigsahin          #+#    #+#             */
+/*   Updated: 2025/03/20 09:09:17 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	is_space_character(char c)
+#include "minishell.h"
+
+void	free_shell_data(t_shelldata *shelldata)
 {
-	return (c == ' ' || (c >= 9 && c <= 13));
+	if (!shelldata)
+		return ;
+	free(shelldata->input);
+	free(shelldata);
 }
 
-int	is_all_spaces(char *line)
+void	sigint_handler(int signum)
 {
-	int	i;
-	i = 0;
-
-	while (line[i])
-	{
-		if (!is_space_character(line[i]))
-			return (0);
-		i++;
-	}
-	return (1);
+	(void)signum;
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
-int	is_empty_line(char *line)
+void	setup_signals(void)
 {
-	return (!line || line[0] == '\0' || is_all_spaces(line));
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
 }

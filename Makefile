@@ -1,10 +1,13 @@
-SRC = main.c
-OBJ = $(SRC:.c=.o)
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 LIBFTPRINTF	= ./ft_printf/libftprintf.a
+OBJ = $(SRC:.c=.o)
 LIBS = $(LIBFTPRINTF)
+
+SRC =	main.c\
+		input_utils.c\
+		signals.c\
 
 all: $(LIBFTPRINTF) $(NAME)
 
