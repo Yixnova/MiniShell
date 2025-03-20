@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/20 09:08:42 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:38:39 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,10 @@
 # include <stdlib.h>
 
 
-typedef struct s_tokens
-{
-	// token types = " ' < > >> << $? $characters=something
-	int			type;
-	char		*content;
-	struct s_tokens *next;
-}	t_tokens;
-
-
 typedef struct s_shelldata
 {
 	char		*input;
-	t_tokens 	*tokens;
+	char		**tokens;
 }	t_shelldata;
 
 
