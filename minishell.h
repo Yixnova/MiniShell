@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/21 14:53:21 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/21 16:05:28 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,11 @@ typedef	struct	s_pipe
 typedef struct s_shelldata
 {
 	char	*input;
+	int		on_word;
+	int		count;
 	char	**token_arr;
 	t_cmd	*tokens;
 }	t_shelldata;
-
-typedef	struct s_shelldata
-{
-	char		*input;
-	char		**tokens_arr;
-	t_cmd		*tokens;
-} t_shelldata;
 
 int		is_space_character(char c);
 int		is_all_spaces(char *line);
@@ -82,5 +77,7 @@ void	handle_input_and_history(t_shelldata *shelldata);
 void	free_shell_data(t_shelldata *shelldata);
 void	sigint_handler(int signum);
 void	setup_signals(void);
+void	tokenize_input(t_shelldata	*data);
+void	unclosed_quotes();
 
 #endif
