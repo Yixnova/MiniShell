@@ -19,6 +19,7 @@
 # include <readline/history.h>
 # include <signal.h>
 # include <stdlib.h>
+# include <limits.h>
 
 typedef struct s_tokens
 {
