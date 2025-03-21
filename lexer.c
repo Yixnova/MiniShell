@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/21 16:15:43 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/21 16:23:59 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	skip_in_quotes(char	*str, int *i, int type)
 	}
 	unclosed_quotes();
 }
+
 int	count_words(char *str)
 {
 	int	i;
@@ -49,7 +50,8 @@ int	count_words(char *str)
 	}
 	return (count);
 }
+
 void	tokenize_input(t_shelldata	*data)
 {
-	printf("%d\n", count_words(data->input));
+	data->token_arr = split_into_words(data->input);
 }
