@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:53:08 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/21 10:08:59 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/21 18:15:41 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	handle_input_and_history(t_shelldata *shelldata)
 {
 	while (1)
 	{
-		setup_signals();
 		shelldata->input = readline("prompt$ ");
 		if (!shelldata->input)
 		{
@@ -36,7 +35,6 @@ int	main(void)
 {
 	t_shelldata	*shelldata;
 
-	shelldata = ft_calloc(1, sizeof(shelldata));
-	setup_signals();
+	shelldata = ft_calloc(1, sizeof(t_shelldata));
 	handle_input_and_history(shelldata);
 }
