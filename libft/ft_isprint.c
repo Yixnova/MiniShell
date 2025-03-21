@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/10 19:00:19 by busseven          #+#    #+#             */
-/*   Updated: 2024/10/28 10:57:04 by busseven         ###   ########.fr       */
+/*   Created: 2024/10/08 18:08:11 by yigsahin          #+#    #+#             */
+/*   Updated: 2024/10/29 15:31:12 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_isprint(int c)
 {
 	if (c >= 32 && c <= 126)
+	{
 		return (1);
-	else
-		return (0);
+	}
+	return (0);
 }

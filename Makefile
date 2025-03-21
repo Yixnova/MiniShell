@@ -6,40 +6,45 @@
 #    By: busseven <busseven@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:42:59 by busseven          #+#    #+#              #
-#    Updated: 2025/03/20 14:34:09 by busseven         ###   ########.fr        #
+#    Updated: 2025/03/21 10:10:47 by busseven         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC = main.c input_utils.c
 OBJ = $(SRC:.c=.o)
-
 NAME = minishell
+NAME = mini_shell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-LIBFTPRINTF	= ./ft_printf/libftprintf.a
-OBJ = $(SRC:.c=.o)
-LIBS = $(LIBFTPRINTF)
 
-SRC =	main.c\
+SRCS =	main.c\
 		input_utils.c\
 		signals.c\
 
-all: $(LIBFTPRINTF) $(NAME)
+OBJS = $(SRCS:.c=.o)
+LIBFT = libft/libft.a
 
-$(NAME): $(OBJ) $(LIBFTPRINTF)
-	$(CC) $(CFLAGS) $(OBJ) -lreadline -o $(NAME) $(LIBS)
+all: $(NAME)
+	@echo "Building all..."
 
-$(LIBFTPRINTF):
-	$(MAKE) -C ./ft_printf all
-
-fclean: clean
-	make -C ft_printf fclean
-	rm -rf $(NAME)
+$(NAME): $(OBJS) $(LIBFT)
+	@echo "Creating executable..."
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -lreadline -o $(NAME)
+$(LIBFT):
+	@echo "Building libft..."
+	@make -C libft
 
 clean:
-	rm -f $(OBJ)
-	make -C ./ft_printf clean
+	@echo "Cleaning object files..."
+	@rm -f $(OBJS)
+	@make -C libft clean
+
+fclean: clean
+	@echo "Removing executable and cleaning..."
+	@rm -f $(NAME)
+	@make -C libft fclean
 
 re: fclean all
+	@echo "Rebuilding all..."
 
 .PHONY: all clean fclean re

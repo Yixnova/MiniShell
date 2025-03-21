@@ -31,5 +31,13 @@ int	is_all_spaces(char *line)
 
 int	is_empty_line(char *line)
 {
-	return (!line || line[0] == '\0' || is_all_spaces(line));
+	int	res;
+
+	if (!line)
+		res = 1;
+	else if (line[0] == '\0')
+		res = 1;
+	else
+		res = is_all_spaces(line);
+	return (res);
 }
