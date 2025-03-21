@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/16 14:51:51 by busseven          #+#    #+#             */
-/*   Updated: 2024/10/28 11:02:01 by busseven         ###   ########.fr       */
+/*   Created: 2024/10/10 10:40:45 by yigsahin          #+#    #+#             */
+/*   Updated: 2024/10/29 15:32:39 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_toupper(int c)
 {
-	if (c >= 97 && c <= 122)
+	if (c >= 'a' && c <= 'z')
 	{
-		c = c - 32;
+		c -= 32;
 	}
 	return (c);
 }

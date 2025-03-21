@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 17:05:39 by busseven          #+#    #+#             */
-/*   Updated: 2024/10/28 10:56:51 by busseven         ###   ########.fr       */
+/*   Created: 2024/10/08 16:09:31 by yigsahin          #+#    #+#             */
+/*   Updated: 2024/10/29 15:31:07 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_isalpha(int c)
 {
-	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+	{
 		return (1);
-	else
-		return (0);
+	}
+	return (0);
 }

@@ -3,61 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/18 12:26:28 by busseven          #+#    #+#             */
-/*   Updated: 2024/10/27 18:37:44 by busseven         ###   ########.fr       */
+/*   Created: 2024/10/20 17:34:01 by yigsahin          #+#    #+#             */
+/*   Updated: 2024/10/29 15:31:15 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_intlen(int i)
+static int	count_digits(long num)
 {
-	int	len;
-	int	x;
+	int	digits;
 
-	x = i;
-	len = 0;
-	if (x < 0)
+	digits = 1;
+	if (num < 0)
 	{
-		len++;
-		x = -x;
+		num *= -1;
 	}
-	while (x / 10 != 0)
+	while (num > 9)
 	{
-		len++;
-		x = x / 10;
+		num /= 10;
+		digits++;
 	}
-	len++;
-	return (len);
+	return (digits);
 }
 
 char	*ft_itoa(int n)
 {
-	char	*str;
-	int		i;
-	int		isnegative;
+	char	*number;
+	int		digits;
+	long	num;
+	int		sign;
 
-	if (n == -2147483648)
-		return (ft_strdup("-2147483648"));
-	i = ft_intlen(n) - 1;
-	str = malloc(ft_intlen(n) * sizeof(char) + 1);
-	isnegative = 0;
-	if (!str)
+	num = n;
+	sign = 0;
+	digits = count_digits(num);
+	if (num < 0 && ++digits)
+	{
+		num *= -1;
+		sign = -1;
+	}
+	number = (char *) malloc (sizeof(char) * digits + 1);
+	if (!number)
 		return (NULL);
-	str[ft_intlen(n)] = '\0';
-	if (n < 0)
+	number[digits] = 0;
+	while (digits)
 	{
-		str[0] = '-';
-		n = -n;
-		isnegative = 1;
+		number[digits-- - 1] = (num % 10) + 48;
+		num /= 10;
 	}
-	while (i >= isnegative)
-	{
-		str[i] = (n % 10) + '0';
-		n = n / 10;
-		i--;
-	}
-	return (str);
+	if (sign == -1)
+		number[0] = '-';
+	return (number);
 }

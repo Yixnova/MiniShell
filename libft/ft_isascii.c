@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/09 14:58:39 by busseven          #+#    #+#             */
-/*   Updated: 2024/10/28 10:56:55 by busseven         ###   ########.fr       */
+/*   Created: 2024/10/08 17:56:53 by yigsahin          #+#    #+#             */
+/*   Updated: 2024/10/29 15:31:09 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_isascii(int c)
 {
 	if (c >= 0 && c <= 127)
+	{
 		return (1);
-	else
-		return (0);
+	}
+	return (0);
 }

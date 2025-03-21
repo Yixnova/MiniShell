@@ -3,52 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/17 17:56:02 by busseven          #+#    #+#             */
-/*   Updated: 2024/10/22 20:48:33 by busseven         ###   ########.fr       */
+/*   Created: 2024/10/20 16:31:18 by yigsahin          #+#    #+#             */
+/*   Updated: 2024/10/29 15:32:21 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	checkset(char c, const char *set)
+static int	compare(const char c, const char *set)
 {
-	int	i;
-
-	i = 0;
-	while (set[i])
+	while (*set)
 	{
-		if (set[i] == c)
+		if (c == *set)
 			return (1);
-		i++;
+		set++;
 	}
 	return (0);
 }
 
 char	*ft_strtrim(const char *s1, const char *set)
 {
-	int		i;
-	int		j;
-	int		x;
-	char	*trimmed;
+	char	*ptr;
+	size_t	i;
+	size_t	slen;
 
-	if (!s1)
-		return (NULL);
-	if (*s1 == '\0')
-		return (ft_strdup(""));
 	i = 0;
-	j = ft_strlen(s1) - 1;
-	x = 0;
-	while (checkset(s1[i], set))
-		i++;
-	while (checkset(s1[j], set) && j >= i)
-		j--;
-	trimmed = malloc(sizeof(char) * (j - i + 2));
-	if (!trimmed)
+	slen = ft_strlen(s1);
+	if (!s1 || !set)
 		return (NULL);
-	while (i <= j)
-		trimmed[x++] = s1[i++];
-	trimmed[x] = '\0';
-	return (trimmed);
+	while (compare(*s1, set) && *s1)
+	{
+		s1++;
+		slen -= 1;
+	}
+	while (slen > 0 && compare(s1[slen - 1], set))
+		slen -= 1;
+	ptr = (char *) malloc (sizeof(char) * slen + 1);
+	if (!ptr)
+		return (NULL);
+	while (i < slen)
+	{
+		ptr[i] = s1[i];
+		i++;
+	}
+	ptr[i] = 0;
+	return (ptr);
 }

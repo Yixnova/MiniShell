@@ -6,36 +6,35 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/20 14:34:20 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/21 10:11:21 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "./ft_printf/ft_printf.h"
 # include <stdio.h>
+# include "./libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
 # include <stdlib.h>
-
+# include <limits.h>
 
 typedef struct s_tokens
 {
-	// token types = " ' < > >> << $? $characters=something
-	int			type;
-	char		*content;
-	struct s_tokens *next;
+	int				type;
+	char			*content;
+	struct s_tokens	*next;
 }	t_tokens;
-
 
 typedef struct s_shelldata
 {
 	char		*input;
-	t_tokens 	*tokens;
+	t_tokens	*tokens;
 }	t_shelldata;
 
+<<<<<<< HEAD
 
 typedef	struct s_vars
 {

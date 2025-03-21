@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/16 14:55:52 by busseven          #+#    #+#             */
-/*   Updated: 2024/10/28 11:10:04 by busseven         ###   ########.fr       */
+/*   Created: 2024/10/10 10:39:36 by yigsahin          #+#    #+#             */
+/*   Updated: 2024/10/29 15:32:44 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_tolower(int c)
 {
-	if (c >= 65 && c <= 90)
+	if (c >= 'A' && c <= 'Z')
 	{
-		c = c + 32;
+		c += 32;
 	}
 	return (c);
 }
