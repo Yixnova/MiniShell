@@ -6,15 +6,15 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/20 09:08:42 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/03/21 08:45:39 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "./ft_printf/ft_printf.h"
 # include <stdio.h>
+#include "./libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
