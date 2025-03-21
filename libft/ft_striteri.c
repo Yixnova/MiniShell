@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/19 11:23:13 by busseven          #+#    #+#             */
-/*   Updated: 2024/10/28 11:01:28 by busseven         ###   ########.fr       */
+/*   Created: 2024/10/20 17:51:40 by yigsahin          #+#    #+#             */
+/*   Updated: 2024/10/29 15:32:03 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	int		i;
+	unsigned int	i;
 
 	i = 0;
 	while (s[i])

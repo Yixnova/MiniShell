@@ -29,7 +29,7 @@ void	handle_input_and_history(t_shelldata *shelldata)
 	}
 }
 
-int	main()
+int	main(void)
 {
 	t_shelldata	*shelldata;
 

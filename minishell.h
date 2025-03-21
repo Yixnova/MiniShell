@@ -14,28 +14,24 @@
 # define MINISHELL_H
 
 # include <stdio.h>
-#include "./libft/libft.h"
+# include "./libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
 # include <stdlib.h>
 
-
 typedef struct s_tokens
 {
-	// token types = " ' < > >> << $? $characters=something
-	int			type;
-	char		*content;
-	struct s_tokens *next;
+	int				type;
+	char			*content;
+	struct s_tokens	*next;
 }	t_tokens;
-
 
 typedef struct s_shelldata
 {
 	char		*input;
-	t_tokens 	*tokens;
+	t_tokens	*tokens;
 }	t_shelldata;
-
 
 int		is_space_character(char c);
 int		is_all_spaces(char *line);

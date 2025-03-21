@@ -1,31 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/16 10:45:54 by yigsahin          #+#    #+#             */
-/*   Updated: 2024/10/29 15:32:00 by yigsahin         ###   ########.fr       */
+/*   Created: 2024/10/27 14:20:36 by yigsahin          #+#    #+#             */
+/*   Updated: 2024/10/29 16:09:57 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strchr(const char *s, int c)
-{
-	char	n_c;
+#include "libft.h"
 
-	n_c = (char)c;
-	while (*s)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+{
+	t_list	*head;
+	t_list	*tmp;
+	void	*content;
+
+	head = NULL;
+	while (lst)
 	{
-		if (*s == n_c)
+		content = (*f)(lst->content);
+		tmp = ft_lstnew(content);
+		if (!tmp)
 		{
-			return ((char *)s);
+			if (del)
+				del(content);
+			ft_lstclear(&head, del);
+			return (NULL);
 		}
-		s++;
+		ft_lstadd_back(&head, tmp);
+		lst = lst->next;
 	}
-	if (n_c == '\0')
-	{
-		return ((char *)s);
-	}
-	return (0);
+	return (head);
 }

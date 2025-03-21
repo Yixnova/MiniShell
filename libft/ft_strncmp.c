@@ -3,35 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/16 15:39:35 by busseven          #+#    #+#             */
-/*   Updated: 2024/10/22 20:48:22 by busseven         ###   ########.fr       */
+/*   Created: 2024/10/16 11:26:22 by yigsahin          #+#    #+#             */
+/*   Updated: 2024/10/29 15:32:15 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_strncmp(const char *s1, const char *s2, size_t size)
 {
-	unsigned char	*s1u;
-	unsigned char	*s2u;
-	size_t			i;
+	unsigned char	*str1;
+	unsigned char	*str2;
 
-	s1u = (unsigned char *)s1;
-	s2u = (unsigned char *)s2;
-	i = 0;
-	while (i < n)
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
+	while (size--)
 	{
-		if (s1u[i] == '\0' && s2u[i] == '\0')
-			return (0);
-		else if (!s1u[i] && s2u[i])
-			return (-s2u[i]);
-		else if (!s2u[i] && s1u[i])
-			return (s1u[i]);
-		else if (s1u[i] != s2u[i])
-			return (s1u[i] - s2u[i]);
-		i++;
+		if (*str1 != *str2 || *str1 == 0 || *str2 == 0)
+			return (*str1 - *str2);
+		str1++;
+		str2++;
 	}
 	return (0);
 }

@@ -1,5 +1,5 @@
 NAME = mini_shell
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 SRCS =	main.c\
@@ -14,8 +14,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
 	@echo "Creating executable..."
-	@$(CC) $(CFLAGS) $(OBJS) -lreadline -o $(LIBFT) -o $(NAME)
-
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -lreadline -o $(NAME)
 $(LIBFT):
 	@echo "Building libft..."
 	@make -C libft
