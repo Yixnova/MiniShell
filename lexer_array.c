@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 10:06:33 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/24 16:32:39 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/24 17:48:25 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,28 +51,33 @@ int	count_words(char *str)
 	}
 	return (count);
 }
+void	handle_quotes(char *str, int *i, int *in_quotes, int *type)
+{
+	if(str[*n] == 39 || str[*n] == 34)
+	{
+		if(in_quotes == 0)
+			in_quotes = 1;
+		else if()
+	}
+}
 
-char	*copy_word(char	*str, int *n)
+char	*copy_word(char *str, int *n)
 {
 	char	*word;
+	int		type;
 	int		i;
+	int		in_quotes;
 
 	i = (*n);
-	while (str[i] && !is_space_character(str[i]))
+	while (str[i])
+	{
+		handle_quotes(str, i, &in_quotes, &type);
+		if(in_quotes == 0 && is_in_str(" <>|", str[i]))
+			break;
 		i++;
-	word = ft_substr(str, *n, i - *n + 1);
-	*n += i - *n;
-	return (word);
-}
-char	*copy_quoted_phrase(char *str, int *n, int type)
-{
-	char	*word;
-	int		i;
-
-	i = (*n) + 1;
-	while (str[i] && str[i] != type)
+	}
 		i++;
-	word = ft_substr(str, *n, i - *n + 1);
+	word = ft_substr(str, *n, i - *n);
 	*n += i - *n + 1;
 	return (word);
 }
@@ -91,8 +96,11 @@ char	**split_into_words(char *str)
 	{
 		while (str[n] && is_space_character(str[n]))
 			n++;
-		if (str[n] && (str[n] == 34 || str[n] == 39))
-			arr[i] = copy_quoted_phrase(str, &n, str[n]);
+		if(is_in_str("><|", str[n]))
+		{
+			arr[i] == char_to_str(str[n]);
+			n++;
+		}
 		else
 			arr[i] = copy_word(str, &n);
 		i++;
