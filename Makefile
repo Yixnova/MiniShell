@@ -6,13 +6,10 @@
 #    By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:42:59 by busseven          #+#    #+#              #
-#    Updated: 2025/03/22 19:25:07 by yigsahin         ###   ########.fr        #
+#    Updated: 2025/03/24 10:09:14 by yigsahin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC = main.c input_utils.c
-OBJ = $(SRC:.c=.o)
-NAME = minishell
 NAME = mini_shell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
