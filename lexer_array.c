@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 10:06:33 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/24 13:25:14 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/24 13:36:19 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,26 +75,7 @@ char	*copy_quoted_phrase(char *str, int *n, int type)
 	*n += i - *n + 1;
 	return (word);
 }
-char	*copy_operator_sequence(char *str, int *n)
-{
-	char	*word;
-	char	*operators;
-	int		i;
 
-	operators = "<> ";
-	i = (*n);
-	while (str[i] && is_in_str(operators, str[i]))
-		i++;
-	word = ft_substr(str, *n, i - *n);
-	*n = i;
-	return (word);
-}
-char	*copy_pipe(int	*n)
-{
-	printf("copying pipr");
-	(*n)++;
-	return(ft_strdup("|"));
-}
 char	**split_into_words(char *str)
 {
 	char	**arr;
@@ -110,10 +91,6 @@ char	**split_into_words(char *str)
 			n++;
 		if (str[n] && (str[n] == 34 || str[n] == 39))
 			arr[i] = copy_quoted_phrase(str, &n, str[n]);
-		else if(str[n] && is_in_str("<>", str[n]))
-			arr[i] = copy_operator_sequence(str, &n);
-		else if(str[n] == '|')
-			printf("APIPR!!!!");
 		else
 			arr[i] = copy_word(str, &n);
 		i++;
