@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/21 18:14:19 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/24 09:54:49 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,41 +56,25 @@ char	*copy_word(char	*str, int *n)
 {
 	char	*word;
 	int		i;
-	int		j;
 
 	i = (*n);
-	j = 0;
 	while (str[i] && !is_space_character(str[i]))
 		i++;
-	word = ft_calloc(i - (*n) + 1, sizeof(char));
-	while (str[*n] && (*n) < i)
-	{
-		word[j] = str[*n];
-		(*n)++;
-	}
-	(*n)++;
-	word[j] = '\0';
-	return (word);
+	word = ft_substr(str, *n, i - *n + 1);
+	*n += i - *n;
+	return(word);
 }
 char	*copy_quoted_phrase(char *str, int *n, int type)
 {
 	char	*word;
 	int		i;
-	int		j;
 
 	i = (*n) + 1;
-	j = 0;
 	while (str[i] && str[i] != type)
 		i++;
-	word = ft_calloc(i - (*n), sizeof(char));
-	while (str[*n] && (*n) <= i)
-	{
-		word[j] = str[*n];
-		n++;
-	}
-	word[j] = '\0';
-	(*n)++;
-	return (word);
+	word = ft_substr(str, *n, i - *n + 1);
+	*n += i - *n + 1;
+	return(word);
 }
 char	**split_into_words(char *str)
 {
