@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 10:06:33 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/24 13:36:19 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/24 16:32:39 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,30 +22,31 @@ void	skip_in_quotes(char	*str, int *i, int type)
 	}
 	unclosed_quotes();
 }
-
 int	count_words(char *str)
 {
 	int	i;
 	int	on_word;
 	int	count;
-
-	i = 0;
+	
 	count = 0;
 	on_word = 0;
-	while  (str[i])
+	i = 0;
+	while (str[i])
 	{
-		if (str[i] && !is_space_character(str[i]))
-		{
-			if (on_word == 0)
-			{
-				on_word = 1;
-				count++;
-			}
-			if (str[i] == 34 || str[i] == 39)
-				skip_in_quotes(str, &i, str[i]);
-		}
-		else	
+		if (is_space_character(str[i]))
 			on_word = 0;
+		else if (is_in_str("<>|", str[i]))
+		{
+			on_word = 0;
+			count++;
+		}
+		else if (on_word == 0)
+		{
+			on_word = 1;
+			count++;
+		}
+		if (str[i] == 39 || str[i] == 34)
+			skip_in_quotes(str, &i, str[i]);
 		i++;
 	}
 	return (count);
@@ -85,6 +86,7 @@ char	**split_into_words(char *str)
 	arr = ft_calloc(count_words(str) + 1, sizeof(char *));
 	i = 0;
 	n = 0;
+	printf("%d\n", count_words(str));
 	while (i < count_words(str))
 	{
 		while (str[n] && is_space_character(str[n]))
