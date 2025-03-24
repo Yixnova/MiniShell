@@ -6,7 +6,7 @@
 #    By: busseven <busseven@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:42:59 by busseven          #+#    #+#              #
-#    Updated: 2025/03/21 16:06:49 by busseven         ###   ########.fr        #
+#    Updated: 2025/03/24 10:07:47 by busseven         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCS =	main.c\
 		signals.c\
 		lexer.c \
 		lexer_errors.c \
+		lexer_array.c \
 
 OBJS = $(SRCS:.c=.o)
 LIBFT = libft/libft.a

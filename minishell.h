@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/21 16:05:28 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/24 10:08:26 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,6 @@ void	sigint_handler(int signum);
 void	setup_signals(void);
 void	tokenize_input(t_shelldata	*data);
 void	unclosed_quotes();
+char	**split_into_words(char *str);
 
 #endif
