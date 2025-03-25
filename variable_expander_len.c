@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 15:31:22 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/25 15:32:30 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:33:04 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		get_variable_len(char *s, int *i, int in_quotes, t_env *env)
 	return (get_value_len(name, env));
 }
 
-int		get_len(char const *s, unsigned int start, unsigned int end, t_env *env)
+int		get_substr_len(char const *s, unsigned int start, unsigned int end, t_env *env)
 {
 	int	len;
 	int	i;

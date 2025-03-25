@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 12:14:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/25 15:32:23 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:33:16 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*ft_substr_env(char const *s, unsigned int start, unsigned int end, t_env *
 	size_t	s_len;
 
 	i = 0;
-	s_len = get_len(s, start, end, env);
+	s_len = get_substr_len(s, start, end, env);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
