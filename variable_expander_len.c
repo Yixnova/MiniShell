@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 15:31:22 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/25 15:33:04 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:40:46 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		get_value_len(char	*name, t_env *env)
 	else
 		return (ft_strlen(env->value));
 }
-int		get_variable_len(char *s, int *i, int in_quotes, t_env *env)
+int		get_variable_len(char *s, int *i, int in_quotes, t_shelldata *data)
 {
 	int	n;
 	int	len;
@@ -40,7 +40,9 @@ int		get_variable_len(char *s, int *i, int in_quotes, t_env *env)
 	len = 0;
 	while (s[n])
 	{
-		if (in_quotes == 0 && (s[n] == 34 || s[n] == 39))
+		if(s[n] == '?')
+			break ;
+		else if (in_quotes == 0 && (s[n] == 34 || s[n] == 39))
 			break ;
 		else if (in_quotes == 1 && s[n] == 34)
 			break ;
@@ -48,9 +50,11 @@ int		get_variable_len(char *s, int *i, int in_quotes, t_env *env)
 			break ;
 		n++;
 	}
+	if(s[n] == '?')
+		return (get_exit_status_len(data));
 	name = ft_substr(s, *i, n - *i);
 	*i = n;
-	return (get_value_len(name, env));
+	return (get_value_len(name, data->env));
 }
 
 int		get_substr_len(char const *s, unsigned int start, unsigned int end, t_env *env)
