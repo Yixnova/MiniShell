@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 10:06:33 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/25 11:59:35 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/25 12:02:04 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ char	*copy_word(char *str, int *n)
 		i++;
 	}
 		i++;
-	word = ft_substr(str, *n, i - *n);
-	*n += i;
+	word = ft_substr(str, *n, i - *n - 1);
+	*n = i - 1;
 	return (word);
 }
 
