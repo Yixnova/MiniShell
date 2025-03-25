@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:42:30 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/25 11:57:16 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/25 14:32:15 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*char_to_str(char c)
 	str = ft_calloc(2, sizeof(char));
 	str[0] = c;
 	str[1] = '\0';
-	return(str);	
+	return (str);	
 }
 int	is_in_str(const char *str, char c)
 {
