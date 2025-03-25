@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 10:06:33 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/24 17:48:25 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/25 11:59:35 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,15 @@ int	count_words(char *str)
 }
 void	handle_quotes(char *str, int *i, int *in_quotes, int *type)
 {
-	if(str[*n] == 39 || str[*n] == 34)
+	if(str[*i] == 39 || str[*i] == 34)
 	{
-		if(in_quotes == 0)
-			in_quotes = 1;
-		else if()
+		if(*in_quotes == 0)
+		{
+			*in_quotes = 1;
+			*type = str[*i];
+		}
+		else if(*in_quotes == 1 && *type == str[*i])
+			*in_quotes = 0;
 	}
 }
 
@@ -71,14 +75,14 @@ char	*copy_word(char *str, int *n)
 	i = (*n);
 	while (str[i])
 	{
-		handle_quotes(str, i, &in_quotes, &type);
+		handle_quotes(str, &i, &in_quotes, &type);
 		if(in_quotes == 0 && is_in_str(" <>|", str[i]))
 			break;
 		i++;
 	}
 		i++;
 	word = ft_substr(str, *n, i - *n);
-	*n += i - *n + 1;
+	*n += i;
 	return (word);
 }
 
@@ -98,7 +102,7 @@ char	**split_into_words(char *str)
 			n++;
 		if(is_in_str("><|", str[n]))
 		{
-			arr[i] == char_to_str(str[n]);
+			arr[i] = char_to_str(str[n]);
 			n++;
 		}
 		else

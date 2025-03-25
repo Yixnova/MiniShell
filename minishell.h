@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/24 12:58:58 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/25 11:58:09 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,6 @@ void	tokenize_input(t_shelldata	*data);
 void	unclosed_quotes();
 char	**split_into_words(char *str);
 int		is_in_str(const char *str, char c);
+char	*char_to_str(char c);
 
 #endif
