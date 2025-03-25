@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/25 14:29:19 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:22:50 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	tokenize_input(t_shelldata	*data)
 {
 	data->token_arr = split_into_words(data->input, data);
-	//expander buraya gelecek
+	//expander split_into_words içinde olacak.
 	int k = 0;
 	while (data->token_arr[k])
 	{
