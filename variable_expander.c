@@ -6,15 +6,34 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 12:14:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/25 14:43:19 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:19:04 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"minishell.h"
 
-int		get_var_len(char *s, int *i, t_env *env)
+int		get_variable_len(char *s, int *i, int in_quotes, t_env *env)
 {
-	
+	int	n;
+	int	len;
+	int	*name;
+
+	(*i)++;
+	n = i;
+	len = 0;
+	while (s[n])
+	{
+		if (in_quotes == 0 && (s[n] == 34 || s[n] == 39))
+			break ;
+		else if (in_quotes == 1 && s[n] == 34)
+			break ;
+		else if (is_space_character(s[n]))
+			break ;
+		n++;
+	}
+	name = ft_substr(s, *i, n - *i);
+	*i = n;
+	return (get_value_len(name, env));
 }
 void	handle_quotes_removed(char *str, int *i, int *in_quotes, int *type)
 {
@@ -49,7 +68,7 @@ int		get_len(char const *s, unsigned int start, unsigned int end, t_env *env)
 		if (in_quotes == 0 || (in_quotes == 1 && type == 34))
 		{
 			if (s[i] == '$')
-				len += get_var_len(s, &i, env);
+				len += get_variable_len(s, &i, in_quotes, env);
 		}
 		else
 			len++;
