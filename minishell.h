@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/25 11:58:09 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/25 12:59:56 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,13 @@ typedef	struct	s_pipe
 	int		pipe[2];
 	void	*next;
 }	t_pipe;
+
+typedef	struct s_env
+{
+	char	*name;
+	char	*value;
+	char	*next;
+} t_env;
 
 typedef struct s_shelldata
 {
