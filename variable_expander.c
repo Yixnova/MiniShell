@@ -6,12 +6,29 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 12:14:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/25 15:19:04 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:30:42 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"minishell.h"
 
+int		get_value_len(char	*name, t_env *env)
+{
+	int	len1;
+	int	len2;
+
+	len1 = ft_strlen(name);
+	while (env)
+	{
+		len2 = ft_strlen(env->name);
+		if (!ft_strncmp(env->name, name, get_greater(len1, len2)))
+			break ;
+	}
+	if(!env)
+		return (0);
+	else
+		return (ft_strlen(env->value));
+}
 int		get_variable_len(char *s, int *i, int in_quotes, t_env *env)
 {
 	int	n;
