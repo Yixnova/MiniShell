@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 10:06:33 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/25 12:02:04 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/25 14:29:05 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	handle_quotes(char *str, int *i, int *in_quotes, int *type)
 	}
 }
 
-char	*copy_word(char *str, int *n)
+char	*copy_word(char *str, int *n, t_shelldata *data)
 {
 	char	*word;
 	int		type;
@@ -81,12 +81,12 @@ char	*copy_word(char *str, int *n)
 		i++;
 	}
 		i++;
-	word = ft_substr(str, *n, i - *n - 1);
+	word = ft_substr_env(str, *n, i - *n - 1, data);
 	*n = i - 1;
 	return (word);
 }
 
-char	**split_into_words(char *str)
+char	**split_into_words(char *str, t_shelldata *data)
 {
 	char	**arr;
 	int		i;
@@ -106,7 +106,7 @@ char	**split_into_words(char *str)
 			n++;
 		}
 		else
-			arr[i] = copy_word(str, &n);
+			arr[i] = copy_word(str, &n, data);
 		i++;
 	}
 	arr[i] = NULL;
