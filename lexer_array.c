@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 10:06:33 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/25 12:02:04 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/26 11:09:41 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,5 @@ char	**split_into_words(char *str)
 			arr[i] = copy_word(str, &n);
 		i++;
 	}
-	arr[i] = NULL;
 	return (arr);
 }
