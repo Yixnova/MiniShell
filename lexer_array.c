@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 10:06:33 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/26 11:09:41 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/26 11:43:54 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,16 @@
 
 void	skip_in_quotes(char	*str, int *i, int type)
 {
-	while (str[*i])
+	if (str[*i] == 39 || str[*i] == 34)
 	{
-		(*i)++;
-		if (str[*i] == type)
-			return ;
+		while (str[*i])
+		{
+			(*i)++;
+			if (str[*i] == type)
+				return ;
+		}
+		unclosed_quotes();
 	}
-	unclosed_quotes();
 }
 int	count_words(char *str)
 {
@@ -45,8 +48,7 @@ int	count_words(char *str)
 			on_word = 1;
 			count++;
 		}
-		if (str[i] == 39 || str[i] == 34)
-			skip_in_quotes(str, &i, str[i]);
+		skip_in_quotes(str, &i, str[i]);
 		i++;
 	}
 	return (count);
