@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:53:08 by busseven          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/03/21 18:15:41 by busseven         ###   ########.fr       */
-=======
-/*   Updated: 2025/03/26 13:14:12 by yigsahin         ###   ########.fr       */
->>>>>>> f50185ad19117edef407fa763b825456f7c26f23
+/*   Updated: 2025/03/26 14:50:01 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +32,12 @@ void	handle_input_and_history(t_shelldata *shell)
 			ft_putendl_fd("exit", 1);
 			break ;
 		}
-		if (!is_empty_line(shelldata->input))
+		if (!is_empty_line(shell->input))
 		{
-			add_history(shelldata->input);
+			add_history(shell->input);
 			tokenize_input(shelldata);
 		}
-		free(shelldata->input);
+		free(shell->input);
 	}
 }
 
