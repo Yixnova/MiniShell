@@ -6,13 +6,13 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 11:09:33 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/26 12:26:28 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/26 12:33:43 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"minishell.h"
 
-void	skip_copying_quotes(int *i, int *in_quotes, int *type, const char *src)
+static void	skip_copying_quotes(int *i, int *in_quotes, int *type, const char *src)
 {
 	if (src[*i] == 39 || src[*i] == 34)
 	{
@@ -29,7 +29,7 @@ void	skip_copying_quotes(int *i, int *in_quotes, int *type, const char *src)
 		}
 	}
 }
-void	copy_word_noquotes(char *dest, const char *src)
+static void	copy_word_noquotes(char *dest, const char *src)
 {
 	int	i;
 	int	k;
@@ -48,7 +48,7 @@ void	copy_word_noquotes(char *dest, const char *src)
 	}
 }
 
-int		get_len_without_quotes(const char *str)
+static int	get_len_without_quotes(const char *str)
 {
 	int		type;
 	int		i;

@@ -6,13 +6,13 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 10:06:33 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/26 11:43:54 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/26 12:34:32 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	skip_in_quotes(char	*str, int *i, int type)
+static void	skip_in_quotes(char	*str, int *i, int type)
 {
 	if (str[*i] == 39 || str[*i] == 34)
 	{
@@ -25,7 +25,7 @@ void	skip_in_quotes(char	*str, int *i, int type)
 		unclosed_quotes();
 	}
 }
-int	count_words(char *str)
+static int	count_words(char *str)
 {
 	int	i;
 	int	on_word;
@@ -53,7 +53,7 @@ int	count_words(char *str)
 	}
 	return (count);
 }
-void	handle_quotes(char *str, int *i, int *in_quotes, int *type)
+static void	handle_quotes(char *str, int *i, int *in_quotes, int *type)
 {
 	if(str[*i] == 39 || str[*i] == 34)
 	{
@@ -67,7 +67,7 @@ void	handle_quotes(char *str, int *i, int *in_quotes, int *type)
 	}
 }
 
-char	*copy_word(char *str, int *n)
+static char	*copy_word(char *str, int *n)
 {
 	char	*word;
 	int		type;
