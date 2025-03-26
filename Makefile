@@ -6,7 +6,7 @@
 #    By: busseven <busseven@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:42:59 by busseven          #+#    #+#              #
-#    Updated: 2025/03/26 12:37:44 by busseven         ###   ########.fr        #
+#    Updated: 2025/03/26 14:47:13 by busseven         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,16 @@ SRCS =	main.c\
 		./lexer/lexer_errors.c \
 		./lexer/lexer_array.c \
 		./lexer/remove_quotes.c \
+		input_utils.c\
+		signals.c\
+		execute.c\
+		./built_in/env_cmd.c\
+		./built_in/echo_cmd.c\
+		./built_in/cd_cmd.c\
+		./built_in/env_utils.c\
+		./built_in/set_cmd.c\
+		./built_in/export_cmd.c\
+		./built_in/exit_cmd.c\
 
 OBJS = $(SRCS:.c=.o)
 LIBFT = libft/libft.a
@@ -30,7 +40,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
 	@echo "Creating executable..."
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -lreadline -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) libft/libft.a -o $(NAME) -L/opt/homebrew/opt/readline/lib -lreadline
 $(LIBFT):
 	@echo "Building libft..."
 	@make -C libft

@@ -1,7 +1,13 @@
 {
 	"files.associations": {
+<<<<<<< HEAD
 		"minishell.h": "c",
 		"readline.h": "c",
 		"signal.h": "c"
 	}
+=======
+		"minishell.h": "c"
+	},
+	"C_Cpp.errorSquiggles": "disabled"
+>>>>>>> f50185ad19117edef407fa763b825456f7c26f23
 }

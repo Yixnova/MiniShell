@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:42:30 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/26 12:37:58 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/26 14:47:28 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	is_in_str(const char *str, char c)
 	}
 	return (0);
 }
+
 int	is_space_character(char c)
 {
 	return (c == ' ' || (c >= 9 && c <= 13));

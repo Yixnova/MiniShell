@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/26 12:21:16 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/26 14:48:24 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,24 @@
 # define MINISHELL_H
 
 # include <stdio.h>
-# include "./libft/libft.h"
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <signal.h>
 # include <stdlib.h>
 # include <limits.h>
+# include <stddef.h>
+# include <signal.h>
+# include <sys/stat.h>
+# include "../libft/libft.h"
+# include "built_in.h"
+# include <readline/readline.h>
+# include <readline/history.h>
+
+# define BUFFER_SIZE 1024
+
+typedef struct s_env
+{
+	char		*key;
+	char		*value;
+	struct s_env	*next;
+}	t_env;
 
 typedef	struct	s_output
 {
@@ -77,6 +89,7 @@ typedef struct s_shelldata
 	int		count;
 	char	**token_arr;
 	t_cmd	*tokens;
+	t_env	*env;
 }	t_shelldata;
 
 int		is_space_character(char c);
@@ -92,5 +105,21 @@ char	**split_into_words(char *str);
 int		is_in_str(const char *str, char c);
 char	*char_to_str(char c);
 char	*remove_quotes(char *str);
+
+void	execute_command(t_shelldata *shell);
+
+void	echo_command(char **arg);
+void	env_command(t_env *env, char **arg);
+
+void	cd_command(char *path);
+void	mkdir_command(char *path);
+void	pwd(void);
+
+void	print_env_list(t_env *env_list);
+int		unset_env(t_env **env_list, const char *key);
+int		set_env(t_env **env_list, const char *key, const char *value);
+
+t_env	*build_env_list(char **envp);
+void	free_env_list(t_env *env_list);
 
 #endif
