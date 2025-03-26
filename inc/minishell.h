@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/26 13:56:26 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/03/26 18:58:22 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,5 @@ void	sigint_handler(int signum);
 void	setup_signals(void);
 
 void	execute_command(t_shelldata *shell);
-
-void	echo_command(char **arg);
-void	env_command(t_env *env, char **arg);
-
-void	cd_command(char *path);
-void	mkdir_command(char *path);
-void	pwd(void);
-
-void	print_env_list(t_env *env_list);
-int		unset_env(t_env **env_list, const char *key);
-int		set_env(t_env **env_list, const char *key, const char *value);
-
-t_env	*build_env_list(char **envp);
-void	free_env_list(t_env *env_list);
 
 #endif

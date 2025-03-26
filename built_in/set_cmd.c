@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 09:50:15 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/03/26 12:59:22 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/03/26 19:14:02 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	unset_env(t_env **env_list, const char *key)
 	prev = NULL;
 	while (current)
 	{
-		if (ft_strncmp(current->key, key, ft_strlen(key) + 1) == 0)
+		if (ft_strcmp(current->key, key) == 0)
 		{
 			if (prev)
 				prev->next = current->next;
@@ -64,17 +64,29 @@ int	unset_env(t_env **env_list, const char *key)
 
 void	unset_command(t_env **env, char **args)
 {
-	int	i;
+	int		i;
+	char	*equal;
+	size_t	key_len;
+	char	*key;
 
+	i = 1;
 	if (!args[1])
 	{
 		print_env_list(*env);
-		return;
+		return ;
 	}
-	i = 1;
 	while (args[i])
 	{
-		unset_env(env, args[i]);
+		equal = ft_strchr(args[i], '=');
+		if (equal)
+		{
+			key_len = equal - args[i];
+			key = ft_strndup(args[i], key_len);
+			unset_env(env, key);
+			free(key);
+		}
+		else
+			unset_env(env, args[i]);
 		i++;
 	}
 }

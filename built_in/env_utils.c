@@ -6,13 +6,13 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 09:39:47 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/03/26 13:54:05 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/03/26 19:08:51 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/built_in.h"
 
-static char	*ft_strndup(const char *s, size_t n)
+char	*ft_strndup(const char *s, size_t n)
 {
 	char	*dup;
 	size_t	i;
@@ -32,7 +32,7 @@ static char	*ft_strndup(const char *s, size_t n)
 
 t_env	*create_env_node(const char *env_entry)
 {
-	t_env	*node;
+	t_env		*node;
 	const char	*equal_sign;
 	size_t		key_len;
 
@@ -76,4 +76,14 @@ void	free_env_list(t_env *env_list)
 		free(tmp->value);
 		free(tmp);
 	}
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	while (*s1 && *s1 == *s2)
+	{
+		s1++;
+		s2++;
+	}
+	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }

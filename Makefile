@@ -6,7 +6,7 @@
 #    By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:42:59 by busseven          #+#    #+#              #
-#    Updated: 2025/03/26 13:12:41 by yigsahin         ###   ########.fr        #
+#    Updated: 2025/03/26 19:15:06 by yigsahin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
 	@echo "Creating executable..."
-	@$(CC) $(CFLAGS) $(OBJS) libft/libft.a -o $(NAME) -L/opt/homebrew/opt/readline/lib -lreadline
+	@$(CC) $(CFLAGS) $(OBJS) libft/libft.a -o $(NAME)
 $(LIBFT):
 	@echo "Building libft..."
 	@make -C libft

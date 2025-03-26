@@ -6,15 +6,15 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:16 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/03/26 15:31:31 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/03/26 19:01:41 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILT_IN_H
 # define BUILT_IN_H
 
-typedef struct s_env   t_env;
-typedef struct s_shelldata t_shelldata;
+typedef struct s_env	t_env;
+typedef struct s_shelldata	t_shelldata;
 
 # include "minishell.h"
 
@@ -27,15 +27,21 @@ t_env	*build_env_list(char **envp);
 t_env	*find_env(t_env *env_list, const char *key);
 t_env	*create_env_variable(const char *key, const char *value);
 void	env_command(t_env *env, char **args);
-void	export_command(t_env **env, char **args);
-void	unset_command(t_env **env, char **args);
-int		set_env(t_env **env_list, const char *key, const char *value);
-int		unset_env(t_env **env_list, const char *key);
+
+char	*ft_strndup(const char *s, size_t n);
+t_env	*create_env_node(const char *env_entry);
+void	print_env_list(t_env *env_list);
+void	free_env_list(t_env *env_list);
+int		ft_strcmp(const char *s1, const char *s2);
 
 void	exit_command(char **args, t_shelldata *shell);
 
-t_env	*create_env_node(const char *env_entry);
-void	free_env_list(t_env *env_list);
-void	print_env_list(t_env *env_list);
+void	export_command(t_env **env, char **args); //düzenlenecek.
+
+int		set_env(t_env **env_list, const char *key, const char *value);
+int		unset_env(t_env **env_list, const char *key);
+void	unset_command(t_env **env, char **args);
+
+
 
 #endif

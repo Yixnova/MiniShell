@@ -6,29 +6,11 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 12:37:53 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/03/26 14:17:47 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/03/26 19:12:47 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/built_in.h"
-
-static char	*ft_strndup(const char *s, size_t n)
-{
-	char	*dup;
-	size_t	i;
-
-	dup = malloc(n + 1);
-	if (!dup)
-		return (NULL);
-	i = 0;
-	while (i < n && s[i])
-	{
-		dup[i] = s[i];
-		i++;
-	}
-	dup[i] = '\0';
-	return (dup);
-}
 
 static void	bubble_sort_env(t_env **arr, int count)
 {
@@ -73,26 +55,31 @@ void	export_command(t_env **env, char **args)
 		}
 		arr = malloc(sizeof(t_env *) * count);
 		if (!arr)
-			return;
+			return ;
 		curr = *env;
-		for (i = 0; i < count; i++)
+		i = 0;
+		while (curr)
 		{
 			arr[i] = curr;
 			curr = curr->next;
+			i++;
 		}
 		bubble_sort_env(arr, count);
-		for (i = 0; i < count; i++)
+		i = 0;
+		while (i < count)
 		{
 			printf("declare -x %s", arr[i]->key);
 			if (arr[i]->value && arr[i]->value[0])
 				printf("=\"%s\"", arr[i]->value);
 			printf("\n");
+			i++;
 		}
 		free(arr);
 	}
 	else
 	{
-		for (i = 1; args[i]; i++)
+		i = 1;
+		while (args[i])
 		{
 			char *equal = ft_strchr(args[i], '=');
 			if (equal)
@@ -107,7 +94,7 @@ void	export_command(t_env **env, char **args)
 			}
 			else
 				set_env(env, args[i], "");
+			i++;
 		}
 	}
 }
-
