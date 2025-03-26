@@ -6,7 +6,7 @@
 #    By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/21 08:39:47 by yigsahin          #+#    #+#              #
-#    Updated: 2025/03/21 08:39:49 by yigsahin         ###   ########.fr        #
+#    Updated: 2025/03/25 20:36:20 by yigsahin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,20 +45,18 @@ SRCS=	ft_isalpha.c\
 		ft_putchar_fd.c\
 		ft_putstr_fd.c\
 		ft_putendl_fd.c\
-		ft_putnbr_fd.c
-
-BONUS_SRCS= ft_lstnew_bonus.c\
-			ft_lstadd_front_bonus.c\
-			ft_lstsize_bonus.c\
-			ft_lstlast_bonus.c\
-			ft_lstadd_back_bonus.c\
-			ft_lstdelone_bonus.c\
-			ft_lstclear_bonus.c\
-			ft_lstiter_bonus.c\
-			ft_lstmap_bonus.c
+		ft_putnbr_fd.c\
+		ft_lstnew_bonus.c\
+		ft_lstadd_front_bonus.c\
+		ft_lstsize_bonus.c\
+		ft_lstlast_bonus.c\
+		ft_lstadd_back_bonus.c\
+		ft_lstdelone_bonus.c\
+		ft_lstclear_bonus.c\
+		ft_lstiter_bonus.c\
+		ft_lstmap_bonus.c
 
 OBJS= $(SRCS:.c=.o)
-BONUS_OBJS= $(BONUS_SRCS:.c=.o)
 
 RM= rm -rf
 CC = cc
@@ -70,11 +68,11 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@$(AR) $(NAME) $(OBJS)
 
-bonus: $(BONUS_OBJS)
-	@$(AR) $(NAME) $(BONUS_OBJS)
+bonus: $(OBJS)
+	@$(AR) $(NAME) $(OBJS)
 
 clean:
-	@$(RM) $(OBJS) $(BONUS_OBJS)
+	@$(RM) $(OBJS)
 
 fclean: clean
 	@$(RM) $(NAME)
@@ -84,4 +82,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re

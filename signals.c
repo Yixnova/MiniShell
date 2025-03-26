@@ -6,19 +6,11 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 08:58:49 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/03/20 09:09:17 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/03/26 13:55:08 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-void	free_shell_data(t_shelldata *shelldata)
-{
-	if (!shelldata)
-		return ;
-	free(shelldata->input);
-	free(shelldata);
-}
+#include "./inc/minishell.h"
 
 void	sigint_handler(int signum)
 {

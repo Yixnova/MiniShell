@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/21 10:11:54 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/26 13:56:26 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,24 @@
 # define MINISHELL_H
 
 # include <stdio.h>
-# include "./libft/libft.h"
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <signal.h>
 # include <stdlib.h>
 # include <limits.h>
+# include <stddef.h>
+# include <signal.h>
+# include <sys/stat.h>
+# include "../libft/libft.h"
+# include "built_in.h"
+# include <readline/readline.h>
+# include <readline/history.h>
+
+# define BUFFER_SIZE 1024
+
+typedef struct s_env
+{
+	char		*key;
+	char		*value;
+	struct s_env	*next;
+}	t_env;
 
 typedef struct s_tokens
 {
@@ -32,21 +44,8 @@ typedef struct s_shelldata
 {
 	char		*input;
 	t_tokens	*tokens;
+	t_env		*env;
 }	t_shelldata;
-
-typedef	struct s_vars
-{
-	char			*name;
-	char			*value;
-	struct s_vars	*next;
-} t_vars;
-
-typedef	struct s_shelldata
-{
-	char		*input;
-	char		**tokens_arr;
-	t_vars		*variables;
-} t_shelldata;
 
 int		is_space_character(char c);
 int		is_all_spaces(char *line);
@@ -56,5 +55,21 @@ void	handle_input_and_history(t_shelldata *shelldata);
 void	free_shell_data(t_shelldata *shelldata);
 void	sigint_handler(int signum);
 void	setup_signals(void);
+
+void	execute_command(t_shelldata *shell);
+
+void	echo_command(char **arg);
+void	env_command(t_env *env, char **arg);
+
+void	cd_command(char *path);
+void	mkdir_command(char *path);
+void	pwd(void);
+
+void	print_env_list(t_env *env_list);
+int		unset_env(t_env **env_list, const char *key);
+int		set_env(t_env **env_list, const char *key, const char *value);
+
+t_env	*build_env_list(char **envp);
+void	free_env_list(t_env *env_list);
 
 #endif
