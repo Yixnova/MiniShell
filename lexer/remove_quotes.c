@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 11:09:33 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/26 13:14:40 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/26 14:40:40 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,9 @@ char	*remove_quotes(char *str)
 	char	*copy;
 
 	len = get_len_without_quotes(str);
-	printf("%d", len);
 	copy = ft_calloc(len + 1, sizeof(char));
 	copy_word_noquotes(copy, str);
-	printf("%s", copy);
+	printf("%s\n", copy);
 	if(str)
 		free(str);
 	return(copy);
