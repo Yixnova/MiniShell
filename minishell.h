@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/25 14:59:56 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/26 09:31:20 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,14 @@ typedef	struct	s_pipe
 	void	*next;
 }	t_pipe;
 
-typedef	struct s_env
-{
-	char	*name;
-	char	*value;
-	char	*next;
-} t_env;
-
 typedef struct s_shelldata
 {
 	char	*input;
 	int		on_word;
+	int		type;
+	int		in_quotes;
 	int		count;
 	char	**token_arr;
-	t_env	**env;
 	t_cmd	*tokens;
 }	t_shelldata;
 
@@ -89,7 +83,7 @@ void	sigint_handler(int signum);
 void	setup_signals(void);
 void	tokenize_input(t_shelldata	*data);
 void	unclosed_quotes();
-char	**split_into_words(char *str);
+char	**split_into_words(char *str, t_shelldata *data);
 int		is_in_str(const char *str, char c);
 char	*char_to_str(char c);
 

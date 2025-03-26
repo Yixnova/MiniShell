@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 10:06:33 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/25 14:29:05 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/26 09:31:58 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,27 +22,25 @@ void	skip_in_quotes(char	*str, int *i, int type)
 	}
 	unclosed_quotes();
 }
-int	count_words(char *str)
+int	count_words(char *str, t_shelldata *data)
 {
 	int	i;
-	int	on_word;
 	int	count;
 	
 	count = 0;
-	on_word = 0;
 	i = 0;
 	while (str[i])
 	{
 		if (is_space_character(str[i]))
-			on_word = 0;
+			data->on_word = 0;
 		else if (is_in_str("<>|", str[i]))
 		{
-			on_word = 0;
+			data->on_word = 0;
 			count++;
 		}
-		else if (on_word == 0)
+		else if (data->on_word == 0)
 		{
-			on_word = 1;
+			data->on_word = 1;
 			count++;
 		}
 		if (str[i] == 39 || str[i] == 34)
@@ -51,37 +49,35 @@ int	count_words(char *str)
 	}
 	return (count);
 }
-void	handle_quotes(char *str, int *i, int *in_quotes, int *type)
+void	handle_quotes(char *str, int *i, t_shelldata *data)
 {
 	if(str[*i] == 39 || str[*i] == 34)
 	{
-		if(*in_quotes == 0)
+		if(data->in_quotes == 0)
 		{
-			*in_quotes = 1;
-			*type = str[*i];
+			data->in_quotes = 1;
+			data->type = str[*i];
 		}
-		else if(*in_quotes == 1 && *type == str[*i])
-			*in_quotes = 0;
+		else if(data->in_quotes == 1 && data->type == str[*i])
+			data->in_quotes = 0;
 	}
 }
 
 char	*copy_word(char *str, int *n, t_shelldata *data)
 {
 	char	*word;
-	int		type;
 	int		i;
-	int		in_quotes;
 
 	i = (*n);
 	while (str[i])
 	{
-		handle_quotes(str, &i, &in_quotes, &type);
-		if(in_quotes == 0 && is_in_str(" <>|", str[i]))
+		handle_quotes(str, &i, data);
+		if(data->in_quotes == 0 && is_in_str(" <>|", str[i]))
 			break;
 		i++;
 	}
 		i++;
-	word = ft_substr_env(str, *n, i - *n - 1, data);
+	word = ft_substr(str, *n, i - *n - 1);
 	*n = i - 1;
 	return (word);
 }
@@ -92,11 +88,11 @@ char	**split_into_words(char *str, t_shelldata *data)
 	int		i;
 	int		n;
 
-	arr = ft_calloc(count_words(str) + 1, sizeof(char *));
+	arr = ft_calloc(count_words(str, data) + 1, sizeof(char *));
 	i = 0;
 	n = 0;
-	printf("%d\n", count_words(str));
-	while (i < count_words(str))
+	printf("%d\n", count_words(str, data));
+	while (i < count_words(str, data))
 	{
 		while (str[n] && is_space_character(str[n]))
 			n++;
