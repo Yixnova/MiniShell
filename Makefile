@@ -6,7 +6,7 @@
 #    By: busseven <busseven@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:42:59 by busseven          #+#    #+#              #
-#    Updated: 2025/03/26 12:21:28 by busseven         ###   ########.fr        #
+#    Updated: 2025/03/26 12:37:44 by busseven         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,12 +15,12 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 SRCS =	main.c\
-		input_utils.c\
-		signals.c\
-		lexer.c \
-		lexer_errors.c \
-		lexer_array.c \
-		remove_quotes.c \
+		./lexer/input_utils.c\
+		./signals/signals.c\
+		./lexer/lexer.c \
+		./lexer/lexer_errors.c \
+		./lexer/lexer_array.c \
+		./lexer/remove_quotes.c \
 
 OBJS = $(SRCS:.c=.o)
 LIBFT = libft/libft.a

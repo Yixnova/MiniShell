@@ -6,11 +6,11 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 10:06:33 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/26 12:34:32 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/26 12:38:04 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 static void	skip_in_quotes(char	*str, int *i, int type)
 {

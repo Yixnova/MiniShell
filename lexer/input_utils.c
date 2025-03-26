@@ -6,11 +6,11 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:42:30 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/25 11:57:16 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/26 12:37:58 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 char	*char_to_str(char c)
 {

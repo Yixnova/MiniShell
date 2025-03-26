@@ -6,11 +6,11 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/26 12:21:04 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/26 12:40:13 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"minishell.h"
+#include "../minishell.h"
 
 void	tokenize_input(t_shelldata	*data)
 {
@@ -20,7 +20,6 @@ void	tokenize_input(t_shelldata	*data)
 	while (data->token_arr[k])
 	{
 		data->token_arr[k] = remove_quotes(data->token_arr[k]);
-		printf("%s\n", data->token_arr[k]);
 		k++;
 	}
 }

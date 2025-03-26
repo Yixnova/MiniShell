@@ -6,13 +6,13 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 11:09:33 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/26 12:33:43 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/26 13:14:40 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"minishell.h"
+#include "../minishell.h"
 
-static void	skip_copying_quotes(int *i, int *in_quotes, int *type, const char *src)
+static int handle_quotes(int *i, int *in_quotes, int *type, const char *src)
 {
 	if (src[*i] == 39 || src[*i] == 34)
 	{
@@ -27,7 +27,10 @@ static void	skip_copying_quotes(int *i, int *in_quotes, int *type, const char *s
 			*in_quotes = 0;
 			(*i)++;
 		}
+		else
+			return (1);
 	}
+	return (0);
 }
 static void	copy_word_noquotes(char *dest, const char *src)
 {
@@ -41,10 +44,13 @@ static void	copy_word_noquotes(char *dest, const char *src)
 	in_quotes = 0;
 	while (src[i])
 	{
-		skip_copying_quotes(&i, &in_quotes, &type, src);
-		dest[k] = src[i];
-		i++;
-		k++;
+		if (src[i] == 39 || src[i] == 34)
+		{
+			if(handle_quotes(&i, &in_quotes, &type, src))
+				dest[k++] = src[i++];
+		}
+		else
+			dest[k++] = src[i++];
 	}
 }
 
