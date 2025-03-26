@@ -6,12 +6,15 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:16 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/03/26 13:57:17 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/03/26 15:31:31 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILT_IN_H
 # define BUILT_IN_H
+
+typedef struct s_env   t_env;
+typedef struct s_shelldata t_shelldata;
 
 # include "minishell.h"
 
