@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 12:37:53 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/03/26 19:12:47 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/03/26 20:40:37 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static void	bubble_sort_env(t_env **arr, int count)
 		j = 0;
 		while (j < count - i - 1)
 		{
-			if (ft_strncmp(arr[j]->key, arr[j + 1]->key,
-					ft_strlen(arr[j]->key) + 1) > 0)
+			if (ft_strncmp(arr[j]->name, arr[j + 1]->name,
+					ft_strlen(arr[j]->name) + 1) > 0)
 			{
 				temp = arr[j];
 				arr[j] = arr[j + 1];
@@ -68,7 +68,7 @@ void	export_command(t_env **env, char **args)
 		i = 0;
 		while (i < count)
 		{
-			printf("declare -x %s", arr[i]->key);
+			printf("declare -x %s", arr[i]->name);
 			if (arr[i]->value && arr[i]->value[0])
 				printf("=\"%s\"", arr[i]->value);
 			printf("\n");

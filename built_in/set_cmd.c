@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 09:50:15 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/03/26 19:14:02 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/03/26 20:39:17 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ int	unset_env(t_env **env_list, const char *key)
 	prev = NULL;
 	while (current)
 	{
-		if (ft_strcmp(current->key, key) == 0)
+		if (ft_strcmp(current->name, key) == 0)
 		{
 			if (prev)
 				prev->next = current->next;
 			else
 				*env_list = current->next;
-			free(current->key);
+			free(current->name);
 			free(current->value);
 			free(current);
 			return (0);

@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/26 20:23:26 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/03/26 20:35:22 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_shelldata
 	int		count;
 	char	**token_arr;
 	t_cmd	*tokens;
+	t_env	*env;
 }	t_shelldata;
 
 char	*char_to_str(char c);

@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 12:48:33 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/03/26 12:58:09 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/03/26 20:36:05 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_env	*find_env(t_env *env_list, const char *key)
 {
 	while (env_list)
 	{
-		if (ft_strncmp(env_list->key, key, ft_strlen(key) + 1) == 0)
+		if (ft_strncmp(env_list->name, key, ft_strlen(key) + 1) == 0)
 			return (env_list);
 		env_list = env_list->next;
 	}
@@ -59,11 +59,11 @@ t_env	*create_env_variable(const char *key, const char *value)
 	new_node = malloc(sizeof(t_env));
 	if (!new_node)
 		return (NULL);
-	new_node->key = ft_strdup(key);
+	new_node->name = ft_strdup(key);
 	new_node->value = ft_strdup(value);
-	if (!new_node->key || !new_node->value)
+	if (!new_node->name || !new_node->value)
 	{
-		free(new_node->key);
+		free(new_node->name);
 		free(new_node->value);
 		free(new_node);
 		return (NULL);
