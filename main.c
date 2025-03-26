@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:53:08 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/26 13:14:12 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/03/26 20:21:11 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@ void	free_shell_data(t_shelldata *data)
 	free_env_list(data->env);
 }
 
+void	disable_echoctl(void)
+{
+	struct termios	term;
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag &= ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
+}
+
 void	handle_input_and_history(t_shelldata *shell)
 {
 	while (1)
@@ -35,6 +43,7 @@ void	handle_input_and_history(t_shelldata *shell)
 		if (shell->input[0] != '\0')
 		{
 			add_history(shell->input);
+			tokenize_input(shell);
 			execute_command(shell);
 		}
 		free(shell->input);
@@ -60,6 +69,8 @@ int	main(int argc, char **argv, char **envp)
 		ft_putendl_fd("Error", 2);
 		return (EXIT_FAILURE);
 	}
+	disable_echoctl();
+	setup_signals();
 	handle_input_and_history(shell);
 	free_shell_data(shell);
 	return (EXIT_SUCCESS);

@@ -6,13 +6,14 @@
 #    By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:42:59 by busseven          #+#    #+#              #
-#    Updated: 2025/03/26 19:15:06 by yigsahin         ###   ########.fr        #
+#    Updated: 2025/03/26 20:16:43 by yigsahin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = mini_shell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
+LIBS = -lreadline
 
 SRCS =	main.c\
 		input_utils.c\
@@ -25,6 +26,10 @@ SRCS =	main.c\
 		./built_in/set_cmd.c\
 		./built_in/export_cmd.c\
 		./built_in/exit_cmd.c\
+		./lexer/lexer.c\
+		./lexer/lexer_errors.c\
+		./lexer/lexer_array.c\
+		./lexer/remove_quotes.c\
 
 OBJS = $(SRCS:.c=.o)
 LIBFT = libft/libft.a
@@ -34,7 +39,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
 	@echo "Creating executable..."
-	@$(CC) $(CFLAGS) $(OBJS) libft/libft.a -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) libft/libft.a -o $(NAME) -L/opt/homebrew/opt/readline/lib -lreadline
 $(LIBFT):
 	@echo "Building libft..."
 	@make -C libft

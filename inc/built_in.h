@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:16 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/03/26 19:01:41 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/03/26 19:27:37 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,5 @@ void	export_command(t_env **env, char **args); //düzenlenecek.
 int		set_env(t_env **env_list, const char *key, const char *value);
 int		unset_env(t_env **env_list, const char *key);
 void	unset_command(t_env **env, char **args);
-
-
 
 #endif

@@ -6,12 +6,34 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:42:30 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/26 09:35:32 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/03/26 20:13:29 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/minishell.h"
 
+char	*char_to_str(char c)
+{
+	char	*str;
+
+	str = ft_calloc(2, sizeof(char));
+	str[0] = c;
+	str[1] = '\0';
+	return(str);
+}
+int	is_in_str(const char *str, char c)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
+}
 int	is_space_character(char c)
 {
 	return (c == ' ' || (c >= 9 && c <= 13));
