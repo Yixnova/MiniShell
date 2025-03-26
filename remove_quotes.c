@@ -6,10 +6,27 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 11:09:33 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/26 11:32:34 by busseven         ###   ########.fr       */
+/*   Updated: 2025/03/26 11:47:21 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+void	skip_copying_quotes(int *i, int *in_quotes, int *type, char *src)
+{
+	if (src[*i] == 39 || src[*i] == 34)
+	{
+		if (in_quotes == 0)
+		{
+			in_quotes = 1;
+			type = src[*i];
+			*i++;
+		}
+		else if (in_quotes == 1 && type == src[*i])
+		{
+			in_quotes = 0;
+			*i++;
+		}
+	}
+}
 void	copy_word_noquotes(char *dest, const char *src)
 {
 	int	i;
@@ -22,20 +39,7 @@ void	copy_word_noquotes(char *dest, const char *src)
 	in_quotes = 0;
 	while (src[i])
 	{
-		if (src[i] == 39 || src[i] == 34)
-		{
-			if (in_quotes == 0)
-			{
-				in_quotes = 1;
-				type = src[i];
-				i++;
-			}
-			else if (in_quotes == 1 && type == src[*i])
-			{
-				in_quotes = 0;
-				i++;
-			}
-		}
+		skip_copying_quotes(&i, &in_quotes, &type, src);
 		dest[k] = src[i];
 		i++;
 	}
