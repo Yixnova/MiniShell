@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:16 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/03/26 19:27:37 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/06 16:31:47 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ int		ft_strcmp(const char *s1, const char *s2);
 
 void	exit_command(char **args, t_shelldata *shell);
 
-void	export_command(t_env **env, char **args); //düzenlenecek.
+void	export_command(t_env **env, char **args);
+
+void	print_sorted_env(t_env **arr, int count);
+void	bubble_sort_env(t_env **arr, int count);
 
 int		set_env(t_env **env_list, const char *key, const char *value);
 int		unset_env(t_env **env_list, const char *key);

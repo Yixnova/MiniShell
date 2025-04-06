@@ -6,95 +6,91 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 12:37:53 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/03/26 20:40:37 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/06 16:30:59 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/built_in.h"
 
-static void	bubble_sort_env(t_env **arr, int count)
+static int	count_env_variables(t_env *env)
 {
-	int		i;
-	int		j;
-	t_env	*temp;
+	int	count;
 
-	i = 0;
-	while (i < count - 1)
+	count = 0;
+	while (env)
 	{
-		j = 0;
-		while (j < count - i - 1)
-		{
-			if (ft_strncmp(arr[j]->name, arr[j + 1]->name,
-					ft_strlen(arr[j]->name) + 1) > 0)
-			{
-				temp = arr[j];
-				arr[j] = arr[j + 1];
-				arr[j + 1] = temp;
-			}
-			j++;
-		}
-		i++;
+		count++;
+		env = env->next;
 	}
+	return (count);
+}
+
+static t_env	**create_env_array(t_env *env, int count)
+{
+	t_env	**arr;
+	int		i;
+
+	arr = malloc(sizeof(t_env *) * count);
+	if (!arr)
+		return (NULL);
+	i = 0;
+	while (env)
+	{
+		arr[i++] = env;
+		env = env->next;
+	}
+	return (arr);
+}
+
+static void	sort_and_print_env(t_env **env)
+{
+	int		count;
+	t_env	**arr;
+
+	count = count_env_variables(*env);
+	arr = create_env_array(*env, count);
+	if (!arr)
+		return ;
+	bubble_sort_env(arr, count);
+	print_sorted_env(arr, count);
+	free(arr);
+}
+
+static void	handle_key_value_pair(t_env **env, char *arg)
+{
+	char	*equal;
+	char	*key;
+	char	*value;
+	size_t	key_len;
+
+	equal = ft_strchr(arg, '=');
+	if (equal)
+	{
+		key_len = equal - arg;
+		key = ft_strndup(arg, key_len);
+		value = ft_strdup(equal + 1);
+		if (key && value)
+			set_env(env, key, value);
+		free(key);
+		free(value);
+	}
+	else
+		set_env(env, arg, "");
 }
 
 void	export_command(t_env **env, char **args)
 {
-	int		i;
-	int		count;
-	t_env	**arr;
-	t_env	*curr;
+	int	i;
 
 	if (!args[1])
 	{
-		count = 0;
-		curr = *env;
-		while (curr)
-		{
-			count++;
-			curr = curr->next;
-		}
-		arr = malloc(sizeof(t_env *) * count);
-		if (!arr)
-			return ;
-		curr = *env;
-		i = 0;
-		while (curr)
-		{
-			arr[i] = curr;
-			curr = curr->next;
-			i++;
-		}
-		bubble_sort_env(arr, count);
-		i = 0;
-		while (i < count)
-		{
-			printf("declare -x %s", arr[i]->name);
-			if (arr[i]->value && arr[i]->value[0])
-				printf("=\"%s\"", arr[i]->value);
-			printf("\n");
-			i++;
-		}
-		free(arr);
+		sort_and_print_env(env);
+		return ;
 	}
-	else
+	i = 1;
+	while (args[i])
 	{
-		i = 1;
-		while (args[i])
-		{
-			char *equal = ft_strchr(args[i], '=');
-			if (equal)
-			{
-				size_t key_len = equal - args[i];
-				char *key = ft_strndup(args[i], key_len);
-				char *value = ft_strdup(equal + 1);
-				if (key && value)
-					set_env(env, key, value);
-				free(key);
-				free(value);
-			}
-			else
-				set_env(env, args[i], "");
-			i++;
-		}
+		handle_key_value_pair(env, args[i]);
+		i++;
 	}
 }
