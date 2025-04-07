@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 17:04:14 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/06 17:39:03 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/07 10:53:17 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ static void	process_variable(t_expander *exp, t_shelldata *shell)
 
 static void	process_double_quotes(t_expander *exp, t_shelldata *shell)
 {
-	exp->index++;
-	while (exp->input[exp->index] && exp->input[exp->index] != '"')
+	while (exp->input[exp->index])
 	{
 		if (exp->input[exp->index] == '$')
 			process_variable(exp, shell);
@@ -58,10 +57,10 @@ static void	process_single_quotes(t_expander *exp)
 	char	*temp;
 	int		start;
 
-	start = ++exp->index;
+	start = exp->index;
 	while (exp->input[exp->index] && exp->input[exp->index] != '\'')
 		exp->index++;
-	expanded = ft_substr(exp->input, start, exp->index - start);
+	expanded = ft_substr(exp->input, start, exp->index - start + 1);
 	temp = ft_strjoin(exp->result, expanded);
 	free(exp->result);
 	free(expanded);
