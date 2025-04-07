@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/07 19:02:35 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/07 19:51:51 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,3 @@ t_cmd	*make_token_list(t_shelldata	*shell)
 		}
 		temp = temp->next;
 	}
-}
