@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/07 10:18:47 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/07 17:29:33 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef	struct	s_output
 {
 	int		type;
 	int		append;
+	int		fd;
 	char	*path;
 	void	*next;
 }	t_output;
@@ -50,16 +51,18 @@ typedef	struct	s_input
 typedef	struct	s_cmd
 {
 	int		type;
+	int		arg_count;
 	char	**args;
 	int		input;
 	int		output;
+	int		redir;
 	void	*next;
 }	t_cmd;
 
 typedef	struct	s_heredoc
 {
 	int		type;
-	int		pipe[2];
+	int		doc[2];
 	char	*limiter;
 	void	*next;
 }	t_heredoc;
@@ -84,6 +87,7 @@ typedef struct s_shelldata
 	int		on_word;
 	int		count;
 	char	**token_arr;
+	char	**paths;
 	t_cmd	*tokens;
 	t_env	*env;
 	int		exit_status;
@@ -96,6 +100,7 @@ int		is_in_str(const char *str, char c);
 int		is_space_character(char c);
 int		is_all_spaces(char *line);
 int		is_empty_line(char *line);
+int		*ft_intjoin(int	*arr, int n);
 
 void	handle_input_and_history(t_shelldata *shelldata);
 void	free_shell_data(t_shelldata *shelldata);

@@ -17,9 +17,9 @@ void	free_shell_data(t_shelldata *data)
 	if (data)
 	{
 		free(data->input);
+		free_env_list(data->env);
 		free(data);
 	}
-	free_env_list(data->env);
 }
 
 void	disable_echoctl(void)
@@ -43,9 +43,6 @@ void	handle_input_and_history(t_shelldata *shell)
 		if (shell->input[0] != '\0')
 		{
 			add_history(shell->input);
-			char *expanded_input = expand_string(shell->input, shell);
-			free(shell->input);
-			shell->input = expanded_input;
 			tokenize_input(shell);
 			execute_command(shell);
 		}

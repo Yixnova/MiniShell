@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/07 16:34:31 by busseven         ###   ########.fr       */
+/*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
+/*   Updated: 2025/04/07 17:34:14 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	tokenize_input(t_shelldata	*data)
+int		*ft_intjoin(int	*arr, int n)
 {
-	data->token_arr = split_into_words(data->input);
-	//expander buraya gelecek
-	int k = 0;
-	while (data->token_arr[k])
+	int	i;
+	int	*new;
+
+	i = 0;
+	while(arr[i])
+		i++;
+	new = ft_calloc(i + 1, sizeof(int));
+	i = 0;
+	while(arr[i])
 	{
-		data->token_arr[k] = remove_quotes(data->token_arr[k]);
-		k++;
+		new[i] = arr[i];
+		i++;
 	}
+	new[i] = n;
+	free(arr);
+	return(new);
 }
