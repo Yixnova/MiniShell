@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/19 10:53:08 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/26 20:21:11 by yigsahin         ###   ########.fr       */
+/*   Created: 2025/03/19 10:53:08 by busseven          #+#             */
+/*   Updated: 2025/04/06 17:36:58 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ void	handle_input_and_history(t_shelldata *shell)
 		if (shell->input[0] != '\0')
 		{
 			add_history(shell->input);
+			char *expanded_input = expand_string(shell->input, shell);
+			free(shell->input);
+			shell->input = expanded_input;
 			tokenize_input(shell);
 			execute_command(shell);
 		}

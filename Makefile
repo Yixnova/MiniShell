@@ -6,7 +6,7 @@
 #    By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:42:59 by busseven          #+#    #+#              #
-#    Updated: 2025/04/06 16:32:27 by yigsahin         ###   ########.fr        #
+#    Updated: 2025/04/06 17:24:29 by yigsahin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,8 @@ SRCS =	main.c\
 		./lexer/lexer_errors.c\
 		./lexer/lexer_array.c\
 		./lexer/remove_quotes.c\
+		./expander/expand.c\
+		./expander/expand_utils.c
 
 OBJS = $(SRCS:.c=.o)
 LIBFT = libft/libft.a

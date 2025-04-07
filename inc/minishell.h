@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/26 20:35:22 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/06 17:35:50 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include "lexing.h"
 # include <readline/readline.h>
 # include <readline/history.h>
+# include "expand.h"
 
 # define BUFFER_SIZE 1024
 
@@ -76,7 +77,7 @@ typedef	struct s_env
 	char			*name;
 	char			*value;
 	struct s_env	*next;
-} t_env;
+}	t_env;
 
 typedef struct s_shelldata
 {
@@ -86,7 +87,10 @@ typedef struct s_shelldata
 	char	**token_arr;
 	t_cmd	*tokens;
 	t_env	*env;
+	int		exit_status;
 }	t_shelldata;
+
+extern t_shelldata *g_shell;
 
 char	*char_to_str(char c);
 int		is_in_str(const char *str, char c);
