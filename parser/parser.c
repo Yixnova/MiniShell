@@ -6,12 +6,16 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/07 18:53:44 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/07 19:02:35 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+void	check_token_type(char *str)
+{
+	
+}
 int		is_input(char	*str)
 {
 	if(!ft_strncmp(str, "<", ft_strlen(str)))
@@ -45,27 +49,26 @@ int		*ft_intjoin(int	*arr, int n)
 t_cmd	*make_token_list(t_shelldata	*shell)
 {
 	int	i;
-	int	*arg_indexes;
 	t_cmd	*temp;
 	t_cmd	*first;
 
 	i = 0;
 	temp = ft_calloc(1, sizeof(t_cmd));
-	first = temp;
+	shell->tokens = temp;
 	while(shell->token_arr[i])
 	{
 		if(ft_strlen(str) == 1 && str[0] == '|')
-			temp->next = add_pipe(*i, shell->token_arr);
+			temp->next = add_pipe(i, shell->token_arr);
 		else if(!ft_strncmp(str, "<", ft_strlen(str)))
-			temp->next = add_input(*i, shell->token_arr);
+			temp->next = add_input(i, shell->token_arr);
 		else if(!ft_strncmp(str, "<<", ft_strlen(str)))
-			temp->next	= add_heredoc(*i, shell->token_arr);
+			temp->next	= add_heredoc(i, shell->token_arr);
 		else if(is_output(str) != 0)
-			temp->next = add_output(*i, shell->token_arr, is_output(str));
+			temp->next = add_output(i, shell->token_arr, is_output(str));
 		else
 		{
-			arg_indexes = ft_intjoin(arg_indexes, i);
-			i++;
+			shell->args_i = ft_intjoin(arg_indexes, *i);
+			*i++;
 		}
 		temp = temp->next;
 	}

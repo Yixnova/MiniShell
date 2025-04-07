@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/07 18:34:08 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/07 19:01:44 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct s_shelldata
 	int		on_word;
 	int		count;
 	char	**token_arr;
+	int		*args_i;
 	char	**paths;
 	t_cmd	**tokens;
 	t_env	*env;
