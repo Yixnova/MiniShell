@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/06 17:35:50 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/07 10:18:04 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 
 # define BUFFER_SIZE 1024
 
+//types 0 = pipe, 1 = here_doc, 2 = input, 3 = output
 typedef	struct	s_output
 {
 	int		type;
@@ -41,7 +42,6 @@ typedef	struct	s_output
 typedef	struct	s_input
 {
 	int		type;
-	int		append;
 	int		fd;
 	char	*path;
 	void	*next;
@@ -66,7 +66,6 @@ typedef	struct	s_heredoc
 
 typedef	struct	s_pipe
 {
-	char	*content;
 	int		type;
 	int		pipe[2];
 	void	*next;
