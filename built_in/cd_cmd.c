@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_cmd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:53:39 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/03/26 19:06:26 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/08 14:38:56 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	cd_command(char *path)
 		dir = getenv("HOME");
 		if (!dir)
 		{
-			write(2, "cd: HOME not set\n", 19);
+			write(2, "cd: HOME not set\n", 18);
 			return ;
 		}
 	}

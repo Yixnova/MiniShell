@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/07 19:01:44 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/08 14:38:27 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ typedef	struct	s_input
 
 typedef	struct	s_cmd
 {
-	int		type;
-	int		arg_count;
 	char	**args;
 	int		input;
 	int		output;

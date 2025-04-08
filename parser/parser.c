@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/08 11:58:54 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/08 12:09:13 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,11 @@ void	parser(t_shelldata *shell)
 	pid = fork();
 	if(pid == 0)
 	{
-		//burda dosyaları openlayıp sonra execute fonksiyonu çalışacak
+		//burda dosyaları openlayıp sonra execute fonksiyonu çalışacak ve bi liste oluşturup free atacak
+	}
+	else
+	{
+		//recursive olarak bişiler gönderip tekrar çalışıcak parser()
 	}
 	waitpid(pid, &status, 0);
 	if(WIFEXITED(status))

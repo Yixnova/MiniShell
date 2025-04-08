@@ -6,7 +6,7 @@
 #    By: busseven <busseven@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:42:59 by busseven          #+#    #+#              #
-#    Updated: 2025/04/07 17:29:17 by busseven         ###   ########.fr        #
+#    Updated: 2025/04/08 14:40:11 by busseven         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,6 @@ SRCS =	main.c\
 		./lexer/remove_quotes.c\
 		./expander/expand.c\
 		./expander/expand_utils.c\
-		./parser/parser.c
 
 OBJS = $(SRCS:.c=.o)
 LIBFT = libft/libft.a

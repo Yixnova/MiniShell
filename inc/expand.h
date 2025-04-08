@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 17:04:36 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/06 17:41:20 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/08 14:39:54 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_expander
 	int			index;
 }	t_expander;
 
-char	*expand_string(const char *str, t_shelldata *shell);
+char	*expand_string(char *str, t_shelldata *shell);
 char	*expand_variable(t_expander *exp, t_shelldata *shell);
 
 #endif
