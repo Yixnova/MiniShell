@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/09 10:44:31 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/09 11:05:04 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ typedef	struct	s_cmd
 	char	**args;
 	int		input;
 	int		output;
-	int		redir;
-	void	*next;
 }	t_cmd;
 
 typedef	struct s_env
@@ -47,6 +45,14 @@ typedef	struct s_env
 	char			*value;
 	struct s_env	*next;
 }	t_env;
+
+typedef	struct s_parsedata
+{
+	char	***commands;
+	char	***redirs;
+	int		**pipes;
+	int		**hds;
+}	t_parsedata;
 
 typedef struct s_shelldata
 {
