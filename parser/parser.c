@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/09 15:26:56 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/09 15:33:01 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_cmd(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
 	k = 0;
 	while(shell->token_arr[*n] && shell->token_arr[*n] != "|")
 		(*n)++;
-	cmd->tokens = ft_calloc(*n, sizeof(char *));
+	cmd->tokens = ft_calloc(*n + 1, sizeof(char *));
 	while(shell->token_arr[*i] && *i < *n)
 	{
 		cmd->tokens[k] = shell->token_arr[*i];
