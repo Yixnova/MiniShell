@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/09 13:10:06 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/09 13:23:15 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,10 @@ void	init_cmd(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
 		k++;
 		(*i)++;
 	}
+	cmd->args = make_arg_array(cmd);
+	cmd->redirs = make_redir_array();
+	cmd->limiter_arr = make_limiter_arr();
+	cmd->hd_arr = make_here_documents();
 }
 
 void	parser(t_shelldata *shell, int i, int n)
