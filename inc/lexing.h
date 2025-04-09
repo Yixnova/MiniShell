@@ -15,7 +15,7 @@
 
 # include "minishell.h"
 
-typedef struct s_shelldata t_shelldata;
+typedef struct s_shelldata	t_shelldata;
 
 char	**split_into_words(char *str);
 

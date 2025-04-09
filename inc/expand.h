@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 17:04:36 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/09 13:57:31 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/09 13:59:47 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "../inc/minishell.h"
 
-typedef struct s_shelldata t_shelldata;
+typedef struct s_shelldata	t_shelldata;
 
 typedef struct s_expander
 {
