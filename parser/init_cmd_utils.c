@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:28:56 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/09 15:08:13 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/09 15:29:04 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,5 @@ void	make_arg_array(t_cmd *cmd)
 			count++;
 		i++;
 	}
-	cmd_args = ft_calloc(count + 1, sizeof(char *));
+	cmd->args = ft_calloc(count + 1, sizeof(char *));
 }
