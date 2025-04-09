@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/09 13:25:20 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/09 13:54:20 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 
 # define BUFFER_SIZE 1024
 
-extern int	g_signal_flag = 0;
+extern int	g_signal_flag;
 
 // types 0 = pipe, 1 = here_doc, 2 = input, 3 = output
 

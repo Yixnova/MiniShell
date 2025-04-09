@@ -5,7 +5,7 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/26 20:12:11 by yigsahin          #+#    #+#             */
+/*   Created: 2025/03/26 20:12:11 by yigsahin          #+#             */
 /*   Updated: 2025/04/09 13:20:05 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -14,6 +14,8 @@
 # define LEXING_H
 
 # include "minishell.h"
+
+typedef struct s_shelldata t_shelldata;
 
 char	**split_into_words(char *str);
 

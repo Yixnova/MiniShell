@@ -6,11 +6,13 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 08:58:49 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/09 13:25:55 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/09 13:55:46 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+int	g_signal_flag = 0;
 
 #ifdef __APPLE__
 void	rl_replace_line(const char *text, int clear_undo)
