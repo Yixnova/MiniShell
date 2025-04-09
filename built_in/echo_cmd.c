@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 10:33:26 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/03/26 19:06:50 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/09 13:18:10 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,21 @@ static int	line_check(char **arg)
 	return (i - 1);
 }
 
+void	free_arguments(char **arg)
+{
+	int	i;
+
+	if (!arg)
+		return ;
+	i = 0;
+	while (arg[i])
+	{
+		free(arg[i]);
+		i++;
+	}
+	free(arg);
+}
+
 void	echo_command(char **arg)
 {
 	int	i;
@@ -46,4 +61,5 @@ void	echo_command(char **arg)
 	}
 	if (no_line == 0)
 		printf("\n");
+	free_arguments(arg);
 }

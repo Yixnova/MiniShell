@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: busseven <busseven@student.42.fr>          +#+  +:+       +#+         #
+#    By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:42:59 by busseven          #+#    #+#              #
-#    Updated: 2025/04/08 14:40:11 by busseven         ###   ########.fr        #
+#    Updated: 2025/04/09 12:45:13 by yigsahin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,9 @@ CFLAGS = -Wall -Wextra -Werror
 LIBS = -lreadline
 
 SRCS =	main.c\
-		input_utils.c\
-		signals.c\
-		execute.c\
+		./utils/input_utils.c\
+		./signals/signals.c\
+		./execute/execute.c\
 		./built_in/env_cmd.c\
 		./built_in/echo_cmd.c\
 		./built_in/cd_cmd.c\
@@ -30,6 +30,7 @@ SRCS =	main.c\
 		./lexer/lexer.c\
 		./lexer/lexer_errors.c\
 		./lexer/lexer_array.c\
+		./lexer/lexer_utils.c\
 		./lexer/remove_quotes.c\
 		./expander/expand.c\
 		./expander/expand_utils.c\

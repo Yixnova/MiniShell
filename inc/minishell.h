@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/09 13:21:13 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/09 14:32:23 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,11 @@
 
 # define BUFFER_SIZE 1024
 
-//types 0 = pipe, 1 = here_doc, 2 = input, 3 = output
+extern int	g_signal_flag;
 
-typedef	struct	s_cmd
+// types 0 = pipe, 1 = here_doc, 2 = input, 3 = output
+
+typedef struct s_cmd
 {
 	char	**tokens;
 	char	**args;
@@ -46,8 +48,7 @@ typedef	struct	s_cmd
 	t_cmd	*prev;
 }	t_cmd;
 
-
-typedef	struct s_env
+typedef struct s_env
 {
 	char			*name;
 	char			*value;
@@ -66,14 +67,12 @@ typedef struct s_shelldata
 	int		exit_status;
 }	t_shelldata;
 
-extern t_shelldata *g_shell;
-
 char	*char_to_str(char c);
 int		is_in_str(const char *str, char c);
 int		is_space_character(char c);
 int		is_all_spaces(char *line);
 int		is_empty_line(char *line);
-int		*ft_intjoin(int	*arr, int n);
+int		*ft_intjoin(int *arr, int n);
 
 void	handle_input_and_history(t_shelldata *shelldata);
 void	free_shell_data(t_shelldata *shelldata);

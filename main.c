@@ -53,6 +53,7 @@ void	free_shell_data(t_shelldata *data)
 	if (data)
 	{
 		free(data->input);
+		free_token_arr(data->token_arr);
 		free_env_list(data->env);
 		free(data);
 	}
@@ -61,6 +62,7 @@ void	free_shell_data(t_shelldata *data)
 void	disable_echoctl(void)
 {
 	struct termios	term;
+
 	tcgetattr(STDIN_FILENO, &term);
 	term.c_lflag &= ~ECHOCTL;
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
@@ -70,6 +72,11 @@ void	handle_input_and_history(t_shelldata *shell)
 {
 	while (1)
 	{
+		if (g_signal_flag)
+		{
+			g_signal_flag = 0;
+			continue ;
+		}
 		shell->input = readline("myshell$ ");
 		if (!shell->input)
 		{
