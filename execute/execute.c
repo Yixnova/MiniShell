@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./inc/minishell.h"
+#include "../inc/minishell.h"
 
 void	execute_command(t_shelldata *shell)
 {

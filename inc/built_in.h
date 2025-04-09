@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   built_in.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:16 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/09 10:16:29 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/09 13:22:47 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILT_IN_H
 # define BUILT_IN_H
 
-typedef struct s_env	t_env;
-typedef struct s_shelldata	t_shelldata;
-
 # include "minishell.h"
+
+typedef struct s_env		t_env;
+typedef struct s_shelldata	t_shelldata;
 
 void	pwd(void);
 void	cd_command(char *path);

@@ -6,11 +6,11 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:42:30 by busseven          #+#    #+#             */
-/*   Updated: 2025/03/26 20:13:29 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/09 13:28:12 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./inc/minishell.h"
+#include "../inc/minishell.h"
 
 char	*char_to_str(char c)
 {
@@ -19,8 +19,9 @@ char	*char_to_str(char c)
 	str = ft_calloc(2, sizeof(char));
 	str[0] = c;
 	str[1] = '\0';
-	return(str);
+	return (str);
 }
+
 int	is_in_str(const char *str, char c)
 {
 	int	i;
@@ -34,6 +35,7 @@ int	is_in_str(const char *str, char c)
 	}
 	return (0);
 }
+
 int	is_space_character(char c)
 {
 	return (c == ' ' || (c >= 9 && c <= 13));
