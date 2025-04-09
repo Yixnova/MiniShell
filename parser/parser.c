@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/09 12:44:15 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/09 12:49:14 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	find_pipe(char **arr, int *n)
 	while(arr[n] && !is_pipe(arr[n]))
 		(*n)++;
 }
-void	init_parsedata(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
+void	init_cmd(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
 {
 	int	k;
 
@@ -55,7 +55,7 @@ void	init_parsedata(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
 	}
 }
 
-void	parser(t_shelldata *shell, t_cmd *cmd, int i, int n)
+void	parser(t_shelldata *shell, int i, int n)
 {
 	int	pid;
 	int	status;
@@ -64,11 +64,11 @@ void	parser(t_shelldata *shell, t_cmd *cmd, int i, int n)
 	find_pipe(shell->token_arr, *n);
 	if(pid == 0)
 	{
-		init_parsedata(shell, cmd, *i, *n);
+		init_cmd(shell, shell->cmd, *i, *n);
 	}
 	else
 	{
-		parser(shell, cmd->next, n + 1, n + 1);
+		parser(shell, shell->cmd->next n + 1, n + 1);
 	}
 	waitpid(pid, &status, 0);
 	if(WIFEXITED(status))
