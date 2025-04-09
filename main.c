@@ -12,16 +12,16 @@
 
 #include "./inc/minishell.h"
 
-void	add_cmd(t_cmd **lst, t_cmd *new)
+void	add_cmd(t_shelldata *shell, t_cmd *new)
 {
 	t_cmd	*temp;
 
-	if (!*lst)
+	if (!*(shell->cmds))
 	{
-		*lst = new;
+		*(shell->cmds) = new;
 		return ;
 	}
-	temp = *lst;
+	temp = *(shell->cmds);
 	while (temp->next)
 	{
 		temp = temp->next;
@@ -32,18 +32,19 @@ void	add_cmd(t_cmd **lst, t_cmd *new)
 
 void	init_parsedata(t_shelldata *shell)
 {
-	int	i;
-	int	p;
+	int		i;
+	int		p;
 	t_cmd	*cmd;
 
 	i = 0;
 	p = 0;
+	shell->cmds = ft_calloc(1, sizeof(t_cmd **));
 	while(shell->token_arr[i])
 	{
-		if(shell->token_arr[i] == "|")
+		if(ft_strncmp(shell->token_arr[i], "|", ft_strlen(shell->token_arr[i])))
 		{
 			cmd = ft_calloc(1, sizeof(t_cmd));
-			add_cmd(shell->cmds, cmd);
+			add_cmd(shell, cmd);
 		}
 		i++;
 	}
@@ -88,7 +89,7 @@ void	handle_input_and_history(t_shelldata *shell)
 			add_history(shell->input);
 			tokenize_input(shell);
 			init_parsedata(shell);
-			parser(shell, 0, 0);
+			parser(shell, *(shell->cmds), 0, 0);
 			execute_command(shell);
 		}
 		free(shell->input);

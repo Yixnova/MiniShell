@@ -6,11 +6,18 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:28:56 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/09 15:33:31 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/09 15:58:04 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"minishell.h"
+#include	"../inc/minishell.h"
+
+int		is_pipe(char *str)
+{
+	if(!ft_strncmp(str, "|", ft_strlen(str)))
+		return (1);
+	return (0);
+}
 
 int		is_redir(char	*str)
 {
@@ -24,13 +31,16 @@ int		is_redir(char	*str)
 		return (1);
 	return (0);
 }
+
 void	make_arg_array(t_cmd *cmd)
 {
 	int	i;
+	int	n;
 	int	count;
 
 	i = 0;
 	count = 0;
+	n = 0;
 	while(cmd->tokens[i])
 	{
 		if(is_redir(cmd->tokens[i]))
@@ -40,4 +50,12 @@ void	make_arg_array(t_cmd *cmd)
 		i++;
 	}
 	cmd->args = ft_calloc(count + 1, sizeof(char *));
+	i = 0;
+	while(cmd->tokens[i])
+	{
+		if(is_redir(cmd->tokens[i]))
+			i+= 2;
+		else
+			cmd->args[n++] = remove_quotes(cmd->tokens[i++]);
+	}
 }

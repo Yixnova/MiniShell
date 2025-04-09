@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/09 15:25:41 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/09 15:57:47 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "expand.h"
+# include <sys/wait.h>
 
 # define BUFFER_SIZE 1024
 
@@ -44,8 +45,8 @@ typedef struct s_cmd
 	int		**hd_arr;
 	int		input;
 	int		output;
-	t_cmd	*next;
-	t_cmd	*prev;
+	struct s_cmd	*next;
+	struct s_cmd	*prev;
 }	t_cmd;
 
 typedef struct s_env
@@ -80,5 +81,8 @@ void	sigint_handler(int signum);
 void	setup_signals(void);
 
 void	execute_command(t_shelldata *shell);
+void	parser(t_shelldata *shell, t_cmd *cmds, int i, int n);
+int		is_pipe(char *str);
+void	make_arg_array(t_cmd *cmd);
 
 #endif

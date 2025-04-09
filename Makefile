@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+         #
+#    By: busseven <busseven@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:42:59 by busseven          #+#    #+#              #
-#    Updated: 2025/04/09 12:45:13 by yigsahin         ###   ########.fr        #
+#    Updated: 2025/04/09 15:47:03 by busseven         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,8 @@ SRCS =	main.c\
 		./lexer/remove_quotes.c\
 		./expander/expand.c\
 		./expander/expand_utils.c\
+		./parser/parser.c \
+		./parser/init_cmd_utils.c \
 
 OBJS = $(SRCS:.c=.o)
 LIBFT = libft/libft.a
