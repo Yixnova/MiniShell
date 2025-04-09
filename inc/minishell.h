@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/09 11:05:04 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/09 12:26:45 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,14 @@
 typedef	struct	s_cmd
 {
 	char	**args;
+	char	**redirs;
+	char	**limiter_arr;
+	char	**tokens;
+	int		pipe[2];
+	int		**hd_arr;
 	int		input;
 	int		output;
+	t_cmd	*next;
 }	t_cmd;
 
 typedef	struct s_env
@@ -46,23 +52,15 @@ typedef	struct s_env
 	struct s_env	*next;
 }	t_env;
 
-typedef	struct s_parsedata
-{
-	char	***commands;
-	char	***redirs;
-	int		**pipes;
-	int		**hds;
-}	t_parsedata;
-
 typedef struct s_shelldata
 {
-	char	*input;
-	int		on_word;
-	int		count;
-	char	**token_arr;
-	char	**paths;
-	t_cmd	**tokens;
-	t_env	*env;
+	char		*input;
+	int			on_word;
+	int			count;
+	char		**token_arr;
+	char		**paths;
+	t_cmd		**cmds;
+	t_env		*env;
 	int		exit_status;
 }	t_shelldata;
 
