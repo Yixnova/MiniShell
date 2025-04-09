@@ -6,39 +6,12 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/09 13:23:15 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/09 13:27:46 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int		*ft_intjoin(int	*arr, int n)
-{
-	int	i;
-	int	*new;
-
-	i = 0;
-	if(!arr)
-		arr = ft_calloc(1, sizeof(int));
-	while(arr[i])
-		i++;
-	new = ft_calloc(i + 1, sizeof(int));
-	i = 0;
-	while(arr[i])
-	{
-		new[i] = arr[i];
-		i++;
-	}
-	new[i] = n;
-	free(arr);
-	return(new);
-}
-
-void	find_pipe(char **arr, int *n)
-{
-	while(arr[n] && !is_pipe(arr[n]))
-		(*n)++;
-}
 void	init_cmd(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
 {
 	int	k;
@@ -53,10 +26,10 @@ void	init_cmd(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
 		k++;
 		(*i)++;
 	}
-	cmd->args = make_arg_array(cmd);
-	cmd->redirs = make_redir_array();
-	cmd->limiter_arr = make_limiter_arr();
-	cmd->hd_arr = make_here_documents();
+	make_arg_array(cmd);
+	make_redir_array(cmd);
+	make_limiter_arr(cmd);
+	make_here_documents(cmd);
 }
 
 void	parser(t_shelldata *shell, int i, int n)
