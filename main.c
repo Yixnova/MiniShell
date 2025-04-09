@@ -15,7 +15,13 @@
 void	add_cmd(t_shelldata *shell, t_cmd *new)
 {
 	t_cmd	*temp;
-
+	int k = 0;
+	while (shell->token_arr[k])
+	{
+		shell->token_arr[k] = expand_string(shell->token_arr[k], shell);
+		printf("%s\n", shell->token_arr[k]);
+		k++;
+	}
 	if (!*(shell->cmds))
 	{
 		*(shell->cmds) = new;
@@ -33,11 +39,9 @@ void	add_cmd(t_shelldata *shell, t_cmd *new)
 void	init_parsedata(t_shelldata *shell)
 {
 	int		i;
-	int		p;
 	t_cmd	*cmd;
 
 	i = 0;
-	p = 0;
 	shell->cmds = ft_calloc(1, sizeof(t_cmd **));
 	while(shell->token_arr[i])
 	{
@@ -118,6 +122,5 @@ int	main(int argc, char **argv, char **envp)
 	disable_echoctl();
 	setup_signals();
 	handle_input_and_history(shell);
-	free_shell_data(shell);
 	return (EXIT_SUCCESS);
 }
