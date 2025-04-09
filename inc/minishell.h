@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/08 14:38:27 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/09 10:44:31 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,6 @@
 # define BUFFER_SIZE 1024
 
 //types 0 = pipe, 1 = here_doc, 2 = input, 3 = output
-typedef	struct	s_output
-{
-	int		type;
-	int		append;
-	int		fd;
-	char	*path;
-	void	*next;
-}	t_output;
-
-typedef	struct	s_input
-{
-	int		type;
-	int		fd;
-	char	*path;
-	void	*next;
-}	t_input;
 
 typedef	struct	s_cmd
 {
@@ -56,21 +40,6 @@ typedef	struct	s_cmd
 	int		redir;
 	void	*next;
 }	t_cmd;
-
-typedef	struct	s_heredoc
-{
-	int		type;
-	int		doc[2];
-	char	*limiter;
-	void	*next;
-}	t_heredoc;
-
-typedef	struct	s_pipe
-{
-	int		type;
-	int		pipe[2];
-	void	*next;
-}	t_pipe;
 
 typedef	struct s_env
 {
@@ -85,7 +54,6 @@ typedef struct s_shelldata
 	int		on_word;
 	int		count;
 	char	**token_arr;
-	int		*args_i;
 	char	**paths;
 	t_cmd	**tokens;
 	t_env	*env;

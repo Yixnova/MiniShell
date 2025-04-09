@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/08 12:09:13 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/09 10:40:41 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		*ft_intjoin(int	*arr, int n)
 	return(new);
 }
 
-void	parser(t_shelldata *shell)
+void	parser(t_shelldata *shell, int i, int n)
 {
 	int	pid;
 	int	status;
@@ -42,11 +42,11 @@ void	parser(t_shelldata *shell)
 	pid = fork();
 	if(pid == 0)
 	{
-		//burda dosyaları openlayıp sonra execute fonksiyonu çalışacak ve bi liste oluşturup free atacak
+		//burda dosyaları openlayıp sonra execute fonksiyonu çalışacak ve bi liste oluşturup free atacak;
 	}
 	else
 	{
-		//recursive olarak bişiler gönderip tekrar çalışıcak parser()
+		//recursive olarak bişiler gönderip tekrar çalışıcak parser();
 	}
 	waitpid(pid, &status, 0);
 	if(WIFEXITED(status))
