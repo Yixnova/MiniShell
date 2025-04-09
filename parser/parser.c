@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/09 12:28:36 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/09 12:44:15 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,20 @@ void	find_pipe(char **arr, int *n)
 	while(arr[n] && !is_pipe(arr[n]))
 		(*n)++;
 }
-void	init_parsedata(t_shelldata *shell)
+void	init_parsedata(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
 {
-	shell->cmds = ft_calloc(1, sizeof(t_cmd));
-	shell->cmds
+	int	k;
+
+	k = 0;
+	while(shell->tokens[*n] && shell->tokens[*n] != "|")
+		(*n)++;
+	cmd->tokens = ft_calloc(*n, sizeof(char *));
+	while(shell->tokens[*i] && *i < *n)
+	{
+		cmd->tokens[k] = shell->tokens[*i];
+		k++;
+		(*i)++;
+	}
 }
 
 void	parser(t_shelldata *shell, t_cmd *cmd, int i, int n)
@@ -54,7 +64,7 @@ void	parser(t_shelldata *shell, t_cmd *cmd, int i, int n)
 	find_pipe(shell->token_arr, *n);
 	if(pid == 0)
 	{
-		init_parsedata(shell);
+		init_parsedata(shell, cmd, *i, *n);
 	}
 	else
 	{
