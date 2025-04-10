@@ -22,13 +22,7 @@ t_cmd	*ft_cmdnew(void)
 void	add_cmd(t_shelldata *shell, t_cmd *new)
 {
 	t_cmd	*temp;
-	int k = 0;
-	while (shell->token_arr[k])
-	{
-		shell->token_arr[k] = remove_quotes(shell->token_arr[k]);
-		printf("%s\n", shell->token_arr[k]);
-		k++;
-	}
+
 	if (!*(shell->cmds))
 	{
 		*(shell->cmds) = new;
