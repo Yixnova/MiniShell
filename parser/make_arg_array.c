@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:28:56 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/10 15:20:54 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/10 15:23:31 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int		is_redir(char	*str)
 		return (1);
 	return (0);
 }
+
 void	copy_arg(t_cmd	*cmd)
 {
 	int	i;
@@ -48,6 +49,7 @@ void	copy_arg(t_cmd	*cmd)
 			cmd->args[n++] = remove_quotes(cmd->tokens[i++]);
 	}
 }
+
 void	make_arg_array(t_cmd *cmd)
 {
 	int	i;
