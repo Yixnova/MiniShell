@@ -12,13 +12,20 @@
 
 #include "./inc/minishell.h"
 
+t_cmd	*ft_cmdnew(void)
+{
+	t_cmd	*new;
+
+	new = ft_calloc(1, sizeof(t_cmd));
+	return (new);
+}
 void	add_cmd(t_shelldata *shell, t_cmd *new)
 {
 	t_cmd	*temp;
 	int k = 0;
 	while (shell->token_arr[k])
 	{
-		shell->token_arr[k] = expand_string(shell->token_arr[k], shell);
+		shell->token_arr[k] = remove_quotes(shell->token_arr[k]);
 		printf("%s\n", shell->token_arr[k]);
 		k++;
 	}
@@ -39,7 +46,6 @@ void	add_cmd(t_shelldata *shell, t_cmd *new)
 void	init_parsedata(t_shelldata *shell)
 {
 	int		i;
-	t_cmd	*cmd;
 
 	i = 0;
 	shell->cmds = ft_calloc(1, sizeof(t_cmd **));
@@ -47,8 +53,7 @@ void	init_parsedata(t_shelldata *shell)
 	{
 		if(ft_strncmp(shell->token_arr[i], "|", ft_strlen(shell->token_arr[i])))
 		{
-			cmd = ft_calloc(1, sizeof(t_cmd));
-			add_cmd(shell, cmd);
+			add_cmd(shell, ft_cmdnew());
 		}
 		i++;
 	}

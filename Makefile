@@ -6,13 +6,13 @@
 #    By: busseven <busseven@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:42:59 by busseven          #+#    #+#              #
-#    Updated: 2025/04/09 16:21:42 by busseven         ###   ########.fr        #
+#    Updated: 2025/04/10 12:23:21 by busseven         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = mini_shell
-CC = gcc
-CFLAGS = -g -Wall -Wextra -Werror
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
 LIBS = -lreadline
 
 SRCS =	main.c\

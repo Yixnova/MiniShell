@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/09 16:52:25 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:03:37 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,4 @@ void	parser(t_shelldata *shell, t_cmd *cmds, int i, int n)
 	while(shell->token_arr && shell->token_arr[n] && !is_pipe(shell->token_arr[n]))
 		n++;
 	init_cmd(shell, cmds, &i, &n);
-	if(cmds->next)
-		parser(shell, cmds->next, n + 1, n + 1);
 }
