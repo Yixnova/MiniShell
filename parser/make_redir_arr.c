@@ -6,27 +6,11 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 15:24:35 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/10 15:30:34 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/11 10:06:13 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	copy_redir(t_cmd	*cmd)
-{
-	int	i;
-	int	n;
-
-	i = 0;
-	n = 0;
-	while(cmd->tokens[i])
-	{
-		if(is_redir(cmd->tokens[i]))
-		{
-			
-		}
-	}
-}
-
-void	make_arg_array(t_cmd *cmd)
+void	make_redir_array(t_cmd *cmd)
 {
 	int	i;
 	int	count;
