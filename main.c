@@ -45,7 +45,7 @@ void	init_parsedata(t_shelldata *shell)
 	shell->cmds = ft_calloc(1, sizeof(t_cmd **));
 	while(shell->token_arr[i])
 	{
-		if(ft_strncmp(shell->token_arr[i], "|", ft_strlen(shell->token_arr[i])))
+		if(!ft_strncmp(shell->token_arr[i], "|", ft_strlen(shell->token_arr[i])))
 		{
 			add_cmd(shell, ft_cmdnew());
 		}
