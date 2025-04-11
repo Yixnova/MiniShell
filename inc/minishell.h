@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/11 12:14:35 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/11 12:17:08 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	sigint_handler(int signum);
 void	setup_signals(void);
 
 void	execute_command(t_shelldata *shell);
-void	parser(t_shelldata *shell, t_cmd *cmds, int i, int n);
+void	edit_cmds_arr(t_shelldata *shell, t_cmd *cmds, int i, int n);
 int		is_pipe(char *str);
 int		is_redir(char	*str);
 void	make_arg_array(t_cmd *cmd);
