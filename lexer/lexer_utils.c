@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:36:13 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/11 09:32:15 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/11 10:09:14 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,26 @@ char	*copy_redirs(char	*str, int	*n)
 	char	*ret;
 
 	i = *n;
-	while(is_in_str("<>", str[*n]))
+	while (is_in_str("<>", str[*n]))
 		(*n)++;
 	ret = ft_substr(str, i, (*n) - i);
-	return(ret);
+	return (ret);
 }
-void	skip_redirs(char	*str, int *i)
+void	skip_redirs(char *str, int *i)
 {
-	while(str[*i] && is_in_str("<>", str[*i]))
+	while (str[*i] && is_in_str("<>", str[*i]))
 		(*i)++;
+	(*i)--;
 }
-int	assign_word_to_array(char **arr, char *str, int *i, int *n)
+int		assign_word_to_array(char **arr, char *str, int *i, int *n)
 {
 	if (is_in_str("|", str[*n]))
 	{
 		arr[*i] = char_to_str(str[*n]);
 		(*n)++;
 	}
-	else if(is_in_str("<>", str[*n]))
-	{
+	else if (is_in_str("<>", str[*n]))
 		arr[*i] = copy_redirs(str, n);
-	}
 	else
 		arr[*i] = copy_word(str, n);
 	if (!arr[*i])
