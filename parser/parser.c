@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/11 11:47:54 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/11 11:51:31 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	init_cmd(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
 		printf("%s\n", cmd->redirs[a]);
 		a++;
 	}
+	printf("next cmd:\n");
 }
 
 void	parser(t_shelldata *shell, t_cmd *cmds, int i, int n)
@@ -42,4 +43,7 @@ void	parser(t_shelldata *shell, t_cmd *cmds, int i, int n)
 	while(shell->token_arr && shell->token_arr[n] && !is_pipe(shell->token_arr[n]))
 		n++;
 	init_cmd(shell, cmds, &i, &n);
+	if(!shell->token_arr[i])
+		return ;
+	parser(shell, cmds->next, i + 1, n + 1);
 }
