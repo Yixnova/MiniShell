@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 15:24:35 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/11 10:06:13 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/11 10:13:31 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void	make_redir_array(t_cmd *cmd)
 		if(is_redir(cmd->tokens[i]))
 		{
 			count++;
-			while(is_redir(cmd->tokens[i]))
-				i++;
+			i++;
 		}
 		i++;
 	}
