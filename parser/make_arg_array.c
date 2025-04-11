@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:28:56 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/11 12:52:42 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:50:15 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int		is_pipe(char *str)
 
 int		is_redir(char	*str)
 {
+	if(!str)
+		return (0);
 	if(str[0] && (str[0] == '<' || str[0] == '>'))
 		return (1);
 	return (0);

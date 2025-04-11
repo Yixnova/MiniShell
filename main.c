@@ -40,16 +40,22 @@ void	add_cmd(t_shelldata *shell, t_cmd *new)
 void	init_parsedata(t_shelldata *shell)
 {
 	int		i;
+	int		count;
 
 	i = 0;
-	shell->cmds = ft_calloc(1, sizeof(t_cmd **));
+	count = 0;
 	while(shell->token_arr[i])
 	{
-		if(!ft_strncmp(shell->token_arr[i], "|", ft_strlen(shell->token_arr[i])))
-		{
-			add_cmd(shell, ft_cmdnew());
-		}
+		if(ft_strlen(shell->token_arr[i]) == 1 && shell->token_arr[i][0] == '|')
+			count++;
 		i++;
+	}
+	shell->cmds = ft_calloc(count + 1, sizeof(t_cmd *));
+	printf("count: %d\n", count);
+	while(count + 1 > 0)
+	{
+		add_cmd(shell, ft_cmdnew());
+		count--;
 	}
 }
 void	free_shell_data(t_shelldata *data)
