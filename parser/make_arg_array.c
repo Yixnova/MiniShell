@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_cmd_utils.c                                   :+:      :+:    :+:   */
+/*   make_arg_array.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:28:56 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/10 15:23:31 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/11 09:37:48 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,7 @@ int		is_pipe(char *str)
 
 int		is_redir(char	*str)
 {
-	if(!ft_strncmp(str, ">", ft_strlen(str)))
-		return (1);
-	else if(!ft_strncmp(str, "<", ft_strlen(str)))
-		return (1);
-	else if(!ft_strncmp(str, ">>", ft_strlen(str)))
-		return (1);
-	else if(!ft_strncmp(str, "<<", ft_strlen(str)))
+	if(str[0] == '<' || str[0] == '>')
 		return (1);
 	return (0);
 }
