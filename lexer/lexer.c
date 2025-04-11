@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/11 09:30:12 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/11 11:54:36 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	tokenize_input(t_shelldata *data)
 	int i = 0;
 	while (data->token_arr[i])
 	{
+		data->token_arr[i] = expand_string(data->token_arr[i], data);
 		printf("%s\n", data->token_arr[i]);
 		i++;
 	}
