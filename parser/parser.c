@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/11 12:16:58 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/11 12:37:53 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,6 @@ void	init_cmd(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
 		(*i)++;
 	}
 	pipe(cmd->pipe);
-	make_arg_array(cmd);
-	make_redir_array(cmd);
-	int	a = 0;
-	while(cmd->redirs[a])
-	{
-		printf("%s\n", cmd->redirs[a]);
-		a++;
-	}
 	printf("next cmd:\n");
 }
 
