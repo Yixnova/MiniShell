@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:28:56 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/11 09:37:48 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/11 12:45:06 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,11 @@ void	copy_arg(t_cmd	*cmd)
 		if(i > 0 && is_redir(cmd->tokens[i - 1]))
 			i++;
 		else
+		{
 			cmd->args[n++] = remove_quotes(cmd->tokens[i++]);
+			i++;
+			n++;
+		}
 	}
 }
 
