@@ -6,10 +6,29 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 15:24:35 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/11 10:13:31 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/11 10:28:52 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+void	copy_redir_tokens(cmd)
+{
+	int	i;
+	int	n;
+
+	i = 0;
+	n = 0;
+	while(cmd->tokens[i])
+	{
+		if(is_redir(cmd->tokens[i]))
+		{
+			cmd->redirs[n] = ft_strjoin(cmd->tokens[i], cmd->tokens[i + 1]);
+			n++;
+			i += 2;
+		}
+		else
+			i++;
+	}
+}
 void	make_redir_array(t_cmd *cmd)
 {
 	int	i;
@@ -27,5 +46,5 @@ void	make_redir_array(t_cmd *cmd)
 		i++;
 	}
 	cmd->redirs = ft_calloc(count + 1, sizeof(char *));
-	copy_redir(cmd);
+	copy_redir_tokens(cmd);
 }
