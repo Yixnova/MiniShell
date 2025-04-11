@@ -92,6 +92,7 @@ void	handle_input_and_history(t_shelldata *shell)
 			add_history(shell->input);
 			tokenize_input(shell);
 			init_parsedata(shell);
+			parser(shell, *(shell->cmds), 0, 0);
 			execute_command(shell);
 		}
 		free(shell->input);
