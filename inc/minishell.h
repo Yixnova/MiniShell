@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/11 11:45:44 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/11 12:14:35 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,16 @@ extern int	g_signal_flag;
 
 typedef struct s_cmd
 {
-	char	**tokens;
-	char	**args;
-	char	**redirs;
-	char	**limiter_arr;
-	int		pipe[2];
-	int		**hd_arr;
-	int		input;
-	int		output;
-	int		hd_index;
-	int		redir_index;
+	char			**tokens;
+	char			**args;
+	char			**redirs;
+	char			**limiter_arr;
+	int				pipe[2];
+	int				**hd_arr;
+	int				input;
+	int				output;
+	int				hd_index;
+	int				redir_index;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }	t_cmd;
