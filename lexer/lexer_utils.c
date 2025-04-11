@@ -3,21 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:36:13 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/09 12:46:15 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/11 09:32:15 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+char	*copy_redirs(char	*str, int	*n)
+{
+	int		i;
+	char	*ret;
+
+	i = *n;
+	while(is_in_str("<>", str[*n]))
+		(*n)++;
+	ret = ft_substr(str, i, (*n) - i);
+	return(ret);
+}
+void	skip_redirs(char	*str, int *i)
+{
+	while(str[*i] && is_in_str("<>", str[*i]))
+		(*i)++;
+}
 int	assign_word_to_array(char **arr, char *str, int *i, int *n)
 {
-	if (is_in_str("><|", str[*n]))
+	if (is_in_str("|", str[*n]))
 	{
 		arr[*i] = char_to_str(str[*n]);
 		(*n)++;
+	}
+	else if(is_in_str("<>", str[*n]))
+	{
+		arr[*i] = copy_redirs(str, n);
 	}
 	else
 		arr[*i] = copy_word(str, n);
@@ -85,6 +105,8 @@ int	count_words(char *str)
 		else if (is_in_str("<>|", str[i]))
 		{
 			on_word = 0;
+			if(is_in_str("<>", str[i]))
+				skip_redirs(str, &i);
 			count++;
 		}
 		else if (on_word == 0)

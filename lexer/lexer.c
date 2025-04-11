@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/10 12:28:46 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/11 09:30:12 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,11 @@ void	tokenize_input(t_shelldata *data)
 	{
 		ft_putendl_fd("Error: Memory allocation failed", 2);
 		return ;
+	}
+	int i = 0;
+	while (data->token_arr[i])
+	{
+		printf("%s\n", data->token_arr[i]);
+		i++;
 	}
 }
