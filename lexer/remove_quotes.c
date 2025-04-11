@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 11:09:33 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/09 14:32:39 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/11 12:47:18 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,5 @@ char	*remove_quotes(char *str)
 	len = get_len_without_quotes(str);
 	copy = ft_calloc(len + 1, sizeof(char));
 	copy_word_noquotes(copy, str);
-	if (str)
-		free(str);
 	return (copy);
 }

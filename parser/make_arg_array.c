@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:28:56 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/11 12:45:33 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/11 12:52:42 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		is_pipe(char *str)
 
 int		is_redir(char	*str)
 {
-	if(str[0] == '<' || str[0] == '>')
+	if(str[0] && (str[0] == '<' || str[0] == '>'))
 		return (1);
 	return (0);
 }
@@ -57,9 +57,9 @@ void	make_arg_array(t_cmd *cmd)
 	count = 0;
 	while(cmd->tokens[i])
 	{
-		if(is_redir(cmd->tokens[i]))
+		if(cmd->tokens[i] && is_redir(cmd->tokens[i]))
 		{
-			while(is_redir(cmd->tokens[i]))
+			while(cmd->tokens[i] && is_redir(cmd->tokens[i]))
 				i++;
 		}
 		else
