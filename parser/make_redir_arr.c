@@ -6,11 +6,13 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 15:24:35 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/11 10:28:52 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/11 10:33:43 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	copy_redir_tokens(cmd)
+#include "../inc/minishell.h"
+
+void	copy_redir_tokens(t_cmd *cmd)
 {
 	int	i;
 	int	n;
