@@ -6,13 +6,13 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/12 10:42:40 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/12 11:52:01 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	init_cmd(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
+int	init_cmd(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
 {
 	int	k;
 
@@ -24,42 +24,28 @@ void	init_cmd(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
 		k++;
 		(*i)++;
 	}
-	int z = 0;
-	printf("tokens:\n");
-	while(cmd->tokens[z])
-	{
-		printf("%s\n", cmd->tokens[z]);
-		z++;
-	}
 	make_arg_array(cmd, shell);
-	printf("args:\n");
-	z = 0;
-	while(cmd->args[z])
-	{
-		printf("%s\n", cmd->args[z]);
-		z++;
-	}
 	make_redir_array(cmd, shell);
-	printf("redirs:\n");
-	z = 0;
-	while(cmd->redirs[z])
-	{
-		printf("%s\n", cmd->redirs[z]);
-		z++;
-	}
+	if(check_parse_errors(cmd))
+		return (1);
 	pipe(cmd->pipe);
 	printf("next cmd:\n");
+	return (0);
 }
 
-void	edit_cmds_arr(t_shelldata *shell, t_cmd *cmds, int i, int n)
+int	edit_cmds_arr(t_shelldata *shell, t_cmd *cmds, int i, int n)
 {
 	if (!cmds)
 	{
 		printf("no cmd\n");
-		return ;
+		return (0);
 	}
 	while (shell->tokens && shell->tokens[n] && !is_pipe(shell->tokens[n]))
 		n++;
-	init_cmd(shell, cmds, &i, &n);
+	if(init_cmd(shell, cmds, &i, &n))
+	{
+		//free cmd list, return 1.
+	}
 	edit_cmds_arr(shell, cmds->next, i + 1, n + 1);
+	return (0);
 }
