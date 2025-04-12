@@ -6,12 +6,28 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/12 16:37:30 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/12 17:02:58 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+void	open_here_documents(t_cmd *cmd)
+{
+	int	count;
+	int	i;
+
+	i = 0;
+	count = 0;
+	while(cmd->limiter_arr[count])
+		count++;
+	cmd->hd_arr = ft_calloc(count, sizeof(int[2]));
+	while(cmd->hd_arr[i])
+	{
+		pipe(cmd->hd_arr[i]);
+		i++;
+	}
+}
 void	free_2d_char(char *arr)
 {
 	int	i;
@@ -60,6 +76,7 @@ int	init_cmd(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
 	if(check_parse_errors(cmd))
 		return (1);
 	pipe(cmd->pipe);
+	open_here_documents(cmd);
 	printf("next cmd:\n");
 	return (0);
 }

@@ -6,11 +6,15 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/12 16:50:51 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/12 16:57:24 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	open_files(t_cmd *cmd)
+{
+}
 
 void	start_processes(t_shelldata *shell, t_cmd **cmds)
 {
@@ -24,7 +28,7 @@ void	start_processes(t_shelldata *shell, t_cmd **cmds)
 		pid = fork();
 		if(pid == 0)
 		{
-			//dosyaları açan fonksiyon yazılacak
+			open_files(t_cmd *cmds);
 			//hangi dosyaya yönlendirme yapılacağını belirleyen fonk.
 			//yigitin yazdığın executer buraya gelecek
 		}
