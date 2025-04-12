@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/11 17:43:24 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/12 09:53:48 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	init_cmd(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
 	int	k;
 
 	k = 0;
-	cmd->tokens = ft_calloc(*n - *i + 1, sizeof(char *));
+	cmd->tokens = ft_calloc(*n - *i + 2, sizeof(char *));
 	while(shell->token_arr && shell->token_arr[*i] && *i < *n)
 	{
 		cmd->tokens[k] = ft_strdup(shell->token_arr[*i]);
@@ -30,6 +30,7 @@ void	init_cmd(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
 		printf("%s\n", cmd->tokens[z]);
 		z++;
 	}
+	make_arg_array(cmd, shell);
 	pipe(cmd->pipe);
 	printf("next cmd:\n");
 }

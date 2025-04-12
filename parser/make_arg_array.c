@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:28:56 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/12 09:44:32 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/12 09:51:52 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ void	make_arg_array(t_cmd *cmd, t_shelldata *shell)
 		if(is_redir(cmd->tokens[i]))
 			i++;
 		else
+		{
 			cmd->args[n] = remove_quotes(expand_string(cmd->tokens[i], shell));
+			n++;
+		}
 		i++;
 	}
 }
