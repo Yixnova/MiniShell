@@ -44,9 +44,9 @@ void	init_parsedata(t_shelldata *shell)
 
 	i = 0;
 	count = 0;
-	while(shell->token_arr[i])
+	while(shell->tokens[i])
 	{
-		if(ft_strlen(shell->token_arr[i]) == 1 && shell->token_arr[i][0] == '|')
+		if(ft_strlen(shell->tokens[i]) == 1 && shell->tokens[i][0] == '|')
 			count++;
 		i++;
 	}
@@ -63,7 +63,7 @@ void	free_shell_data(t_shelldata *data)
 	if (data)
 	{
 		free(data->input);
-		free_token_arr(data->token_arr);
+		free_token_arr(data->tokens);
 		free_env_list(data->env);
 		free(data);
 	}

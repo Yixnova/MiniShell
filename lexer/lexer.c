@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/12 09:46:35 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/12 10:31:34 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,15 @@ void	tokenize_input(t_shelldata *data)
 	int	i;
 
 	i = 0;
-	data->token_arr = split_into_words(data->input);
-	if (!data->token_arr)
+	data->tokens = split_into_words(data->input);
+	if (!data->tokens)
 	{
 		ft_putendl_fd("Error: Memory allocation failed", 2);
 		return ;
 	}
-	while (data->token_arr[i])
+	while (data->tokens[i])
 	{
-		printf("%s\n", data->token_arr[i]);
+		printf("%s\n", data->tokens[i]);
 		i++;
 	}
 }
