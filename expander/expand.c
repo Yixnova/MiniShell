@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 17:04:14 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/08 14:37:35 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/12 09:46:30 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,5 @@ char	*expand_string(char *str, t_shelldata *shell)
 		else
 			append_char(&exp, exp.input[exp.index++]);
 	}
-	free(str);
 	return (exp.result);
 }
