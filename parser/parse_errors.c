@@ -6,26 +6,29 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 11:53:00 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/12 12:02:23 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/12 13:19:20 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	is_all_chars(char	*str, char	c, char i)
-{
-	int	i;
+#include	"../inc/minishell.h"
 
-	i = 0;
-	while(str[i])
-	{
-		if(str[i] != c && str[i] != i)
-			return (0);
-		i++;
-	}
-	return (1);
+int	is_valid_redir(char	*str)
+{
+	if(!strncmp(str, ">", sizeof(str)))
+		return (1);
+	if(!strncmp(str, ">>", sizeof(str)))
+		return (1);
+	if(!strncmp(str, "<<", sizeof(str)))
+		return (1);
+	if(!strncmp(str, "<", sizeof(str)))
+		return (1);
+	return (0);
 }
 int	check_parse_errors(t_cmd *cmd)
 {
-	int	i;
+	int		i;
+	int		n;
+	char	*redir;
 
 	i = 0;
 	if(cmd->arg_count < 1)
@@ -35,13 +38,17 @@ int	check_parse_errors(t_cmd *cmd)
 	}
 	while(cmd->redirs[i])
 	{
-		if(is_all_chars(cmd->redirs[i], '<', '>'))
+		n = 0;
+		while(cmd->redirs[i][n] != ' ')
+			n++;
+		redir = ft_substr(cmd->redirs[i], 0, n);
+		if(!is_valid_redir(redir))
 		{
-			printf("parse error: %s\n", cmd->redirs[i]);
+			printf("parse error near redir\n");
+			free(redir);
 			return (1);
 		}
-		if(has_invalid_redirection(cmd->redirs[i]))
-			return (1);
+		free(redir);
 		i++;
 	}
 	return (0);
