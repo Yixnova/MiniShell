@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/12 10:32:07 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/12 11:54:07 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_cmd
 {
 	char			**tokens;
 	char			**args;
+	int				arg_count;
 	char			**redirs;
 	char			**limiter_arr;
 	int				pipe[2];

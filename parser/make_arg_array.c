@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:28:56 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/12 10:26:39 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/12 11:54:41 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,19 @@ void	make_arg_array(t_cmd *cmd, t_shelldata *shell)
 {
 	int	i;
 	int	n;
-	int	count;
 
 	i = 0;
 	n = 0;
-	count = 0;
 	while(cmd->tokens[i])
 	{
 		if(is_redir(cmd->tokens[i]))
 			i++;
 		else
-			count++;
+			cmd->arg_count++;
 		i++;
 	}
 	i = 0;
-	cmd->args = ft_calloc(count + 1, sizeof(char *));
+	cmd->args = ft_calloc(cmd->arg_count + 1, sizeof(char *));
 	while(cmd->tokens[i])
 	{
 		if(is_redir(cmd->tokens[i]))
