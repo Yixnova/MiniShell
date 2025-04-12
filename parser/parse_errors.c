@@ -6,24 +6,12 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 11:53:00 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/12 13:50:09 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/12 17:14:51 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../inc/minishell.h"
 
-int	is_valid_redir(char	*str)
-{
-	if(!strncmp(str, ">", ft_strlen(str)))
-		return (1);
-	if(!strncmp(str, ">>", ft_strlen(str)))
-		return (2);
-	if(!strncmp(str, "<<", ft_strlen(str)))
-		return (3);
-	if(!strncmp(str, "<", ft_strlen(str)))
-		return (4);
-	return (0);
-}
 int	check_parse_errors(t_cmd *cmd)
 {
 	int		i;
