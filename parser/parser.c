@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/12 17:47:47 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/12 17:57:06 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,16 @@ void	open_here_documents(t_cmd *cmd)
 	count = 0;
 	while(cmd->limiter_arr[count])
 		count++;
-	printf("%d\n", count - 1);
-	cmd->hd_arr = ft_calloc(count - 1, sizeof(int *));
-	while(count > 0 && cmd->hd_arr[i])
+	count--;
+	printf("%d\n", count);
+	if(count > 0)
+		cmd->hd_arr = ft_calloc(count, sizeof(int *));
+	while(count > 0)
 	{
 		cmd->hd_arr[i] = ft_calloc(2, sizeof(int));
 		get_here_doc(cmd, i);
 		i++;
+		count--;
 	}
 }
 void	free_2d_char(char **arr)
