@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 15:24:35 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/12 10:24:11 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/12 10:26:48 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	copy_redir_tokens(t_cmd *cmd, t_shelldata *shell)
 			else if(!ft_strncmp(cmd->tokens[i], "<<", ft_strlen(cmd->tokens[i])))
 				cmd->redirs[n] = ft_strjoin(cmd->tokens[i], cmd->tokens[i + 1]);
 			else
-				cmd->redirs[n] = ft_strjoin(cmd->tokens[i], expand_string(cmd->tokens[i + 1], shell));
+				cmd->redirs[n] = ft_strjoin(cmd->tokens[i], expand_str(cmd->tokens[i + 1], shell));
 			n++;
 			i += 2;
 		}
