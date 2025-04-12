@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:28:56 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/11 17:44:53 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/12 09:40:10 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,31 @@ int		is_redir(char	*str)
 	return (0);
 }
 
-void	copy_arg(t_cmd	*cmd)
-{
-}
-
 void	make_arg_array(t_cmd *cmd)
 {
+	int	i;
+	int	n;
+	int	count;
+
+	i = 0;
+	n = 0;
+	count = 0;
+	while(cmd->tokens[i])
+	{
+		if(is_redir(cmd->tokens[i]))
+			i++;
+		else
+			count++;
+		i++;
+	}
+	i = 0;
+	cmd->args = ft_calloc(count + 1, sizeof(char *));
+	while(cmd->tokens[i])
+	{
+		if(is_redir(cmd->tokens[i]))
+			i++;
+		else
+			cmd->args[n] = ft_strdup(cmd->tokens[i]);
+		i++;
+	}
 }
