@@ -99,7 +99,7 @@ void	handle_input_and_history(t_shelldata *shell)
 			tokenize_input(shell);
 			init_parsedata(shell);
 			if(!edit_cmds_arr(shell, *(shell->cmds), 0, 0))
-				//add rest of the parser with the executer here
+				//add rest of the parser with the executer here open_and_execute()
 			execute_command(shell);
 		}
 		free(shell->input);
