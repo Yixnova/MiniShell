@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 17:04:14 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/12 10:27:04 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/12 13:39:27 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	process_single_quotes(t_expander *exp)
 		exp->index++;
 }
 
-char	*expand_str(char *str, t_shelldata *shell)
+char	*expand(char *str, t_shelldata *shell)
 {
 	t_expander	exp;
 

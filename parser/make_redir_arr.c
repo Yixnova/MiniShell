@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 15:24:35 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/12 13:10:13 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/12 13:40:21 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,22 +46,22 @@ void	copy_redir_tokens(t_cmd *cmd, t_shelldata *shell)
 	int		i;
 	int		n;
 	char	*str;
-	char	*str_next;
+	char	*next;
 
 	i = 0;
 	n = 0;
 	while(cmd->tokens[i])
 	{
 		str = cmd->tokens[i];
-		str_next = cmd->tokens[i + 1];
+		next = cmd->tokens[i + 1];
 		if(is_redir(str))
 		{
 			if(!str_next)
 				cmd->redirs[n] = ft_strdup(str);
 			else if(!ft_strncmp(str, "<<", ft_strlen(str)))
-				cmd->redirs[n] = join_space(str, str_next);
+				cmd->redirs[n] = join_space(str, remove_quotes(next));
 			else
-				cmd->redirs[n] = join_space(str, expand_str(str_next, shell));
+				cmd->redirs[n] = join_space(str, remove_quotes(expand(next, shell)));
 			n++;
 			i += 2;
 		}
