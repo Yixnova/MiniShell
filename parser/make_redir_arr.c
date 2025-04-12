@@ -6,13 +6,13 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 15:24:35 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/11 10:33:43 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/12 10:24:11 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	copy_redir_tokens(t_cmd *cmd)
+void	copy_redir_tokens(t_cmd *cmd, t_shelldata *shell)
 {
 	int	i;
 	int	n;
@@ -23,7 +23,12 @@ void	copy_redir_tokens(t_cmd *cmd)
 	{
 		if(is_redir(cmd->tokens[i]))
 		{
-			cmd->redirs[n] = ft_strjoin(cmd->tokens[i], cmd->tokens[i + 1]);
+			if(!cmd->tokens[i + 1])
+				cmd->redirs[n] = ft_strdup(cmd->tokens[i]);
+			else if(!ft_strncmp(cmd->tokens[i], "<<", ft_strlen(cmd->tokens[i])))
+				cmd->redirs[n] = ft_strjoin(cmd->tokens[i], cmd->tokens[i + 1]);
+			else
+				cmd->redirs[n] = ft_strjoin(cmd->tokens[i], expand_string(cmd->tokens[i + 1], shell));
 			n++;
 			i += 2;
 		}
@@ -31,7 +36,7 @@ void	copy_redir_tokens(t_cmd *cmd)
 			i++;
 	}
 }
-void	make_redir_array(t_cmd *cmd)
+void	make_redir_array(t_cmd *cmd, t_shelldata *shell)
 {
 	int	i;
 	int	count;
@@ -48,5 +53,5 @@ void	make_redir_array(t_cmd *cmd)
 		i++;
 	}
 	cmd->redirs = ft_calloc(count + 1, sizeof(char *));
-	copy_redir_tokens(cmd);
+	copy_redir_tokens(cmd, shell);
 }
