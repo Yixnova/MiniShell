@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/12 14:00:06 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/12 14:10:05 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	init_cmd(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
 	}
 	make_arg_array(cmd, shell);
 	make_redir_array(cmd, shell);
+	make_limiter_array(cmd, shell);
 	if(check_parse_errors(cmd))
 		return (1);
 	pipe(cmd->pipe);
