@@ -6,12 +6,42 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/12 14:10:05 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/12 16:37:30 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+void	free_2d_char(char *arr)
+{
+	int	i;
+
+	i = 0;
+	if(!arr)
+		return ;
+	while(arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+}
+void	free_cmd_arr(t_shelldata *shell, t_cmd	**cmds)
+{
+	t_cmd	*temp;
+
+	while(*cmds)
+	{
+		temp = (*cmds)->next;
+		free_2d_char((*cmds)->tokens);
+		free_2d_char((*cmds)->args);
+		free_2d_char((*cmds)->redirs);
+		free_2d_char((*cmds)->limiter_arr);
+		close((*cmds)->pipe);
+		free(*cmds);
+		*cmds = temp;
+	}
+}
 int	init_cmd(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
 {
 	int	k;
@@ -45,7 +75,8 @@ int	edit_cmds_arr(t_shelldata *shell, t_cmd *cmds, int i, int n)
 		n++;
 	if(init_cmd(shell, cmds, &i, &n))
 	{
-		//free cmd list, return 1.
+		free_cmd_arr(shell, shell->cmds);
+		return (1);
 	}
 	edit_cmds_arr(shell, cmds->next, i + 1, n + 1);
 	return (0);
