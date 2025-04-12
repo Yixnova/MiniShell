@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 11:53:00 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/12 17:14:51 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/12 17:32:16 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	check_parse_errors(t_cmd *cmd)
 	while(cmd->redirs[i])
 	{
 		n = 0;
-		while(cmd->redirs[i][n] != ' ')
+		while(cmd->redirs[i][n] && cmd->redirs[i][n] != ' ')
 			n++;
 		redir = ft_substr(cmd->redirs[i], 0, n);
 		if(!is_valid_redir(redir))

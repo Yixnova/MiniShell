@@ -99,7 +99,7 @@ void	handle_input_and_history(t_shelldata *shell)
 			tokenize_input(shell);
 			init_parsedata(shell);
 			if(!edit_cmds_arr(shell, *(shell->cmds), 0, 0))
-				start_processes(shell, *(shell->cmds));
+				printf("success\n");
 			execute_command(shell);
 		}
 		free(shell->input);

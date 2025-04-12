@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/12 17:16:23 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/12 17:27:52 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,8 @@ void	make_arg_array(t_cmd *cmd, t_shelldata *shell);
 void	make_redir_array(t_cmd *cmd, t_shelldata *shell);
 int		check_parse_errors(t_cmd *cmd);
 int		free_buffer(char *buffer, int i);
+char	*get_next_line(int fd, int i);
+void	make_limiter_arr(t_cmd	*cmd);
+int		is_valid_redir(char	*str);
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 14:10:31 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/12 14:16:47 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/12 17:36:00 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../inc/minishell.h"
 
-void	make_limiter_arr(t_cmd	*cmd, t_shelldata *shell)
+void	make_limiter_arr(t_cmd	*cmd)
 {
 	int	i;
 	int	n;
@@ -32,10 +32,12 @@ void	make_limiter_arr(t_cmd	*cmd, t_shelldata *shell)
 	i = 0;
 	while(cmd->redirs[i])
 	{
-		len = ft_strlen(cmd->redirs[i] + 3)
 		if(is_valid_redir(cmd->redirs[i]) == 3)
+		{
+			len = ft_strlen(cmd->redirs[i] + 3);
 			cmd->limiter_arr[n] = ft_substr(cmd->redirs[i], 3, len);
-		n++;
+			n++;
+		}
 		i++;
 	}
 }

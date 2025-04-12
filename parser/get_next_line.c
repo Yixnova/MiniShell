@@ -6,12 +6,11 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 13:50:49 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/12 17:16:07 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/12 17:28:13 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include "get_next_line_bonus.h"
+#include "../inc/minishell.h"
 
 char	*ft_join(char	*str, char	*joining)
 {

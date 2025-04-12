@@ -6,7 +6,7 @@
 #    By: busseven <busseven@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:42:59 by busseven          #+#    #+#              #
-#    Updated: 2025/04/12 12:57:04 by busseven         ###   ########.fr        #
+#    Updated: 2025/04/12 17:32:46 by busseven         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,9 @@ SRCS =	main.c\
 		./parser/make_arg_array.c \
 		./parser/make_redir_arr.c \
 		./parser/parse_errors.c \
+		./parser/make_limiter_array.c \
+		./parser/get_next_line.c \
+		./parser/parser_utils.c \
 
 OBJS = $(SRCS:.c=.o)
 LIBFT = libft/libft.a
@@ -65,4 +68,6 @@ fclean: clean
 re: fclean all
 	@echo "Rebuilding all..."
 
-.PHONY: all clean fclean re
+comp: all clean
+
+.PHONY: all clean fclean re comp
