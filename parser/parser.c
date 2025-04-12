@@ -6,11 +6,16 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/12 17:02:58 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/12 17:07:25 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	get_here_doc(t_cmd *cmd)
+{
+	pipe(cmd->hd_arr[i]);
+}
 
 void	open_here_documents(t_cmd *cmd)
 {
@@ -24,7 +29,7 @@ void	open_here_documents(t_cmd *cmd)
 	cmd->hd_arr = ft_calloc(count, sizeof(int[2]));
 	while(cmd->hd_arr[i])
 	{
-		pipe(cmd->hd_arr[i]);
+		get_here_doc(cmd, i);
 		i++;
 	}
 }
