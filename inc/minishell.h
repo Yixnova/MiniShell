@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/14 16:24:08 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:48:35 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ typedef struct s_cmd
 	int				output;
 	int				hd_index;
 	int				redir_index;
+	int				parse_error;
+	char			*faulty_token;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }	t_cmd;
@@ -97,5 +99,9 @@ void	make_limiter_arr(t_cmd	*cmd);
 int		is_valid_redir(char	*str);
 void	make_here_documents(t_cmd *cmd);
 void	make_here_documents(t_cmd *cmd);
+t_cmd	*ft_cmdnew(void);
+void	add_cmd(t_shelldata *shell, t_cmd *new);
+void	open_all_heredoc(t_cmd *cmd);
+void	free_2d_char(char **arr);
 
 #endif

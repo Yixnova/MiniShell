@@ -1,16 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   cmd_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/14 16:41:02 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:47:34 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+t_cmd	*ft_cmdnew(void)
+{
+	t_cmd	*new;
+
+	new = ft_calloc(1, sizeof(t_cmd));
+	return (new);
+}
+
+void	add_cmd(t_shelldata *shell, t_cmd *new)
+{
+	t_cmd	*temp;
+
+	if (!*(shell->cmds))
+	{
+		*(shell->cmds) = new;
+		return ;
+	}
+	temp = *(shell->cmds);
+	while (temp->next)
+	{
+		temp = temp->next;
+	}
+	temp->next = new;
+	new->prev = temp;
+}
 
 void	free_cmd_arr(t_cmd	**cmds)
 {
@@ -42,8 +68,7 @@ int	init_cmd(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
 	make_arg_array(cmd, shell);
 	make_redir_array(cmd, shell);
 	make_limiter_arr(cmd);
-	if(check_parse_errors(cmd))
-		return (1);
+	cmd->parse_error = check_parse_errors(cmd);
 	pipe(cmd->pipe);
 	printf("next cmd:\n");
 	return (0);
