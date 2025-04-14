@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 14:10:31 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/14 09:47:25 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:39:28 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int	has_valid_redir(char	*str)
 {
-	if(!strncmp(str, "> ", 2))
+	if (!strncmp(str, "> ", 2))
 		return (1);
-	if(!strncmp(str, ">> ", 3))
+	if (!strncmp(str, ">> ", 3))
 		return (2);
-	if(!strncmp(str, "<< ", 3))
+	if (!strncmp(str, "<< ", 3))
 		return (3);
-	if(!strncmp(str, "< ", 2))
+	if (!strncmp(str, "< ", 2))
 		return (4);
 	return (0);
 }
@@ -35,7 +35,7 @@ void	make_limiter_arr(t_cmd	*cmd)
 	i = 0;
 	count = 0;
 	n = 0;
-	while(cmd->redirs[i])
+	while (cmd->redirs[i])
 	{
 		if(has_valid_redir(cmd->redirs[i]) == 3)
 			count++;
@@ -43,7 +43,7 @@ void	make_limiter_arr(t_cmd	*cmd)
 	}
 	cmd->limiter_arr = ft_calloc(count + 1, sizeof(char *));
 	i = 0;
-	while(cmd->redirs[i])
+	while (cmd->redirs[i])
 	{
 		if(has_valid_redir(cmd->redirs[i]) == 3)
 		{

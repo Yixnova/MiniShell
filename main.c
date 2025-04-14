@@ -12,14 +12,6 @@
 
 #include "./inc/minishell.h"
 
-void	open_all_heredoc(t_cmd *cmd)
-{
-	while(cmd)
-	{
-		make_here_documents(cmd);
-		cmd = cmd->next;
-	}
-}
 t_cmd	*ft_cmdnew(void)
 {
 	t_cmd	*new;

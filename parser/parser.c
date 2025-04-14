@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/14 16:35:56 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:40:12 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	free_cmd_arr(t_cmd	**cmds)
 {
 	t_cmd	*temp;
 
-	while(*cmds)
+	while (*cmds)
 	{
 		temp = (*cmds)->next;
 		free_2d_char((*cmds)->tokens);
@@ -47,7 +47,7 @@ int	init_cmd(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
 
 	k = 0;
 	cmd->tokens = ft_calloc(*n - *i + 2, sizeof(char *));
-	while(shell->tokens && shell->tokens[*i] && *i < *n)
+	while (shell->tokens && shell->tokens[*i] && *i < *n)
 	{
 		cmd->tokens[k] = ft_strdup(shell->tokens[*i]);
 		k++;
@@ -55,12 +55,6 @@ int	init_cmd(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
 	}
 	make_arg_array(cmd, shell);
 	make_redir_array(cmd, shell);
-	int o = 0;
-	while(cmd->redirs[o])
-	{
-		printf("redir:%s\n", cmd->redirs[o]);
-		o++;
-	}
 	make_limiter_arr(cmd);
 	if(check_parse_errors(cmd))
 		return (1);
