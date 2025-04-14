@@ -12,6 +12,14 @@
 
 #include "./inc/minishell.h"
 
+void	open_all_heredoc(t_cmd *cmd)
+{
+	while(cmd)
+	{
+		make_here_documents(cmd);
+		cmd = cmd->next;
+	}
+}
 t_cmd	*ft_cmdnew(void)
 {
 	t_cmd	*new;
@@ -100,6 +108,7 @@ void	handle_input_and_history(t_shelldata *shell)
 			init_parsedata(shell);
 			if(!edit_cmds_arr(shell, *(shell->cmds), 0, 0))
 				printf("success\n");
+			open_all_heredoc(*(shell->cmds));
 			execute_command(shell);
 		}
 		free(shell->input);

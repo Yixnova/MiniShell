@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/14 16:23:50 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:35:56 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int	init_cmd(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
 	make_limiter_arr(cmd);
 	if(check_parse_errors(cmd))
 		return (1);
-	make_here_documents(cmd);
 	pipe(cmd->pipe);
 	printf("next cmd:\n");
 	return (0);
@@ -79,11 +78,7 @@ int	edit_cmds_arr(t_shelldata *shell, t_cmd *cmds, int i, int n)
 	}
 	while (shell->tokens && shell->tokens[n] && !is_pipe(shell->tokens[n]))
 		n++;
-	if(init_cmd(shell, cmds, &i, &n))
-	{
-		free_cmd_arr(shell->cmds);
-		return (1);
-	}
+	init_cmd(shell, cmds, &i, &n);
 	edit_cmds_arr(shell, cmds->next, i + 1, n + 1);
 	return (0);
 }
