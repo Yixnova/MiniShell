@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 11:53:00 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/12 17:32:16 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/14 09:49:57 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,7 @@ int	check_parse_errors(t_cmd *cmd)
 	char	*redir;
 
 	i = 0;
-	if(cmd->arg_count < 1)
-	{
-		printf("parse error near token '|'\n");
-		return (1);
-	}
+
 	while(cmd->redirs[i])
 	{
 		n = 0;
