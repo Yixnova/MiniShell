@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/14 13:26:23 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:22:17 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ void	make_here_documents(t_cmd *cmd)
 
 	h = 0;
 	count = 0;
+	while(cmd->limiter_arr[count])
+		count++;
+	printf("hd count: %d\n", count);
+	cmd->hd_arr = ft_calloc(count + 1, sizeof(int *));
 	while(cmd)
 	{
-		while(cmd->limiter_arr[count])
-			count++;
-		printf("hd count: %d\n", count);
-		cmd->hd_arr = ft_calloc(count + 1, sizeof(int *));
 		while(count > 0)
 		{
 			cmd->hd_arr[h] = ft_calloc(2, sizeof(int));
@@ -111,6 +111,7 @@ int	init_cmd(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
 	printf("checking errors:");
 	if(check_parse_errors(cmd))
 		return (1);
+	make_here_documents(cmd);
 	pipe(cmd->pipe);
 	printf("next cmd:\n");
 	return (0);
@@ -131,6 +132,5 @@ int	edit_cmds_arr(t_shelldata *shell, t_cmd *cmds, int i, int n)
 		return (1);
 	}
 	edit_cmds_arr(shell, cmds->next, i + 1, n + 1);
-	make_here_documents(cmds);
 	return (0);
 }
