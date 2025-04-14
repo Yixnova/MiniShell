@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/14 18:58:12 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/14 19:01:02 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	init_cmd(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
 	make_redir_array(cmd, shell);
 	make_limiter_arr(cmd);
 	if(check_parse_errors(cmd))
-		//error: öbür komutlara bakmaz
+		//syntax error olduktan sonra hiçbir komut execute edilmez ama heredoclar açılır
 	pipe(cmd->pipe);
 	return (0);
 }
