@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 12:48:33 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/03/26 20:36:05 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/14 09:40:53 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_env	*build_env_list(char **envp)
 			tail = new_node;
 		}
 	}
+	head->envp = envp;
 	return (head);
 }
 
