@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/12 16:57:24 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/14 09:54:32 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	start_processes(t_shelldata *shell, t_cmd **cmds)
 			open_files(t_cmd *cmds);
 			//hangi dosyaya yönlendirme yapılacağını belirleyen fonk.
 			//yigitin yazdığın executer buraya gelecek
+			exit(1);
 		}
 		*cmds = (*cmds)->next;
 	}
