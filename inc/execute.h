@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_cmd.c                                         :+:      :+:    :+:   */
+/*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/26 12:59:15 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/14 14:49:10 by yigsahin         ###   ########.fr       */
+/*   Created: 2025/04/14 14:45:59 by yigsahin          #+#    #+#             */
+/*   Updated: 2025/04/14 14:48:08 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/built_in.h"
+#ifndef EXECUTE_H
+# define EXECUTE_H
 
-void	exit_command(char **args, t_shelldata *shell)
-{
-	int	status;
+# include "minishell.h"
 
-	status = 0;
-	if (args[1])
-		status = ft_atoi(args[1]);
-	free_shell_data(shell);
-	exit(status);
-}
+typedef struct s_cmd		t_cmd;
+typedef struct s_shelldata	t_shelldata;
+
+void	array_free(char **arr);
+char	*ft_myjoin(const char *s1, const char *s2, const char *s3);
+void	execute_command(t_cmd *cmd, t_shelldata *shell);
+int		handle_builtin_command(t_shelldata *shell, char **args);
+
+#endif

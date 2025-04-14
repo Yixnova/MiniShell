@@ -99,7 +99,7 @@ void	handle_input_and_history(t_shelldata *shell)
 			tokenize_input(shell);
 			init_parsedata(shell);
 			edit_cmds_arr(shell, *(shell->cmds), 0, 0);
-			execute_command(shell);
+			execute_command(*(shell->cmds), shell);
 		}
 		free(shell->input);
 		shell->input = NULL;

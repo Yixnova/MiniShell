@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/14 09:44:46 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:52:01 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@
 # include <sys/stat.h>
 # include <termios.h>
 # include <unistd.h>
+# include <sys/wait.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 # include "../libft/libft.h"
 # include "built_in.h"
 # include "lexing.h"
-# include <readline/readline.h>
-# include <readline/history.h>
 # include "expand.h"
-# include <sys/wait.h>
+# include "execute.h"
 
 # define BUFFER_SIZE 1024
 
@@ -82,11 +83,6 @@ void	handle_input_and_history(t_shelldata *shelldata);
 void	free_shell_data(t_shelldata *shelldata);
 void	sigint_handler(int signum);
 void	setup_signals(void);
-
-void	array_free(char **arr);
-char	*ft_myjoin(const char *s1, const char *s2, const char *s3);
-void	execute_command(t_shelldata *shell);
-int		handle_builtin_command(t_shelldata *shell, char **args);
 
 void	edit_cmds_arr(t_shelldata *shell, t_cmd *cmds, int i, int n);
 int		is_pipe(char *str);

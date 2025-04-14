@@ -6,11 +6,11 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 10:06:33 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/09 12:43:14 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:49:48 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../inc/lexing.h"
 
 char	**split_into_words(char *str)
 {

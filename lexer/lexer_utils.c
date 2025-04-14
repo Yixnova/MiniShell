@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:36:13 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/12 10:25:24 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:49:55 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../inc/lexing.h"
 
 char	*copy_redirs(char	*str, int	*n)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   remove_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 11:09:33 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/11 12:47:18 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:50:01 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../inc/lexing.h"
 
 static int	handle_quotes(int *i, int *in_quotes, int *type, const char *src)
 {

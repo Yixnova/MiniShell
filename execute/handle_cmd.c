@@ -6,11 +6,11 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 09:24:57 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/14 09:44:07 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:49:27 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../inc/execute.h"
 
 void	array_free(char **arr)
 {

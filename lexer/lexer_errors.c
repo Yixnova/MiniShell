@@ -6,11 +6,11 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 15:51:23 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/09 13:09:04 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:49:52 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../inc/lexing.h"
 
 void	unclosed_quotes(void)
 {

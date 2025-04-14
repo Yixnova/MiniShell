@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../inc/execute.h"
 
 static int	is_directory(const char *path)
 {
-	struct stat	f;
+	struct stat	file;
 
-	if (lstat(path, &f) == 0 && S_ISDIR(f.st_mode))
+	if (lstat(path, &file) == 0 && S_ISDIR(file.st_mode))
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(path, 2);
@@ -26,7 +26,7 @@ static int	is_directory(const char *path)
 	return (0);
 }
 
-static int	command_not_found(const char *cmd)
+static int	not_found(const char *cmd)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(cmd, 2);
@@ -34,7 +34,7 @@ static int	command_not_found(const char *cmd)
 	return (127);
 }
 
-static int	execute_external_command(char **args, t_shelldata *shell)
+static int	external_command(char **args, t_shelldata *shell)
 {
 	char	**paths;
 	char	*cmd_path;
@@ -44,7 +44,7 @@ static int	execute_external_command(char **args, t_shelldata *shell)
 		execve(args[0], args, shell->env->envp);
 	paths = ft_split(find_env(shell->env, "PATH")->value, ':');
 	if (!paths)
-		return (command_not_found(args[0]));
+		return (not_found(args[0]));
 	i = 0;
 	while (paths[i])
 	{
@@ -59,31 +59,23 @@ static int	execute_external_command(char **args, t_shelldata *shell)
 		i++;
 	}
 	array_free(paths);
-	return (command_not_found(args[0]));
+	return (not_found(args[0]));
 }
 
-void	execute_command(t_shelldata *shell)
+void	execute_command(t_cmd *cmd, t_shelldata *shell)
 {
-	char	**args = ft_split(shell->input, ' ');
 	pid_t	pid;
 	int		status;
 
-	if (!args || !args[0])
-	{
-		array_free(args);
+	if (!cmd || !cmd->args || !cmd->args[0])
 		return ;
-	}
-	if (handle_builtin_command(shell, args))
-	{
-		array_free(args);
+	if (handle_builtin_command(shell, cmd->args))
 		return ;
-	}
 	pid = fork();
 	if (pid == 0)
-		exit(execute_external_command(args, shell));
+		exit(external_command(cmd->args, shell));
 	else if (pid > 0)
 		waitpid(pid, &status, 0);
 	else
 		perror("fork");
-	array_free(args);
 }
