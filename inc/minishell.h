@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/12 10:32:07 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/14 09:28:33 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ typedef struct s_cmd
 	struct s_cmd	*prev;
 }	t_cmd;
 
-
 typedef struct s_env
 {
 	char			*name;
 	char			*value;
 	struct s_env	*next;
+	char			**envp;
 }	t_env;
 
 typedef struct s_shelldata
@@ -83,7 +83,11 @@ void	free_shell_data(t_shelldata *shelldata);
 void	sigint_handler(int signum);
 void	setup_signals(void);
 
+void	ft_arrfree(char **arr);
+char	*ft_myjoin(const char *s1, const char *s2, const char *s3);
 void	execute_command(t_shelldata *shell);
+int		handle_builtin_command(t_shelldata *shell, char **args);
+
 void	edit_cmds_arr(t_shelldata *shell, t_cmd *cmds, int i, int n);
 int		is_pipe(char *str);
 int		is_redir(char	*str);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: busseven <busseven@student.42.fr>          +#+  +:+       +#+         #
+#    By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:42:59 by busseven          #+#    #+#              #
-#    Updated: 2025/04/11 16:51:33 by busseven         ###   ########.fr        #
+#    Updated: 2025/04/14 09:26:12 by yigsahin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCS =	main.c\
 		./utils/input_utils.c\
 		./signals/signals.c\
 		./execute/execute.c\
+		./execute/handle_cmd.c\
 		./built_in/env_cmd.c\
 		./built_in/echo_cmd.c\
 		./built_in/cd_cmd.c\

@@ -12,33 +12,78 @@
 
 #include "../inc/minishell.h"
 
+static int	is_directory(const char *path)
+{
+	struct stat	f;
+
+	if (lstat(path, &f) == 0 && S_ISDIR(f.st_mode))
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(path, 2);
+		ft_putendl_fd(": is a directory", 2);
+		return (1);
+	}
+	return (0);
+}
+
+static int	command_not_found(const char *cmd)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putendl_fd(": command not found", 2);
+	return (127);
+}
+
+static int	execute_external_command(char **args, t_shelldata *shell)
+{
+	char	**paths;
+	char	*cmd_path;
+	int		i;
+
+	if (access(args[0], F_OK | X_OK) == 0 && !is_directory(args[0]))
+		execve(args[0], args, shell->env->envp);
+	paths = ft_split(find_env(shell->env, "PATH")->value, ':');
+	if (!paths)
+		return (command_not_found(args[0]));
+	i = 0;
+	while (paths[i])
+	{
+		cmd_path = ft_myjoin(paths[i], "/", args[0]);
+		if (access(cmd_path, F_OK | X_OK) == 0)
+		{
+			execve(cmd_path, args, shell->env->envp);
+			free(cmd_path);
+			break ;
+		}
+		free(cmd_path);
+		i++;
+	}
+	ft_arrfree(paths);
+	return (command_not_found(args[0]));
+}
+
 void	execute_command(t_shelldata *shell)
 {
-	char	**args;
+	char	**args = ft_split(shell->input, ' ');
+	pid_t	pid;
+	int		status;
 
-	args = ft_split(shell->input, ' ');
 	if (!args || !args[0])
 	{
-		ft_putendl_fd("Error: Failed to parse input.", 2);
+		ft_arrfree(args);
 		return ;
 	}
-	if (ft_strncmp(args[0], "env", 4) == 0)
-		env_command(shell->env, args);
-	else if (ft_strncmp(args[0], "echo", 5) == 0)
-		echo_command(args);
-	else if (ft_strncmp(args[0], "cd", 3) == 0)
-		cd_command(args[1]);
-	else if (ft_strncmp(args[0], "pwd", 4) == 0)
-		pwd();
-	else if (ft_strncmp(args[0], "export", 7) == 0)
-		export_command(&(shell->env), args);
-	else if (ft_strncmp(args[0], "unset", 6) == 0)
-		unset_command(&(shell->env), args);
-	else if (ft_strncmp(args[0], "exit", 5) == 0)
-		exit_command(args, shell);
-	else
+	if (handle_builtin_command(shell, args))
 	{
-		ft_putstr_fd("Command not found: ", 2);
-		ft_putendl_fd(shell->input, 2);
+		ft_arrfree(args);
+		return ;
 	}
+	pid = fork();
+	if (pid == 0)
+		exit(execute_external_command(args, shell));
+	else if (pid > 0)
+		waitpid(pid, &status, 0);
+	else
+		perror("fork");
+	ft_arrfree(args);
 }
