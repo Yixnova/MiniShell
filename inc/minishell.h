@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/14 11:16:38 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/14 12:49:10 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_cmd
 	char			**redirs;
 	char			**limiter_arr;
 	int				pipe[2];
-	int				(*hd_arr)[2];
+	int				**hd_arr;
 	int				input;
 	int				output;
 	int				hd_index;
