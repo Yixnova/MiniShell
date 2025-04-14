@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/14 16:20:50 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:24:08 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int		free_buffer(char *buffer, int i);
 char	*get_next_line(int fd, int i);
 void	make_limiter_arr(t_cmd	*cmd);
 int		is_valid_redir(char	*str);
+void	make_here_documents(t_cmd *cmd);
 void	make_here_documents(t_cmd *cmd);
 
 #endif
