@@ -6,11 +6,26 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 17:13:29 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/14 16:39:57 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:41:11 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	free_2d_char(char **arr)
+{
+	int	i;
+
+	i = 0;
+	if (!arr)
+		return ;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+}
 
 int		is_pipe(char *str)
 {

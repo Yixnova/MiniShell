@@ -6,26 +6,12 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/14 16:40:12 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:41:02 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	free_2d_char(char **arr)
-{
-	int	i;
-
-	i = 0;
-	if(!arr)
-		return ;
-	while(arr[i])
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
-}
 void	free_cmd_arr(t_cmd	**cmds)
 {
 	t_cmd	*temp;
