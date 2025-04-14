@@ -6,7 +6,7 @@
 #    By: busseven <busseven@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/21 08:39:47 by yigsahin          #+#    #+#              #
-#    Updated: 2025/04/12 17:10:05 by busseven         ###   ########.fr        #
+#    Updated: 2025/04/14 11:26:28 by busseven         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,8 +54,7 @@ SRCS=	ft_isalpha.c\
 		ft_lstdelone_bonus.c\
 		ft_lstclear_bonus.c\
 		ft_lstiter_bonus.c\
-		ft_lstmap_bonus.c\
-		get_next_line.c 
+		ft_lstmap_bonus.c
 
 OBJS= $(SRCS:.c=.o)
 

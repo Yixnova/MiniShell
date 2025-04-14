@@ -6,12 +6,30 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/14 11:20:31 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/14 11:25:41 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+void	open_here_document(t_cmd *cmd, int h)
+{
+	char	*line;
+
+	close(cmd->hd_arr[h][0]);
+	while(1)
+	{
+		printf("\n>");
+		line = get_next_line(0, 0);
+		if(!line)
+		{
+			printf("eof\n");
+			get_next_line(0, 1);
+			break ;
+		}
+		write(cmd->hd_arr[h][1], line, ft_strlen(line));
+	}
+}
 void	make_here_documents(t_cmd *cmd)
 {
 	int	i;
@@ -30,7 +48,7 @@ void	make_here_documents(t_cmd *cmd)
 		while(cmd->hd_arr[h])
 		{
 			pipe(cmd->hd_arr[h]);
-			open_here_document(cmd->hd_arr[h], cmd->limiter_arr[h]);
+			open_here_document(cmd, h);
 			h++;
 		}
 		cmd = cmd->next;
