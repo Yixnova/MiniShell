@@ -27,7 +27,6 @@ void	init_parsedata(t_shelldata *shell)
 		i++;
 	}
 	shell->cmds = ft_calloc(count + 1, sizeof(t_cmd *));
-	printf("count: %d\n", count);
 	while(count + 1 > 0)
 	{
 		add_cmd(shell, ft_cmdnew());
@@ -74,8 +73,7 @@ void	handle_input_and_history(t_shelldata *shell)
 			add_history(shell->input);
 			tokenize_input(shell);
 			init_parsedata(shell);
-			if(!edit_cmds_arr(shell, *(shell->cmds), 0, 0))
-				printf("success\n");
+			edit_cmds_arr(shell, *(shell->cmds), 0, 0);
 			open_all_heredoc(*(shell->cmds));
 			execute_command(shell);
 		}
