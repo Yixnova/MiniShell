@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/14 16:48:35 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/14 18:33:58 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <readline/history.h>
 # include "expand.h"
 # include <sys/wait.h>
+# include <fcntl.h>
 
 # define BUFFER_SIZE 1024
 
@@ -46,8 +47,11 @@ typedef struct s_cmd
 	int				**hd_arr;
 	int				input;
 	int				output;
-	int				hd_index;
-	int				redir_index;
+	int				append;
+	int				fd_count;
+	int				hd_count;
+	int				redir_count;
+	int				*file_descs;
 	int				parse_error;
 	char			*faulty_token;
 	struct s_cmd	*next;
