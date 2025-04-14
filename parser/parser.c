@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/14 10:03:35 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/14 10:07:32 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ int	init_cmd(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
 	printf("checking errors:");
 	if(check_parse_errors(cmd))
 		return (1);
-	open_here_documents(cmd);
 	pipe(cmd->pipe);
 	printf("next cmd:\n");
 	return (0);
