@@ -58,7 +58,7 @@ static int	execute_external_command(char **args, t_shelldata *shell)
 		free(cmd_path);
 		i++;
 	}
-	ft_arrfree(paths);
+	array_free(paths);
 	return (command_not_found(args[0]));
 }
 
@@ -70,12 +70,12 @@ void	execute_command(t_shelldata *shell)
 
 	if (!args || !args[0])
 	{
-		ft_arrfree(args);
+		array_free(args);
 		return ;
 	}
 	if (handle_builtin_command(shell, args))
 	{
-		ft_arrfree(args);
+		array_free(args);
 		return ;
 	}
 	pid = fork();
@@ -85,5 +85,5 @@ void	execute_command(t_shelldata *shell)
 		waitpid(pid, &status, 0);
 	else
 		perror("fork");
-	ft_arrfree(args);
+	array_free(args);
 }
