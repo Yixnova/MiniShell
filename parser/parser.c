@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/14 09:48:34 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/14 10:03:35 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,9 @@
 
 void	get_here_doc(t_cmd *cmd, int i)
 {
-	char	*line;
-
+	(void) i;
+	(void) cmd;
 	printf(">");
-	pipe(cmd->hd_arr[i]);
-	while (1)
-	{
-		line = get_next_line(0, 0);
-		write(cmd->hd_arr[i][1], line, ft_strlen(line));
-		if (!ft_strncmp(line, cmd->limiter_arr[i], ft_strlen(cmd->limiter_arr[i])))
-		{
-			get_next_line(0, 1);
-			free(line);
-			close(cmd->hd_arr[i][1]);
-			return ;
-		}
-		free(line);
-	}
 }
 
 void	open_here_documents(t_cmd *cmd)
@@ -42,7 +28,6 @@ void	open_here_documents(t_cmd *cmd)
 	count = 0;
 	while(cmd->limiter_arr[count])
 		count++;
-	count--;
 	printf("%d\n", count);
 	if(count > 0)
 		cmd->hd_arr = ft_calloc(count, sizeof(int *));
@@ -113,6 +98,7 @@ int	init_cmd(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
 	printf("checking errors:");
 	if(check_parse_errors(cmd))
 		return (1);
+	open_here_documents(cmd);
 	pipe(cmd->pipe);
 	printf("next cmd:\n");
 	return (0);
