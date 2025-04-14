@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/14 12:57:34 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/14 13:12:45 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,11 @@ void	open_here_document(t_cmd *cmd, int h)
 {
 	char	*line;
 
-	close(cmd->hd_arr[h][0]);
 	while(1)
 	{
-		printf("\n>");
-		line = get_next_line(0, 0);
-		if(!line)
-		{
-			printf("eof\n");
-			get_next_line(0, 1);
-			break ;
-		}
+		line = readline("> ");
 		if(!ft_strncmp(line, cmd->limiter_arr[h], ft_strlen(line)))
 		{
-			get_next_line(0, 1);
 			break ;
 		}
 		else
@@ -49,10 +40,12 @@ void	make_here_documents(t_cmd *cmd)
 		while(cmd->limiter_arr[count])
 			count++;
 		printf("hd count: %d\n", count);
-		cmd->hd_arr = ft_calloc(count + 1, sizeof(int[2]));
+		cmd->hd_arr = ft_calloc(count + 1, sizeof(int *));
 		while(count > 0)
 		{
+			cmd->hd_arr[h] = ft_calloc(2, sizeof(int));
 			pipe(cmd->hd_arr[h]);
+			open_here_document(cmd, h);
 			count--;
 			h++;
 		}
