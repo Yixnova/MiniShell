@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/14 13:12:45 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/14 13:26:23 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	open_here_document(t_cmd *cmd, int h)
 	while(1)
 	{
 		line = readline("> ");
-		if(!ft_strncmp(line, cmd->limiter_arr[h], ft_strlen(line)))
-		{
+		if(!line)
 			break ;
-		}
+		if(!ft_strncmp(line, cmd->limiter_arr[h], ft_strlen(line)))
+			break ;
 		else
 			write(cmd->hd_arr[h][1], line, ft_strlen(line));
 	}
