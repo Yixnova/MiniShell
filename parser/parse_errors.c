@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 11:53:00 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/14 09:49:57 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/14 10:12:21 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	check_parse_errors(t_cmd *cmd)
 		while(cmd->redirs[i][n] && cmd->redirs[i][n] != ' ')
 			n++;
 		redir = ft_substr(cmd->redirs[i], 0, n);
-		if(!is_valid_redir(redir))
+		if(!is_valid_redir(redir) || !cmd->redirs[i][n + 1])
 		{
 			printf("parse error near redir\n");
 			free(redir);
