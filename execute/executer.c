@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/15 19:38:19 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/15 19:48:33 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	pick_pipes(t_cmd *cmd)
 	if (cmd->prev)
 		cmd->input = cmd->prev->pipe[0];
 	if(cmd->next)
-		cmd->output = cmd->prev->pipe[1];
+		cmd->output = cmd->next->pipe[1];
 }
 void	pick_file_descriptors(t_cmd *cmd)
 {
@@ -62,7 +62,7 @@ void	open_files(t_cmd *cmd)
 	cmd->file_descs = ft_calloc(cmd->fd_count, sizeof(int));
 	while (cmd->redirs[i])
 	{
-		file_name = cmd->redirs[i] + is_in_str(cmd->redirs[i], ' ');
+		file_name = cmd->redirs[i] + is_in_str(cmd->redirs[i], ' ') + 1;
 		if(redir_num(cmd->redirs[i]))
 		{
 			if (redir_num(cmd->redirs[i]) == 1)
@@ -94,7 +94,6 @@ void	start_processes(t_shelldata *shell, t_cmd **cmds)
 			pick_pipes(*cmds);
 			open_files(*cmds);
 			pick_file_descriptors(*cmds);
-			printf("child\n");
 			execute_command(*cmds, shell);
 			close_pipes(*cmds);
 		}
