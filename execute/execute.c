@@ -3,15 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:08:21 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/15 12:08:24 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/15 19:26:15 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/execute.h"
 
+void	close_pipes(t_cmd	*cmd)
+{
+	if(cmd->input == cmd->prev->pipe[0])
+		close(cmd->prev->pipe[0]);
+	else if(cmd->input == cmd->hd_arr[cmd->hd_index][0])
+		close(cmd->hd_arr[cmd->hd_index][0]);
+	else if(cmd->input != 0)
+		close(cmd->input);
+	if(cmd->output == cmd->prev->pipe[1])
+	{
+		close(cmd->prev->pipe[1]);
+	}
+	else if(cmd->input != 1)
+		close(cmd->output);
+}
+
+void	redirect_cmd(t_cmd	*cmd)
+{
+	if(cmd->prev && cmd->input == cmd->prev->pipe[0])
+	{
+		dup2(cmd->prev->pipe[0], 0);
+		close(cmd->prev->pipe[1]);
+	}
+	else if(cmd->hd_arr[cmd->hd_index] && cmd->input == cmd->hd_arr[cmd->hd_index][0])
+		dup2(cmd->hd_arr[cmd->hd_index][0], 0);
+	else if(cmd->input != 0)
+		dup2(cmd->input, 0);
+	if(cmd->next && cmd->output == cmd->next->pipe[1])
+	{
+		dup2(cmd->next->pipe[1], 1);
+		close(cmd->next->pipe[0]);
+	}
+	else if(cmd->input != 1)
+		dup2(cmd->output, 1);
+}
 static int	is_directory(const char *path)
 {
 	struct stat	file;
@@ -69,6 +104,7 @@ void	execute_command(t_cmd *cmd, t_shelldata *shell)
 
 	if (!cmd || !cmd->args || !cmd->args[0])
 		return ;
+	redirect_cmd(cmd);
 	if (handle_builtin_command(shell, cmd->args))
 		return ;
 	pid = fork();

@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/15 19:01:33 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/15 19:21:50 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,26 @@ void	pick_file_descriptors(t_cmd *cmd)
 {
 	int	i;
 	int	f;
-	int	hd;
 
 	i = 0;
 	f = 0;
-	hd = 0;
 	while (cmd->redirs[i])
 	{
 		if (redir_num(cmd->redirs[i]) != 3)
 		{
 			if(redir_num(cmd->redirs[i]) == 2 || redir_num(cmd->redirs[i]) == 1)
+			{
 				cmd->output = cmd->file_descs[f];
+				cmd->append = redir_num(cmd->redirs[i]);
+			}
 			else if (redir_num(cmd->redirs[i]) == 4)
 				cmd->input = cmd->file_descs[f];
 			f++;
 		}
 		else
 		{
-			cmd->input = cmd->hd_arr[hd][0];
-			hd++;
+			cmd->input = cmd->hd_arr[cmd->hd_index][0];
+			cmd->hd_index++;
 		}
 		i++;
 	}
@@ -90,11 +91,11 @@ void	start_processes(t_shelldata *shell, t_cmd **cmds)
 		pid = fork();
 		if (pid == 0)
 		{
-			pick_pipes(cmds);
-			open_files(cmds);
-			pick_file_descriptors(cmds);
-			//yigitin yazdığın executer buraya gelecek
-			exit(1);
+			pick_pipes(*cmds);
+			open_files(*cmds);
+			pick_file_descriptors(*cmds);
+			execute_command(*cmds, shell);
+			close_pipes(*cmds);
 		}
 		*cmds = (*cmds)->next;
 	}
