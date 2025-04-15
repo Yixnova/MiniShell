@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/14 18:33:58 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/15 12:52:38 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_env
 	char			*name;
 	char			*value;
 	struct s_env	*next;
+	char			**envp;
 }	t_env;
 
 typedef struct s_shelldata
@@ -90,7 +91,6 @@ void	free_shell_data(t_shelldata *shelldata);
 void	sigint_handler(int signum);
 void	setup_signals(void);
 
-void	execute_command(t_shelldata *shell);
 int		edit_cmds_arr(t_shelldata *shell, t_cmd *cmds, int i, int n);
 int		is_pipe(char *str);
 int		is_redir(char	*str);

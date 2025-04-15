@@ -6,7 +6,7 @@
 #    By: busseven <busseven@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:42:59 by busseven          #+#    #+#              #
-#    Updated: 2025/04/14 16:44:03 by busseven         ###   ########.fr        #
+#    Updated: 2025/04/15 12:54:26 by busseven         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,8 @@ SRCS =	main.c\
 		./parser/get_next_line.c \
 		./parser/parser_utils.c \
 		./parser/here_doc.c \
+		./execute/execute.c \
+		./execute/handle_cmd.c \
 
 OBJS = $(SRCS:.c=.o)
 LIBFT = libft/libft.a

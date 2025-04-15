@@ -10,35 +10,65 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../inc/execute.h"
 
-void	execute_command(t_shelldata *shell)
+static int	is_directory(char *path)
 {
-	char	**args;
+	struct stat	file;
 
-	args = ft_split(shell->input, ' ');
-	if (!args || !args[0])
+	if (lstat(path, &file) == 0 && S_ISDIR(file.st_mode))
 	{
-		ft_putendl_fd("Error: Failed to parse input.", 2);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(path, 2);
+		ft_putendl_fd(": is a directory", 2);
+		return (1);
+	}
+	return (0);
+}
+
+static int	not_found(char *cmd)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putendl_fd(": command not found", 2);
+	return (127);
+}
+
+static int	external_command(char **args, t_shelldata *shell)
+{
+	char	**paths;
+	char	*cmd_path;
+	int		i;
+
+	if (access(args[0], F_OK | X_OK) == 0 && !is_directory(args[0]))
+		execve(args[0], args, shell->env->envp);
+	paths = ft_split(find_env(shell->env, "PATH")->value, ':');
+	if (!paths)
+		return (not_found(args[0]));
+	i = 0;
+	while (paths[i])
+	{
+		cmd_path = ft_myjoin(paths[i], "/", args[0]);
+		if (access(cmd_path, F_OK | X_OK) == 0)
+		{
+			execve(cmd_path, args, shell->env->envp);
+			free(cmd_path);
+			break ;
+		}
+		free(cmd_path);
+		i++;
+	}
+	array_free(paths);
+	return (not_found(args[0]));
+}
+
+void	execute_command(t_cmd *cmd, t_shelldata *shell)
+{
+	if (!cmd || !cmd->args || !cmd->args[0])
 		return ;
-	}
-	if (ft_strncmp(args[0], "env", 4) == 0)
-		env_command(shell->env, args);
-	else if (ft_strncmp(args[0], "echo", 5) == 0)
-		echo_command(args);
-	else if (ft_strncmp(args[0], "cd", 3) == 0)
-		cd_command(args[1]);
-	else if (ft_strncmp(args[0], "pwd", 4) == 0)
-		pwd();
-	else if (ft_strncmp(args[0], "export", 7) == 0)
-		export_command(&(shell->env), args);
-	else if (ft_strncmp(args[0], "unset", 6) == 0)
-		unset_command(&(shell->env), args);
-	else if (ft_strncmp(args[0], "exit", 5) == 0)
-		exit_command(args, shell);
-	else
-	{
-		ft_putstr_fd("Command not found: ", 2);
-		ft_putendl_fd(shell->input, 2);
-	}
+	dup2(cmd->input, 0);
+	dup2(cmd->output, 1);
+	if (handle_builtin_command(shell, cmd->args))
+		return ;
+	exit(external_command(cmd->args, shell));
 }
