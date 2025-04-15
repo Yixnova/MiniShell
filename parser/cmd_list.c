@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/15 12:24:29 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/15 12:25:36 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ int	init_cmd(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
 	if(check_parse_errors(cmd))
 		//syntax error olduktan sonra hiçbir komut execute edilmez ama heredoclar açılır
 	pipe(cmd->pipe);
-	cmd->input = 0;
-	cmd->output = 1;
 	return (0);
 }
 
@@ -86,10 +84,6 @@ int	edit_cmds_arr(t_shelldata *shell, t_cmd *cmds, int i, int n)
 	while (shell->tokens && shell->tokens[n] && !is_pipe(shell->tokens[n]))
 		n++;
 	init_cmd(shell, cmds, &i, &n);
-	if (cmd->prev)
-		cmd->input = cmd->prev->pipe[0];
-	if(cmd->next)
-		cmd->output = cmd->prev->pipe[1];
 	edit_cmds_arr(shell, cmds->next, i + 1, n + 1);
 	return (0);
 }
