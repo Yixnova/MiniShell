@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/15 19:19:14 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/15 19:39:46 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,6 @@ void	add_cmd(t_shelldata *shell, t_cmd *new);
 void	open_all_heredoc(t_cmd *cmd);
 void	free_2d_char(char **arr);
 void	close_pipes(t_cmd	*cmd);
+void	start_processes(t_shelldata *shell, t_cmd **cmds);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:08:21 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/15 19:28:18 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/15 19:34:02 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,9 @@ static int	external_command(char **args, t_shelldata *shell)
 void	execute_command(t_cmd *cmd, t_shelldata *shell)
 {
 	if (!cmd || !cmd->args || !cmd->args[0])
-		return ;
+		exit(1) ;
 	redirect_cmd(cmd);
 	if (handle_builtin_command(shell, cmd->args))
-		return ;
+		exit(0) ;
 	external_command(cmd->args, shell);
 }
