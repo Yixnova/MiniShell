@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 17:04:14 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/12 10:27:04 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/15 13:23:10 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,9 @@ char	*expand_str(char *str, t_shelldata *shell)
 			append_char(&exp, exp.input[exp.index++]);
 	}
 	return (exp.result);
+}
+
+char	*expand(char *token, void *shell)
+{
+	return expand_str(token, (t_shelldata *)shell);
 }
