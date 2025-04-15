@@ -6,13 +6,13 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/15 12:26:26 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/15 12:40:17 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	redir_to_pipes(t_cmd *cmd)
+void	pick_pipes(t_cmd *cmd)
 {
 	cmd->input = 0;
 	cmd->output = 1;
@@ -89,7 +89,7 @@ void	start_processes(t_shelldata *shell, t_cmd **cmds)
 		pid = fork();
 		if (pid == 0)
 		{
-			redir_to_pipes(t_cmd *cmds);
+			pick_pipes(t_cmd *cmds);
 			open_files(t_cmd *cmds);
 			pick_file_descriptor(t_cmd *cmds);
 			//yigitin yazdığın executer buraya gelecek
