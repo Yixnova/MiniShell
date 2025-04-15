@@ -75,7 +75,7 @@ void	handle_input_and_history(t_shelldata *shell)
 			init_parsedata(shell);
 			edit_cmds_arr(shell, *(shell->cmds), 0, 0);
 			open_all_heredoc(*(shell->cmds));
-			execute_command(shell);
+			execute_command(shell, shell);
 		}
 		free(shell->input);
 	}
