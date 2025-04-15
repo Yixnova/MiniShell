@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+         #
+#    By: busseven <busseven@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:42:59 by busseven          #+#    #+#              #
-#    Updated: 2025/04/15 13:13:04 by yigsahin         ###   ########.fr        #
+#    Updated: 2025/04/15 14:54:58 by busseven         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SRCS =	main.c\
 		./parser/get_next_line.c \
 		./parser/parser_utils.c \
 		./parser/here_doc.c \
+		./execute/executer.c \
 
 OBJS = $(SRCS:.c=.o)
 LIBFT = libft/libft.a
@@ -70,4 +71,6 @@ fclean: clean
 re: fclean all
 	@echo "Rebuilding all..."
 
-.PHONY: all clean fclean re
+comp: all clean
+
+.PHONY: all clean fclean re comp

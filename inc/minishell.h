@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/15 13:03:30 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/15 14:58:00 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <fcntl.h>
 # include "../libft/libft.h"
 # include "built_in.h"
 # include "lexing.h"
@@ -100,7 +101,7 @@ int		check_parse_errors(t_cmd *cmd);
 int		free_buffer(char *buffer, int i);
 char	*get_next_line(int fd, int i);
 void	make_limiter_arr(t_cmd	*cmd);
-int		is_valid_redir(char	*str);
+int		redir_num(char	*str);
 void	make_here_documents(t_cmd *cmd);
 void	make_here_documents(t_cmd *cmd);
 t_cmd	*ft_cmdnew(void);
