@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/15 18:57:49 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/15 19:01:33 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@ void	pick_file_descriptors(t_cmd *cmd)
 {
 	int	i;
 	int	f;
+	int	hd;
 
 	i = 0;
 	f = 0;
+	hd = 0;
 	while (cmd->redirs[i])
 	{
 		if (redir_num(cmd->redirs[i]) != 3)
@@ -37,6 +39,11 @@ void	pick_file_descriptors(t_cmd *cmd)
 			else if (redir_num(cmd->redirs[i]) == 4)
 				cmd->input = cmd->file_descs[f];
 			f++;
+		}
+		else
+		{
+			cmd->input = cmd->hd_arr[hd][0];
+			hd++;
 		}
 		i++;
 	}
