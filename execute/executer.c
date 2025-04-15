@@ -6,20 +6,35 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/14 18:49:41 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/15 11:40:44 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//	if(!cmd->prev)
-//		cmd->input = 0;
-//	else
-//		cmd->input = cmd->prev->pipe[0];
-//	if(cmd->next)
-//		cmd->output = cmd->prev->pipe[1];
-//	else
-//		cmd->output = 1;
+void	pick_file_descriptors(t_cmd *cmd)
+{
+	int	i;
+	int	n;
+	int	f;
+
+	i = 0;
+	n = 0;
+	f = 0;
+	if(!cmd->prev)
+		cmd->input = 0;
+	else
+		cmd->input = cmd->prev->pipe[0];
+	if(cmd->next)
+		cmd->output = cmd->prev->pipe[1];
+	else
+		cmd->output = 1;
+	while(cmd->redirs[i])
+	{
+		if (redir_num(cmd->redirs[i]) == 2)
+		i++;
+	}
+}
 
 void	open_files(t_cmd *cmd)
 {
@@ -34,16 +49,16 @@ void	open_files(t_cmd *cmd)
 	while(cmd->redirs[i])
 	{
 		file_name = cmd->redirs[i] + is_in_str(cmd->redirs[i], ' ');
-		if(has_valid_redir(cmd->redirs[i]))
+		if(redir_num(cmd->redirs[i]))
 		{
-			if(has_valid_redir(cmd->redirs[i]) == 1)
+			if(redir_num(cmd->redirs[i]) == 1)
 				cmd->file_descs[n] = open(file_name, O_RDWR | O_CREAT | O_TRUNC, 777);
-			else if(has_valid_redir(cmd->redirs[i]) == 2)
+			else if(redir_num(cmd->redirs[i]) == 2)
 				cmd->file_descs[n] = open(file_name, O_RDWR | O_CREAT | O_APPEND, 777);
-			else if(has_valid_redir(cmd->redirs[i]) == 4)
+			else if(redir_num(cmd->redirs[i]) == 4)
 				cmd->file_descs[n] = open(file_name, O_RDONLY);
 			if(cmd->file_descs[n] < 0)
-				//error:no such file
+				//error:no such file, exit from the process entirely.
 			n++;
 		}
 		i++;
@@ -63,7 +78,7 @@ void	start_processes(t_shelldata *shell, t_cmd **cmds)
 		if(pid == 0)
 		{
 			open_files(t_cmd *cmds);
-			//hangi dosyaya yönlendirme yapılacağını belirleyen fonk.
+			pick_file_descriptor(t_cmd *cmds);
 			//yigitin yazdığın executer buraya gelecek
 			exit(1);
 		}
