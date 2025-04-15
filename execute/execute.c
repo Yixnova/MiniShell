@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:08:21 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/15 19:26:15 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/15 19:28:18 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,19 +99,10 @@ static int	external_command(char **args, t_shelldata *shell)
 
 void	execute_command(t_cmd *cmd, t_shelldata *shell)
 {
-	pid_t	pid;
-	int		status;
-
 	if (!cmd || !cmd->args || !cmd->args[0])
 		return ;
 	redirect_cmd(cmd);
 	if (handle_builtin_command(shell, cmd->args))
 		return ;
-	pid = fork();
-	if (pid == 0)
-		exit(external_command(cmd->args, shell));
-	else if (pid > 0)
-		waitpid(pid, &status, 0);
-	else
-		perror("fork");
+	external_command(cmd->args, shell);
 }
