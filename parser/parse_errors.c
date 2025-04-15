@@ -1,43 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   make_arg_array.c                                   :+:      :+:    :+:   */
+/*   parse_errors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/09 13:28:56 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/14 16:39:19 by busseven         ###   ########.fr       */
+/*   Created: 2025/04/12 11:53:00 by busseven          #+#    #+#             */
+/*   Updated: 2025/04/14 16:39:45 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../inc/minishell.h"
 
-void	make_arg_array(t_cmd *cmd, t_shelldata *shell)
+int	check_parse_errors(t_cmd *cmd)
 {
-	int	i;
-	int	n;
+	int		i;
+	int		n;
+	char	*redir;
 
 	i = 0;
-	n = 0;
-	while (cmd->tokens[i])
+
+	while (cmd->redirs[i])
 	{
-		if(is_redir(cmd->tokens[i]))
-			i++;
-		else
-			cmd->arg_count++;
-		i++;
-	}
-	i = 0;
-	cmd->args = ft_calloc(cmd->arg_count + 1, sizeof(char *));
-	while (cmd->tokens[i])
-	{
-		if (is_redir(cmd->tokens[i]))
-			i++;
-		else
-		{
-			cmd->args[n] = remove_quotes(expand(cmd->tokens[i], shell));
+		n = 0;
+		while (cmd->redirs[i][n] && cmd->redirs[i][n] != ' ')
 			n++;
+		redir = ft_substr(cmd->redirs[i], 0, n);
+		if (!is_valid_redir(redir) || !cmd->redirs[i][n + 1])
+		{
+			printf("parse error near redir\n");
+			free(redir);
+			return (1);
 		}
+		free(redir);
 		i++;
 	}
+	return (0);
 }

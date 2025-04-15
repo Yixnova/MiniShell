@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/14 14:52:01 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/15 13:03:30 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,24 @@ typedef struct s_cmd
 {
 	char			**tokens;
 	char			**args;
+	int				arg_count;
 	char			**redirs;
 	char			**limiter_arr;
 	int				pipe[2];
 	int				**hd_arr;
 	int				input;
 	int				output;
-	int				hd_index;
-	int				redir_index;
+	int				append;
+	int				fd_count;
+	int				hd_count;
+	int				redir_count;
+	int				*file_descs;
+	int				parse_error;
+	char			*faulty_token;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }	t_cmd;
+
 
 typedef struct s_env
 {
@@ -84,10 +91,21 @@ void	free_shell_data(t_shelldata *shelldata);
 void	sigint_handler(int signum);
 void	setup_signals(void);
 
-void	edit_cmds_arr(t_shelldata *shell, t_cmd *cmds, int i, int n);
+int		edit_cmds_arr(t_shelldata *shell, t_cmd *cmds, int i, int n);
 int		is_pipe(char *str);
 int		is_redir(char	*str);
 void	make_arg_array(t_cmd *cmd, t_shelldata *shell);
 void	make_redir_array(t_cmd *cmd, t_shelldata *shell);
+int		check_parse_errors(t_cmd *cmd);
+int		free_buffer(char *buffer, int i);
+char	*get_next_line(int fd, int i);
+void	make_limiter_arr(t_cmd	*cmd);
+int		is_valid_redir(char	*str);
+void	make_here_documents(t_cmd *cmd);
+void	make_here_documents(t_cmd *cmd);
+t_cmd	*ft_cmdnew(void);
+void	add_cmd(t_shelldata *shell, t_cmd *new);
+void	open_all_heredoc(t_cmd *cmd);
+void	free_2d_char(char **arr);
 
 #endif

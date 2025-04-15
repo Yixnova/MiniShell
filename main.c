@@ -12,31 +12,6 @@
 
 #include "./inc/minishell.h"
 
-t_cmd	*ft_cmdnew(void)
-{
-	t_cmd	*new;
-
-	new = ft_calloc(1, sizeof(t_cmd));
-	return (new);
-}
-void	add_cmd(t_shelldata *shell, t_cmd *new)
-{
-	t_cmd	*temp;
-
-	if (!*(shell->cmds))
-	{
-		*(shell->cmds) = new;
-		return ;
-	}
-	temp = *(shell->cmds);
-	while (temp->next)
-	{
-		temp = temp->next;
-	}
-	temp->next = new;
-	new->prev = temp;
-}
-
 void	init_parsedata(t_shelldata *shell)
 {
 	int		i;
@@ -51,7 +26,6 @@ void	init_parsedata(t_shelldata *shell)
 		i++;
 	}
 	shell->cmds = ft_calloc(count + 1, sizeof(t_cmd *));
-	printf("count: %d\n", count);
 	while(count + 1 > 0)
 	{
 		add_cmd(shell, ft_cmdnew());
@@ -99,10 +73,10 @@ void	handle_input_and_history(t_shelldata *shell)
 			tokenize_input(shell);
 			init_parsedata(shell);
 			edit_cmds_arr(shell, *(shell->cmds), 0, 0);
+			open_all_heredoc(*(shell->cmds));
 			execute_command(*(shell->cmds), shell);
 		}
 		free(shell->input);
-		shell->input = NULL;
 	}
 }
 
