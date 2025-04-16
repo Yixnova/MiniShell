@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:08:21 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/15 19:34:02 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/16 09:57:29 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,31 +20,25 @@ void	close_pipes(t_cmd	*cmd)
 		close(cmd->hd_arr[cmd->hd_index][0]);
 	else if(cmd->input != 0)
 		close(cmd->input);
-	if(cmd->output == cmd->prev->pipe[1])
+	if(cmd->output == cmd->pipe[1])
 	{
-		close(cmd->prev->pipe[1]);
+		close(cmd->pipe[1]);
 	}
-	else if(cmd->input != 1)
+	else if(cmd->output != 1)
 		close(cmd->output);
 }
 
 void	redirect_cmd(t_cmd	*cmd)
 {
 	if(cmd->prev && cmd->input == cmd->prev->pipe[0])
-	{
 		dup2(cmd->prev->pipe[0], 0);
-		close(cmd->prev->pipe[1]);
-	}
 	else if(cmd->hd_arr[cmd->hd_index] && cmd->input == cmd->hd_arr[cmd->hd_index][0])
 		dup2(cmd->hd_arr[cmd->hd_index][0], 0);
 	else if(cmd->input != 0)
 		dup2(cmd->input, 0);
-	if(cmd->next && cmd->output == cmd->next->pipe[1])
-	{
-		dup2(cmd->next->pipe[1], 1);
-		close(cmd->next->pipe[0]);
-	}
-	else if(cmd->input != 1)
+	if(cmd && cmd->output == cmd->pipe[1])
+		dup2(cmd->pipe[1], 1);
+	else if(cmd->output != 1)
 		dup2(cmd->output, 1);
 }
 static int	is_directory(const char *path)

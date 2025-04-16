@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/15 19:48:33 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/16 09:44:57 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	pick_pipes(t_cmd *cmd)
 	if (cmd->prev)
 		cmd->input = cmd->prev->pipe[0];
 	if(cmd->next)
-		cmd->output = cmd->next->pipe[1];
+		cmd->output = cmd->pipe[1];
 }
 void	pick_file_descriptors(t_cmd *cmd)
 {
