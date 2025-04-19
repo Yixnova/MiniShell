@@ -6,13 +6,53 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:08:21 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/15 12:08:24 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/19 13:32:59 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/execute.h"
 
-static int	is_directory(const char *path)
+void	close_all_pipes_in_child(t_shelldata *shell)
+{
+	int	i;
+
+	i = 0;
+	while (shell->pipes && i < shell->cmd_count - 1)
+	{
+		close(shell->pipes[i][0]);
+		close(shell->pipes[i][1]);
+		i++;
+	}
+}
+
+void	redir_cmd(t_cmd *cmd, t_shelldata *shell, int i)
+{
+	if(cmd->input_type == 1)
+	{
+		dup2(shell->pipes[i - 1][0], 0);
+		close(shell->pipes[i - 1][1]);
+	}
+	else if(cmd->input_type == 2)
+		dup2(cmd->input, 0);
+	else if(cmd->input_type == 3)
+	{
+		dup2(cmd->hd_arr[cmd->hd_index][0], 0);
+		close(cmd->hd_arr[cmd->hd_index][1]);
+	}
+	if(cmd->output_type == 1)
+	{
+		dup2(shell->pipes[i][1], 1);
+		close(shell->pipes[i][0]);
+	}
+	else if(cmd->output_type == 2)
+		dup2(cmd->output, 1);
+	if(i > 0)
+		close(shell->pipes[i - 1][0]);
+	if(i < shell->cmd_count - 1)
+		close(shell->pipes[i][1]);
+}
+
+int	is_directory(const char *path)
 {
 	struct stat	file;
 
@@ -26,56 +66,21 @@ static int	is_directory(const char *path)
 	return (0);
 }
 
-static int	not_found(const char *cmd)
+void	execute_command(t_cmd *cmd, t_shelldata *shell, int i)
 {
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(cmd, 2);
-	ft_putendl_fd(": command not found", 2);
-	return (127);
-}
-
-static int	external_command(char **args, t_shelldata *shell)
-{
-	char	**paths;
-	char	*cmd_path;
-	int		i;
-
-	if (access(args[0], F_OK | X_OK) == 0 && !is_directory(args[0]))
-		execve(args[0], args, shell->env->envp);
-	paths = ft_split(find_env(shell->env, "PATH")->value, ':');
-	if (!paths)
-		return (not_found(args[0]));
-	i = 0;
-	while (paths[i])
-	{
-		cmd_path = ft_myjoin(paths[i], "/", args[0]);
-		if (access(cmd_path, F_OK | X_OK) == 0)
-		{
-			execve(cmd_path, args, shell->env->envp);
-			free(cmd_path);
-			break ;
-		}
-		free(cmd_path);
-		i++;
-	}
-	array_free(paths);
-	return (not_found(args[0]));
-}
-
-void	execute_command(t_cmd *cmd, t_shelldata *shell)
-{
-	pid_t	pid;
-	int		status;
-
 	if (!cmd || !cmd->args || !cmd->args[0])
-		return ;
+		exit(1);
+	find_command_path(cmd, shell);
+	redir_cmd(cmd, shell, i);
 	if (handle_builtin_command(shell, cmd->args))
-		return ;
-	pid = fork();
-	if (pid == 0)
-		exit(external_command(cmd->args, shell));
-	else if (pid > 0)
-		waitpid(pid, &status, 0);
-	else
-		perror("fork");
+	{
+		if (cmd->path)
+			free(cmd->path);
+		exit(0);
+	}
+	execve(cmd->path, cmd->args, shell->env->envp);
+	close_all_pipes_in_child(shell);
+	if (cmd->path)
+		free(cmd->path);
+	exit(1);
 }

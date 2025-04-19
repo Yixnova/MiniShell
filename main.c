@@ -15,10 +15,13 @@
 void	init_parsedata(t_shelldata *shell)
 {
 	int		i;
+	int		n;
 	int		count;
+	int		pipe_count;
 
 	i = 0;
 	count = 0;
+	n = 0;
 	while(shell->tokens[i])
 	{
 		if(ft_strlen(shell->tokens[i]) == 1 && shell->tokens[i][0] == '|')
@@ -26,10 +29,20 @@ void	init_parsedata(t_shelldata *shell)
 		i++;
 	}
 	shell->cmds = ft_calloc(count + 1, sizeof(t_cmd *));
+	shell->cmd_count = count + 1;
+	pipe_count = count;
 	while(count + 1 > 0)
 	{
 		add_cmd(shell, ft_cmdnew());
 		count--;
+	}
+	shell->pipes = ft_calloc(pipe_count, sizeof(int *));
+	while(pipe_count > 0)
+	{
+		shell->pipes[n] = ft_calloc(2, sizeof(int));
+		pipe(shell->pipes[n]);
+		pipe_count--;
+		n++;
 	}
 }
 void	free_shell_data(t_shelldata *data)
@@ -51,6 +64,16 @@ void	disable_echoctl(void)
 	term.c_lflag &= ~ECHOCTL;
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
+void	process_input(t_shelldata *shell)
+{
+	add_history(shell->input);
+	if(tokenize_input(shell))
+		return ;
+	init_parsedata(shell);
+	edit_cmds_arr(shell, *(shell->cmds), 0, 0);
+	open_all_heredoc(*(shell->cmds));
+	start_processes(shell, shell->cmds);
+}
 
 void	handle_input_and_history(t_shelldata *shell)
 {
@@ -69,12 +92,7 @@ void	handle_input_and_history(t_shelldata *shell)
 		}
 		if (shell->input[0] != '\0')
 		{
-			add_history(shell->input);
-			tokenize_input(shell);
-			init_parsedata(shell);
-			edit_cmds_arr(shell, *(shell->cmds), 0, 0);
-			open_all_heredoc(*(shell->cmds));
-			execute_command(*(shell->cmds), shell);
+			process_input(shell);
 		}
 		free(shell->input);
 	}
@@ -86,6 +104,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
+	errno = 0;
 	shell = ft_calloc(1, sizeof(t_shelldata));
 	if (!shell)
 	{

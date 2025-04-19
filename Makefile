@@ -6,11 +6,11 @@
 #    By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:42:59 by busseven          #+#    #+#              #
-#    Updated: 2025/04/19 11:53:16 by yigsahin         ###   ########.fr        #
+#    Updated: 2025/04/19 13:35:53 by yigsahin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = mini_shell
+NAME = minishell
 CC = gcc
 CFLAGS = -g -Wall -Wextra -Werror
 LIBS = -lreadline
@@ -43,7 +43,9 @@ SRCS =	main.c\
 		./parser/get_next_line.c \
 		./parser/parser_utils.c \
 		./parser/here_doc.c \
-		./execute/executer.c \
+		./execute/processes.c \
+		./execute/process_errors.c\
+		./execute/find_command_path.c\
 		./history/history_file.c\
 
 OBJS = $(SRCS:.c=.o)

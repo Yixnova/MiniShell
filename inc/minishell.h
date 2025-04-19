@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/19 11:55:11 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/19 13:33:36 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@
 # include "lexing.h"
 # include "expand.h"
 # include "execute.h"
-# include "histedit.h"
+# include "errno.h"
+# include "termios.h"
 
 # define BUFFER_SIZE 1024
 
@@ -45,21 +46,26 @@ typedef struct s_cmd
 	int				arg_count;
 	char			**redirs;
 	char			**limiter_arr;
-	int				pipe[2];
 	int				**hd_arr;
+	int				hd_index;
 	int				input;
+	int				index;
 	int				output;
 	int				append;
+	int				input_type; //stdin, pipe or file or heredoc
+	int				output_type; //stdout pipe or file
 	int				fd_count;
 	int				hd_count;
 	int				redir_count;
 	int				*file_descs;
 	int				parse_error;
+	int				invalid; // Komut gerçekten bulunuyor mu? Yoksa error ve exit;
+	int				built_in; // Komut built-in ise 1, değilse 0
+	char			*path; // Bulunan yürütülebilir dosyanın tam yolu
 	char			*faulty_token;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }	t_cmd;
-
 
 typedef struct s_env
 {
@@ -73,11 +79,14 @@ typedef struct s_shelldata
 {
 	char		*input;
 	int			on_word;
+	int			cmd_count;
 	int			count;
 	char		**tokens;
 	char		**paths;
 	t_cmd		**cmds;
+	int			**pipes;
 	t_env		*env;
+	int		command_index;
 	int		exit_status;
 }	t_shelldata;
 
@@ -109,5 +118,10 @@ t_cmd	*ft_cmdnew(void);
 void	add_cmd(t_shelldata *shell, t_cmd *new);
 void	open_all_heredoc(t_cmd *cmd);
 void	free_2d_char(char **arr);
+void	close_pipes(t_shelldata *shell);
+void	start_processes(t_shelldata *shell, t_cmd **cmds);
+void	invalid_file(char *file_name);
+void	open_error(char *file);
+char	*ft_join(char	*str, char	*joining);
 
 #endif

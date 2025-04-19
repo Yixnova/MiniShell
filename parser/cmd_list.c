@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/15 12:25:36 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/19 13:04:34 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,76 +14,75 @@
 
 t_cmd	*ft_cmdnew(void)
 {
-	t_cmd	*new;
+    t_cmd	*new;
 
-	new = ft_calloc(1, sizeof(t_cmd));
-	return (new);
+    new = ft_calloc(1, sizeof(t_cmd));
+    return (new);
 }
 
 void	add_cmd(t_shelldata *shell, t_cmd *new)
 {
-	t_cmd	*temp;
+    t_cmd	*temp;
 
-	if (!*(shell->cmds))
-	{
-		*(shell->cmds) = new;
-		return ;
-	}
-	temp = *(shell->cmds);
-	while (temp->next)
-	{
-		temp = temp->next;
-	}
-	temp->next = new;
-	new->prev = temp;
+    if (!*(shell->cmds))
+    {
+        *(shell->cmds) = new;
+        return ;
+    }
+    temp = *(shell->cmds);
+    while (temp->next)
+    {
+        temp = temp->next;
+    }
+    temp->next = new;
+    new->prev = temp;
 }
 
 void	free_cmd_arr(t_cmd	**cmds)
 {
-	t_cmd	*temp;
+    t_cmd	*temp;
 
-	while (*cmds)
-	{
-		temp = (*cmds)->next;
-		free_2d_char((*cmds)->tokens);
-		free_2d_char((*cmds)->args);
-		free_2d_char((*cmds)->redirs);
-		free_2d_char((*cmds)->limiter_arr);
-		free(*cmds);
-		*cmds = temp;
-	}
+    while (*cmds)
+    {
+        temp = (*cmds)->next;
+        free_2d_char((*cmds)->tokens);
+        free_2d_char((*cmds)->args);
+        free_2d_char((*cmds)->redirs);
+        free_2d_char((*cmds)->limiter_arr);
+        if ((*cmds)->path)
+            free((*cmds)->path);
+        free(*cmds);
+        *cmds = temp;
+    }
 }
+
 int	init_cmd(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
 {
-	int	k;
+    int k;
 
-	k = 0;
-	cmd->tokens = ft_calloc(*n - *i + 2, sizeof(char *));
-	while (shell->tokens && shell->tokens[*i] && *i < *n)
-	{
-		cmd->tokens[k] = ft_strdup(shell->tokens[*i]);
-		k++;
-		(*i)++;
-	}
-	make_arg_array(cmd, shell);
-	make_redir_array(cmd, shell);
-	make_limiter_arr(cmd);
-	if(check_parse_errors(cmd))
-		//syntax error olduktan sonra hiçbir komut execute edilmez ama heredoclar açılır
-	pipe(cmd->pipe);
-	return (0);
+    k = 0;
+    cmd->tokens = ft_calloc(*n - *i + 2, sizeof(char *));
+    while (shell->tokens && shell->tokens[*i] && *i < *n)
+    {
+        cmd->tokens[k] = ft_strdup(shell->tokens[*i]);
+        k++;
+        (*i)++;
+    }
+    make_arg_array(cmd, shell);
+    make_redir_array(cmd, shell);
+    make_limiter_arr(cmd);
+    return (0);
 }
 
 int	edit_cmds_arr(t_shelldata *shell, t_cmd *cmds, int i, int n)
 {
-	if (!cmds)
-	{
-		printf("no cmd\n");
-		return (0);
-	}
-	while (shell->tokens && shell->tokens[n] && !is_pipe(shell->tokens[n]))
-		n++;
-	init_cmd(shell, cmds, &i, &n);
-	edit_cmds_arr(shell, cmds->next, i + 1, n + 1);
-	return (0);
+    if (!cmds)
+    {
+        return (0);
+    }
+    while (shell->tokens && shell->tokens[n] && !is_pipe(shell->tokens[n]))
+        n++;
+    init_cmd(shell, cmds, &i, &n);
+    edit_cmds_arr(shell, cmds->next, i + 1, n + 1);
+    return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 10:33:26 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/14 14:48:56 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/19 14:03:41 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,4 @@ void	echo_command(char **arg)
 	}
 	if (no_line == 0)
 		printf("\n");
-	free_arguments(arg);
 }

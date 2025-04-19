@@ -1,25 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executer.c                                         :+:      :+:    :+:   */
+/*   processes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/19 11:59:51 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/19 14:10:00 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/execute.h"
+#include "../inc/minishell.h"
 
+void	not_here_doc(t_cmd *cmd, int i, int f)
+{
+	if(redir_num(cmd->redirs[i]) == 2 || redir_num(cmd->redirs[i]) == 1)
+	{
+		cmd->output = cmd->file_descs[f];
+		cmd->output_type = 2;
+	}
+	else if (redir_num(cmd->redirs[i]) == 4)
+	{
+		cmd->input = cmd->file_descs[f];
+		cmd->input_type = 2;
+	}
+}
 void	pick_pipes(t_cmd *cmd)
 {
-	cmd->input = 0;
-	cmd->output = 1;
+	cmd->input_type = 0;
+	cmd->output_type = 0;
 	if (cmd->prev)
-		cmd->input = cmd->prev->pipe[0];
-	if(cmd->next)
-		cmd->output = cmd->prev->pipe[1];
+		cmd->input_type = 1;
+	if (cmd->next)
+		cmd->output_type = 1;
 }
 void	pick_file_descriptors(t_cmd *cmd)
 {
@@ -32,17 +45,14 @@ void	pick_file_descriptors(t_cmd *cmd)
 	{
 		if (redir_num(cmd->redirs[i]) != 3)
 		{
-			if(redir_num(cmd->redirs[i]) < 4)
-			{
-				close(cmd->output);
-				cmd->output = cmd->file_descs[f];
-			}
-			else if (redir_num(cmd->redirs[i]) == 4)
-			{
-				close(cmd->input);
-				cmd->input = cmd->file_descs[f];
-			}
+			not_here_doc(cmd, i, f);
 			f++;
+		}
+		else
+		{
+			cmd->input = cmd->hd_arr[cmd->hd_index][0];
+			cmd->input_type = 3;
+			cmd->hd_index++;
 		}
 		i++;
 	}
@@ -70,9 +80,40 @@ void	open_files(t_cmd *cmd)
 			else if (redir_num(cmd->redirs[i]) == 4)
 				cmd->file_descs[n] = open(file_name, O_RDONLY);
 			if (cmd->file_descs[n] < 0)
-				//error:no such file, exit from the process entirely.
+				open_error(file_name);
 			n++;
 		}
+		i++;
+	}
+}
+
+void	wait_for_children(int pid, t_shelldata *shell)
+{
+	int	status;
+	int	i;
+
+	i = 0;
+	while (i < shell->cmd_count)
+	{
+		printf("waiting...\n");
+		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+		{
+			shell->exit_status = WEXITSTATUS(status);
+		}
+		i++;
+		printf("waited\n");
+	}
+}
+void	close_pipes(t_shelldata *shell)
+{
+	int	i;
+
+	i = 0;
+	while (shell->pipes && i < shell->cmd_count - 1)
+	{
+		close(shell->pipes[i][0]);
+		close(shell->pipes[i][1]);
 		i++;
 	}
 }
@@ -80,10 +121,11 @@ void	open_files(t_cmd *cmd)
 void	start_processes(t_shelldata *shell, t_cmd **cmds)
 {
 	int		pid;
-	int		status;
+	int		i;
 	t_cmd	*temp;
 
 	temp = *cmds;
+	i = 0;
 	while (*cmds)
 	{
 		pid = fork();
@@ -92,16 +134,18 @@ void	start_processes(t_shelldata *shell, t_cmd **cmds)
 			pick_pipes(*cmds);
 			open_files(*cmds);
 			pick_file_descriptors(*cmds);
-			//yigitin yazdığın executer buraya gelecek
-			exit(1);
+			execute_command(*cmds, shell, i);
 		}
+		else
+		{
+			if(i > 0)
+				close(shell->pipes[i - 1][0]);
+			if(i < shell->cmd_count - 1)
+				close(shell->pipes[i][1]);
+		}
+		i++;
 		*cmds = (*cmds)->next;
 	}
-	waitpid(pid, &status, 0);
-	if (WIFEXITED(status))
-	{
-		shell->exit_status = WEXITSTATUS(status);
-		printf("%d\n", WEXITSTATUS(status));
-	}
+	wait_for_children(pid, shell);
 	*cmds = temp;
 }

@@ -26,7 +26,7 @@ int		count_words(char *str);
 void	handle_array_quotes(char *str, int *i, int *in_quotes, int *type);
 
 void	unclosed_quotes(void);
-void	tokenize_input(t_shelldata *data);
+int		tokenize_input(t_shelldata *data);
 char	*remove_quotes(char *str);
 void	free_token_arr(char **token_arr);
 char	*expand(char *token, void *shell);
