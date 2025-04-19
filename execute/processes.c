@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/19 14:58:40 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/19 15:06:12 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,10 @@ void	start_processes(t_shelldata *shell, t_cmd **cmds)
 			pick_file_descriptors(*cmds);
 			execute_command(*cmds, shell, i);
 		}
+		if((*cmds)->prev)
+			close(shell->pipes[i - 1][0]);
+		if((*cmds)->next)
+			close(shell->pipes[i][1]);
 		i++;
 		*cmds = (*cmds)->next;
 	}
