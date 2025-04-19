@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: busseven <busseven@student.42.fr>          +#+  +:+       +#+         #
+#    By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:42:59 by busseven          #+#    #+#              #
-#    Updated: 2025/04/15 14:54:58 by busseven         ###   ########.fr        #
+#    Updated: 2025/04/19 11:53:16 by yigsahin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRCS =	main.c\
 		./parser/parser_utils.c \
 		./parser/here_doc.c \
 		./execute/executer.c \
+		./history/history_file.c\
 
 OBJS = $(SRCS:.c=.o)
 LIBFT = libft/libft.a

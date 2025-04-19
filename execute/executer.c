@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/15 14:58:24 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/19 11:59:51 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../inc/execute.h"
 
 void	pick_pipes(t_cmd *cmd)
 {
@@ -82,16 +82,16 @@ void	start_processes(t_shelldata *shell, t_cmd **cmds)
 	int		pid;
 	int		status;
 	t_cmd	*temp;
-	
+
 	temp = *cmds;
 	while (*cmds)
 	{
 		pid = fork();
 		if (pid == 0)
 		{
-			pick_pipes(cmds);
-			open_files(cmds);
-			pick_file_descriptors(cmds);
+			pick_pipes(*cmds);
+			open_files(*cmds);
+			pick_file_descriptors(*cmds);
 			//yigitin yazdığın executer buraya gelecek
 			exit(1);
 		}
