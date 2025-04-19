@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/17 19:55:34 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/19 15:09:51 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	check_pipe_error(t_shelldata *data, int *i)
 {
+	if(!data->tokens)
+		return (0);
 	while(data->tokens && data->tokens[*i])
 	{
 		if(is_pipe(data->tokens[*i]))
