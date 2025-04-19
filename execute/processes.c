@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/19 16:03:44 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/19 16:40:18 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,17 +129,13 @@ void	start_processes(t_shelldata *shell, t_cmd **cmds)
 				exit(127);
 			}
 			execute_command(*cmds, shell, i);
-			exit (0);
 		}
+		if(i != 0)
+			close(shell->pipes[i - 1][0]);
+		if(i != shell->cmd_count - 1)
+			close(shell->pipes[i][1]);
 		i++;
 		*cmds = (*cmds)->next;
-	}
-	int k = 0;
-	while(k < shell->cmd_count - 2)
-	{
-		close(shell->pipes[k][1]);
-		close(shell->pipes[k][0]);
-		k++;
 	}
 	wait_for_children(pid, shell);
 	*cmds = temp;
