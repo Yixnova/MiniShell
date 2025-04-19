@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   find_command_path.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 13:34:02 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/19 14:07:38 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/19 15:29:33 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/execute.h"
 
-static int	check_builtin_and_path(t_cmd *cmd, t_shelldata *shell)
+int	check_builtin_and_path(t_cmd *cmd, t_shelldata *shell)
 {
 	cmd->built_in = handle_builtin_command(shell, cmd->args);
 	if (cmd->built_in)
@@ -31,7 +31,7 @@ static int	check_builtin_and_path(t_cmd *cmd, t_shelldata *shell)
 	return (0);
 }
 
-static int	search_in_paths(t_cmd *cmd, t_shelldata *shell)
+int	search_in_paths(t_cmd *cmd, t_shelldata *shell)
 {
 	t_env	*env_path = find_env(shell->env, "PATH");
 	char	**paths;
@@ -58,16 +58,4 @@ static int	search_in_paths(t_cmd *cmd, t_shelldata *shell)
 	}
 	array_free(paths);
 	return (0);
-}
-
-void	find_command_path(t_cmd *cmd, t_shelldata *shell)
-{
-	if (check_builtin_and_path(cmd, shell))
-		return;
-	if (search_in_paths(cmd, shell))
-		return;
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(cmd->args[0], 2);
-	ft_putendl_fd(": command not found", 2);
-	exit(127);
 }

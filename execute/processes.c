@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/19 15:06:12 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/19 16:03:44 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,10 @@ void	open_files(t_cmd *cmd)
 void	wait_for_children(int pid, t_shelldata *shell)
 {
 	int	status;
-	int	i;
+	int	n;
 
-	i = 0;
-	while (i < shell->cmd_count)
+	n = 0;
+	while (n < shell->cmd_count)
 	{
 		printf("waiting...\n");
 		waitpid(pid, &status, 0);
@@ -101,9 +101,10 @@ void	wait_for_children(int pid, t_shelldata *shell)
 		{
 			shell->exit_status = WEXITSTATUS(status);
 		}
-		i++;
+		n++;
 		printf("waited\n");
 	}
+	printf("waited all\n");
 }
 
 
@@ -115,22 +116,30 @@ void	start_processes(t_shelldata *shell, t_cmd **cmds)
 
 	temp = *cmds;
 	i = 0;
+	pid = 1;
 	while (*cmds)
 	{
-		pid = fork();
+		if(pid != 0)
+			pid = fork();
 		if (pid == 0)
 		{
-			pick_pipes(*cmds);
-			open_files(*cmds);
-			pick_file_descriptors(*cmds);
+			if((*cmds)->invalid)
+			{
+				printf("exiting.....");
+				exit(127);
+			}
 			execute_command(*cmds, shell, i);
+			exit (0);
 		}
-		if((*cmds)->prev)
-			close(shell->pipes[i - 1][0]);
-		if((*cmds)->next)
-			close(shell->pipes[i][1]);
 		i++;
 		*cmds = (*cmds)->next;
+	}
+	int k = 0;
+	while(k < shell->cmd_count - 2)
+	{
+		close(shell->pipes[k][1]);
+		close(shell->pipes[k][0]);
+		k++;
 	}
 	wait_for_children(pid, shell);
 	*cmds = temp;

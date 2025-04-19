@@ -64,6 +64,27 @@ void	disable_echoctl(void)
 	term.c_lflag &= ~ECHOCTL;
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
+int	find_command_path(t_cmd *cmd, t_shelldata *shell)
+{
+	if (check_builtin_and_path(cmd, shell))
+		return (1);
+	if (search_in_paths(cmd, shell))
+		return (1);
+	return(0);
+}
+
+void	check_files_and_commands(t_shelldata *data, t_cmd *cmd)
+{
+	while(cmd)
+	{
+		pick_pipes(cmd);
+		open_files(cmd);
+		pick_file_descriptors(cmd);
+		if(!find_command_path(cmd, data))
+			cmd->invalid = 1;
+		cmd = cmd->next;
+	}
+}
 void	process_input(t_shelldata *shell)
 {
 	add_history(shell->input);
@@ -72,6 +93,7 @@ void	process_input(t_shelldata *shell)
 	init_parsedata(shell);
 	edit_cmds_arr(shell, *(shell->cmds), 0, 0);
 	open_all_heredoc(*(shell->cmds));
+	check_files_and_commands(shell, *(shell->cmds));
 	start_processes(shell, shell->cmds);
 }
 
