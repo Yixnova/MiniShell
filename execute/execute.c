@@ -3,53 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:08:21 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/19 13:32:59 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/19 14:58:25 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/execute.h"
-
-void	close_all_pipes_in_child(t_shelldata *shell)
-{
-	int	i;
-
-	i = 0;
-	while (shell->pipes && i < shell->cmd_count - 1)
-	{
-		close(shell->pipes[i][0]);
-		close(shell->pipes[i][1]);
-		i++;
-	}
-}
 
 void	redir_cmd(t_cmd *cmd, t_shelldata *shell, int i)
 {
 	if(cmd->input_type == 1)
 	{
 		dup2(shell->pipes[i - 1][0], 0);
-		close(shell->pipes[i - 1][1]);
 	}
 	else if(cmd->input_type == 2)
 		dup2(cmd->input, 0);
 	else if(cmd->input_type == 3)
 	{
 		dup2(cmd->hd_arr[cmd->hd_index][0], 0);
-		close(cmd->hd_arr[cmd->hd_index][1]);
 	}
 	if(cmd->output_type == 1)
 	{
 		dup2(shell->pipes[i][1], 1);
-		close(shell->pipes[i][0]);
 	}
 	else if(cmd->output_type == 2)
 		dup2(cmd->output, 1);
-	if(i > 0)
-		close(shell->pipes[i - 1][0]);
-	if(i < shell->cmd_count - 1)
-		close(shell->pipes[i][1]);
 }
 
 int	is_directory(const char *path)
@@ -79,7 +59,6 @@ void	execute_command(t_cmd *cmd, t_shelldata *shell, int i)
 		exit(0);
 	}
 	execve(cmd->path, cmd->args, shell->env->envp);
-	close_all_pipes_in_child(shell);
 	if (cmd->path)
 		free(cmd->path);
 	exit(1);

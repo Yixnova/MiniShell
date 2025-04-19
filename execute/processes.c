@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   processes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/19 14:10:00 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/19 14:58:40 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,18 +105,7 @@ void	wait_for_children(int pid, t_shelldata *shell)
 		printf("waited\n");
 	}
 }
-void	close_pipes(t_shelldata *shell)
-{
-	int	i;
 
-	i = 0;
-	while (shell->pipes && i < shell->cmd_count - 1)
-	{
-		close(shell->pipes[i][0]);
-		close(shell->pipes[i][1]);
-		i++;
-	}
-}
 
 void	start_processes(t_shelldata *shell, t_cmd **cmds)
 {
@@ -135,13 +124,6 @@ void	start_processes(t_shelldata *shell, t_cmd **cmds)
 			open_files(*cmds);
 			pick_file_descriptors(*cmds);
 			execute_command(*cmds, shell, i);
-		}
-		else
-		{
-			if(i > 0)
-				close(shell->pipes[i - 1][0]);
-			if(i < shell->cmd_count - 1)
-				close(shell->pipes[i][1]);
 		}
 		i++;
 		*cmds = (*cmds)->next;
