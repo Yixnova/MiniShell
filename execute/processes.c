@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/21 20:11:27 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/21 20:56:15 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ void	start_processes(t_shelldata *shell, t_cmd **cmds)
 	{
 		if(pid != 0)
 			pid = fork();
+		printf("%d\n", pid);
 		if (pid == 0)
 			execute_command(*cmds, shell, i);
 		if(i != 0)
