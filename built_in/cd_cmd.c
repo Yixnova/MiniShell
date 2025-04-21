@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:53:39 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/21 17:29:52 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/21 18:22:48 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,21 @@ void	pwd(void)
 
 void	cd_command(char *path)
 {
-	const char	*dir;
+	int		ret;
+	char	*home;
 
-	if (path == NULL)
+	ret = 0;
+	home = NULL;
+	if (!path)
 	{
-		dir = getenv("HOME");
-		if (!dir)
-		{
-			write(2, "cd: HOME not set\n", 18);
-			return ;
-		}
+		home = getenv("HOME");
+		path = home;
 	}
-	else
-		dir = path;
-	if (chdir(dir) != 0)
+	ret = chdir(path);
+	if (ret != 0)
 	{
-		perror("cd");
+		ft_putstr_fd("cd: ", 2);
+		ft_putstr_fd(path, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
 	}
 }

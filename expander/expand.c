@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 17:04:14 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/15 13:23:10 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/21 18:08:22 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ static void	process_variable(t_expander *exp, t_shelldata *shell)
 
 static void	process_double_quotes(t_expander *exp, t_shelldata *shell)
 {
-	while (exp->input[exp->index])
+	exp->index++; // skip opening "
+	while (exp->input[exp->index] && exp->input[exp->index] != '"')
 	{
 		if (exp->input[exp->index] == '$')
 			process_variable(exp, shell);
@@ -53,18 +54,15 @@ static void	process_double_quotes(t_expander *exp, t_shelldata *shell)
 
 static void	process_single_quotes(t_expander *exp)
 {
-	char	*expanded;
-	char	*temp;
-	int		start;
+	int	start;
 
+	exp->index++; // skip opening '
 	start = exp->index;
 	while (exp->input[exp->index] && exp->input[exp->index] != '\'')
 		exp->index++;
-	expanded = ft_substr(exp->input, start, exp->index - start + 1);
-	temp = ft_strjoin(exp->result, expanded);
-	free(exp->result);
-	free(expanded);
-	exp->result = temp;
+	// Copy literally, no expansion
+	while (start < exp->index)
+		append_char(exp, exp->input[start++]);
 	if (exp->input[exp->index] == '\'')
 		exp->index++;
 }
