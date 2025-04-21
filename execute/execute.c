@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:08:21 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/19 18:26:06 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/21 13:23:48 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	redir_cmd(t_cmd *cmd, t_shelldata *shell, int i)
 	{
 		close(shell->pipes[i - 1][1]);
 		dup2(shell->pipes[i - 1][0], 0);
-		close(shell->pipes[i - 1][0]);
 	}
 	else if(cmd->input_type == 2)
 		dup2(cmd->input, 0);
@@ -30,7 +29,6 @@ void	redir_cmd(t_cmd *cmd, t_shelldata *shell, int i)
 	{
 		close(shell->pipes[i][0]);
 		dup2(shell->pipes[i][1], 1);
-		close(shell->pipes[i][1]);
 	}
 	else if(cmd->output_type == 2)
 		dup2(cmd->output, 1);
@@ -54,6 +52,8 @@ void	execute_command(t_cmd *cmd, t_shelldata *shell, int i)
 {
 	if (!cmd || !cmd->args || !cmd->args[0])
 		exit(1);
+	if(cmd->invalid)
+		exit(127);
 	redir_cmd(cmd, shell, i);
 	if (handle_builtin_command(shell, cmd->args))
 	{
