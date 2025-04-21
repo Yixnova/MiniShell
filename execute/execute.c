@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:08:21 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/19 18:26:06 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/21 20:12:00 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ void	redir_cmd(t_cmd *cmd, t_shelldata *shell, int i)
 	if(cmd->input_type == 1)
 	{
 		close(shell->pipes[i - 1][1]);
-		dup2(shell->pipes[i - 1][0], 0);
-		close(shell->pipes[i - 1][0]);
+		if(dup2(shell->pipes[i - 1][0], 0) == -1)
+		{
+			printf("dup fail\n");
+		}
 	}
 	else if(cmd->input_type == 2)
 		dup2(cmd->input, 0);
@@ -29,8 +31,10 @@ void	redir_cmd(t_cmd *cmd, t_shelldata *shell, int i)
 	if(cmd->output_type == 1)
 	{
 		close(shell->pipes[i][0]);
-		dup2(shell->pipes[i][1], 1);
-		close(shell->pipes[i][1]);
+		if(dup2(shell->pipes[i][1], 1) == -1)
+		{
+			printf("dup fail\n");
+		}
 	}
 	else if(cmd->output_type == 2)
 		dup2(cmd->output, 1);
@@ -52,8 +56,16 @@ int	is_directory(const char *path)
 
 void	execute_command(t_cmd *cmd, t_shelldata *shell, int i)
 {
+	if(i != 0)
+		exit(10);
 	if (!cmd || !cmd->args || !cmd->args[0])
 		exit(1);
+	if(cmd->invalid)
+	{
+		close(shell->pipes[0][1]);
+		close(shell->pipes[0][0]);
+		exit(127);
+	}
 	redir_cmd(cmd, shell, i);
 	if (handle_builtin_command(shell, cmd->args))
 	{
@@ -62,7 +74,9 @@ void	execute_command(t_cmd *cmd, t_shelldata *shell, int i)
 		exit(0);
 	}
 	if(execve(cmd->path, cmd->args, shell->env->envp) == -1)
+	{
 		exit(1);
+	}
 	if (cmd->path)
 		free(cmd->path);
 	exit(1);
