@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   processes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/21 15:37:11 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/21 16:56:47 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,15 +105,13 @@ void	wait_for_children(int pid, t_shelldata *shell, t_cmd *cmd)
 	}
 }
 
-
-void	start_processes(t_shelldata *shell, t_cmd *cmd, int fd_in, int fd_out)
+void	start_processes(t_shelldata *shell, t_cmd *cmd, int fd_in)
 {
 	int		pid;
 	int		fd[2];
 
 	if(!cmd)
 		return ;
-	printf("recursion\n");
 	pid = 1;
 	if(cmd->next)
 		pipe(fd);
@@ -132,9 +130,7 @@ void	start_processes(t_shelldata *shell, t_cmd *cmd, int fd_in, int fd_out)
 	}
 	if(pid != 0)
 	{
-		if(fd_out > 1)
-		close(fd_out);
-		start_processes(shell, cmd->next, fd[0]);	
+		start_processes(shell, cmd->next, fd[0]);
+		wait_for_children(pid, shell, *(shell->cmds));
 	}
-	wait_for_children(pid, shell, *(shell->cmds));
 }

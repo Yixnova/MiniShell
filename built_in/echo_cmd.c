@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 10:33:26 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/19 14:03:41 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/21 17:29:52 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ void	echo_command(char **arg)
 	i = no_line + 1;
 	while (arg[i] != NULL)
 	{
-		printf("%s", arg[i]);
+		ft_putstr_fd(arg[i], 1);
 		if (arg[i + 1] != NULL)
-			printf(" ");
+			ft_putchar_fd(' ', 1);
 		i++;
 	}
 	if (no_line == 0)
-		printf("\n");
+		ft_putchar_fd('\n', 1);
 }
