@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/21 11:02:14 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/21 11:31:30 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	open_files(t_cmd *cmd)
 	}
 }
 
-void	wait_for_children(int pid, t_shelldata *shell)
+void	wait_for_children(int pid, t_shelldata *shell, t_cmd *cmd)
 {
 	int	status;
 	int	n;
@@ -96,10 +96,14 @@ void	wait_for_children(int pid, t_shelldata *shell)
 	while (n < shell->cmd_count)
 	{
 		waitpid(pid, &status, 0);
-		if (WIFEXITED(status))
+		if (WIFEXITED(status) && n == shell->cmd_count - 1)
 		{
-			shell->exit_status = WEXITSTATUS(status);
+			if((cmd->invalid))
+				shell->exit_status = 127;
+			else
+				shell->exit_status = WEXITSTATUS(status);
 		}
+		cmd = cmd->next;
 		n++;
 	}
 }
@@ -118,7 +122,6 @@ void	start_processes(t_shelldata *shell, t_cmd **cmds)
 	{
 		if((*cmds)->invalid)
 		{
-			shell->exit_status = 127;
 			i++;
 			(*cmds) = (*cmds)->next;
 			if(!(*cmds))
@@ -135,6 +138,6 @@ void	start_processes(t_shelldata *shell, t_cmd **cmds)
 		i++;
 		*cmds = (*cmds)->next;
 	}
-	wait_for_children(pid, shell);
 	*cmds = temp;
+	wait_for_children(pid, shell, *cmds);
 }
