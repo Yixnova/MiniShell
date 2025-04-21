@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 10:31:23 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/21 13:17:38 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/21 13:53:59 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,25 +34,10 @@ void	check_files_and_commands(t_shelldata *data, t_cmd *cmd)
 	}
 }
 
-void	make_pipes(int pipe_count, t_shelldata *shell)
-{
-	int	n;
-
-	n = 0;
-	while(pipe_count > 0)
-	{
-		shell->pipes[n] = ft_calloc(2, sizeof(int));
-		pipe(shell->pipes[n]);
-		pipe_count--;
-		n++;
-	}
-}
-
 void	init_parsedata(t_shelldata *shell)
 {
 	int		i;
 	int		count;
-	int		pipe_count;
 
 	i = 0;
 	count = 0;
@@ -64,12 +49,9 @@ void	init_parsedata(t_shelldata *shell)
 	}
 	shell->cmds = ft_calloc(count + 1, sizeof(t_cmd *));
 	shell->cmd_count = count + 1;
-	pipe_count = count;
 	while(count + 1 > 0)
 	{
 		add_cmd(shell, ft_cmdnew());
 		count--;
 	}
-	shell->pipes = ft_calloc(pipe_count, sizeof(int *));
-	make_pipes(pipe_count, shell);
 }

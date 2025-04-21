@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/21 13:17:32 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/21 14:13:19 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,24 +113,11 @@ void	start_processes(t_shelldata *shell, t_cmd **cmds)
 {
 	int		pid;
 	int		i;
+	int		pipe[2];
 	t_cmd	*temp;
 
 	temp = *cmds;
 	i = 0;
 	pid = 1;
-	while (*cmds)
-	{
-		if(pid != 0)
-			pid = fork();
-		if (pid == 0)
-			execute_command(*cmds, shell, i);
-		if(i != 0)
-			close(shell->pipes[i - 1][0]);
-		if(i != shell->cmd_count - 1)
-			close(shell->pipes[i][1]);
-		i++;
-		*cmds = (*cmds)->next;
-	}
-	*cmds = temp;
 	wait_for_children(pid, shell, *cmds);
 }

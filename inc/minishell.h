@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/21 11:04:57 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/21 13:44:35 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ typedef struct s_shelldata
 	char		**tokens;
 	char		**paths;
 	t_cmd		**cmds;
-	int			**pipes;
+	int			pipe1[2];
+	int			pipe2[2];
 	t_env		*env;
 	int		command_index;
 	int		exit_status;
