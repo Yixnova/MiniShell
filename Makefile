@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+         #
+#    By: busseven <busseven@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:42:59 by busseven          #+#    #+#              #
-#    Updated: 2025/04/19 13:35:53 by yigsahin         ###   ########.fr        #
+#    Updated: 2025/04/21 11:04:36 by busseven         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRCS =	main.c\
 		./execute/process_errors.c\
 		./execute/find_command_path.c\
 		./history/history_file.c\
+		./parser/init_parsedata.c
 
 OBJS = $(SRCS:.c=.o)
 LIBFT = libft/libft.a

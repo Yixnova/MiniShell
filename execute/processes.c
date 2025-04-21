@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/21 10:26:59 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/21 11:02:14 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ void	start_processes(t_shelldata *shell, t_cmd **cmds)
 	{
 		if((*cmds)->invalid)
 		{
+			shell->exit_status = 127;
 			i++;
 			(*cmds) = (*cmds)->next;
 			if(!(*cmds))
@@ -125,15 +126,6 @@ void	start_processes(t_shelldata *shell, t_cmd **cmds)
 		}
 		if(pid != 0)
 			pid = fork();
-		if((*cmds)->invalid)
-		{
-			i++;
-			(*cmds) = (*cmds)->next;
-			if(pid == 0)
-				exit(127);
-			if(!(*cmds))
-				break ;
-		}
 		if (pid == 0)
 			execute_command(*cmds, shell, i);
 		if(i != 0)
