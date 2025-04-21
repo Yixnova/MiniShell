@@ -41,7 +41,7 @@ void	process_input(t_shelldata *shell)
 	edit_cmds_arr(shell, *(shell->cmds), 0, 0);
 	open_all_heredoc(*(shell->cmds));
 	check_files_and_commands(shell, *(shell->cmds));
-	start_processes(shell, shell->cmds);
+	start_processes(shell, *(shell->cmds));
 }
 
 void	handle_input_and_history(t_shelldata *shell)

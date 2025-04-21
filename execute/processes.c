@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/21 14:13:19 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/21 14:38:50 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,7 @@ void	wait_for_children(int pid, t_shelldata *shell, t_cmd *cmd)
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status) && n == shell->cmd_count - 1)
 		{
-			if((cmd->invalid))
-				shell->exit_status = 127;
-			else
-				shell->exit_status = WEXITSTATUS(status);
+			shell->exit_status = WEXITSTATUS(status);
 		}
 		cmd = cmd->next;
 		n++;
@@ -109,15 +106,15 @@ void	wait_for_children(int pid, t_shelldata *shell, t_cmd *cmd)
 }
 
 
-void	start_processes(t_shelldata *shell, t_cmd **cmds)
+void	start_processes(t_shelldata *shell, t_cmd *cmd, int *fd)
 {
 	int		pid;
-	int		i;
-	int		pipe[2];
-	t_cmd	*temp;
+	int		fd[2];
 
-	temp = *cmds;
-	i = 0;
+	if(!cmd)
+		return ;
 	pid = 1;
-	wait_for_children(pid, shell, *cmds);
+	pipe(fd);
+	pid = fork();
+	
 }
