@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/21 14:38:50 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:26:09 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,15 +106,47 @@ void	wait_for_children(int pid, t_shelldata *shell, t_cmd *cmd)
 }
 
 
-void	start_processes(t_shelldata *shell, t_cmd *cmd, int *fd)
+void	start_processes(t_shelldata *shell, t_cmd *cmd, int *fd_prev)
 {
 	int		pid;
 	int		fd[2];
 
 	if(!cmd)
 		return ;
+	printf("recursion\n");
 	pid = 1;
-	pipe(fd);
+	if(cmd->next)
+		pipe(fd);
 	pid = fork();
-	
+	if(pid == 0)
+	{
+		if(cmd->input_type == 1)
+		{
+			close(fd_prev[1]);
+			dup2(fd_prev[0], 0);
+			close(fd_prev[0]);
+		}
+		else if(cmd->output_type == 1)
+		{
+			close(fd[0]);
+			dup2(fd[1], 1);
+			close(fd[1]);
+		}
+	}
+	if(pid != 0)
+	{
+		if(cmd->next)
+		{
+			close(fd[1]);
+			start_processes(shell, cmd->next, fd);	
+		}
+		if(fd_prev)
+		{
+			close(fd_prev[0]);
+			close(fd_prev[1]);
+		}
+	}
+	if(pid == 0)
+		execve(cmd->path, cmd->args, shell->env->envp);
+	wait_for_children(pid, shell, *(shell->cmds));
 }
