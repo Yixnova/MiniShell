@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/19 18:29:52 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/21 10:26:59 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,10 +125,17 @@ void	start_processes(t_shelldata *shell, t_cmd **cmds)
 		}
 		if(pid != 0)
 			pid = fork();
-		if (pid == 0)
+		if((*cmds)->invalid)
 		{
-			execute_command(*cmds, shell, i);
+			i++;
+			(*cmds) = (*cmds)->next;
+			if(pid == 0)
+				exit(127);
+			if(!(*cmds))
+				break ;
 		}
+		if (pid == 0)
+			execute_command(*cmds, shell, i);
 		if(i != 0)
 			close(shell->pipes[i - 1][0]);
 		if(i != shell->cmd_count - 1)
