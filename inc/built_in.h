@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:16 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/19 14:10:31 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/22 10:13:51 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ typedef struct s_env		t_env;
 typedef struct s_shelldata	t_shelldata;
 
 void	pwd(void);
-void	cd_command(char *path);
+void	cd_command(char *path, struct s_shelldata *shell);
 
 void	echo_command(char **arg);
 
@@ -36,10 +36,12 @@ int		ft_strcmp(const char *s1, const char *s2);
 
 void	exit_command(char **args, t_shelldata *shell);
 
-void	export_command(t_env **env, char **args);
+void	export_command(t_env **env, char **args, struct s_shelldata *shell);
 
 void	print_sorted_env(t_env **arr, int count);
 void	bubble_sort_env(t_env **arr, int count);
+
+void	sort_and_print_env(t_env **env);
 
 int		set_env(t_env **env_list, const char *key, const char *value);
 int		unset_env(t_env **env_list, const char *key);

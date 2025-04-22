@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: busseven <busseven@student.42.fr>          +#+  +:+       +#+         #
+#    By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:42:59 by busseven          #+#    #+#              #
-#    Updated: 2025/04/21 11:04:36 by busseven         ###   ########.fr        #
+#    Updated: 2025/04/22 10:14:26 by yigsahin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCS =	main.c\
 		./built_in/export_cmd.c\
 		./built_in/export_utils.c\
 		./built_in/exit_cmd.c\
+		./built_in/sort_and_print.c\
 		./lexer/lexer.c\
 		./lexer/lexer_errors.c\
 		./lexer/lexer_array.c\

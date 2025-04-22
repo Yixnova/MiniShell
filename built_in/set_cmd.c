@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 09:50:15 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/07 10:55:36 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/22 10:13:00 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,7 @@ void	unset_command(t_env **env, char **args)
 
 	i = 1;
 	if (!args[1])
-	{
-		print_env_list(*env);
 		return ;
-	}
 	while (args[i])
 	{
 		equal = ft_strchr(args[i], '=');

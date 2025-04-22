@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 09:24:57 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/19 14:08:40 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/22 10:15:11 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ static int	execute_builtin(t_shelldata *shell, char **args)
 	if (!ft_strcmp(args[0], "echo"))
 		echo_command(args);
 	else if (!ft_strcmp(args[0], "cd"))
-		cd_command(args[1]);
+		cd_command(args[1], shell);
 	else if (!ft_strcmp(args[0], "pwd"))
 		pwd();
 	else if (!ft_strcmp(args[0], "export"))
-		export_command(&shell->env, args);
+		export_command(&shell->env, args, shell);
 	else if (!ft_strcmp(args[0], "unset"))
 		unset_command(&shell->env, args);
 	else if (!ft_strcmp(args[0], "env"))

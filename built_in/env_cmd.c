@@ -6,11 +6,25 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 12:48:33 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/14 09:40:53 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/22 10:11:57 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/built_in.h"
+
+static void	append_env_node(t_env **head, t_env **tail, t_env *new_node)
+{
+	if (!*head)
+	{
+		*head = new_node;
+		*tail = new_node;
+	}
+	else
+	{
+		(*tail)->next = new_node;
+		*tail = new_node;
+	}
+}
 
 t_env	*build_env_list(char **envp)
 {
@@ -27,16 +41,7 @@ t_env	*build_env_list(char **envp)
 		new_node = create_env_node(envp[i]);
 		if (!new_node)
 			return (NULL);
-		if (!head)
-		{
-			head = new_node;
-			tail = new_node;
-		}
-		else
-		{
-			tail->next = new_node;
-			tail = new_node;
-		}
+		append_env_node(&head, &tail, new_node);
 	}
 	head->envp = envp;
 	return (head);
