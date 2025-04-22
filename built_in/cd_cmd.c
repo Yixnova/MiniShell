@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:53:39 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/21 18:22:48 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/22 09:09:38 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	pwd(void)
 	printf("%s\n", cwd);
 }
 
-void	cd_command(char *path)
+void	cd_command(char *path, t_shelldata *shell)
 {
 	int		ret;
 	char	*home;
@@ -42,5 +42,8 @@ void	cd_command(char *path)
 		ft_putstr_fd("cd: ", 2);
 		ft_putstr_fd(path, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
+		shell->exit_status = 1;
 	}
+	else
+		shell->exit_status = 0;
 }

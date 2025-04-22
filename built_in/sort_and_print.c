@@ -1,43 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   make_arg_array.c                                   :+:      :+:    :+:   */
+/*   sort_and_print.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/09 13:28:56 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/22 09:13:48 by yigsahin         ###   ########.fr       */
+/*   Created: 2025/04/22 09:00:04 by yigsahin          #+#    #+#             */
+/*   Updated: 2025/04/22 09:14:38 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../inc/minishell.h"
+#include "../inc/built_in.h"
 
-void	make_arg_array(t_cmd *cmd, t_shelldata *shell)
+void	sort_and_print_env(t_env **env)
 {
-	int	i;
-	int	n;
+	int		count;
+	t_env	*tmp;
+	t_env	**arr;
+	int		i;
 
-	i = 0;
-	n = 0;
-	while (cmd->tokens[i])
+	count = 0;
+	tmp = *env;
+	while (tmp)
 	{
-		if(is_redir(cmd->tokens[i]))
-			i++;
-		else
-			cmd->arg_count++;
-		i++;
+		count++;
+		tmp = tmp->next;
 	}
+	arr = malloc(sizeof(t_env *) * count);
+	if (!arr)
+		return ;
+	tmp = *env;
 	i = 0;
-	cmd->args = ft_calloc(cmd->arg_count + 1, sizeof(char *));
-	while (cmd->tokens[i])
+	while (tmp)
 	{
-		if (is_redir(cmd->tokens[i]))
-			i++;
-		else
-		{
-			cmd->args[n] = remove_quotes(expand(cmd->tokens[i], shell));
-			n++;
-		}
-		i++;
+		arr[i++] = tmp;
+		tmp = tmp->next;
 	}
+	bubble_sort_env(arr, count);
+	print_sorted_env(arr, count);
+	free(arr);
 }

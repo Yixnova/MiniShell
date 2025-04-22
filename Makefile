@@ -6,7 +6,7 @@
 #    By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:42:59 by busseven          #+#    #+#              #
-#    Updated: 2025/04/21 17:35:00 by yigsahin         ###   ########.fr        #
+#    Updated: 2025/04/22 09:01:00 by yigsahin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCS =	main.c\
 		./built_in/export_cmd.c\
 		./built_in/export_utils.c\
 		./built_in/exit_cmd.c\
+		./built_in/sort_and_print.c\
 		./lexer/lexer.c\
 		./lexer/lexer_errors.c\
 		./lexer/lexer_array.c\
