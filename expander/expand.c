@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 17:04:14 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/15 13:23:10 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/22 15:00:15 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,32 @@ static void	append_char(t_expander *exp, char c)
 
 static void	process_variable(t_expander *exp, t_shelldata *shell)
 {
-	char	*expanded;
-	char	*temp;
+	char	next;
 
-	exp->index++;
-	expanded = expand_variable(exp, shell);
-	temp = ft_strjoin(exp->result, expanded);
-	free(exp->result);
-	free(expanded);
-	exp->result = temp;
+	next = exp->input[exp->index + 1];
+	if (next && (next == '?' || ft_isalpha(next) || next == '_'))
+	{
+		char	*expanded;
+		char	*temp;
+
+		exp->index++;
+		expanded = expand_variable(exp, shell);
+		temp = ft_strjoin(exp->result, expanded);
+		free(exp->result);
+		free(expanded);
+		exp->result = temp;
+	}
+	else
+	{
+		append_char(exp, '$');
+		exp->index++;
+	}
 }
 
 static void	process_double_quotes(t_expander *exp, t_shelldata *shell)
 {
-	while (exp->input[exp->index])
+	exp->index++;
+	while (exp->input[exp->index] && exp->input[exp->index] != '"')
 	{
 		if (exp->input[exp->index] == '$')
 			process_variable(exp, shell);
@@ -53,18 +65,13 @@ static void	process_double_quotes(t_expander *exp, t_shelldata *shell)
 
 static void	process_single_quotes(t_expander *exp)
 {
-	char	*expanded;
-	char	*temp;
 	int		start;
 
-	start = exp->index;
+	start = ++exp->index;
 	while (exp->input[exp->index] && exp->input[exp->index] != '\'')
 		exp->index++;
-	expanded = ft_substr(exp->input, start, exp->index - start + 1);
-	temp = ft_strjoin(exp->result, expanded);
-	free(exp->result);
-	free(expanded);
-	exp->result = temp;
+	while (start <= exp->index)
+		append_char(exp, exp->input[start++]);
 	if (exp->input[exp->index] == '\'')
 		exp->index++;
 }
@@ -92,5 +99,5 @@ char	*expand_str(char *str, t_shelldata *shell)
 
 char	*expand(char *token, void *shell)
 {
-	return expand_str(token, (t_shelldata *)shell);
+	return (expand_str(token, (t_shelldata *)shell));
 }
