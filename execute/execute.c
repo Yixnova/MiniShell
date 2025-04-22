@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:08:21 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/21 20:55:33 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/22 11:14:19 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,6 @@ void	execute_command(t_cmd *cmd, t_shelldata *shell, int i)
 		exit(1);
 	if(cmd->invalid)
 	{
-		close(shell->pipes[0][1]);
-		close(shell->pipes[0][0]);
-		close(4);
 		exit(127);
 	}
 	redir_cmd(cmd, shell, i);

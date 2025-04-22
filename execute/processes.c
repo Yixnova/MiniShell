@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/22 10:54:11 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/22 11:15:16 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,12 @@ void	wait_for_children(int pid, t_shelldata *shell)
 {
 	int	status;
 	int	n;
-
+	(void)pid;
 	n = 0;
 	while (n < shell->cmd_count)
 	{
 		printf("waiting\n");
-		waitpid(pid, &status, 0);
+		wait(&status);
 		printf("waited\n");
 		if (WIFEXITED(status))
 		{
@@ -135,7 +135,5 @@ void	start_processes(t_shelldata *shell, t_cmd **cmds)
 		*cmds = (*cmds)->next;
 	}
 	wait_for_children(pid, shell);
-	close(shell->pipes[0][0]);
-	close(shell->pipes[0][1]);
 	*cmds = temp;
 }

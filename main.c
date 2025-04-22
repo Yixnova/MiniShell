@@ -48,6 +48,8 @@ void	handle_input_and_history(t_shelldata *shell)
 {
 	while (1)
 	{
+		int pid = getpid();
+		printf("pid: %d\n", pid);
 		if (g_signal_flag)
 		{
 			g_signal_flag = 0;
