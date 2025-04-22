@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/21 15:32:29 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/22 09:43:19 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int		*ft_intjoin(int *arr, int n);
 void	handle_input_and_history(t_shelldata *shelldata);
 void	free_shell_data(t_shelldata *shelldata);
 void	sigint_handler(int signum);
+void	sigquit_handler(int signum);
 void	setup_signals(void);
 
 int		edit_cmds_arr(t_shelldata *shell, t_cmd *cmds, int i, int n);

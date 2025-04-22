@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 08:58:49 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/09 13:55:46 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/22 09:48:46 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,11 @@ int	g_signal_flag = 0;
 #ifdef __APPLE__
 void	rl_replace_line(const char *text, int clear_undo)
 {
-
 	(void)clear_undo;
 	rl_delete_text(0, rl_end);
 	rl_insert_text(text);
 }
 #endif
-
-void	cleanup_resources(void)
-{
-	rl_clear_history();
-}
 
 void	sigint_handler(int signum)
 {
@@ -39,8 +33,23 @@ void	sigint_handler(int signum)
 	rl_redisplay();
 }
 
+void	sigquit_handler(int signum)
+{
+	(void)signum;
+}
+
 void	setup_signals(void)
 {
-	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, SIG_IGN);
+	struct sigaction sa_int;
+	struct sigaction sa_quit;
+
+	sa_int.sa_handler = sigint_handler;
+	sigemptyset(&sa_int.sa_mask);
+	sa_int.sa_flags = SA_RESTART;
+	sigaction(SIGINT, &sa_int, NULL);
+
+	sa_quit.sa_handler = sigquit_handler;
+	sigemptyset(&sa_quit.sa_mask);
+	sa_quit.sa_flags = SA_RESTART;
+	sigaction(SIGQUIT, &sa_quit, NULL);
 }
