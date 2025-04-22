@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 10:31:23 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/21 11:05:48 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/22 10:33:03 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,15 @@ void	check_files_and_commands(t_shelldata *data, t_cmd *cmd)
 void	make_pipes(int pipe_count, t_shelldata *shell)
 {
 	int	n;
+	struct stat	statbuf;
 
 	n = 0;
 	while(pipe_count > 0)
 	{
 		shell->pipes[n] = ft_calloc(2, sizeof(int));
 		pipe(shell->pipes[n]);
+		fstat(shell->pipes[n][1], &statbuf);
+    	printf("Inode of the pipe (w end): %ld\n", (long)statbuf.st_ino);
 		pipe_count--;
 		n++;
 	}

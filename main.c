@@ -74,6 +74,8 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	errno = 0;
+	int pid = getpid();
+	printf("pid: %d\n", pid);
 	shell = ft_calloc(1, sizeof(t_shelldata));
 	if (!shell)
 	{

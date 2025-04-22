@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/21 11:04:57 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/22 10:30:32 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # include "execute.h"
 # include "errno.h"
 # include "termios.h"
+# include <sys/stat.h>
 
 # define BUFFER_SIZE 1024
 
