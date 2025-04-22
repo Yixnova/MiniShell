@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   find_command_path.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 13:34:02 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/19 15:29:33 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/22 15:24:33 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/execute.h"
 
-int	check_builtin_and_path(t_cmd *cmd, t_shelldata *shell)
+int	check_builtin_and_path(t_cmd *cmd)
 {
-	cmd->built_in = handle_builtin_command(shell, cmd->args);
+	cmd->built_in = is_builtin_command(cmd->args[0]);
 	if (cmd->built_in)
 	{
 		cmd->invalid = 0;
