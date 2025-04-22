@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/22 18:18:44 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/22 19:18:14 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,18 +71,6 @@ int	init_cmd(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
     make_arg_array(cmd, shell);
     make_redir_array(cmd, shell);
     make_limiter_arr(cmd);
-	int o = 0;
-	while(cmd->redirs[o])
-	{
-		printf("%s\n", cmd->redirs[o]);
-		o++;
-	}
-	o = 0;
-	while(cmd->limiter_arr[o])
-	{
-		printf("%s\n", cmd->limiter_arr[o]);
-		o++;
-	}
     return (0);
 }
 
