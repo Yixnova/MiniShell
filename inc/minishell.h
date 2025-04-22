@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/22 14:25:49 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/22 15:34:40 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ char	*get_next_line(int fd, int i);
 void	make_limiter_arr(t_cmd	*cmd);
 int		redir_num(char	*str);
 void	make_here_documents(t_cmd *cmd);
-void	make_here_documents(t_cmd *cmd);
 t_cmd	*ft_cmdnew(void);
 void	add_cmd(t_shelldata *shell, t_cmd *new);
 void	open_all_heredoc(t_cmd *cmd);
@@ -131,5 +130,6 @@ int		search_in_paths(t_cmd *cmd, t_shelldata *shell);
 int		check_builtin_and_path(t_cmd *cmd, t_shelldata *shell);
 void	init_parsedata(t_shelldata *shell);
 int		check_files_and_commands(t_shelldata *data, t_cmd *cmd);
+void	open_here_document(t_cmd *cmd, int h);
 
 #endif

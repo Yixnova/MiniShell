@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:23:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/22 15:12:30 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/22 15:37:32 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,17 @@ void	open_here_document(t_cmd *cmd, int h)
 			write(cmd->hd_arr[h][1], line, ft_strlen(line));
 		line_num++;
 	}
-	close(cmd->hd_arr[h][1]);
 }
 
-void	make_cmd_heredocs(t_cmd *cmd)
+void	make_here_documents(t_cmd *cmd)
 {
 	int	h;
 	int	count;
 
 	h = 0;
 	count = 0;
+	if(!cmd->limiter_arr && !cmd)
+		return ;
 	while (cmd->limiter_arr[count])
 		count++;
 	cmd->hd_arr = ft_calloc(count + 1, sizeof(int *));
@@ -64,7 +65,7 @@ void	open_all_heredoc(t_cmd *cmd)
 {
 	while(cmd)
 	{
-		make_cmd_heredocs(cmd);
+		make_here_documents(cmd);
 		cmd = cmd->next;
 	}
 }
