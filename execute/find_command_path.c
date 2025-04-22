@@ -6,14 +6,15 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 13:34:02 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/22 15:24:33 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/22 17:53:26 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/execute.h"
 
-int	check_builtin_and_path(t_cmd *cmd)
+int	check_builtin_and_path(t_cmd *cmd, t_shelldata *shell)
 {
+	(void)shell;
 	cmd->built_in = is_builtin_command(cmd->args[0]);
 	if (cmd->built_in)
 	{
