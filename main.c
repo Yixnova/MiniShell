@@ -31,29 +31,6 @@ void	disable_echoctl(void)
 	term.c_lflag &= ~ECHOCTL;
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
-void	make_cmd_heredocs(t_cmd *cmd)
-{
-	int	h;
-	int	count;
-
-	h = 0;
-	count = 0;
-	while (cmd->limiter_arr[count])
-		count++;
-	cmd->hd_arr = ft_calloc(count + 1, sizeof(int *));
-	while (cmd)
-	{
-		while (count > 0)
-		{
-			cmd->hd_arr[h] = ft_calloc(2, sizeof(int));
-			pipe(cmd->hd_arr[h]);
-			open_here_document(cmd, h);
-			count--;
-			h++;
-		}
-		cmd = cmd->next;
-	}
-}
 
 void	process_input(t_shelldata *shell)
 {
