@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:08:21 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/22 15:08:35 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/22 18:52:41 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ void	redir_cmd(t_cmd *cmd, t_shelldata *shell, int i)
 	}
 	else if(cmd->input_type == 2)
 		dup2(cmd->input, 0);
-	else if(cmd->input_type == 3)
+	else if(cmd->hd_arr && cmd->input_type == 3)
 	{
+		close(cmd->hd_arr[cmd->hd_index][1]);
 		dup2(cmd->hd_arr[cmd->hd_index][0], 0);
 	}
 	if(cmd->output_type == 1)

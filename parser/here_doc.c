@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:23:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/22 15:37:32 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/22 18:58:31 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,49 +23,26 @@ void	open_here_document(t_cmd *cmd, int h)
 		line = readline("> ");
 		if (!line)
 		{
+			close(cmd->hd_arr[h][1]);
 			printf("warning: ");
 			printf("here-document at line %d ", line_num);
 			printf("delimited by end-of-file (wanted `%s')\n", cmd->limiter_arr[h]);
-			break;
-		}
-		if (!ft_strncmp(line, cmd->limiter_arr[h], ft_strlen(line)))
 			break ;
-		else
-			write(cmd->hd_arr[h][1], line, ft_strlen(line));
-		line_num++;
-	}
-}
-
-void	make_here_documents(t_cmd *cmd)
-{
-	int	h;
-	int	count;
-
-	h = 0;
-	count = 0;
-	if(!cmd->limiter_arr && !cmd)
-		return ;
-	while (cmd->limiter_arr[count])
-		count++;
-	cmd->hd_arr = ft_calloc(count + 1, sizeof(int *));
-	while (cmd)
-	{
-		while (count > 0)
-		{
-			cmd->hd_arr[h] = ft_calloc(2, sizeof(int));
-			pipe(cmd->hd_arr[h]);
-			open_here_document(cmd, h);
-			count--;
-			h++;
 		}
-		cmd = cmd->next;
-	}
-}
-void	open_all_heredoc(t_cmd *cmd)
-{
-	while(cmd)
-	{
-		make_here_documents(cmd);
-		cmd = cmd->next;
+		if(line[0] == '\0')
+			continue ;
+		if (!ft_strncmp(line, cmd->limiter_arr[h], ft_strlen(line)))
+		{
+			free(line);
+			close(cmd->hd_arr[h][1]);
+			break ;
+		}
+		else
+		{
+			write(cmd->hd_arr[h][1], line, ft_strlen(line));
+			write(cmd->hd_arr[h][1], "\n", 1);
+		}
+		line_num++;
+		free(line);
 	}
 }

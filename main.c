@@ -57,11 +57,19 @@ void	make_cmd_heredocs(t_cmd *cmd)
 
 void	process_input(t_shelldata *shell)
 {
+	t_cmd	*temp;
+
 	add_history(shell->input);
 	if(tokenize_input(shell))
 		return ;
 	init_parsedata(shell);
 	edit_cmds_arr(shell, *(shell->cmds), 0, 0);
+	temp = *(shell->cmds);
+	while(temp)
+	{
+		make_cmd_heredocs(temp);
+		temp = temp->next;
+	}
 	if(check_files_and_commands(shell, *(shell->cmds)))
 		return ;
 	start_processes(shell, shell->cmds);

@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/22 15:28:08 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/22 18:52:05 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	pick_file_descriptors(t_cmd *cmd)
 
 	i = 0;
 	f = 0;
+	cmd->hd_index = -1;
 	while (cmd->redirs[i])
 	{
 		if (redir_num(cmd->redirs[i]) != 3)
@@ -48,9 +49,8 @@ void	pick_file_descriptors(t_cmd *cmd)
 			not_here_doc(cmd, i, f);
 			f++;
 		}
-		else
+		else if(cmd->hd_arr)
 		{
-			cmd->input = cmd->hd_arr[cmd->hd_index][0];
 			cmd->input_type = 3;
 			cmd->hd_index++;
 		}
