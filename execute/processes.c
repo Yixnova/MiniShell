@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/22 11:32:47 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/22 15:09:45 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	start_processes(t_shelldata *shell, t_cmd **cmds)
 			pid = fork();
 		if (pid == 0)
 			execute_command(*cmds, shell, i);
-		if(pid != 0)
+		if(pid != 0 && (*cmds)->input_type == 1)
 		{
 			if(i != 0)
 				close(shell->pipes[i - 1][0]);

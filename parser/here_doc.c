@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:23:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/14 17:06:43 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/22 15:12:30 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	open_here_document(t_cmd *cmd, int h)
 		if (!line)
 		{
 			printf("warning: ");
-			printf("here-document at line %d", line_num);
-			printf("delimited by end-of-file (wanted `%s')", line);
+			printf("here-document at line %d ", line_num);
+			printf("delimited by end-of-file (wanted `%s')\n", cmd->limiter_arr[h]);
 			break;
 		}
 		if (!ft_strncmp(line, cmd->limiter_arr[h], ft_strlen(line)))
