@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/22 09:43:19 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/22 10:30:32 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # include "execute.h"
 # include "errno.h"
 # include "termios.h"
+# include <sys/stat.h>
 
 # define BUFFER_SIZE 1024
 
@@ -84,8 +85,7 @@ typedef struct s_shelldata
 	char		**tokens;
 	char		**paths;
 	t_cmd		**cmds;
-	int			pipe1[2];
-	int			pipe2[2];
+	int			**pipes;
 	t_env		*env;
 	int		command_index;
 	int		exit_status;
@@ -101,7 +101,6 @@ int		*ft_intjoin(int *arr, int n);
 void	handle_input_and_history(t_shelldata *shelldata);
 void	free_shell_data(t_shelldata *shelldata);
 void	sigint_handler(int signum);
-void	sigquit_handler(int signum);
 void	setup_signals(void);
 
 int		edit_cmds_arr(t_shelldata *shell, t_cmd *cmds, int i, int n);
@@ -121,7 +120,7 @@ void	add_cmd(t_shelldata *shell, t_cmd *new);
 void	open_all_heredoc(t_cmd *cmd);
 void	free_2d_char(char **arr);
 void	close_pipes(t_shelldata *shell);
-void	start_processes(t_shelldata *shell, t_cmd *cmds, int fd_prev);
+void	start_processes(t_shelldata *shell, t_cmd **cmds);
 void	invalid_file(char *file_name);
 void	open_error(char *file);
 char	*ft_join(char	*str, char	*joining);

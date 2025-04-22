@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   processes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/21 16:56:47 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/22 11:32:47 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,50 +87,49 @@ void	open_files(t_cmd *cmd)
 	}
 }
 
-void	wait_for_children(int pid, t_shelldata *shell, t_cmd *cmd)
+void	wait_for_children(int pid, t_shelldata *shell)
 {
 	int	status;
 	int	n;
-
+	(void)pid;
 	n = 0;
 	while (n < shell->cmd_count)
 	{
-		waitpid(pid, &status, 0);
-		if (WIFEXITED(status) && n == shell->cmd_count - 1)
+		wait(&status);
+		if (WIFEXITED(status))
 		{
 			shell->exit_status = WEXITSTATUS(status);
 		}
-		cmd = cmd->next;
 		n++;
 	}
 }
 
-void	start_processes(t_shelldata *shell, t_cmd *cmd, int fd_in)
+
+void	start_processes(t_shelldata *shell, t_cmd **cmds)
 {
 	int		pid;
-	int		fd[2];
+	int		i;
+	t_cmd	*temp;
 
-	if(!cmd)
-		return ;
+	temp = *cmds;
+	i = 0;
 	pid = 1;
-	if(cmd->next)
-		pipe(fd);
-	pid = fork();
-	if(pid == 0)
+	while (*cmds)
 	{
-		if(cmd->input_type == 1)
+		if(pid != 0)
+			pid = fork();
+		if (pid == 0)
+			execute_command(*cmds, shell, i);
+		if(pid != 0)
 		{
-			dup2(fd_in, 0);
+			if(i != 0)
+				close(shell->pipes[i - 1][0]);
+			if(i != shell->cmd_count - 1)
+				close(shell->pipes[i][1]);	
 		}
-		else if(cmd->output_type == 1)
-		{
-			dup2(fd[1], 1);
-		}
-		execve(cmd->path, cmd->args, shell->env->envp);
+		i++;
+		*cmds = (*cmds)->next;
 	}
-	if(pid != 0)
-	{
-		start_processes(shell, cmd->next, fd[0]);
-		wait_for_children(pid, shell, *(shell->cmds));
-	}
+	wait_for_children(pid, shell);
+	*cmds = temp;
 }
