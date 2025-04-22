@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/22 11:15:16 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/22 11:32:47 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,9 @@ void	wait_for_children(int pid, t_shelldata *shell)
 	n = 0;
 	while (n < shell->cmd_count)
 	{
-		printf("waiting\n");
 		wait(&status);
-		printf("waited\n");
 		if (WIFEXITED(status))
 		{
-			printf("exited\n");
 			shell->exit_status = WEXITSTATUS(status);
 		}
 		n++;
@@ -121,7 +118,6 @@ void	start_processes(t_shelldata *shell, t_cmd **cmds)
 	{
 		if(pid != 0)
 			pid = fork();
-		printf("%d\n", pid);
 		if (pid == 0)
 			execute_command(*cmds, shell, i);
 		if(pid != 0)

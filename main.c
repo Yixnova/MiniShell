@@ -48,8 +48,6 @@ void	handle_input_and_history(t_shelldata *shell)
 {
 	while (1)
 	{
-		int pid = getpid();
-		printf("pid: %d\n", pid);
 		if (g_signal_flag)
 		{
 			g_signal_flag = 0;
@@ -76,8 +74,6 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	errno = 0;
-	int pid = getpid();
-	printf("pid: %d\n", pid);
 	shell = ft_calloc(1, sizeof(t_shelldata));
 	if (!shell)
 	{
