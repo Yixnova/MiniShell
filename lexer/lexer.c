@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/19 15:09:51 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/22 11:42:35 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	check_pipe_error(t_shelldata *data, int *i)
 		}
 		(*i)++;
 	}
-	while(!data->tokens[*i])
+	while(data->tokens && !data->tokens[*i])
 		(*i)--;
 	return (0);
 }
@@ -57,6 +57,11 @@ int	tokenize_input(t_shelldata *data)
 
 	i = 0;
 	data->tokens = split_into_words(data->input);
+	if (!data->tokens)
+	{
+		ft_putendl_fd("Error: Memory allocation failed", 2);
+		return (1);
+	}
 	if(check_pipe_error(data, &i))
 		return (1);
 	if (data->tokens[i] && is_pipe(data->tokens[i]))
@@ -65,11 +70,6 @@ int	tokenize_input(t_shelldata *data)
 		data->input = ft_join(data->input, line);
 		free_2d_char(data->tokens);
 		data->tokens = split_into_words(data->input);
-	}
-	if (!data->tokens)
-	{
-		ft_putendl_fd("Error: Memory allocation failed", 2);
-		return (1);
 	}
 	return (0);
 }
