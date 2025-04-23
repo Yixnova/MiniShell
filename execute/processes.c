@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/23 11:01:50 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/23 11:02:28 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	close_pipes(t_cmd **cmds, t_shelldata *shell, int i)
 		close((*cmds)->hd_arr[(*cmds)->hd_index][0]);
 	if(i != 0)
 		close(shell->pipes[i - 1][0]);
-	if(i != shell->cmd_count - 1 && (*cmds)->output_type == 1)
+	if(i != shell->cmd_count - 1)
 		close(shell->pipes[i][1]);
 }
 void	wait_for_children(int pid, t_shelldata *shell)
