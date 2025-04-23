@@ -6,87 +6,21 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/22 11:32:47 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/23 09:38:03 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	not_here_doc(t_cmd *cmd, int i, int f)
+void	close_pipes(t_cmd **cmds, t_shelldata *shell, int i)
 {
-	if(redir_num(cmd->redirs[i]) == 2 || redir_num(cmd->redirs[i]) == 1)
-	{
-		cmd->output = cmd->file_descs[f];
-		cmd->output_type = 2;
-	}
-	else if (redir_num(cmd->redirs[i]) == 4)
-	{
-		cmd->input = cmd->file_descs[f];
-		cmd->input_type = 2;
-	}
+	if((*cmds)->input_type == 3)
+		close((*cmds)->hd_arr[(*cmds)->hd_index][0]);
+	if(i != 0 && (*cmds)->input_type == 1)
+		close(shell->pipes[i - 1][0]);
+	if(i != shell->cmd_count - 1 && (*cmds)->output_type == 1)
+		close(shell->pipes[i][1]);	
 }
-void	pick_pipes(t_cmd *cmd)
-{
-	cmd->input_type = 0;
-	cmd->output_type = 0;
-	if (cmd->prev)
-		cmd->input_type = 1;
-	if (cmd->next)
-		cmd->output_type = 1;
-}
-void	pick_file_descriptors(t_cmd *cmd)
-{
-	int	i;
-	int	f;
-
-	i = 0;
-	f = 0;
-	while (cmd->redirs[i])
-	{
-		if (redir_num(cmd->redirs[i]) != 3)
-		{
-			not_here_doc(cmd, i, f);
-			f++;
-		}
-		else
-		{
-			cmd->input = cmd->hd_arr[cmd->hd_index][0];
-			cmd->input_type = 3;
-			cmd->hd_index++;
-		}
-		i++;
-	}
-}
-
-void	open_files(t_cmd *cmd)
-{
-	int		i;
-	int		n;
-	char	*file_name;
-
-	i = 0;
-	n = 0;
-	cmd->fd_count = cmd->redir_count - cmd->hd_count;
-	cmd->file_descs = ft_calloc(cmd->fd_count, sizeof(int));
-	while (cmd->redirs[i])
-	{
-		file_name = cmd->redirs[i] + is_in_str(cmd->redirs[i], ' ');
-		if(redir_num(cmd->redirs[i]))
-		{
-			if (redir_num(cmd->redirs[i]) == 1)
-				cmd->file_descs[n] = open(file_name, O_RDWR | O_CREAT | O_TRUNC, 777);
-			else if (redir_num(cmd->redirs[i]) == 2)
-				cmd->file_descs[n] = open(file_name, O_RDWR | O_CREAT | O_APPEND, 777);
-			else if (redir_num(cmd->redirs[i]) == 4)
-				cmd->file_descs[n] = open(file_name, O_RDONLY);
-			if (cmd->file_descs[n] < 0)
-				open_error(file_name);
-			n++;
-		}
-		i++;
-	}
-}
-
 void	wait_for_children(int pid, t_shelldata *shell)
 {
 	int	status;
@@ -119,14 +53,16 @@ void	start_processes(t_shelldata *shell, t_cmd **cmds)
 		if(pid != 0)
 			pid = fork();
 		if (pid == 0)
-			execute_command(*cmds, shell, i);
-		if(pid != 0)
 		{
-			if(i != 0)
-				close(shell->pipes[i - 1][0]);
-			if(i != shell->cmd_count - 1)
-				close(shell->pipes[i][1]);	
+			pick_pipes(*cmds);
+			open_files(*cmds);
+			pick_file_descriptors(*cmds);
+			if(!find_command_path(*cmds, shell))
+				(*cmds)->invalid = 1;
+			execute_command(*cmds, shell, i);
 		}
+		if(pid != 0)
+			close_pipes(cmds, shell, i);
 		i++;
 		*cmds = (*cmds)->next;
 	}

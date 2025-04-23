@@ -34,13 +34,19 @@ void	disable_echoctl(void)
 
 void	process_input(t_shelldata *shell)
 {
+	t_cmd	*temp;
+
 	add_history(shell->input);
 	if(tokenize_input(shell))
 		return ;
 	init_parsedata(shell);
 	edit_cmds_arr(shell, *(shell->cmds), 0, 0);
-	open_all_heredoc(*(shell->cmds));
-	check_files_and_commands(shell, *(shell->cmds));
+	temp = *(shell->cmds);
+	while(temp)
+	{
+		make_cmd_heredocs(temp);
+		temp = temp->next;
+	}
 	start_processes(shell, shell->cmds);
 }
 

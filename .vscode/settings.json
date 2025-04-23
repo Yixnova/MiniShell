@@ -1,7 +1,12 @@
 {
 	"files.associations": {
 		"minishell.h": "c",
-		"built_in.h": "c"
+		"built_in.h": "c",
+		"array": "c",
+		"string": "c",
+		"string_view": "c",
+		"ranges": "c",
+		"span": "c"
 	},
 	"C_Cpp.errorSquiggles": "disabled",
 	"github.copilot.enable": {

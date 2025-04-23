@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/22 17:47:51 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/23 10:55:35 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,12 +114,11 @@ char	*get_next_line(int fd, int i);
 void	make_limiter_arr(t_cmd	*cmd);
 int		redir_num(char	*str);
 void	make_here_documents(t_cmd *cmd);
-void	make_here_documents(t_cmd *cmd);
 t_cmd	*ft_cmdnew(void);
 void	add_cmd(t_shelldata *shell, t_cmd *new);
 void	open_all_heredoc(t_cmd *cmd);
 void	free_2d_char(char **arr);
-void	close_pipes(t_shelldata *shell);
+void	close_pipes(t_cmd **cmds, t_shelldata *shell, int i);
 void	start_processes(t_shelldata *shell, t_cmd **cmds);
 void	invalid_file(char *file_name);
 void	open_error(char *file);
@@ -130,6 +129,9 @@ void	open_files(t_cmd *cmd);
 int		search_in_paths(t_cmd *cmd, t_shelldata *shell);
 int		check_builtin_and_path(t_cmd *cmd, t_shelldata *shell);
 void	init_parsedata(t_shelldata *shell);
-void	check_files_and_commands(t_shelldata *data, t_cmd *cmd);
+int		check_files_and_commands(t_shelldata *data, t_cmd *cmd);
+void	open_here_document(t_cmd *cmd, int h);
+void	make_cmd_heredocs(t_cmd *cmd);
+int		find_command_path(t_cmd *cmd, t_shelldata *shell);
 
 #endif

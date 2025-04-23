@@ -6,12 +6,19 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:23:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/14 17:06:43 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/22 19:04:12 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+void    heredoc_eof(t_cmd *cmd, int line_num, int h)
+{
+	close(cmd->hd_arr[h][1]);
+	printf("warning: ");
+	printf("here-document at line %d ", line_num);
+	printf("delimited by end-of-file (wanted `%s')\n", cmd->limiter_arr[h]);
+}
 void	open_here_document(t_cmd *cmd, int h)
 {
 	char	*line;
@@ -23,18 +30,22 @@ void	open_here_document(t_cmd *cmd, int h)
 		line = readline("> ");
 		if (!line)
 		{
-			printf("warning: ");
-			printf("here-document at line %d", line_num);
-			printf("delimited by end-of-file (wanted `%s')", line);
-			break;
-		}
-		if (!ft_strncmp(line, cmd->limiter_arr[h], ft_strlen(line)))
+			heredoc_eof(cmd, line_num, h);
 			break ;
-		else
-			write(cmd->hd_arr[h][1], line, ft_strlen(line));
+		}
+		if(line[0] == '\0')
+			continue ;
+		if (!ft_strncmp(line, cmd->limiter_arr[h], ft_strlen(line)))
+		{
+			free(line);
+			close(cmd->hd_arr[h][1]);
+			break ;
+		}
+		write(cmd->hd_arr[h][1], line, ft_strlen(line));
+		write(cmd->hd_arr[h][1], "\n", 1);
 		line_num++;
+		free(line);
 	}
-	close(cmd->hd_arr[h][1]);
 }
 
 void	make_cmd_heredocs(t_cmd *cmd)
@@ -57,14 +68,6 @@ void	make_cmd_heredocs(t_cmd *cmd)
 			count--;
 			h++;
 		}
-		cmd = cmd->next;
-	}
-}
-void	open_all_heredoc(t_cmd *cmd)
-{
-	while(cmd)
-	{
-		make_cmd_heredocs(cmd);
 		cmd = cmd->next;
 	}
 }
