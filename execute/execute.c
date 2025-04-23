@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:08:21 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/23 10:55:24 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/23 11:07:43 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,8 @@ void	execute_command(t_cmd *cmd, t_shelldata *shell, int i)
 	if (cmd->invalid)
 		exit(127);
 	redir_cmd(cmd, shell, i);
-	if (cmd->built_in)
+	if (handle_builtin_command(shell, cmd->args))
 	{
-		execute_builtin(shell, cmd->args);
 		if (cmd->path)
 			free(cmd->path);
 		exit(0);
