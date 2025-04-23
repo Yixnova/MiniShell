@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/23 09:38:03 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/23 10:52:40 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	close_pipes(t_cmd **cmds, t_shelldata *shell, int i)
 {
 	if((*cmds)->input_type == 3)
 		close((*cmds)->hd_arr[(*cmds)->hd_index][0]);
-	if(i != 0 && (*cmds)->input_type == 1)
+	if(i != 0)
 		close(shell->pipes[i - 1][0]);
-	if(i != shell->cmd_count - 1 && (*cmds)->output_type == 1)
+	if(i != shell->cmd_count - 1)
 		close(shell->pipes[i][1]);	
 }
 void	wait_for_children(int pid, t_shelldata *shell)
@@ -61,8 +61,7 @@ void	start_processes(t_shelldata *shell, t_cmd **cmds)
 				(*cmds)->invalid = 1;
 			execute_command(*cmds, shell, i);
 		}
-		if(pid != 0)
-			close_pipes(cmds, shell, i);
+		close_pipes(cmds, shell, i);
 		i++;
 		*cmds = (*cmds)->next;
 	}
