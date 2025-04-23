@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/22 19:13:53 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/23 09:38:03 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,14 @@ void	start_processes(t_shelldata *shell, t_cmd **cmds)
 		if(pid != 0)
 			pid = fork();
 		if (pid == 0)
+		{
+			pick_pipes(*cmds);
+			open_files(*cmds);
+			pick_file_descriptors(*cmds);
+			if(!find_command_path(*cmds, shell))
+				(*cmds)->invalid = 1;
 			execute_command(*cmds, shell, i);
+		}
 		if(pid != 0)
 			close_pipes(cmds, shell, i);
 		i++;

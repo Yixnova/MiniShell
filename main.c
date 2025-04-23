@@ -47,8 +47,6 @@ void	process_input(t_shelldata *shell)
 		make_cmd_heredocs(temp);
 		temp = temp->next;
 	}
-	if(check_files_and_commands(shell, *(shell->cmds)))
-		return ;
 	start_processes(shell, shell->cmds);
 }
 
