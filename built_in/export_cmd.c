@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 12:37:53 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/24 16:36:38 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/24 17:04:48 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,4 +114,6 @@ void	export_command(t_env **env, char **args, t_shelldata *shell)
 		shell->exit_status = 1;
 	else
 		shell->exit_status = 0;
+	if (!shell->cmds || !(*shell->cmds)->next)
+		exit(shell->exit_status);
 }

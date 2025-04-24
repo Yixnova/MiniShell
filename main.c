@@ -95,5 +95,5 @@ int	main(int argc, char **argv, char **envp)
 	disable_echoctl();
 	setup_signals();
 	handle_input_and_history(shell);
-	return (EXIT_SUCCESS);
+	return (shell->exit_status);
 }

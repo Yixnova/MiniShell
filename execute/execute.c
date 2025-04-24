@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:08:21 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/24 14:29:01 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/24 17:07:25 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	execute_command(t_cmd *cmd, t_shelldata *shell, int i)
 	{
 		if (cmd->path)
 			free(cmd->path);
-		exit(0);
+		exit(shell->exit_status);
 	}
 	if(execve(cmd->path, cmd->args, shell->env->envp) == -1)
 		exit(1);
