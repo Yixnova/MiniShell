@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/23 11:02:28 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/24 14:34:59 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,23 @@ void	close_pipes(t_cmd **cmds, t_shelldata *shell, int i)
 	if(i != shell->cmd_count - 1)
 		close(shell->pipes[i][1]);
 }
-void	wait_for_children(int pid, t_shelldata *shell)
+void	wait_for_children(int pid, t_shelldata *shell, t_cmd *cmd)
 {
 	int	status;
 	int	n;
-	(void)pid;
+
 	n = 0;
 	while (n < shell->cmd_count)
 	{
-		wait(&status);
-		if (WIFEXITED(status))
+		waitpid(pid, &status, 0);
+		if (WIFEXITED(status) && n == shell->cmd_count - 1)
 		{
 			shell->exit_status = WEXITSTATUS(status);
 		}
+		cmd = cmd->next;
 		n++;
 	}
 }
-
 
 void	start_processes(t_shelldata *shell, t_cmd **cmds)
 {
@@ -66,6 +66,6 @@ void	start_processes(t_shelldata *shell, t_cmd **cmds)
 		i++;
 		*cmds = (*cmds)->next;
 	}
-	wait_for_children(pid, shell);
+	wait_for_children(pid, shell, temp);
 	*cmds = temp;
 }

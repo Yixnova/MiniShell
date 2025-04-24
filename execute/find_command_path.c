@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 13:34:02 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/23 11:08:39 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/24 14:29:13 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int	check_builtin_and_path(t_cmd *cmd, t_shelldata *shell)
 {
-	if(!cmd->args || !cmd->args[0])
-		return (-1);
 	cmd->built_in = handle_builtin_command(shell, cmd->args);
 	if (cmd->built_in)
 	{

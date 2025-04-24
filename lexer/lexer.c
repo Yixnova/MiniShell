@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/22 14:22:43 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/24 14:34:27 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,6 @@ int	tokenize_input(t_shelldata *data)
 	{
 		ft_putendl_fd("Error: Memory allocation failed", 2);
 		return (1);
-	}
-	int k = 0;
-	while(data->tokens[k])
-	{
-		printf("%s\n", data->tokens[k]);
-		k++;
 	}
 	if (data->tokens[i] && is_pipe(data->tokens[i]))
 	{
