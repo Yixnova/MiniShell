@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 13:34:02 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/24 16:25:14 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/24 17:21:14 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	check_builtin_and_path(t_cmd *cmd, t_shelldata *shell)
 {
-	// Only check if it is a built-in, do not execute it here
 	cmd->built_in = 0;
 	if (cmd->args && cmd->args[0] &&
 		(!ft_strcmp(cmd->args[0], "echo") || !ft_strcmp(cmd->args[0], "cd") ||
