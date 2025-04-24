@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 13:34:02 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/24 14:29:13 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/24 16:25:14 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,15 @@
 
 int	check_builtin_and_path(t_cmd *cmd, t_shelldata *shell)
 {
-	cmd->built_in = handle_builtin_command(shell, cmd->args);
-	if (cmd->built_in)
+	// Only check if it is a built-in, do not execute it here
+	cmd->built_in = 0;
+	if (cmd->args && cmd->args[0] &&
+		(!ft_strcmp(cmd->args[0], "echo") || !ft_strcmp(cmd->args[0], "cd") ||
+		 !ft_strcmp(cmd->args[0], "pwd") || !ft_strcmp(cmd->args[0], "export") ||
+		 !ft_strcmp(cmd->args[0], "unset") || !ft_strcmp(cmd->args[0], "env") ||
+		 !ft_strcmp(cmd->args[0], "exit")))
 	{
+		cmd->built_in = 1;
 		cmd->invalid = 0;
 		cmd->path = NULL;
 		return (1);
@@ -28,6 +34,9 @@ int	check_builtin_and_path(t_cmd *cmd, t_shelldata *shell)
 		cmd->invalid = 0;
 		return (1);
 	}
+	if (search_in_paths(cmd, shell))
+		return (1);
+	cmd->invalid = 1;
 	return (0);
 }
 

@@ -6,13 +6,13 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 12:37:53 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/22 09:08:05 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/24 16:36:38 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/built_in.h"
 
-static int	is_valid_identifier(const char *str)
+int	is_valid_identifier(const char *str)
 {
 	int	i;
 
@@ -20,6 +20,24 @@ static int	is_valid_identifier(const char *str)
 	if (!str || !(ft_isalpha(str[0]) || str[0] == '_'))
 		return (0);
 	while (str[i] && str[i] != '=')
+	{
+		if (!(ft_isalnum(str[i]) || str[i] == '_'))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+static int	is_valid_identifier_strict(const char *str)
+{
+	int	i;
+
+	if (!str || str[0] == '\0')
+		return (0);
+	if (!(ft_isalpha(str[0]) || str[0] == '_'))
+		return (0);
+	i = 1;
+	while (str[i])
 	{
 		if (!(ft_isalnum(str[i]) || str[i] == '_'))
 			return (0);
@@ -60,7 +78,7 @@ static void	handle_export_arg(t_env **env, char *arg, int *error)
 		key = ft_strndup(arg, equal - arg);
 	else
 		key = ft_strdup(arg);
-	if (!is_valid_identifier(key))
+	if (!is_valid_identifier_strict(key))
 	{
 		print_invalid_identifier(arg);
 		*error = 1;
