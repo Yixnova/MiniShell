@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/25 18:32:57 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/25 18:37:51 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,12 @@ int		is_file_dir_name(char *file)
 }
 void	check_command_existence(t_cmd *cmd, t_shelldata *shell)
 {
-	if(!check_builtin_and_path(cmd, shell))
+	int	valid;
+
+	valid = find_command_path(cmd, shell);
+	if(cmd->built_in)
+		return ;
+	if(!valid)
 	{
 		if(is_file_dir_name(cmd->args[0]))
 			access_error(cmd->args[0]);

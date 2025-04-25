@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:23:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/25 11:03:21 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/25 18:39:03 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	open_here_document(t_cmd *cmd, int h)
 		if (!line)
 		{
 			heredoc_eof(cmd, line_num, h);
+			free(line);
 			break ;
 		}
 		if(line[0] == '\0')
