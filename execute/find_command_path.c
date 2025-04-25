@@ -3,22 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   find_command_path.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 13:34:02 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/23 11:16:30 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/24 17:21:14 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/execute.h"
 
-int	check_builtin_and_path(t_cmd *cmd)
+int	check_builtin_and_path(t_cmd *cmd, t_shelldata *shell)
 {
-	if(!cmd->args || !cmd->args[0])
-		return (-1);
-	cmd->built_in = is_builtin_command(cmd->args[0]);
-	if (cmd->built_in)
+	cmd->built_in = 0;
+	if (cmd->args && cmd->args[0] &&
+		(!ft_strcmp(cmd->args[0], "echo") || !ft_strcmp(cmd->args[0], "cd") ||
+		 !ft_strcmp(cmd->args[0], "pwd") || !ft_strcmp(cmd->args[0], "export") ||
+		 !ft_strcmp(cmd->args[0], "unset") || !ft_strcmp(cmd->args[0], "env") ||
+		 !ft_strcmp(cmd->args[0], "exit")))
 	{
+		cmd->built_in = 1;
 		cmd->invalid = 0;
 		cmd->path = NULL;
 		return (1);
@@ -30,6 +33,9 @@ int	check_builtin_and_path(t_cmd *cmd)
 		cmd->invalid = 0;
 		return (1);
 	}
+	if (search_in_paths(cmd, shell))
+		return (1);
+	cmd->invalid = 1;
 	return (0);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/23 11:16:17 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/25 10:18:10 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,6 @@ void	pick_pipes(t_cmd *cmd);
 void	pick_file_descriptors(t_cmd *cmd);
 void	open_files(t_cmd *cmd);
 int		search_in_paths(t_cmd *cmd, t_shelldata *shell);
-int		check_builtin_and_path(t_cmd *cmd);
 void	init_parsedata(t_shelldata *shell);
 int		check_files_and_commands(t_shelldata *data, t_cmd *cmd);
 void	open_here_document(t_cmd *cmd, int h);

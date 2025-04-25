@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 09:24:57 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/23 11:14:30 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/25 10:16:44 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	is_builtin_command(const char *cmd)
 			!ft_strcmp(cmd, "exit"));
 }
 
-static int	execute_builtin(t_shelldata *shell, char **args)
+int	execute_builtin(t_shelldata *shell, char **args)
 {
 	if (!ft_strcmp(args[0], "echo"))
 		echo_command(args);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   processes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/23 10:52:40 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/25 10:21:48 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	close_pipes(t_cmd **cmds, t_shelldata *shell, int i)
 	if(i != 0)
 		close(shell->pipes[i - 1][0]);
 	if(i != shell->cmd_count - 1)
-		close(shell->pipes[i][1]);	
+		close(shell->pipes[i][1]);
 }
 void	wait_for_children(int pid, t_shelldata *shell)
 {
