@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_cmd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:53:39 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/22 10:11:26 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/25 11:29:32 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	pwd(void)
 	printf("%s\n", cwd);
 }
 
-void	cd_command(char *path, t_shelldata *shell)
+void	cd_command(char *path)
 {
 	int		ret;
 	char	*home;
@@ -42,8 +42,8 @@ void	cd_command(char *path, t_shelldata *shell)
 		ft_putstr_fd("cd: ", 2);
 		ft_putstr_fd(path, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
-		shell->exit_status = 1;
+			exit(1);
 	}
 	else
-		shell->exit_status = 0;
+		exit(0);
 }

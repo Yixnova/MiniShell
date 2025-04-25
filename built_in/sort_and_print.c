@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_and_print.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 10:13:19 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/22 10:13:21 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/25 11:29:16 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,5 @@ void	sort_and_print_env(t_env **env)
 	bubble_sort_env(arr, count);
 	print_sorted_env(arr, count);
 	free(arr);
+	exit(0);
 }
