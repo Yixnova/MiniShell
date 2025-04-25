@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:08:21 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/24 17:07:25 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/25 10:25:01 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,19 @@ int	is_directory(const char *path)
 
 void	execute_command(t_cmd *cmd, t_shelldata *shell, int i)
 {
-	(void)i;
 	if (!cmd || !cmd->args || !cmd->args[0])
 		exit(1);
 	if(cmd->invalid)
-	{
 		exit(127);
-	}
-	if (handle_builtin_command(shell, cmd->args))
+	redir_cmd(cmd, shell, i);
+	if (is_builtin_command(cmd->args[0]))
 	{
-		if (cmd->path)
-			free(cmd->path);
-		exit(shell->exit_status);
+		if(handle_builtin_command(shell, cmd->args))
+		{
+			if (cmd->path)
+				free(cmd->path);
+			exit(shell->exit_status);
+		}
 	}
 	if(execve(cmd->path, cmd->args, shell->env->envp) == -1)
 		exit(1);

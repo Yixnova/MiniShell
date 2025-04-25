@@ -6,22 +6,20 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 12:37:53 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/24 17:20:21 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/22 10:12:34 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/built_in.h"
 
-static int	is_valid_identifier_strict(const char *str)
+static int	is_valid_identifier(const char *str)
 {
 	int	i;
 
-	if (!str || str[0] == '\0')
+	i = 0;
+	if (!str || !(ft_isalpha(str[0]) || str[0] == '_'))
 		return (0);
-	if (!(ft_isalpha(str[0]) || str[0] == '_'))
-		return (0);
-	i = 1;
-	while (str[i])
+	while (str[i] && str[i] != '=')
 	{
 		if (!(ft_isalnum(str[i]) || str[i] == '_'))
 			return (0);
@@ -62,7 +60,7 @@ static void	handle_export_arg(t_env **env, char *arg, int *error)
 		key = ft_strndup(arg, equal - arg);
 	else
 		key = ft_strdup(arg);
-	if (!is_valid_identifier_strict(key))
+	if (!is_valid_identifier(key))
 	{
 		print_invalid_identifier(arg);
 		*error = 1;
@@ -98,6 +96,4 @@ void	export_command(t_env **env, char **args, t_shelldata *shell)
 		shell->exit_status = 1;
 	else
 		shell->exit_status = 0;
-	if (!shell->cmds || !(*shell->cmds)->next)
-		exit(shell->exit_status);
 }

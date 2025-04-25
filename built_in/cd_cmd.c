@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:53:39 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/24 17:04:48 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/22 10:11:26 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,14 @@ void	cd_command(char *path, t_shelldata *shell)
 	if (!path)
 	{
 		home = getenv("HOME");
-		if (!home)
-		{
-			ft_putstr_fd("cd: HOME not set\n", 2);
-			shell->exit_status = 1;
-			return ;
-		}
 		path = home;
 	}
 	ret = chdir(path);
 	if (ret != 0)
 	{
 		ft_putstr_fd("cd: ", 2);
-		perror(path);
+		ft_putstr_fd(path, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
 		shell->exit_status = 1;
 	}
 	else

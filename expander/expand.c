@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 17:04:14 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/24 14:31:17 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/25 10:13:21 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,10 @@ static void	process_single_quotes(t_expander *exp)
 {
 	int	start;
 
-	exp->index++; // skip opening '
+	exp->index++;
 	start = exp->index;
 	while (exp->input[exp->index] && exp->input[exp->index] != '\'')
 		exp->index++;
-	// Copy literally, no expansion
 	while (start < exp->index)
 		append_char(exp, exp->input[start++]);
 	if (exp->input[exp->index] == '\'')

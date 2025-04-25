@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 09:24:57 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/24 17:00:28 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/25 10:16:44 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_myjoin(const char *s1, const char *s2, const char *s3)
 	return (result);
 }
 
-static int	is_builtin_command(const char *cmd)
+int	is_builtin_command(const char *cmd)
 {
 	return (!ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "cd") ||
 			!ft_strcmp(cmd, "pwd") || !ft_strcmp(cmd, "export") ||

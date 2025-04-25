@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 19:10:55 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/24 14:30:25 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/25 10:21:58 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	pick_file_descriptors(t_cmd *cmd)
 
 	i = 0;
 	f = 0;
+	cmd->hd_index = -1;
 	while (cmd->redirs[i])
 	{
 		if (redir_num(cmd->redirs[i]) != 3)
@@ -48,9 +49,8 @@ void	pick_file_descriptors(t_cmd *cmd)
 			not_here_doc(cmd, i, f);
 			f++;
 		}
-		else
+		else if(cmd->hd_arr)
 		{
-			cmd->input = cmd->hd_arr[cmd->hd_index][0];
 			cmd->input_type = 3;
 			cmd->hd_index++;
 		}
@@ -74,11 +74,11 @@ void	open_files(t_cmd *cmd)
 		if(redir_num(cmd->redirs[i]))
 		{
 			if (redir_num(cmd->redirs[i]) == 1)
-				cmd->file_descs[n] = open(file_name, O_RDWR | O_CREAT | O_TRUNC, 777);
+				cmd->file_descs[n] = open(file_name + 1, O_RDWR | O_CREAT | O_TRUNC, 777);
 			else if (redir_num(cmd->redirs[i]) == 2)
-				cmd->file_descs[n] = open(file_name, O_RDWR | O_CREAT | O_APPEND, 777);
+				cmd->file_descs[n] = open(file_name + 2, O_RDWR | O_CREAT | O_APPEND, 777);
 			else if (redir_num(cmd->redirs[i]) == 4)
-				cmd->file_descs[n] = open(file_name, O_RDONLY);
+				cmd->file_descs[n] = open(file_name + 1, O_RDONLY);
 			if (cmd->file_descs[n] < 0)
 				open_error(file_name);
 			n++;

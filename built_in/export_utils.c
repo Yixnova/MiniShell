@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 16:30:37 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/24 17:20:24 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/22 10:12:48 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,4 @@ void	bubble_sort_env(t_env **arr, int count)
 		}
 		i++;
 	}
-}
-
-int	is_valid_identifier(const char *str)
-{
-	int	i;
-
-	i = 0;
-	if (!str || !(ft_isalpha(str[0]) || str[0] == '_'))
-		return (0);
-	while (str[i] && str[i] != '=')
-	{
-		if (!(ft_isalnum(str[i]) || str[i] == '_'))
-			return (0);
-		i++;
-	}
-	return (1);
 }
