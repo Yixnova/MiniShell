@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:16 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/25 11:29:50 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/25 13:47:32 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ typedef struct s_env		t_env;
 typedef struct s_shelldata	t_shelldata;
 
 void	pwd(void);
-void	cd_command(char *path);
+int	cd_command(char *path);
 
 void	echo_command(char **arg);
 
