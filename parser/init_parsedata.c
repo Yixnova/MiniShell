@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_parsedata.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 10:31:23 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/25 10:19:07 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/25 14:35:42 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	find_command_path(t_cmd *cmd, t_shelldata *shell)
 
 int	check_files_and_commands(t_shelldata *data, t_cmd *cmd)
 {
+	(void)data;
 	if(!cmd->args || !cmd->args[0])
 		return (1);
 	while(cmd)
@@ -30,8 +31,6 @@ int	check_files_and_commands(t_shelldata *data, t_cmd *cmd)
 		pick_pipes(cmd);
 		open_files(cmd);
 		pick_file_descriptors(cmd);
-		if(!find_command_path(cmd, data))
-			cmd->invalid = 1;
 		cmd = cmd->next;
 	}
 	return (0);
