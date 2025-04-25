@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:08:21 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/23 10:50:42 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/23 11:19:01 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,14 @@ void	execute_command(t_cmd *cmd, t_shelldata *shell, int i)
 		exit(127);
 	}
 	redir_cmd(cmd, shell, i);
-	if (handle_builtin_command(shell, cmd->args))
+	if (is_builtin_command(cmd->args[0]))
 	{
-		if (cmd->path)
-			free(cmd->path);
-		exit(0);
+		if(handle_builtin_command(shell, cmd->args))
+		{
+			if (cmd->path)
+				free(cmd->path);
+			exit(0);	
+		}
 	}
 	if(execve(cmd->path, cmd->args, shell->env->envp) == -1)
 	{

@@ -6,17 +6,17 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 13:34:02 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/22 15:05:19 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/23 11:16:30 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/execute.h"
 
-int	check_builtin_and_path(t_cmd *cmd, t_shelldata *shell)
+int	check_builtin_and_path(t_cmd *cmd)
 {
 	if(!cmd->args || !cmd->args[0])
 		return (-1);
-	cmd->built_in = handle_builtin_command(shell, cmd->args);
+	cmd->built_in = is_builtin_command(cmd->args[0]);
 	if (cmd->built_in)
 	{
 		cmd->invalid = 0;

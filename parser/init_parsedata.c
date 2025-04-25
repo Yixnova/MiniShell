@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 10:31:23 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/22 14:23:42 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/23 11:16:58 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	find_command_path(t_cmd *cmd, t_shelldata *shell)
 {
-	if (check_builtin_and_path(cmd, shell))
+	if (check_builtin_and_path(cmd))
 		return (1);
 	if (search_in_paths(cmd, shell))
 		return (1);
