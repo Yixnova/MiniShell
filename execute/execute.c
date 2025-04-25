@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:08:21 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/25 13:05:51 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/25 13:17:41 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,15 @@ void	redir_cmd(t_cmd *cmd, t_shelldata *shell, int i)
 int	is_directory(const char *path)
 {
 	struct stat	file;
+	int	prefix;
 
+	prefix = 0;
+	if	(!ft_strncmp(path, "./", 2))
+		prefix = 1;
+	else if (!ft_strncmp(path, "/", 1))
+		prefix = 1;
+	if(!prefix)
+		return (0);
 	if (lstat(path, &file) == 0 && S_ISDIR(file.st_mode))
 		return (1);
 	return (0);
