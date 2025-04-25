@@ -6,12 +6,40 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/25 14:39:40 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/25 16:00:24 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+void	check_command_path(t_cmd *cmd, t_shelldata *shell)
+{
+	int is_builtin;
+	int	exist_access;
+	int	permission_access;
+
+	is_builtin = is_builtin_command(cmd->args[0]);
+	if(!is_builtin)
+	{
+		exist_access = access(cmd->args[0], F_OK);
+		if(exist_access == -1)
+		{
+			if(!search_in_paths(cmd, shell))
+			{
+				printf("access error\n");
+				access_error(cmd->args[0]);
+			}
+		}
+		else
+		{
+			permission_access = access(cmd->args[0], X_OK);
+			if(permission_access == -1)
+				access_error(cmd->args[0]);
+		}	
+	}
+	else
+		cmd->built_in = 1;
+}
 void	free_2d_int(int **arr)
 {
 	int	i;
@@ -126,8 +154,7 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 			pick_pipes(*cmds);
 			open_files(*cmds);
 			pick_file_descriptors(*cmds);
-			if(!find_command_path(*cmds, shell))
-				(*cmds)->invalid = 1;
+			check_command_path(*cmds, shell);
 			execute_command(*cmds, shell, i);
 		}
 		close_pipes(cmds, shell, i);

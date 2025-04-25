@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 13:34:02 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/25 14:36:47 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/25 15:57:58 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	search_in_paths(t_cmd *cmd, t_shelldata *shell)
 	while (paths[i])
 	{
 		test = ft_myjoin(paths[i], "/", cmd->args[0]);
-		if (access(test, F_OK | X_OK) == 0)
+		if (!access(test, F_OK) && !access(test, X_OK))
 		{
 			cmd->path = test;
 			cmd->invalid = 0;
