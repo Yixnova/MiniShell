@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 09:24:57 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/25 10:16:44 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/25 12:33:38 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	execute_builtin(t_shelldata *shell, char **args)
 	if (!ft_strcmp(args[0], "echo"))
 		echo_command(args);
 	else if (!ft_strcmp(args[0], "cd"))
-		cd_command(args[1], shell);
+		cd_command(args[1]);
 	else if (!ft_strcmp(args[0], "pwd"))
 		pwd();
 	else if (!ft_strcmp(args[0], "export"))

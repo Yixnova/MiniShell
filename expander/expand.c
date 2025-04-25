@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 17:04:14 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/25 13:24:30 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/25 10:13:21 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	process_variable(t_expander *exp, t_shelldata *shell)
 
 static void	process_double_quotes(t_expander *exp, t_shelldata *shell)
 {
-	exp->index++;
+	exp->index++; // skip opening "
 	while (exp->input[exp->index] && exp->input[exp->index] != '"')
 	{
 		if (exp->input[exp->index] == '$')

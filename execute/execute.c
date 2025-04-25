@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:08:21 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/25 10:25:01 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/25 13:17:41 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,17 @@ void	redir_cmd(t_cmd *cmd, t_shelldata *shell, int i)
 int	is_directory(const char *path)
 {
 	struct stat	file;
+	int	prefix;
 
+	prefix = 0;
+	if	(!ft_strncmp(path, "./", 2))
+		prefix = 1;
+	else if (!ft_strncmp(path, "/", 1))
+		prefix = 1;
+	if(!prefix)
+		return (0);
 	if (lstat(path, &file) == 0 && S_ISDIR(file.st_mode))
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(path, 2);
-		ft_putendl_fd(": is a directory", 2);
 		return (1);
-	}
 	return (0);
 }
 
@@ -63,8 +66,10 @@ void	execute_command(t_cmd *cmd, t_shelldata *shell, int i)
 {
 	if (!cmd || !cmd->args || !cmd->args[0])
 		exit(1);
+	if(is_directory(cmd->args[0]))
+		directory_error(cmd->args[0]);
 	if(cmd->invalid)
-		exit(127);
+		command_not_found(cmd->args[0]);
 	redir_cmd(cmd, shell, i);
 	if (is_builtin_command(cmd->args[0]))
 	{
@@ -76,7 +81,7 @@ void	execute_command(t_cmd *cmd, t_shelldata *shell, int i)
 		}
 	}
 	if(execve(cmd->path, cmd->args, shell->env->envp) == -1)
-		exit(1);
+		execve_error();
 	if (cmd->path)
 		free(cmd->path);
 	exit(1);

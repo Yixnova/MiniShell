@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 12:48:33 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/22 10:11:57 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/25 11:28:18 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,5 @@ void	env_command(t_env *env, char **args)
 {
 	(void)args;
 	print_env_list(env);
+	exit(0);
 }

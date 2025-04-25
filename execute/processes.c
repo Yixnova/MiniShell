@@ -6,12 +6,36 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/25 10:21:48 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/25 13:47:18 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+void	free_2d_int(int **arr)
+{
+	int	i;
+
+	i = 0;
+	if (!arr)
+		return ;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+}
+void	free_command(t_cmd *cmd)
+{
+	free_2d_char(cmd->tokens);
+	free_2d_char(cmd->args);
+	free_2d_char(cmd->redirs);
+	free_2d_char(cmd->limiter_arr);
+	free_2d_int(cmd->hd_arr);
+	if(cmd->path)
+		free(cmd->path);
+}
 void	close_pipes(t_cmd **cmds, t_shelldata *shell, int i)
 {
 	if((*cmds)->input_type == 3)
@@ -38,16 +62,57 @@ void	wait_for_children(int pid, t_shelldata *shell)
 	}
 }
 
-
-void	start_processes(t_shelldata *shell, t_cmd **cmds)
+void	update_pwd_env(t_env **env)
 {
-	int		pid;
-	int		i;
+	char cwd[BUFFER_SIZE];
+	t_env *pwd;
+	t_env *oldpwd;
+	char *old;
+
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
+		return;
+	pwd = find_env(*env, "PWD");
+	oldpwd = find_env(*env, "OLDPWD");
+	if (pwd && pwd->value)
+		old = ft_strdup(pwd->value);
+	else
+		old = ft_strdup("");
+	if (oldpwd)
+	{
+		free(oldpwd->value);
+		oldpwd->value = old;
+	}
+	else
+		set_env(env, "OLDPWD", old);
+	if (pwd)
+	{
+		free(pwd->value);
+		pwd->value = ft_strdup(cwd);
+	}
+	else
+		set_env(env, "PWD", cwd);
+}
+
+void start_processes(t_shelldata *shell, t_cmd **cmds)
+{
+	int	pid;
+	int	i;
 	t_cmd	*temp;
+	t_cmd	*to_free;
 
 	temp = *cmds;
 	i = 0;
 	pid = 1;
+	if (shell->cmd_count == 1 && *cmds && (*cmds)->args && (*cmds)->args[0] && !ft_strcmp((*cmds)->args[0], "cd"))
+	{
+		int cd_status = cd_command((*cmds)->args[1]);
+		if (cd_status == 0)
+			update_pwd_env(&shell->env);
+		shell->exit_status = cd_status;
+		free_command(*cmds);
+		*cmds = temp;
+		return;
+	}
 	while (*cmds)
 	{
 		if(pid != 0)
@@ -63,6 +128,8 @@ void	start_processes(t_shelldata *shell, t_cmd **cmds)
 		}
 		close_pipes(cmds, shell, i);
 		i++;
+		to_free = *cmds;
+		free_command(to_free);
 		*cmds = (*cmds)->next;
 	}
 	wait_for_children(pid, shell);

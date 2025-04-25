@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/25 10:18:10 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/25 13:06:59 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,5 +133,8 @@ void	open_here_document(t_cmd *cmd, int h);
 void	make_cmd_heredocs(t_cmd *cmd);
 int		find_command_path(t_cmd *cmd, t_shelldata *shell);
 int		is_builtin_command(const char *cmd);
+void	execve_error(void);
+void	command_not_found(char *cmd);
+void	directory_error(char *dir);
 
 #endif

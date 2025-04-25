@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 14:10:31 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/22 15:31:10 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/25 10:58:44 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,16 @@ void	make_limiter_arr(t_cmd	*cmd)
 
 	i = 0;
 	n = 0;
+	if(!cmd || !cmd->redirs || !ft_strcmp(cmd->redirs[0], "\0"))
+		return ;
 	while (cmd->redirs[i])
 	{
 		if(redir_num(cmd->redirs[i]) == 3)
 			cmd->hd_count++;
 		i++;
 	}
+	if(cmd->hd_count < 0)
+		return ;
 	cmd->limiter_arr = ft_calloc(cmd->hd_count, sizeof(char *));
 	i = 0;
 	while (cmd->redirs[i])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 09:39:47 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/22 10:12:09 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/25 11:01:20 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ void	free_env_list(t_env *env_list)
 
 int	ft_strcmp(const char *s1, const char *s2)
 {
+	if(!s1 || !s2)
+		return (0);
 	while (*s1 && *s1 == *s2)
 	{
 		s1++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 09:50:15 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/22 10:13:00 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/25 11:29:08 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,5 @@ void	unset_command(t_env **env, char **args)
 			unset_env(env, args[i]);
 		i++;
 	}
+	exit(0);
 }
