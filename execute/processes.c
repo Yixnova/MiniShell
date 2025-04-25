@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   processes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/25 13:47:18 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/25 14:11:44 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,16 @@ void	free_2d_int(int **arr)
 }
 void	free_command(t_cmd *cmd)
 {
-	free_2d_char(cmd->tokens);
-	free_2d_char(cmd->args);
-	free_2d_char(cmd->redirs);
-	free_2d_char(cmd->limiter_arr);
-	free_2d_int(cmd->hd_arr);
+	if(cmd->tokens)
+		free_2d_char(cmd->tokens);
+	if(cmd->args)
+		free_2d_char(cmd->args);
+	if(cmd->redirs)
+		free_2d_char(cmd->redirs);
+	if(cmd->limiter_arr)
+		free_2d_char(cmd->limiter_arr);
+	if(cmd->hd_arr)
+		free_2d_int(cmd->hd_arr);
 	if(cmd->path)
 		free(cmd->path);
 }
@@ -98,7 +103,6 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 	int	pid;
 	int	i;
 	t_cmd	*temp;
-	t_cmd	*to_free;
 
 	temp = *cmds;
 	i = 0;
@@ -111,7 +115,7 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 		shell->exit_status = cd_status;
 		free_command(*cmds);
 		*cmds = temp;
-		return;
+		return ;
 	}
 	while (*cmds)
 	{
@@ -128,8 +132,6 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 		}
 		close_pipes(cmds, shell, i);
 		i++;
-		to_free = *cmds;
-		free_command(to_free);
 		*cmds = (*cmds)->next;
 	}
 	wait_for_children(pid, shell);

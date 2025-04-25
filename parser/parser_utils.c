@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 17:13:29 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/25 11:19:59 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/25 14:10:11 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@ void	free_2d_char(char **arr)
 	i = 0;
 	if (!arr)
 		return ;
-	while (arr[i])
+	while (arr && arr[i])
 	{
 		free(arr[i]);
 		i++;
 	}
-	free(arr);
+	if(arr)
+		free(arr);
 }
 
 int		is_pipe(char *str)
