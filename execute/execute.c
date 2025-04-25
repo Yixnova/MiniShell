@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:08:21 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/25 13:17:41 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/25 16:29:44 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@ void	redir_cmd(t_cmd *cmd, t_shelldata *shell, int i)
 	if(cmd->input_type == 1)
 	{
 		close(shell->pipes[i - 1][1]);
-		if(dup2(shell->pipes[i - 1][0], 0) == -1)
-		{
-			printf("dup fail\n");
-		}
+		dup2(shell->pipes[i - 1][0], 0);
 		close(shell->pipes[i - 1][0]);
 		close(shell->pipes[i - 1][1]);
 	}
@@ -34,10 +31,7 @@ void	redir_cmd(t_cmd *cmd, t_shelldata *shell, int i)
 	if(cmd->output_type == 1)
 	{
 		close(shell->pipes[i][0]);
-		if(dup2(shell->pipes[i][1], 1) == -1)
-		{
-			printf("dup fail\n");
-		}
+		dup2(shell->pipes[i][1], 1);
 		close(shell->pipes[i][1]);
 		close(shell->pipes[i][0]);
 	}
