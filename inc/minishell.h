@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/25 18:28:09 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/25 18:56:39 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_cmd
 	int				fd_count;
 	int				hd_count;
 	int				redir_count;
+	int				has_hd;
 	int				*file_descs;
 	int				parse_error;
 	int				invalid; // Komut gerçekten bulunuyor mu? Yoksa error ve exit;

@@ -44,7 +44,8 @@ void	process_input(t_shelldata *shell)
 	temp = *(shell->cmds);
 	while(temp)
 	{
-		make_cmd_heredocs(temp);
+		if(temp->has_hd)
+			make_cmd_heredocs(temp);
 		temp = temp->next;
 	}
 	start_processes(shell, shell->cmds);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/25 14:05:44 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/25 18:58:19 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int		init_cmd(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
 		k++;
 		(*i)++;
 	}
+	cmd->has_hd = 0;
 	make_arg_array(cmd, shell);
 	make_redir_array(cmd, shell);
 	make_limiter_arr(cmd);

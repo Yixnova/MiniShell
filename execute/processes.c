@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/25 18:37:51 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/25 18:50:13 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ void	check_command_existence(t_cmd *cmd, t_shelldata *shell)
 		if(access(cmd->path, X_OK) == 0)
 			return ;
 		else
-			access_error(cmd->args[0]);
+		{
+			errno = 126;
+			access_error(cmd->args[0]);			
+		}
 	}
 }
 void	free_2d_int(int **arr)
@@ -128,7 +131,6 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 	int	pid;
 	int	i;
 	t_cmd	*temp;
-	t_cmd	*to_free;
 
 	temp = *cmds;
 	i = 0;
@@ -157,8 +159,6 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 		}
 		close_pipes(cmds, shell, i);
 		i++;
-		to_free = *cmds;
-		free_command(to_free);
 		*cmds = (*cmds)->next;
 	}
 	wait_for_children(pid, shell);
