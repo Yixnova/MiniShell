@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 10:53:32 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/25 13:06:47 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/25 18:25:49 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,14 @@ void	directory_error(char *dir)
 	ft_putstr_fd(dir, 2);
 	ft_putendl_fd(": Is a directory", 2);
 	exit(126);
+}
+
+void	access_error(char *file)
+{
+	write(2, "minishell: ", 11);
+	write(2, file, ft_strlen(file));
+	write(2, ": ", 2);
+	write(2, strerror(errno), ft_strlen(strerror(errno)));
+	write(2, "\n", 1);
+	exit(errno);
 }

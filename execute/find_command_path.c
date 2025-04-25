@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_command_path.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 13:34:02 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/24 17:21:14 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/25 18:25:01 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	check_builtin_and_path(t_cmd *cmd, t_shelldata *shell)
 		return (1);
 	}
 	if ((cmd->args[0][0] == '/' || cmd->args[0][0] == '.') &&
-		access(cmd->args[0], F_OK | X_OK) == 0)
+		access(cmd->args[0], F_OK) == 0)
 	{
 		cmd->path = ft_strdup(cmd->args[0]);
 		cmd->invalid = 0;
@@ -54,7 +54,7 @@ int	search_in_paths(t_cmd *cmd, t_shelldata *shell)
 	while (paths[i])
 	{
 		test = ft_myjoin(paths[i], "/", cmd->args[0]);
-		if (access(test, F_OK | X_OK) == 0)
+		if (access(test, F_OK) == 0)
 		{
 			cmd->path = test;
 			cmd->invalid = 0;

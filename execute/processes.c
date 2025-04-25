@@ -3,15 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   processes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/25 13:47:18 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/25 18:32:57 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+int		is_file_dir_name(char *file)
+{
+	if(!strncmp(file, "/", 1))
+		return (1);
+	else if(!strncmp(file, "./", 2))
+		return (1);
+	return (0);
+}
+void	check_command_existence(t_cmd *cmd, t_shelldata *shell)
+{
+	if(!check_builtin_and_path(cmd, shell))
+	{
+		if(is_file_dir_name(cmd->args[0]))
+			access_error(cmd->args[0]);
+		else
+			command_not_found(cmd->args[0]);
+	}
+	else
+	{
+		if(access(cmd->path, X_OK) == 0)
+			return ;
+		else
+			access_error(cmd->args[0]);
+	}
+}
 void	free_2d_int(int **arr)
 {
 	int	i;
@@ -122,8 +147,7 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 			pick_pipes(*cmds);
 			open_files(*cmds);
 			pick_file_descriptors(*cmds);
-			if(!find_command_path(*cmds, shell))
-				(*cmds)->invalid = 1;
+			check_command_existence(*cmds, shell);
 			execute_command(*cmds, shell, i);
 		}
 		close_pipes(cmds, shell, i);
