@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 12:37:53 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/25 11:28:50 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/26 18:54:04 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ void	export_command(t_env **env, char **args, t_shelldata *shell)
 	if (!args[1])
 	{
 		sort_and_print_env(env);
-		shell->exit_status = 0;
-		return ;
+		(void)shell;
+		exit(0);
 	}
 	while (args[i])
 	{
