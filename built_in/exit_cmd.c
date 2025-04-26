@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 12:59:15 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/22 10:12:23 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/26 12:30:03 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	exit_command(char **args, t_shelldata *shell)
 
 	status = 0;
 	is_num = 1;
+	ft_putendl_fd("exit", 1);
 	if (args[1])
 	{
 		is_num = is_numeric(args[1]);
