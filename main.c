@@ -42,11 +42,18 @@ void	process_input(t_shelldata *shell)
 	init_parsedata(shell);
 	edit_cmds_arr(shell, *(shell->cmds), 0, 0);
 	temp = *(shell->cmds);
-	while(temp)
+	while (temp)
 	{
-		if(temp->has_hd)
+		if (temp->has_hd)
 			make_cmd_heredocs(temp);
 		temp = temp->next;
+	}
+	if (*(shell->cmds) && (*(shell->cmds))->args
+		&& (*(shell->cmds))->next == NULL
+		&& !ft_strcmp((*(shell->cmds))->args[0], "exit"))
+	{
+		exit_command((*(shell->cmds))->args, shell);
+		return ;
 	}
 	start_processes(shell, shell->cmds);
 }
