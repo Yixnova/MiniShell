@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/26 19:22:08 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/26 19:36:01 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		is_file_dir_name(char *file)
 {
-	if(!strncmp(file, "/", 2))
+	if(!strncmp(file, "/", 1))
 		return (1);
 	else if(!strncmp(file, "./", 2))
 		return (1);
@@ -43,8 +43,7 @@ void	check_command_existence(t_cmd *cmd, t_shelldata *shell)
 			return ;
 		else
 		{
-			errno = 126;
-			access_error(cmd->args[0]);			
+			access_permission_denied(cmd->args[0]);			
 		}
 	}
 }

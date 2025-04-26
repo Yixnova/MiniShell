@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/26 19:23:29 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/26 19:33:06 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,5 +140,6 @@ void	directory_error(char *dir);
 void	access_error(char *file);
 int		is_directory(const char *path);
 void	no_such_file(char *file);
+void	access_permission_denied(char *file);
 
 #endif
