@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/26 19:36:01 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/26 19:39:39 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 int		is_file_dir_name(char *file)
 {
-	if(!strncmp(file, "/", 1))
-		return (1);
-	else if(!strncmp(file, "./", 2))
+	int i;
+
+	i = 0;
+	while(file[i] == '.')
+		i++;
+	if(file[i] == '/')
 		return (1);
 	return (0);
 }
