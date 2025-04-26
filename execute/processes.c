@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/25 18:50:13 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/26 19:22:08 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		is_file_dir_name(char *file)
 {
-	if(!strncmp(file, "/", 1))
+	if(!strncmp(file, "/", 2))
 		return (1);
 	else if(!strncmp(file, "./", 2))
 		return (1);
@@ -30,9 +30,12 @@ void	check_command_existence(t_cmd *cmd, t_shelldata *shell)
 	if(!valid)
 	{
 		if(is_file_dir_name(cmd->args[0]))
-			access_error(cmd->args[0]);
-		else
-			command_not_found(cmd->args[0]);
+		{
+			if(is_directory(cmd->args[0]))
+				directory_error(cmd->args[0]);
+			else
+				no_such_file(cmd->args[0]);
+		}
 	}
 	else
 	{

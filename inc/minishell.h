@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/25 18:56:39 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/26 19:23:29 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,5 +138,7 @@ void	execve_error(void);
 void	command_not_found(char *cmd);
 void	directory_error(char *dir);
 void	access_error(char *file);
+int		is_directory(const char *path);
+void	no_such_file(char *file);
 
 #endif
