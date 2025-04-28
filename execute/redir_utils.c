@@ -6,12 +6,20 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 19:10:55 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/26 19:46:58 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/28 09:31:36 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+int		redir_len(char *str)
+{
+	if(redir_num(str) == 1 || redir_num(str) == 4)
+		return (1);
+	if(redir_num(str) == 2 || redir_num(str) == 3)
+		return (2);
+	return (0);
+}
 void	not_here_doc(t_cmd *cmd, int i, int f)
 {
 	if(redir_num(cmd->redirs[i]) == 2 || redir_num(cmd->redirs[i]) == 1)
@@ -70,15 +78,15 @@ void	open_files(t_cmd *cmd)
 	cmd->file_descs = ft_calloc(cmd->fd_count, sizeof(int));
 	while (cmd->redirs[i])
 	{
-		file_name = cmd->redirs[i] + is_in_str(cmd->redirs[i], ' ') + redir_len(cmd->redi);
+		file_name = cmd->redirs[i] + is_in_str(cmd->redirs[i], ' ') + redir_len(cmd->redirs[i]);
 		if(redir_num(cmd->redirs[i]))
 		{
 			if (redir_num(cmd->redirs[i]) == 1)
-				cmd->file_descs[n] = open(file_name + 1, O_WRONLY | O_CREAT | O_TRUNC, 777);
+				cmd->file_descs[n] = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 777);
 			else if (redir_num(cmd->redirs[i]) == 2)
-				cmd->file_descs[n] = open(file_name + 2, O_WRONLY | O_CREAT | O_APPEND, 777);
+				cmd->file_descs[n] = open(file_name, O_WRONLY | O_CREAT | O_APPEND, 777);
 			else if (redir_num(cmd->redirs[i]) == 4)
-				cmd->file_descs[n] = open(file_name + 1, O_RDONLY);
+				cmd->file_descs[n] = open(file_name, O_RDONLY);
 			if (cmd->file_descs[n] < 0)
 				open_error(file_name);
 			n++;
