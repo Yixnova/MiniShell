@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/28 09:53:39 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/28 10:01:22 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,15 +140,6 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 	temp = *cmds;
 	i = 0;
 	pid = 1;
-	if (shell->cmd_count == 1 && *cmds && (*cmds)->args && (*cmds)->args[0] && !ft_strcmp((*cmds)->args[0], "cd"))
-	{
-		int cd_status = cd_command((*cmds)->args[1]);
-		if (cd_status == 0)
-			update_pwd_env(&shell->env);
-		free_command(*cmds);
-		*cmds = temp;
-		exit(0);
-	}
 	while (*cmds)
 	{
 		if(pid != 0)
@@ -159,6 +150,15 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 			open_files(*cmds);
 			pick_file_descriptors(*cmds);
 			check_command_existence(*cmds, shell);
+			if (shell->cmd_count == 1 && *cmds && (*cmds)->args && (*cmds)->args[0] && !ft_strcmp((*cmds)->args[0], "cd"))
+			{
+				int cd_status = cd_command((*cmds)->args[1]);
+				if (cd_status == 0)
+					update_pwd_env(&shell->env);
+				free_command(*cmds);
+				*cmds = temp;
+				exit(0);
+			}
 			execute_command(*cmds, shell, i);
 		}
 		close_pipes(cmds, shell, i);
