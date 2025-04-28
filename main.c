@@ -48,13 +48,6 @@ void	process_input(t_shelldata *shell)
 			make_cmd_heredocs(temp);
 		temp = temp->next;
 	}
-	if (*(shell->cmds) && (*(shell->cmds))->args
-		&& (*(shell->cmds))->next == NULL
-		&& !ft_strcmp((*(shell->cmds))->args[0], "exit"))
-	{
-		exit_command((*(shell->cmds))->args, shell);
-		return ;
-	}
 	start_processes(shell, shell->cmds);
 }
 
