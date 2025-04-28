@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:08:21 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/28 09:53:56 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/28 10:31:58 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	is_directory(const char *path)
 	struct stat	file;
 	int	firstfile;
 
-	firstfile = 0
+	firstfile = 0;
 	if	(!ft_strncmp(path, "./", 2))
 		firstfile = 1;
 	else if (!ft_strncmp(path, "/", 1))
