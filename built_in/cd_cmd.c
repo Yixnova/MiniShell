@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:53:39 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/26 18:54:53 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/28 10:38:42 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	cd_command(char *path)
 		ft_putstr_fd("cd: ", 2);
 		ft_putstr_fd(path, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
-		exit (1);
+		return 1;
 	}
-	exit (0);
+	return 0;
 }
