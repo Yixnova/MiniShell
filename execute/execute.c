@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:08:21 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/25 16:29:44 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/28 09:53:56 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ void	redir_cmd(t_cmd *cmd, t_shelldata *shell, int i)
 int	is_directory(const char *path)
 {
 	struct stat	file;
-	int	prefix;
+	int	firstfile;
 
-	prefix = 0;
+	firstfile = 0
 	if	(!ft_strncmp(path, "./", 2))
-		prefix = 1;
+		firstfile = 1;
 	else if (!ft_strncmp(path, "/", 1))
-		prefix = 1;
-	if(!prefix)
+		firstfile = 1;
+	if(!firstfile)
 		return (0);
 	if (lstat(path, &file) == 0 && S_ISDIR(file.st_mode))
 		return (1);
