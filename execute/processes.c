@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/26 19:39:39 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/28 14:22:28 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,16 +140,6 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 	temp = *cmds;
 	i = 0;
 	pid = 1;
-	if (shell->cmd_count == 1 && *cmds && (*cmds)->args && (*cmds)->args[0] && !ft_strcmp((*cmds)->args[0], "cd"))
-	{
-		int cd_status = cd_command((*cmds)->args[1]);
-		if (cd_status == 0)
-			update_pwd_env(&shell->env);
-		shell->exit_status = cd_status;
-		free_command(*cmds);
-		*cmds = temp;
-		return;
-	}
 	while (*cmds)
 	{
 		if(pid != 0)
