@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   remove_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 11:09:33 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/14 14:50:01 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/28 12:14:59 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/lexing.h"
 
-static int	handle_quotes(int *i, int *in_quotes, int *type, const char *src)
+static int handle_quotes(int *i, int *in_quotes, int *type, const char *src)
 {
 	if (src[*i] == 39 || src[*i] == 34)
 	{
@@ -21,19 +21,20 @@ static int	handle_quotes(int *i, int *in_quotes, int *type, const char *src)
 			*in_quotes = 1;
 			*type = src[*i];
 			(*i)++;
+			return (1);
 		}
 		else if (*in_quotes == 1 && *type == src[*i])
 		{
 			*in_quotes = 0;
 			(*i)++;
-		}
-		else
 			return (1);
+		}
+		else 
+			return (0);
 	}
 	return (0);
 }
-
-void	copy_word_noquotes(char *dest, const char *src)
+static void	copy_word_noquotes(char *dest, const char *src)
 {
 	int	i;
 	int	k;
@@ -47,7 +48,7 @@ void	copy_word_noquotes(char *dest, const char *src)
 	{
 		if (src[i] == 39 || src[i] == 34)
 		{
-			if (handle_quotes(&i, &in_quotes, &type, src))
+			if(!handle_quotes(&i, &in_quotes, &type, src))
 				dest[k++] = src[i++];
 		}
 		else

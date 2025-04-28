@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:28:56 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/25 13:34:29 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/28 12:22:38 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	make_arg_array(t_cmd *cmd, t_shelldata *shell)
 			i++;
 		else if(!is_empty_str(expanded))
 		{
-			cmd->args[n] = remove_quotes(expand(cmd->tokens[i], shell));
+			cmd->args[n] = remove_quotes(cmd->tokens[i]);
 			n++;
 		}
 		free(expanded);

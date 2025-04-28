@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 12:59:15 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/26 12:30:03 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/28 12:12:09 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ void	exit_command(char **args, t_shelldata *shell)
 		if (args[2])
 		{
 			ft_putstr_fd("exit: too many arguments\n", 2);
-			shell->exit_status = 1;
-			return ;
+			exit(1);
 		}
 		status = ft_atoi(args[1]);
 	}
