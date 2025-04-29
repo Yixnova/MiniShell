@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: busseven <busseven@student.42.fr>          +#+  +:+       +#+         #
+#    By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:42:59 by busseven          #+#    #+#              #
-#    Updated: 2025/04/22 19:15:00 by busseven         ###   ########.fr        #
+#    Updated: 2025/04/29 17:44:45 by yigsahin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRCS =	main.c\
 		./parser/parser_utils.c \
 		./parser/here_doc.c \
 		./execute/processes.c \
+		./execute/processes_utils.c \
 		./execute/process_errors.c\
 		./execute/find_command_path.c\
 		./history/history_file.c\

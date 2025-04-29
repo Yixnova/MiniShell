@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:16 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/25 13:47:32 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/29 17:45:21 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 typedef struct s_env		t_env;
 typedef struct s_shelldata	t_shelldata;
+typedef struct s_cmd t_cmd;
 
 void	pwd(void);
 int	cd_command(char *path);
@@ -46,5 +47,6 @@ void	sort_and_print_env(t_env **env);
 int		set_env(t_env **env_list, const char *key, const char *value);
 int		unset_env(t_env **env_list, const char *key);
 void	unset_command(t_env **env, char **args);
+void	free_command(t_cmd *cmd);
 
 #endif

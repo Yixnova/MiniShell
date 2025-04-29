@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:53:39 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/29 17:15:43 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/29 17:41:50 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,41 @@ int	cd_command(char *path)
 		return (1);
 	}
 	return (0);
+}
+
+static void update_oldpwd_env(t_env **env, t_env *pwd)
+{
+	char *old;
+	t_env *oldpwd;
+
+	oldpwd = find_env(*env, "OLDPWD");
+	if (pwd && pwd->value)
+		old = ft_strdup(pwd->value);
+	else
+		old = ft_strdup("");
+	if (oldpwd)
+	{
+		free(oldpwd->value);
+		oldpwd->value = old;
+	}
+	else
+		set_env(env, "OLDPWD", old);
+}
+
+void update_pwd_env(t_env **env)
+{
+	char cwd[BUFFER_SIZE];
+	t_env *pwd;
+
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
+		return;
+	pwd = find_env(*env, "PWD");
+	update_oldpwd_env(env, pwd);
+	if (pwd)
+	{
+		free(pwd->value);
+		pwd->value = ft_strdup(cwd);
+	}
+	else
+		set_env(env, "PWD", cwd);
 }

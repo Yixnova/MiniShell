@@ -6,83 +6,12 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/29 17:17:02 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/29 17:45:21 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int		is_file_dir_name(char *file)
-{
-	int i;
-
-	i = 0;
-	while(file[i] == '.')
-		i++;
-	if(file[i] == '/')
-		return (1);
-	return (0);
-}
-void	check_command_existence(t_cmd *cmd, t_shelldata *shell)
-{
-	int	valid;
-
-	valid = find_command_path(cmd, shell);
-	if(cmd->built_in)
-		return ;
-	if(!valid)
-	{
-		if(is_file_dir_name(cmd->args[0]))
-		{
-			if(is_directory(cmd->args[0]))
-				directory_error(cmd->args[0]);
-			else
-				no_such_file(cmd->args[0]);
-		}
-	}
-	else
-	{
-		if(access(cmd->path, X_OK) == 0)
-			return ;
-		else
-		{
-			access_permission_denied(cmd->args[0]);
-		}
-	}
-}
-void	free_2d_int(int **arr)
-{
-	int	i;
-
-	i = 0;
-	if (!arr)
-		return ;
-	while (arr[i])
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
-}
-void	free_command(t_cmd *cmd)
-{
-	free_2d_char(cmd->tokens);
-	free_2d_char(cmd->args);
-	free_2d_char(cmd->redirs);
-	free_2d_char(cmd->limiter_arr);
-	free_2d_int(cmd->hd_arr);
-	if(cmd->path)
-		free(cmd->path);
-}
-void	close_pipes(t_cmd **cmds, t_shelldata *shell, int i)
-{
-	if((*cmds)->input_type == 3)
-		close((*cmds)->hd_arr[(*cmds)->hd_index][0]);
-	if(i != 0)
-		close(shell->pipes[i - 1][0]);
-	if(i != shell->cmd_count - 1)
-		close(shell->pipes[i][1]);
-}
 void	wait_for_children(int pid, t_shelldata *shell)
 {
 	int	status;
@@ -100,35 +29,37 @@ void	wait_for_children(int pid, t_shelldata *shell)
 	}
 }
 
-void	update_pwd_env(t_env **env)
+static int is_simple_cd_command(t_cmd *cmd, t_shelldata *shell)
 {
-	char cwd[BUFFER_SIZE];
-	t_env *pwd;
-	t_env *oldpwd;
-	char *old;
+	if (!cmd || !cmd->args || !cmd->args[0])
+		return 0;
+	if (shell->cmd_count != 1)
+		return 0;
+	if (ft_strcmp(cmd->args[0], "cd") != 0)
+		return 0;
+	if (cmd->redir_count != 0 || cmd->output_type != 0 || cmd->input_type != 0)
+		return 0;
+	return 1;
+}
 
-	if (getcwd(cwd, sizeof(cwd)) == NULL)
-		return;
-	pwd = find_env(*env, "PWD");
-	oldpwd = find_env(*env, "OLDPWD");
-	if (pwd && pwd->value)
-		old = ft_strdup(pwd->value);
-	else
-		old = ft_strdup("");
-	if (oldpwd)
+static void handle_simple_cd(t_cmd *cmd, t_shelldata *shell)
+{
+	(void)shell;
+	cd_command(cmd->args[1]);
+	free_command(cmd);
+}
+
+static void run_child_process(t_cmd *cmd, t_shelldata *shell, int i, int pid)
+{
+	if (pid == 0)
 	{
-		free(oldpwd->value);
-		oldpwd->value = old;
+		pick_pipes(cmd);
+		open_files(cmd);
+		pick_file_descriptors(cmd);
+		check_command_existence(cmd, shell);
+		execute_command(cmd, shell, i);
 	}
-	else
-		set_env(env, "OLDPWD", old);
-	if (pwd)
-	{
-		free(pwd->value);
-		pwd->value = ft_strdup(cwd);
-	}
-	else
-		set_env(env, "PWD", cwd);
+	close_pipes(&cmd, shell, i);
 }
 
 void start_processes(t_shelldata *shell, t_cmd **cmds)
@@ -140,31 +71,17 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 	temp = *cmds;
 	i = 0;
 	pid = 1;
-	if (shell->cmd_count == 1 && *cmds && (*cmds)->args && (*cmds)->args[0]
-		&& !ft_strcmp((*cmds)->args[0], "cd")
-		&& (*cmds)->redir_count == 0 && (*cmds)->output_type == 0 && (*cmds)->input_type == 0)
+	if (is_simple_cd_command(*cmds, shell))
 	{
-		int cd_status = cd_command((*cmds)->args[1]);
-		if (cd_status == 0)
-			update_pwd_env(&shell->env);
-		shell->exit_status = cd_status;
-		free_command(*cmds);
+		handle_simple_cd(*cmds, shell);
 		*cmds = temp;
 		return;
 	}
 	while (*cmds)
 	{
-		if(pid != 0)
+		if (pid != 0)
 			pid = fork();
-		if (pid == 0)
-		{
-			pick_pipes(*cmds);
-			open_files(*cmds);
-			pick_file_descriptors(*cmds);
-			check_command_existence(*cmds, shell);
-			execute_command(*cmds, shell, i);
-		}
-		close_pipes(cmds, shell, i);
+		run_child_process(*cmds, shell, i, pid);
 		i++;
 		*cmds = (*cmds)->next;
 	}
