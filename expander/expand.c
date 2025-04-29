@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 17:04:14 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/25 10:13:21 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/29 16:29:44 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	process_variable(t_expander *exp, t_shelldata *shell)
 
 static void	process_double_quotes(t_expander *exp, t_shelldata *shell)
 {
+	append_char(exp, '"'); // açılış tırnağını ekle
 	exp->index++; // skip opening "
 	while (exp->input[exp->index] && exp->input[exp->index] != '"')
 	{
@@ -49,11 +50,15 @@ static void	process_double_quotes(t_expander *exp, t_shelldata *shell)
 			append_char(exp, exp->input[exp->index++]);
 	}
 	if (exp->input[exp->index] == '"')
+	{
+		append_char(exp, '"'); // kapanış tırnağını ekle
 		exp->index++;
+	}
 }
 
 static void	process_single_quotes(t_expander *exp)
 {
+	append_char(exp, '\''); // açılış tırnağını ekle
 	int	start;
 
 	exp->index++;
@@ -63,7 +68,10 @@ static void	process_single_quotes(t_expander *exp)
 	while (start < exp->index)
 		append_char(exp, exp->input[start++]);
 	if (exp->input[exp->index] == '\'')
+	{
+		append_char(exp, '\''); // kapanış tırnağını ekle
 		exp->index++;
+	}
 }
 
 char	*expand_str(char *str, t_shelldata *shell)
