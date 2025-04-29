@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   processes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/26 19:39:39 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/29 17:17:02 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	check_command_existence(t_cmd *cmd, t_shelldata *shell)
 			return ;
 		else
 		{
-			access_permission_denied(cmd->args[0]);			
+			access_permission_denied(cmd->args[0]);
 		}
 	}
 }
@@ -140,7 +140,9 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 	temp = *cmds;
 	i = 0;
 	pid = 1;
-	if (shell->cmd_count == 1 && *cmds && (*cmds)->args && (*cmds)->args[0] && !ft_strcmp((*cmds)->args[0], "cd"))
+	if (shell->cmd_count == 1 && *cmds && (*cmds)->args && (*cmds)->args[0]
+		&& !ft_strcmp((*cmds)->args[0], "cd")
+		&& (*cmds)->redir_count == 0 && (*cmds)->output_type == 0 && (*cmds)->input_type == 0)
 	{
 		int cd_status = cd_command((*cmds)->args[1]);
 		if (cd_status == 0)
