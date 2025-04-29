@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/29 17:45:21 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/29 17:50:35 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ static int is_simple_cd_command(t_cmd *cmd, t_shelldata *shell)
 
 static void handle_simple_cd(t_cmd *cmd, t_shelldata *shell)
 {
-	(void)shell;
-	cd_command(cmd->args[1]);
+	shell->exit_status = cd_command(cmd->args[1]);
 	free_command(cmd);
 }
 
