@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 10:53:32 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/29 15:46:12 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:56:16 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	open_error(char *file)
 {
+	errno = 1;
 	write(2, "minishell: ", 11);
 	write(2, file, ft_strlen(file));
 	write(2, ": ", 2);
 	write(2, strerror(errno), ft_strlen(strerror(errno)));
 	write(2, "\n", 1);
-	errno = 1;
 	exit(errno);
 }
 

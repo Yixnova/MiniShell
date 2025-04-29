@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/29 15:46:33 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:54:44 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	check_command_existence(t_cmd *cmd, t_shelldata *shell)
 			return ;
 		else
 		{
-			access_permission_denied(cmd->args[0]);			
+			access_permission_denied(cmd->args[0]);		
 		}
 	}
 }
