@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_parsedata.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 10:31:23 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/25 10:19:07 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/30 11:09:16 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,6 @@ void	init_parsedata(t_shelldata *shell)
 		count--;
 	}
 	shell->pipes = ft_calloc(pipe_count, sizeof(int *));
+	shell->pids = ft_calloc(shell->cmd_count, sizeof(int));
 	make_pipes(pipe_count, shell);
 }

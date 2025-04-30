@@ -6,24 +6,27 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/30 10:42:57 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/30 11:12:50 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	wait_for_children(int i, t_shelldata *shell)
+void	wait_for_children(int pid, t_shelldata *shell)
 {
 	int	status;
 	int	n;
 	n = 0;
-	(void)i;
+	(void)pid;
 	while (n < shell->cmd_count)
 	{
-		wait(&status);
-		if (WIFEXITED(status))
+		waitpid(shell->pids[n], &status, 0);
+		if(n + 1 >= shell->cmd_count)
 		{
-			shell->exit_status = WEXITSTATUS(status);
+			if (WIFEXITED(status))
+			{
+				shell->exit_status = WEXITSTATUS(status);
+			}	
 		}
 		n++;
 	}
@@ -58,6 +61,7 @@ static void run_child_process(t_cmd *cmd, t_shelldata *shell, int i, int pid)
 		check_command_existence(cmd, shell);
 		execute_command(cmd, shell, i);
 	}
+	shell->pids[i] = pid;
 	close_pipes(&cmd, shell, i);
 }
 
