@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/30 18:25:47 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/30 18:27:54 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	wait_for_children(t_shelldata *shell)
 	{
 		old_pid = pid;
 		pid = wait(&status);
-		printf("cmd %d finished\n", n);
 		if(pid > old_pid)
 		{
 			if (WIFEXITED(status))
@@ -99,7 +98,6 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 	{
 		if (pid != 0)
 			pid = fork();
-		printf("pid: %d\n", pid);
 		run_child_process(*cmds, shell, i, pid);
 		if((*cmds)->input_type == 3)
 			close((*cmds)->hd_arr[(*cmds)->hd_index][0]);
