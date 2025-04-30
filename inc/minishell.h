@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/30 11:08:34 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/30 11:14:46 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ typedef struct s_cmd
 	int				built_in; // Komut built-in ise 1, değilse 0
 	char			*path; // Bulunan yürütülebilir dosyanın tam yolu
 	char			*faulty_token;
-	int				exit_status;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }	t_cmd;
