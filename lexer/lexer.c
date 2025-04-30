@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/30 13:11:23 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/30 13:24:51 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,34 @@ int	check_pipe_error(t_shelldata *data)
 	}
 	return (0);
 }
+void	check_unclosed_quotes(t_shelldata *data)
+{
+	int	type;
+	int	in_quotes;
+	int	i;
+
+	i = 0;
+	type = 0;
+	in_quotes = 0;
+	while(data->input[i])
+	{
+		if(data->input[i] == 34 || data->input[i] == 39)
+		{
+			if(in_quotes == 0)
+			{
+				type = data->input[i];
+				in_quotes = 1;
+			}
+			else if(in_quotes == 1 && data->input[i] == type)
+			{
+				in_quotes = 0;
+			}
+		}
+		i++;
+	}
+	if(in_quotes = 1);
+		continue_quoted_input()
+}
 void	free_token_arr(char **token_arr)
 {
 	int	i;
@@ -68,6 +96,7 @@ int	tokenize_input(t_shelldata *data)
 		ft_putendl_fd("Error: Memory allocation failed", 2);
 		return (1);
 	}
+	check_unclosed_quotes(data)
 	if(check_pipe_error(data))
 		return (1);
 	return (0);
