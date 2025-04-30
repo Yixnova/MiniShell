@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/30 14:17:58 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/30 14:20:53 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	continue_quoted_input(t_shelldata *data, int type)
 	data->input = ft_join(data->input, "\n");
 	while(1)
 	{
-		line = ft_join(readline("> "), "\n");
+		line = readline("> ");
 		data->input = ft_join(data->input, line);
 		if(is_in_str(line, type))
 			break;
@@ -98,6 +98,8 @@ int	continue_quoted_input(t_shelldata *data, int type)
 			return (1);
 		}
 	}
+	free_2d_char(data->tokens);
+	data->tokens = split_into_words(data->input);
 	check_unclosed_quotes(data);
 	return (0);
 }
