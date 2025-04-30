@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/30 15:14:06 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/30 15:27:40 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,7 @@ int	check_unclosed_quotes(t_shelldata *data)
 				in_quotes = 1;
 			}
 			else if(in_quotes == 1 && data->input[i] == type)
-			{
 				in_quotes = 0;
-			}
 		}
 		i++;
 	}

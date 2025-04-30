@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 10:53:32 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/30 10:37:56 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/30 15:32:39 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	open_error(char *file, int redir_num)
 			write(2, "Permission Denied\n", 19);
 		exit(1);
 	}
-	if(redir_num == 3 || redir_num == 4)
+	if(redir_num == 4)
 	{
 		if(access(file, R_OK) < 0)
 			write(2, "Permission Denied\n", 19);

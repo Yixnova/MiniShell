@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 19:10:55 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/30 09:55:11 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/30 15:36:45 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	open_files(t_cmd *cmd)
 	while (cmd->redirs[i])
 	{
 		file_name = cmd->redirs[i] + is_in_str(cmd->redirs[i], ' ') + redir_len(cmd->redirs[i]);
-		if(redir_num(cmd->redirs[i]))
+		if(redir_num(cmd->redirs[i]) != 3)
 		{
 			if (redir_num(cmd->redirs[i]) == 1)
 				cmd->file_descs[n] = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 777);
