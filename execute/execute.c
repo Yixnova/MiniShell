@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:08:21 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/30 10:12:57 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/30 16:26:35 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	execute_command(t_cmd *cmd, t_shelldata *shell, int i)
 			exit(0);
 		}
 	}
-	if(execve(cmd->path, cmd->args, shell->env->envp) == -1)
+	else if(execve(cmd->path, cmd->args, shell->env->envp) == -1)
 		execve_error();
 	if (cmd->path)
 		free(cmd->path);
