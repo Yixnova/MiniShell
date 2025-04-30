@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/30 15:27:40 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/30 16:01:00 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	syntax_error_eof(void)
 {
-	write(2, "minishell: syntax error: unexpected end of file", 48);
+	write(2, "minishell: syntax error: unexpected end of file\n", 49);
 }
 int	pipe_error(void)
 {
@@ -134,7 +134,10 @@ int	tokenize_input(t_shelldata *data)
 	while(check_unclosed_quotes(data) != 0 || check_pipe_error(data) == 2)
 	{
 		while(check_unclosed_quotes(data) != 0)
-			continue_quoted_input(data, check_unclosed_quotes(data));
+		{
+			if(continue_quoted_input(data, check_unclosed_quotes(data)))
+				return (1);
+		}
 		while(check_pipe_error(data) == 2)
 			add_tokens(data);	
 	}

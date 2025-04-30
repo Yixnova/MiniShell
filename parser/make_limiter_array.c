@@ -6,12 +6,25 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 14:10:31 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/25 18:58:37 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/30 15:58:35 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+int	has_no_quotes(char *str)
+{
+	int i;
+
+	i = 0;
+	while(str[i])
+	{
+		if(str[i] == 34 || str[i] == 39)
+			return (0);
+		i++;
+	}
+	return (1);
+}
 int	redir_num(char	*str)
 {
 	if (!strncmp(str, "> ", 2))
@@ -45,6 +58,7 @@ void	make_limiter_arr(t_cmd	*cmd)
 	if(cmd->hd_count < 0)
 		return ;
 	cmd->limiter_arr = ft_calloc(cmd->hd_count, sizeof(char *));
+	cmd->hd_will_parsedollar = ft_calloc(cmd->hd_count, sizeof(int));
 	i = 0;
 	while (cmd->redirs[i])
 	{
@@ -53,7 +67,8 @@ void	make_limiter_arr(t_cmd	*cmd)
 			len = ft_strlen(cmd->redirs[i] + 3);
 			if(len > 0)
 				cmd->has_hd = 1;
-			cmd->limiter_arr[n] = ft_substr(cmd->redirs[i], 3, len);
+			cmd->hd_will_parsedollar[n] = has_no_quotes(cmd->redirs[i] + 3);
+			cmd->limiter_arr[n] = ft_substr(remove_quotes(cmd->redirs[i]), 3, len);
 			n++;
 		}
 		i++;

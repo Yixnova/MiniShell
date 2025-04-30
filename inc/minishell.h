@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/30 15:12:27 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/30 15:57:26 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_cmd
 	char			**redirs;
 	char			**limiter_arr;
 	int				**hd_arr;
+	int				*hd_will_parsedollar;
 	int				hd_index;
 	int				input;
 	int				index;
@@ -131,8 +132,8 @@ void	open_files(t_cmd *cmd);
 int		search_in_paths(t_cmd *cmd, t_shelldata *shell);
 void	init_parsedata(t_shelldata *shell);
 int		check_files_and_commands(t_shelldata *data, t_cmd *cmd);
-void	open_here_document(t_cmd *cmd, int h);
-void	make_cmd_heredocs(t_cmd *cmd);
+void 	open_here_document(t_cmd *cmd, int h, t_shelldata *shell);
+void	make_cmd_heredocs(t_cmd *cmd, t_shelldata *shell);
 int		find_command_path(t_cmd *cmd, t_shelldata *shell);
 int		is_builtin_command(const char *cmd);
 void	execve_error(void);
