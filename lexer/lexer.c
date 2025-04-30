@@ -6,12 +6,33 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/30 13:24:51 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/30 13:42:10 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/lexing.h"
 
+int	continue_quoted_input(t_shelldata *data, int type)
+{
+	char	*line;
+	char	*type_str;
+
+	data->input = ft_join(data->input, "\n");
+	while(1)
+	{
+		line = ft_join(readline(">"), "\n");
+		data->input = ft_join(data->input, line);
+		if(is_in_str(line, type))
+			break;
+		else if(!line)
+		{
+			write(2, "minishell: ", 11);
+			write(2, "unexpected EOF while looking for matching \"", 44);
+			write(2, &type, 1);
+		}
+	}
+	check_unclosed_quotes(data);
+}
 int	pipe_error(void)
 {
 	write(2, "Syntax error: invalid use of token '|'\n", 39);
@@ -71,7 +92,9 @@ void	check_unclosed_quotes(t_shelldata *data)
 		i++;
 	}
 	if(in_quotes = 1);
-		continue_quoted_input()
+		continue_quoted_input(data, type);
+	else
+		return ;
 }
 void	free_token_arr(char **token_arr)
 {
