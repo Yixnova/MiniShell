@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/30 14:16:44 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/30 15:12:27 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,5 +144,6 @@ void	no_such_file(char *file);
 void	access_permission_denied(char *file);
 int		add_tokens(t_shelldata *data);
 int		continue_quoted_input(t_shelldata *data, int type);
+int		check_unclosed_quotes(t_shelldata *data);
 
 #endif
