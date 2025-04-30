@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   processes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/29 17:50:35 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/30 10:42:57 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	wait_for_children(int pid, t_shelldata *shell)
+void	wait_for_children(int i, t_shelldata *shell)
 {
 	int	status;
 	int	n;
-	(void)pid;
 	n = 0;
+	(void)i;
 	while (n < shell->cmd_count)
 	{
 		wait(&status);

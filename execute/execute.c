@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:08:21 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/28 10:31:58 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/04/30 10:12:57 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	is_directory(const char *path)
 void	execute_command(t_cmd *cmd, t_shelldata *shell, int i)
 {
 	if (!cmd || !cmd->args || !cmd->args[0])
-		exit(1);
+		exit(0);
 	if(is_directory(cmd->args[0]))
 		directory_error(cmd->args[0]);
 	if(cmd->invalid)
@@ -71,12 +71,12 @@ void	execute_command(t_cmd *cmd, t_shelldata *shell, int i)
 		{
 			if (cmd->path)
 				free(cmd->path);
-			exit(shell->exit_status);
+			exit(0);
 		}
 	}
 	if(execve(cmd->path, cmd->args, shell->env->envp) == -1)
 		execve_error();
 	if (cmd->path)
 		free(cmd->path);
-	exit(1);
+	exit(0);
 }
