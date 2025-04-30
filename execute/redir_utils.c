@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 19:10:55 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/30 18:39:19 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/30 19:02:17 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	pick_file_descriptors(t_cmd *cmd)
 	}
 }
 
-void	open_files(t_cmd *cmd)
+void	open_files(t_cmd *cmd, t_shelldata *shell)
 {
 	int		i;
 	int		n;
@@ -78,7 +78,7 @@ void	open_files(t_cmd *cmd)
 	cmd->file_descs = ft_calloc(cmd->fd_count, sizeof(int));
 	while (cmd->redirs[i])
 	{
-		file_name = cmd->redirs[i] + is_in_str(cmd->redirs[i], ' ') + redir_len(cmd->redirs[i]);
+		file_name = expand(cmd->redirs[i] + 1 + redir_len(cmd->redirs[i]), shell);
 		if(redir_num(cmd->redirs[i]) != 3)
 		{
 			if (redir_num(cmd->redirs[i]) == 1)

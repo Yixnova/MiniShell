@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/30 18:23:12 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/30 19:03:46 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,10 +128,9 @@ void	open_error(char *file, int redir_num);
 char	*ft_join(char	*str, char	*joining);
 void	pick_pipes(t_cmd *cmd);
 void	pick_file_descriptors(t_cmd *cmd);
-void	open_files(t_cmd *cmd);
+void	open_files(t_cmd *cmd, t_shelldata *shell);
 int		search_in_paths(t_cmd *cmd, t_shelldata *shell);
 void	init_parsedata(t_shelldata *shell);
-int		check_files_and_commands(t_shelldata *data, t_cmd *cmd);
 void 	open_here_document(t_cmd *cmd, int h, t_shelldata *shell);
 void	make_cmd_heredocs(t_cmd *cmd, t_shelldata *shell);
 int		find_command_path(t_cmd *cmd, t_shelldata *shell);

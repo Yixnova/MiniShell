@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 10:31:23 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/30 11:09:16 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/30 19:03:43 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,6 @@ int	find_command_path(t_cmd *cmd, t_shelldata *shell)
 	if (search_in_paths(cmd, shell))
 		return (1);
 	return(0);
-}
-
-int	check_files_and_commands(t_shelldata *data, t_cmd *cmd)
-{
-	if(!cmd->args || !cmd->args[0])
-		return (1);
-	while(cmd)
-	{
-		pick_pipes(cmd);
-		open_files(cmd);
-		pick_file_descriptors(cmd);
-		if(!find_command_path(cmd, data))
-			cmd->invalid = 1;
-		cmd = cmd->next;
-	}
-	return (0);
 }
 
 void	make_pipes(int pipe_count, t_shelldata *shell)

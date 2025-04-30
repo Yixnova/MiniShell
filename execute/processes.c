@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/30 18:27:54 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/30 19:02:42 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void run_child_process(t_cmd *cmd, t_shelldata *shell, int i, int pid)
 	if (pid == 0)
 	{
 		pick_pipes(cmd);
-		open_files(cmd);
+		open_files(cmd, shell);
 		pick_file_descriptors(cmd);
 		check_command_existence(cmd, shell);
 		execute_command(cmd, shell, i);
