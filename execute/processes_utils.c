@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:40:12 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/30 17:14:04 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/30 18:22:39 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,13 @@ void	free_command(t_cmd *cmd)
 	if(cmd->path)
 		free(cmd->path);
 }
-void	close_pipes(t_cmd **cmds, t_shelldata *shell, int i)
+void	close_pipes(t_shelldata *shell, int i)
 {
-	if((*cmds)->input_type == 3)
-		close((*cmds)->hd_arr[(*cmds)->hd_index][0]);
 	if(i != 0)
+	{
 		close(shell->pipes[i - 1][0]);
-	if(i != shell->cmd_count - 1)
-		close(shell->pipes[i][1]);
+		close(shell->pipes[i - 1][1]);	
+	}
 }
 void	close_files(t_cmd **cmds)
 {

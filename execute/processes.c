@@ -6,24 +6,27 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/30 17:23:36 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/30 18:25:47 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	wait_for_children(int pid, t_shelldata *shell)
+void	wait_for_children(t_shelldata *shell)
 {
 	int	status;
+	int	pid;
+	int	old_pid;
 	int	n;
 	
 	n = 0;
-	(void)pid;
+	pid = -1;
 	while (n < shell->cmd_count)
 	{
-		waitpid(shell->pids[n], &status, 0);
-		close_pipes(shell->cmds, shell, n);
-		if(n + 1 >= shell->cmd_count)
+		old_pid = pid;
+		pid = wait(&status);
+		printf("cmd %d finished\n", n);
+		if(pid > old_pid)
 		{
 			if (WIFEXITED(status))
 			{
@@ -98,10 +101,13 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 			pid = fork();
 		printf("pid: %d\n", pid);
 		run_child_process(*cmds, shell, i, pid);
+		if((*cmds)->input_type == 3)
+			close((*cmds)->hd_arr[(*cmds)->hd_index][0]);
+		close_pipes(shell, i);
 		i++;
 		*cmds = (*cmds)->next;
 	}
 	*cmds = temp;
-	wait_for_children(pid, shell);
+	wait_for_children(shell);
 	*cmds = temp;
 }
