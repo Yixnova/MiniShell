@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/30 13:09:54 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/30 13:11:23 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	pipe_error(void)
 {
-	write(2, "Syntax error: invalid use of pipe (|)\n", 39);
+	write(2, "Syntax error: invalid use of token '|'\n", 39);
 	return (1);
 }
 int	add_tokens(t_shelldata *data)
