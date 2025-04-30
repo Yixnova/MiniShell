@@ -60,8 +60,11 @@ void	process_input(t_shelldata *shell)
 
 void	handle_input_and_history(t_shelldata *shell)
 {
+	int pid;
 	while (1)
 	{
+		pid = getpid();
+		printf("pid: %d\n", pid);
 		if (g_signal_flag)
 		{
 			g_signal_flag = 0;
