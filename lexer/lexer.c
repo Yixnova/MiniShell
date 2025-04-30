@@ -6,12 +6,16 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/30 14:25:29 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/30 14:44:37 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/lexing.h"
 
+void	syntax_error_eof(void)
+{
+	write(2, "minishell: syntax error: unexpected end of file", 48);
+}
 int	pipe_error(void)
 {
 	write(2, "Syntax error: invalid use of token '|'\n", 39);
@@ -41,6 +45,11 @@ int	add_tokens(t_shelldata *data)
 	char	*line;
 
 	line = readline("> ");
+	if(!line)
+	{
+		syntax_error_eof();
+		exit(2);	
+	}
 	data->input = ft_join(data->input, line);
 	free_2d_char(data->tokens);
 	data->tokens = split_into_words(data->input);
@@ -90,6 +99,7 @@ int	continue_quoted_input(t_shelldata *data, int type)
 		{
 			write(2, "minishell: ", 11);
 			write(2, "unexpected EOF while looking for matching \"\'\n", 46);
+			syntax_error_eof();
 			return (1);
 		}
 		data->input = ft_join(data->input, line);
