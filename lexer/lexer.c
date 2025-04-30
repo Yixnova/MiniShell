@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/30 14:20:53 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/30 14:25:29 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,17 +86,15 @@ int	continue_quoted_input(t_shelldata *data, int type)
 	while(1)
 	{
 		line = readline("> ");
-		data->input = ft_join(data->input, line);
-		if(is_in_str(line, type))
-			break;
-		else if(!line)
+		if(!line)
 		{
 			write(2, "minishell: ", 11);
-			write(2, "unexpected EOF while looking for matching \"", 44);
-			write(2, &type, 1);
-			write(2, "\"", 1);
+			write(2, "unexpected EOF while looking for matching \"\'\n", 46);
 			return (1);
 		}
+		data->input = ft_join(data->input, line);
+		if(is_in_str(line, type))
+			break ;
 	}
 	free_2d_char(data->tokens);
 	data->tokens = split_into_words(data->input);
