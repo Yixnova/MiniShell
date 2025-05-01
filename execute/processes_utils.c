@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   processes_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:40:12 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/01 13:18:01 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/05/01 13:51:21 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,22 @@ void	free_command(t_cmd *cmd)
 	if (cmd->path)
 		free(cmd->path);
 }
-
-void	close_pipes(t_cmd **cmds, t_shelldata *shell, int i)
+void	close_pipes(t_shelldata *shell, int i)
 {
-	if ((*cmds)->input_type == 3)
-		close((*cmds)->hd_arr[(*cmds)->hd_index][0]);
-	if (i != 0)
+	if(i != 0)
+	{
 		close(shell->pipes[i - 1][0]);
-	if (i != shell->cmd_count - 1)
-		close(shell->pipes[i][1]);
+		close(shell->pipes[i - 1][1]);	
+	}
+}
+void	close_files(t_cmd **cmds)
+{
+	int i;
+
+	i = 0;
+	while((*cmds)->file_descs[i])
+	{
+		close((*cmds)->file_descs[i]);
+		i++;
+	}
 }

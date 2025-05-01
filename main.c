@@ -45,7 +45,7 @@ void	process_input(t_shelldata *shell)
 	while (temp)
 	{
 		if (temp->has_hd)
-			make_cmd_heredocs(temp);
+			make_cmd_heredocs(temp, shell);
 		temp = temp->next;
 	}
 	if (*(shell->cmds) && (*(shell->cmds))->args

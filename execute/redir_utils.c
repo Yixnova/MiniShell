@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 19:10:55 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/01 13:26:18 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/05/01 13:51:03 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	pick_file_descriptors(t_cmd *cmd)
 	}
 }
 
-void	open_files(t_cmd *cmd)
+void	open_files(t_cmd *cmd, t_shelldata *shell)
 {
 	int		i;
 	int		n;
@@ -81,13 +81,13 @@ void	open_files(t_cmd *cmd)
 	cmd->file_descs = ft_calloc(cmd->fd_count, sizeof(int));
 	while (cmd->redirs[i])
 	{
-		file_name = cmd->redirs[i] + is_in_str(cmd->redirs[i], ' ') + redir_len(cmd->redirs[i]);
-		if(redir_num(cmd->redirs[i]))
+		file_name = expand(cmd->redirs[i] + 1 + redir_len(cmd->redirs[i]), shell);
+		if(redir_num(cmd->redirs[i]) != 3)
 		{
 			if (redir_num(cmd->redirs[i]) == 1)
-				cmd->file_descs[n] = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 777);
+				cmd->file_descs[n] = open(file_name, O_RDWR | O_CREAT | O_TRUNC, 0644);
 			else if (redir_num(cmd->redirs[i]) == 2)
-				cmd->file_descs[n] = open(file_name, O_WRONLY | O_CREAT | O_APPEND, 777);
+				cmd->file_descs[n] = open(file_name, O_RDWR | O_CREAT | O_APPEND, 0644);
 			else if (redir_num(cmd->redirs[i]) == 4)
 				cmd->file_descs[n] = open(file_name, O_RDONLY);
 			if (cmd->file_descs[n] < 0)

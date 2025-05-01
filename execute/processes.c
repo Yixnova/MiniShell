@@ -3,26 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   processes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/01 13:05:22 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/05/01 13:50:54 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	wait_for_children(int pid, t_shelldata *shell)
+void	wait_for_children(t_shelldata *shell)
 {
 	int	status;
+	int	pid;
+	int	old_pid;
 	int	n;
-
+	
 	n = 0;
-	(void)pid;
+	pid = -1;
 	while (n < shell->cmd_count)
 	{
-		waitpid(shell->pids[n], &status, 0);
-		if (n + 1 >= shell->cmd_count)
+		old_pid = pid;
+		pid = wait(&status);
+		if(pid > old_pid)
 		{
 			if (WIFEXITED(status))
 			{
@@ -30,6 +33,7 @@ void	wait_for_children(int pid, t_shelldata *shell)
 			}
 		}
 		n++;
+		*(shell->cmds) = (*(shell->cmds))->next;
 	}
 }
 
@@ -57,16 +61,25 @@ static void	run_child_process(t_cmd *cmd, t_shelldata *shell, int i, int pid)
 	if (pid == 0)
 	{
 		pick_pipes(cmd);
-		open_files(cmd);
+		open_files(cmd, shell);
 		pick_file_descriptors(cmd);
 		check_command_existence(cmd, shell);
 		execute_command(cmd, shell, i);
 	}
 	shell->pids[i] = pid;
-	close_pipes(&cmd, shell, i);
 }
+void	close_all_pipes(t_shelldata *shell)
+{
+	int i;
 
-void	start_processes(t_shelldata *shell, t_cmd **cmds)
+	i = 0;
+	while(i < shell->cmd_count - 1)
+	{
+		free(shell->pipes[i]);
+		i++;
+	}	
+}
+void start_processes(t_shelldata *shell, t_cmd **cmds)
 {
 	int		pid;
 	int		i;
@@ -86,9 +99,13 @@ void	start_processes(t_shelldata *shell, t_cmd **cmds)
 		if (pid != 0)
 			pid = fork();
 		run_child_process(*cmds, shell, i, pid);
+		if((*cmds)->input_type == 3)
+			close((*cmds)->hd_arr[(*cmds)->hd_index][0]);
+		close_pipes(shell, i);
 		i++;
 		*cmds = (*cmds)->next;
 	}
-	wait_for_children(pid, shell);
+	*cmds = temp;
+	wait_for_children(shell);
 	*cmds = temp;
 }

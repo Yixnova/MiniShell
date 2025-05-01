@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/30 11:14:46 by busseven         ###   ########.fr       */
+/*   Updated: 2025/04/30 19:03:46 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_cmd
 	char			**redirs;
 	char			**limiter_arr;
 	int				**hd_arr;
+	int				*hd_will_parsedollar;
 	int				hd_index;
 	int				input;
 	int				index;
@@ -120,19 +121,18 @@ t_cmd	*ft_cmdnew(void);
 void	add_cmd(t_shelldata *shell, t_cmd *new);
 void	open_all_heredoc(t_cmd *cmd);
 void	free_2d_char(char **arr);
-void	close_pipes(t_cmd **cmds, t_shelldata *shell, int i);
+void	close_pipes(t_shelldata *shell, int i);
 void	start_processes(t_shelldata *shell, t_cmd **cmds);
 void	invalid_file(char *file_name);
 void	open_error(char *file, int redir_num);
 char	*ft_join(char	*str, char	*joining);
 void	pick_pipes(t_cmd *cmd);
 void	pick_file_descriptors(t_cmd *cmd);
-void	open_files(t_cmd *cmd);
+void	open_files(t_cmd *cmd, t_shelldata *shell);
 int		search_in_paths(t_cmd *cmd, t_shelldata *shell);
 void	init_parsedata(t_shelldata *shell);
-int		check_files_and_commands(t_shelldata *data, t_cmd *cmd);
-void	open_here_document(t_cmd *cmd, int h);
-void	make_cmd_heredocs(t_cmd *cmd);
+void 	open_here_document(t_cmd *cmd, int h, t_shelldata *shell);
+void	make_cmd_heredocs(t_cmd *cmd, t_shelldata *shell);
 int		find_command_path(t_cmd *cmd, t_shelldata *shell);
 int		is_builtin_command(const char *cmd);
 void	execve_error(void);
@@ -142,5 +142,9 @@ void	access_error(char *file);
 int		is_directory(const char *path);
 void	no_such_file(char *file);
 void	access_permission_denied(char *file);
+int		add_tokens(t_shelldata *data);
+int		continue_quoted_input(t_shelldata *data, int type);
+int		check_unclosed_quotes(t_shelldata *data);
+void	close_files(t_cmd **cmds);
 
 #endif
