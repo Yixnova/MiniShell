@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 09:24:57 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/29 17:49:30 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/05/01 13:10:21 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	array_free(char **arr)
 {
-	int i;
+	int	i;
 
 	if (!arr)
-		return;
+		return ;
 	i = 0;
 	while (arr[i])
 	{
@@ -42,17 +42,21 @@ char	*ft_myjoin(const char *s1, const char *s2, const char *s3)
 
 int	is_builtin_command(const char *cmd)
 {
-	return (!ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "cd") ||
-			!ft_strcmp(cmd, "pwd") || !ft_strcmp(cmd, "export") ||
-			!ft_strcmp(cmd, "unset") || !ft_strcmp(cmd, "env") ||
-			!ft_strcmp(cmd, "exit"));
+	return (!ft_strcmp(cmd, "echo")
+		|| !ft_strcmp(cmd, "cd")
+		|| !ft_strcmp(cmd, "pwd")
+		|| !ft_strcmp(cmd, "export")
+		|| !ft_strcmp(cmd, "unset")
+		|| !ft_strcmp(cmd, "env")
+		|| !ft_strcmp(cmd, "exit"));
 }
 
 int	execute_builtin(t_shelldata *shell, char **args)
 {
 	if (!ft_strcmp(args[0], "echo"))
 		echo_command(args);
-	else if (!ft_strcmp(args[0], "cd")) {
+	else if (!ft_strcmp(args[0], "cd"))
+	{
 		shell->exit_status = cd_command(args[1]);
 		exit(shell->exit_status);
 	}

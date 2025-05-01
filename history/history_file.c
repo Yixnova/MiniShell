@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 19:28:17 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/19 12:03:35 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/05/01 13:28:48 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	load_history_from_file(void)
 
 	path = get_history_path();
 	if (!path)
-		return;
+		return ;
 	read_history(path);
 	free(path);
 }
@@ -47,12 +47,12 @@ void	append_history_to_file(const char *line)
 
 	path = get_history_path();
 	if (!path)
-		return;
+		return ;
 	fd = open(path, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd < 0)
 	{
 		free(path);
-		return;
+		return ;
 	}
 	write(fd, line, strlen(line));
 	write(fd, "\n", 1);
@@ -66,7 +66,7 @@ void	save_history_on_exit(void)
 
 	path = get_history_path();
 	if (!path)
-		return;
+		return ;
 	write_history(path);
 	free(path);
 }

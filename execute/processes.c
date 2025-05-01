@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   processes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/30 11:12:50 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/01 13:05:22 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,42 +16,43 @@ void	wait_for_children(int pid, t_shelldata *shell)
 {
 	int	status;
 	int	n;
+
 	n = 0;
 	(void)pid;
 	while (n < shell->cmd_count)
 	{
 		waitpid(shell->pids[n], &status, 0);
-		if(n + 1 >= shell->cmd_count)
+		if (n + 1 >= shell->cmd_count)
 		{
 			if (WIFEXITED(status))
 			{
 				shell->exit_status = WEXITSTATUS(status);
-			}	
+			}
 		}
 		n++;
 	}
 }
 
-static int is_simple_cd_command(t_cmd *cmd, t_shelldata *shell)
+static int	is_simple_cd_command(t_cmd *cmd, t_shelldata *shell)
 {
 	if (!cmd || !cmd->args || !cmd->args[0])
-		return 0;
+		return (0);
 	if (shell->cmd_count != 1)
-		return 0;
+		return (0);
 	if (ft_strcmp(cmd->args[0], "cd") != 0)
-		return 0;
+		return (0);
 	if (cmd->redir_count != 0 || cmd->output_type != 0 || cmd->input_type != 0)
-		return 0;
-	return 1;
+		return (0);
+	return (1);
 }
 
-static void handle_simple_cd(t_cmd *cmd, t_shelldata *shell)
+static void	handle_simple_cd(t_cmd *cmd, t_shelldata *shell)
 {
 	shell->exit_status = cd_command(cmd->args[1]);
 	free_command(cmd);
 }
 
-static void run_child_process(t_cmd *cmd, t_shelldata *shell, int i, int pid)
+static void	run_child_process(t_cmd *cmd, t_shelldata *shell, int i, int pid)
 {
 	if (pid == 0)
 	{
@@ -65,10 +66,10 @@ static void run_child_process(t_cmd *cmd, t_shelldata *shell, int i, int pid)
 	close_pipes(&cmd, shell, i);
 }
 
-void start_processes(t_shelldata *shell, t_cmd **cmds)
+void	start_processes(t_shelldata *shell, t_cmd **cmds)
 {
-	int	pid;
-	int	i;
+	int		pid;
+	int		i;
 	t_cmd	*temp;
 
 	temp = *cmds;
@@ -78,7 +79,7 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 	{
 		handle_simple_cd(*cmds, shell);
 		*cmds = temp;
-		return;
+		return ;
 	}
 	while (*cmds)
 	{

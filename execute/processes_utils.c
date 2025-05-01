@@ -6,35 +6,36 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:40:12 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/29 17:41:58 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/05/01 13:18:01 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int		is_file_dir_name(char *file)
+int	is_file_dir_name(char *file)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(file[i] == '.')
+	while (file[i] == '.')
 		i++;
-	if(file[i] == '/')
+	if (file[i] == '/')
 		return (1);
 	return (0);
 }
+
 void	check_command_existence(t_cmd *cmd, t_shelldata *shell)
 {
 	int	valid;
 
 	valid = find_command_path(cmd, shell);
-	if(cmd->built_in)
+	if (cmd->built_in)
 		return ;
-	if(!valid)
+	if (!valid)
 	{
-		if(is_file_dir_name(cmd->args[0]))
+		if (is_file_dir_name(cmd->args[0]))
 		{
-			if(is_directory(cmd->args[0]))
+			if (is_directory(cmd->args[0]))
 				directory_error(cmd->args[0]);
 			else
 				no_such_file(cmd->args[0]);
@@ -42,7 +43,7 @@ void	check_command_existence(t_cmd *cmd, t_shelldata *shell)
 	}
 	else
 	{
-		if(access(cmd->path, X_OK) == 0)
+		if (access(cmd->path, X_OK) == 0)
 			return ;
 		else
 		{
@@ -50,6 +51,7 @@ void	check_command_existence(t_cmd *cmd, t_shelldata *shell)
 		}
 	}
 }
+
 void	free_2d_int(int **arr)
 {
 	int	i;
@@ -64,6 +66,7 @@ void	free_2d_int(int **arr)
 	}
 	free(arr);
 }
+
 void	free_command(t_cmd *cmd)
 {
 	free_2d_char(cmd->tokens);
@@ -71,15 +74,16 @@ void	free_command(t_cmd *cmd)
 	free_2d_char(cmd->redirs);
 	free_2d_char(cmd->limiter_arr);
 	free_2d_int(cmd->hd_arr);
-	if(cmd->path)
+	if (cmd->path)
 		free(cmd->path);
 }
+
 void	close_pipes(t_cmd **cmds, t_shelldata *shell, int i)
 {
-	if((*cmds)->input_type == 3)
+	if ((*cmds)->input_type == 3)
 		close((*cmds)->hd_arr[(*cmds)->hd_index][0]);
-	if(i != 0)
+	if (i != 0)
 		close(shell->pipes[i - 1][0]);
-	if(i != shell->cmd_count - 1)
+	if (i != shell->cmd_count - 1)
 		close(shell->pipes[i][1]);
 }

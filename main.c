@@ -37,7 +37,7 @@ void	process_input(t_shelldata *shell)
 	t_cmd	*temp;
 
 	add_history(shell->input);
-	if(tokenize_input(shell))
+	if (tokenize_input(shell))
 		return ;
 	init_parsedata(shell);
 	edit_cmds_arr(shell, *(shell->cmds), 0, 0);

@@ -6,7 +6,7 @@
 #    By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:42:59 by busseven          #+#    #+#              #
-#    Updated: 2025/04/29 17:44:45 by yigsahin         ###   ########.fr        #
+#    Updated: 2025/05/01 13:28:18 by yigsahin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRCS =	main.c\
 		./lexer/remove_quotes.c\
 		./expander/expand.c\
 		./expander/expand_utils.c\
+		./expander/expand_utils2.c\
 		./parser/cmd_list.c \
 		./parser/make_arg_array.c \
 		./parser/make_redir_arr.c \
@@ -46,7 +47,8 @@ SRCS =	main.c\
 		./parser/here_doc.c \
 		./execute/processes.c \
 		./execute/processes_utils.c \
-		./execute/process_errors.c\
+		./execute/process_error.c\
+		./execute/process_error_utils.c\
 		./execute/find_command_path.c\
 		./history/history_file.c\
 		./parser/init_parsedata.c \

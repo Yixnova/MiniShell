@@ -3,26 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   redir_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 19:10:55 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/30 09:55:11 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/01 13:26:18 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int		redir_len(char *str)
+int	redir_len(char *str)
 {
-	if(redir_num(str) == 1 || redir_num(str) == 4)
+	if (redir_num(str) == 1 || redir_num(str) == 4)
 		return (1);
-	if(redir_num(str) == 2 || redir_num(str) == 3)
+	if (redir_num(str) == 2 || redir_num(str) == 3)
 		return (2);
 	return (0);
 }
+
 void	not_here_doc(t_cmd *cmd, int i, int f)
 {
-	if(redir_num(cmd->redirs[i]) == 2 || redir_num(cmd->redirs[i]) == 1)
+	if (redir_num(cmd->redirs[i]) == 2 || redir_num(cmd->redirs[i]) == 1)
 	{
 		cmd->output = cmd->file_descs[f];
 		cmd->output_type = 2;
@@ -33,6 +34,7 @@ void	not_here_doc(t_cmd *cmd, int i, int f)
 		cmd->input_type = 2;
 	}
 }
+
 void	pick_pipes(t_cmd *cmd)
 {
 	cmd->input_type = 0;
@@ -42,6 +44,7 @@ void	pick_pipes(t_cmd *cmd)
 	if (cmd->next)
 		cmd->output_type = 1;
 }
+
 void	pick_file_descriptors(t_cmd *cmd)
 {
 	int	i;
@@ -57,7 +60,7 @@ void	pick_file_descriptors(t_cmd *cmd)
 			not_here_doc(cmd, i, f);
 			f++;
 		}
-		else if(cmd->hd_arr)
+		else if (cmd->hd_arr)
 		{
 			cmd->input_type = 3;
 			cmd->hd_index++;
