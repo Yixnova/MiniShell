@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 08:58:49 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/01 13:29:34 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/05/01 15:33:32 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	sigint_handler(int signum)
 	write(1, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
-	rl_redisplay();
 }
 
 void	sigquit_handler(int signum)
