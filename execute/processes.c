@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   processes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/02 09:26:47 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/05/02 16:04:14 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ static void	handle_simple_cd(t_cmd *cmd, t_shelldata *shell)
 	{
 		shell->exit_status = cd_command(cmd->args[1]);
 	}
-	free_command(cmd);
 }
 
 static void	run_child_process(t_cmd *cmd, t_shelldata *shell, int i, int pid)

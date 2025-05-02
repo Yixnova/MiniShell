@@ -39,11 +39,9 @@ void	process_input(t_shelldata *shell)
 	add_history(shell->input);
 	if (tokenize_input(shell))
 		return ;
-	printf("made tokens\n");
 	init_parsedata(shell);
 	if(edit_cmds_arr(shell, *(shell->cmds), 0, 0))
 		return ;
-	printf("made cmds\n");
 	temp = *(shell->cmds);
 	while (temp)
 	{
