@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/30 19:03:04 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:41:16 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_cmd	*ft_cmdnew(void)
 {
-	t_cmd   *new;
+	t_cmd	*new;
 
 	new = ft_calloc(1, sizeof(t_cmd));
 	return (new);
@@ -22,7 +22,7 @@ t_cmd	*ft_cmdnew(void)
 
 void	add_cmd(t_shelldata *shell, t_cmd *new)
 {
-	t_cmd   *temp;
+	t_cmd	*temp;
 
 	if (!*(shell->cmds))
 	{
@@ -38,9 +38,9 @@ void	add_cmd(t_shelldata *shell, t_cmd *new)
 	new->prev = temp;
 }
 
-void	free_cmd_arr(t_cmd   **cmds)
+void	free_cmd_arr(t_cmd	**cmds)
 {
-	t_cmd   *temp;
+	t_cmd	*temp;
 
 	while (*cmds)
 	{
@@ -56,9 +56,9 @@ void	free_cmd_arr(t_cmd   **cmds)
 	}
 }
 
-int		init_cmd(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
+int	init_cmd(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
 {
-	int k;
+	int	k;
 
 	k = 0;
 	cmd->tokens = ft_calloc(*n - *i + 2, sizeof(char *));
@@ -75,14 +75,14 @@ int		init_cmd(t_shelldata *shell, t_cmd *cmd, int *i, int *n)
 	return (0);
 }
 
-int		edit_cmds_arr(t_shelldata *shell, t_cmd *cmds, int i, int n)
+int	edit_cmds_arr(t_shelldata *shell, t_cmd *cmds, int i, int n)
 {
 	if (!cmds)
 	{
 		return (0);
 	}
-	while (shell->tokens && shell->tokens[n] &&
-			!is_pipe(shell->tokens[n]))
+	while (shell->tokens && shell->tokens[n]
+		&& !is_pipe(shell->tokens[n]))
 		n++;
 	init_cmd(shell, cmds, &i, &n);
 	edit_cmds_arr(shell, cmds->next, i + 1, n + 1);

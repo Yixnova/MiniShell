@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 14:10:31 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/30 15:58:35 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:39:08 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	has_no_quotes(char *str)
 	int i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
-		if(str[i] == 34 || str[i] == 39)
+		if (str[i] == 34 || str[i] == 39)
 			return (0);
 		i++;
 	}
@@ -37,8 +37,7 @@ int	redir_num(char	*str)
 		return (4);
 	return (0);
 }
-
-void	make_limiter_arr(t_cmd	*cmd)
+void	add_limiters(t_cmd *cmd)
 {
 	int	i;
 	int	n;
@@ -46,6 +45,26 @@ void	make_limiter_arr(t_cmd	*cmd)
 
 	i = 0;
 	n = 0;
+	while (cmd->redirs[i])
+	{
+		if (redir_num(cmd->redirs[i]) == 3)
+		{
+			len = ft_strlen(cmd->redirs[i] + 3);
+			if (len > 0)
+				cmd->has_hd = 1;
+			cmd->hd_will_parsedollar[n] = has_no_quotes(cmd->redirs[i] + 3);
+			cmd->limiter_arr[n] = ft_substr(remove_quotes(cmd->redirs[i]), 3, len);
+			n++;
+		}
+		i++;
+	}
+}
+
+void	make_limiter_arr(t_cmd	*cmd)
+{
+	int	i;
+
+	i = 0;
 	cmd->hd_count = 0;
 	if(!cmd || !cmd->redirs || !ft_strcmp(cmd->redirs[0], "\0"))
 		return ;
@@ -59,18 +78,5 @@ void	make_limiter_arr(t_cmd	*cmd)
 		return ;
 	cmd->limiter_arr = ft_calloc(cmd->hd_count, sizeof(char *));
 	cmd->hd_will_parsedollar = ft_calloc(cmd->hd_count, sizeof(int));
-	i = 0;
-	while (cmd->redirs[i])
-	{
-		if(redir_num(cmd->redirs[i]) == 3)
-		{
-			len = ft_strlen(cmd->redirs[i] + 3);
-			if(len > 0)
-				cmd->has_hd = 1;
-			cmd->hd_will_parsedollar[n] = has_no_quotes(cmd->redirs[i] + 3);
-			cmd->limiter_arr[n] = ft_substr(remove_quotes(cmd->redirs[i]), 3, len);
-			n++;
-		}
-		i++;
-	}
+	add_limiters(cmd);
 }

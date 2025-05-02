@@ -6,20 +6,28 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:23:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/30 15:56:32 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:42:26 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void    heredoc_eof(t_cmd *cmd, int line_num, int h)
+static char	*get_line(t_shelldata *shell, t_cmd *cmd, int h)
+{
+	if (cmd->hd_will_parsedollar[h])
+		return (expand(readline("> "), shell));
+	else
+		return (readline("> "));
+}
+static void    heredoc_eof(t_cmd *cmd, int line_num, int h, char *line)
 {
 	close(cmd->hd_arr[h][1]);
 	printf("warning: ");
 	printf("here-document at line %d ", line_num);
 	printf("delimited by end-of-file (wanted `%s')\n", cmd->limiter_arr[h]);
+	free(line);
 }
-void	open_here_document(t_cmd *cmd, int h, t_shelldata *shell)
+static void	open_here_document(t_cmd *cmd, int h, t_shelldata *shell)
 {
 	char	*line;
 	int		line_num;
@@ -27,17 +35,13 @@ void	open_here_document(t_cmd *cmd, int h, t_shelldata *shell)
 	line_num = 0;
 	while (1)
 	{
-		if(cmd->hd_will_parsedollar[h])
-			line = expand(readline("> "), shell);
-		else
-			line = readline("> ");
+		line = get_line(shell, cmd, h);
 		if (!line)
 		{
-			heredoc_eof(cmd, line_num, h);
-			free(line);
+			heredoc_eof(cmd, line_num, h, line);
 			break ;
 		}
-		if(line[0] == '\0')
+		if (line[0] == '\0')
 			continue ;
 		if (!ft_strncmp(line, cmd->limiter_arr[h], ft_strlen(line)))
 		{
@@ -59,11 +63,11 @@ void	make_cmd_heredocs(t_cmd *cmd, t_shelldata *shell)
 
 	h = 0;
 	count = 0;
-	if(!cmd || !cmd->limiter_arr)
+	if (!cmd || !cmd->limiter_arr)
 		return ;
 	while (cmd->limiter_arr[count])
 		count++;
-	if(count + 1 < 0)
+	if (count + 1 < 0)
 		return ;
 	cmd->hd_arr = ft_calloc(count + 1, sizeof(int *));
 	while (cmd)

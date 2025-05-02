@@ -6,11 +6,20 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:40:12 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/01 13:51:21 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:43:03 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+int	find_command_path(t_cmd *cmd, t_shelldata *shell)
+{
+	if (check_builtin_and_path(cmd, shell))
+		return (1);
+	if (search_in_paths(cmd, shell))
+		return (1);
+	return(0);
+}
 
 int	is_file_dir_name(char *file)
 {

@@ -6,20 +6,11 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 10:31:23 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/30 19:03:43 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:42:52 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-int	find_command_path(t_cmd *cmd, t_shelldata *shell)
-{
-	if (check_builtin_and_path(cmd, shell))
-		return (1);
-	if (search_in_paths(cmd, shell))
-		return (1);
-	return(0);
-}
 
 void	make_pipes(int pipe_count, t_shelldata *shell)
 {
@@ -27,7 +18,7 @@ void	make_pipes(int pipe_count, t_shelldata *shell)
 	struct stat	statbuf;
 
 	n = 0;
-	while(pipe_count > 0)
+	while (pipe_count > 0)
 	{
 		shell->pipes[n] = ft_calloc(2, sizeof(int));
 		pipe(shell->pipes[n]);
@@ -45,16 +36,16 @@ void	init_parsedata(t_shelldata *shell)
 
 	i = 0;
 	count = 0;
-	while(shell->tokens[i])
+	while (shell->tokens[i])
 	{
-		if(ft_strlen(shell->tokens[i]) == 1 && shell->tokens[i][0] == '|')
+		if (ft_strlen(shell->tokens[i]) == 1 && shell->tokens[i][0] == '|')
 			count++;
 		i++;
 	}
 	shell->cmds = ft_calloc(count + 1, sizeof(t_cmd *));
 	shell->cmd_count = count + 1;
 	pipe_count = count;
-	while(count + 1 > 0)
+	while (count + 1 > 0)
 	{
 		add_cmd(shell, ft_cmdnew());
 		count--;

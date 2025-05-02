@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 17:13:29 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/25 11:19:59 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:45:39 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,6 @@ int		is_redir(char	*str)
 		return (0);
 	if (str[0] && (str[0] == '<' || str[0] == '>'))
 		return (1);
-	return (0);
-}
-
-int	is_valid_redir(char	*str)
-{
-	if (!strncmp(str, ">", ft_strlen(str)))
-		return (1);
-	if (!strncmp(str, ">>", ft_strlen(str)))
-		return (2);
-	if (!strncmp(str, "<<", ft_strlen(str)))
-		return (3);
-	if (!strncmp(str, "<", ft_strlen(str)))
-		return (4);
 	return (0);
 }
 
