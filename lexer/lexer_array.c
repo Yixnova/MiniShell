@@ -3,14 +3,66 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_array.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 10:06:33 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/14 14:49:48 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/05/02 15:03:14 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/lexing.h"
+
+void	handle_special_characters(char *str, int on_word, int *i, int *count)
+{
+	on_word = 0;
+	if (is_in_str("<>", str[*i]))
+	{
+		while (str[*i] && is_in_str("<>", str[*i]))
+			(*i)++;
+		(*i)--;
+	}
+	(*count)++;
+}
+
+void	skip_in_quotes(char	*str, int *i, int type)
+{
+	if (str[*i] == 39 || str[*i] == 34)
+	{
+		while (str[*i])
+		{
+			(*i)++;
+			if (str[*i] == type)
+				return ;
+		}
+		unclosed_quotes();
+	}
+}
+
+int	count_words(char *str)
+{
+	int	i;
+	int	on_word;
+	int	count;
+
+	count = 0;
+	on_word = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (is_space_character(str[i]))
+			on_word = 0;
+		else if (is_in_str("<>|", str[i]))
+			handle_special_characters(str, on_word, &i, &count);
+		else if (on_word == 0)
+		{
+			on_word = 1;
+			count++;
+		}
+		skip_in_quotes(str, &i, str[i]);
+		i++;
+	}
+	return (count);
+}
 
 char	**split_into_words(char *str)
 {
