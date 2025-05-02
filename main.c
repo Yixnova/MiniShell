@@ -62,11 +62,6 @@ void	handle_input_and_history(t_shelldata *shell)
 {
 	while (1)
 	{
-		if (g_signal_flag)
-		{
-			g_signal_flag = 0;
-			continue ;
-		}
 		shell->input = readline("myshell$ ");
 		if (!shell->input)
 		{
