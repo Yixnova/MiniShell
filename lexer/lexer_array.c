@@ -6,15 +6,15 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 10:06:33 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/02 15:03:14 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/02 15:34:32 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/lexing.h"
 
-void	handle_special_characters(char *str, int on_word, int *i, int *count)
+void	handle_special_characters(char *str, int *on_word, int *i, int *count)
 {
-	on_word = 0;
+	*on_word = 0;
 	if (is_in_str("<>", str[*i]))
 	{
 		while (str[*i] && is_in_str("<>", str[*i]))
@@ -34,7 +34,6 @@ void	skip_in_quotes(char	*str, int *i, int type)
 			if (str[*i] == type)
 				return ;
 		}
-		unclosed_quotes();
 	}
 }
 
@@ -52,7 +51,7 @@ int	count_words(char *str)
 		if (is_space_character(str[i]))
 			on_word = 0;
 		else if (is_in_str("<>|", str[i]))
-			handle_special_characters(str, on_word, &i, &count);
+			handle_special_characters(str, &on_word, &i, &count);
 		else if (on_word == 0)
 		{
 			on_word = 1;

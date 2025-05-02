@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/02 14:50:12 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/02 15:32:19 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,5 +145,8 @@ int		add_tokens(t_shelldata *data);
 int		continue_quoted_input(t_shelldata *data, int type);
 int		check_unclosed_quotes(t_shelldata *data);
 void	close_files(t_cmd **cmds);
+void	syntax_error_eof(void);
+int		check_pipe_error(t_shelldata *data);
+int		check_syntax_errors(t_cmd *cmd);
 
 #endif

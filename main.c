@@ -40,7 +40,8 @@ void	process_input(t_shelldata *shell)
 	if (tokenize_input(shell))
 		return ;
 	init_parsedata(shell);
-	edit_cmds_arr(shell, *(shell->cmds), 0, 0);
+	if(edit_cmds_arr(shell, *(shell->cmds), 0, 0))
+		return ;
 	temp = *(shell->cmds);
 	while (temp)
 	{

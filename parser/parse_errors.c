@@ -6,33 +6,43 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 11:53:00 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/02 14:53:16 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/02 15:33:31 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../inc/minishell.h"
 
-int	check_parse_errors(t_cmd *cmd)
+int	syntax_error(char *token)
 {
-	int		i;
-	int		n;
-	char	*redir;
+	write(2, "minishell: ", 12);
+	write(2, "syntax_error in token: ", 24);
+	write(2, token, ft_strlen(token));
+	write(2, "\n", 1);
+	return (1);
+}
+int	check_syntax_errors(t_cmd *cmd)
+{
+	int	i;
+	int	redir;
+	int	n;
 
 	i = 0;
-	while (cmd->redirs[i])
+	n = 0;
+	while(cmd->redirs[i])
 	{
 		n = 0;
-		while (cmd->redirs[i][n] && cmd->redirs[i][n] != ' ')
+		while(cmd->redirs[i][n] && cmd->redirs[i][n] != ' ')
 			n++;
-		redir = ft_substr(cmd->redirs[i], 0, n);
-		if (!redir_num(redir) || !cmd->redirs[i][n + 1])
+		if(n > 2)
+			syntax_error(cmd->redirs[i]);
+		redir = cmd->redirs[i][0];
+		n = 1;
+		while(cmd->redirs[i][n] && cmd->redirs[i][n] != ' ')
 		{
-			printf("parse error near redir\n");
-			free(redir);
-			return (1);
+			if(cmd->redirs[i][n] != redir)
+				return(syntax_error(cmd->redirs[i]));
+			n++;	
 		}
-		free(redir);
-		i++;
 	}
 	return (0);
 }
