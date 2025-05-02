@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 09:24:57 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/01 13:10:21 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/05/02 09:22:09 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,12 @@ int	execute_builtin(t_shelldata *shell, char **args)
 		echo_command(args);
 	else if (!ft_strcmp(args[0], "cd"))
 	{
+		if (args[2])
+		{
+			ft_putstr_fd("cd: too many arguments\n", 2);
+			shell->exit_status = 1;
+			exit(1);
+		}
 		shell->exit_status = cd_command(args[1]);
 		exit(shell->exit_status);
 	}
