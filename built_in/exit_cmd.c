@@ -6,7 +6,7 @@
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 12:59:15 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/02 08:54:15 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/05/02 09:29:12 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	exit_command(char **args, t_shelldata *shell)
 	int	status;
 	int	is_num;
 
-	status = 0;
+	status = shell->exit_status;
 	is_num = 1;
 	ft_putendl_fd("exit", 1);
 	if (args[1])

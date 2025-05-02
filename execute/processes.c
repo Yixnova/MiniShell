@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   processes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/01 13:50:54 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/02 09:26:47 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	wait_for_children(t_shelldata *shell)
 	int	pid;
 	int	old_pid;
 	int	n;
-	
+
 	n = 0;
 	pid = -1;
 	while (n < shell->cmd_count)
@@ -52,7 +52,15 @@ static int	is_simple_cd_command(t_cmd *cmd, t_shelldata *shell)
 
 static void	handle_simple_cd(t_cmd *cmd, t_shelldata *shell)
 {
-	shell->exit_status = cd_command(cmd->args[1]);
+	if (cmd->args[2])
+	{
+		ft_putstr_fd("cd: too many arguments\n", 2);
+		shell->exit_status = 1;
+	}
+	else
+	{
+		shell->exit_status = cd_command(cmd->args[1]);
+	}
 	free_command(cmd);
 }
 
@@ -77,7 +85,7 @@ void	close_all_pipes(t_shelldata *shell)
 	{
 		free(shell->pipes[i]);
 		i++;
-	}	
+	}
 }
 void start_processes(t_shelldata *shell, t_cmd **cmds)
 {
