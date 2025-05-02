@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 17:04:14 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/01 13:27:39 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/05/02 16:06:13 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*expand_str(char *str, t_shelldata *shell)
 	exp.input = str;
 	exp.result = ft_calloc(1, sizeof(char));
 	exp.index = 0;
-	while (exp.input[exp.index])
+	while (exp.input && exp.input[exp.index])
 	{
 		if (exp.input[exp.index] == '$')
 			process_variable(&exp, shell);
