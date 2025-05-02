@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 10:31:23 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/02 14:42:52 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:49:01 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	make_pipes(int pipe_count, t_shelldata *shell)
 {
-	int	n;
+	int			n;
 	struct stat	statbuf;
 
 	n = 0;

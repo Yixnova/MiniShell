@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/02 14:46:36 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:50:12 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_cmd
 	char			**redirs;
 	char			**limiter_arr;
 	int				**hd_arr;
-	int				*hd_will_parsedollar;
+	int				*hd_parsedollar;
 	int				hd_index;
 	int				input;
 	int				index;

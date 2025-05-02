@@ -6,13 +6,13 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:28:56 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/02 14:39:02 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:50:57 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../inc/minishell.h"
 
-int		is_empty_str(char *str)
+int	is_empty_str(char *str)
 {
 	if (str && str[0] == '\0')
 		return (1);
@@ -34,7 +34,7 @@ void	add_args(t_shelldata *shell, t_cmd *cmd)
 			i++;
 		else if (!is_empty_str(expanded))
 		{
-			cmd->args[n] = remove_quotes(expand(cmd->tokens[i], shell));
+			cmd->args[n] = rm_quotes(expand(cmd->tokens[i], shell));
 			n++;
 		}
 		free(expanded);

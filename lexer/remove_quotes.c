@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   remove_quotes.c                                    :+:      :+:    :+:   */
+/*   rm_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -92,7 +92,7 @@ static int	get_len_without_quotes(const char *str)
 	return (len);
 }
 
-char	*remove_quotes(char *str)
+char	*rm_quotes(char *str)
 {
 	int		len;
 	char	*copy;

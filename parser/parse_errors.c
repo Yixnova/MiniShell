@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 11:53:00 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/15 14:57:17 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:53:16 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	check_parse_errors(t_cmd *cmd)
 	char	*redir;
 
 	i = 0;
-
 	while (cmd->redirs[i])
 	{
 		n = 0;

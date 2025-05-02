@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:23:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/02 14:42:26 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:52:11 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 static char	*get_line(t_shelldata *shell, t_cmd *cmd, int h)
 {
-	if (cmd->hd_will_parsedollar[h])
+	if (cmd->hd_parsedollar[h])
 		return (expand(readline("> "), shell));
 	else
 		return (readline("> "));
 }
-static void    heredoc_eof(t_cmd *cmd, int line_num, int h, char *line)
+
+static void	heredoc_eof(t_cmd *cmd, int line_num, int h, char *line)
 {
 	close(cmd->hd_arr[h][1]);
 	printf("warning: ");
@@ -27,6 +28,7 @@ static void    heredoc_eof(t_cmd *cmd, int line_num, int h, char *line)
 	printf("delimited by end-of-file (wanted `%s')\n", cmd->limiter_arr[h]);
 	free(line);
 }
+
 static void	open_here_document(t_cmd *cmd, int h, t_shelldata *shell)
 {
 	char	*line;

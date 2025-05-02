@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 14:10:31 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/02 14:39:08 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:51:18 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	has_no_quotes(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -25,6 +25,7 @@ int	has_no_quotes(char *str)
 	}
 	return (1);
 }
+
 int	redir_num(char	*str)
 {
 	if (!strncmp(str, "> ", 2))
@@ -37,6 +38,7 @@ int	redir_num(char	*str)
 		return (4);
 	return (0);
 }
+
 void	add_limiters(t_cmd *cmd)
 {
 	int	i;
@@ -52,8 +54,8 @@ void	add_limiters(t_cmd *cmd)
 			len = ft_strlen(cmd->redirs[i] + 3);
 			if (len > 0)
 				cmd->has_hd = 1;
-			cmd->hd_will_parsedollar[n] = has_no_quotes(cmd->redirs[i] + 3);
-			cmd->limiter_arr[n] = ft_substr(remove_quotes(cmd->redirs[i]), 3, len);
+			cmd->hd_parsedollar[n] = has_no_quotes(cmd->redirs[i] + 3);
+			cmd->limiter_arr[n] = ft_substr(rm_quotes(cmd->redirs[i]), 3, len);
 			n++;
 		}
 		i++;
@@ -66,17 +68,17 @@ void	make_limiter_arr(t_cmd	*cmd)
 
 	i = 0;
 	cmd->hd_count = 0;
-	if(!cmd || !cmd->redirs || !ft_strcmp(cmd->redirs[0], "\0"))
+	if (!cmd || !cmd->redirs || !ft_strcmp(cmd->redirs[0], "\0"))
 		return ;
 	while (cmd->redirs[i])
 	{
-		if(redir_num(cmd->redirs[i]) == 3)
+		if (redir_num(cmd->redirs[i]) == 3)
 			cmd->hd_count++;
 		i++;
 	}
-	if(cmd->hd_count < 0)
+	if (cmd->hd_count < 0)
 		return ;
 	cmd->limiter_arr = ft_calloc(cmd->hd_count, sizeof(char *));
-	cmd->hd_will_parsedollar = ft_calloc(cmd->hd_count, sizeof(int));
+	cmd->hd_parsedollar = ft_calloc(cmd->hd_count, sizeof(int));
 	add_limiters(cmd);
 }

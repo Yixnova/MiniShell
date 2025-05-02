@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 17:13:29 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/02 14:45:39 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:53:40 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ void	free_2d_char(char **arr)
 	free(arr);
 }
 
-int		is_pipe(char *str)
+int	is_pipe(char *str)
 {
 	if (!ft_strncmp(str, "|", ft_strlen(str)))
 		return (1);
 	return (0);
 }
 
-int		is_redir(char	*str)
+int	is_redir(char	*str)
 {
 	if (!str)
 		return (0);
