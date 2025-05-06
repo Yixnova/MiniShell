@@ -12,6 +12,39 @@
 
 #include "./inc/minishell.h"
 
+void	free_input_data(t_shelldata *shell)
+{
+	int	i;
+
+	i = 0;
+	free(shell->input);
+	free_2d_char(shell->tokens);
+	while(i < shell->cmd_count - 1)
+	{
+		free(shell->pipes[i]);
+		i++;
+	}
+	free(shell->pipes);
+	free(shell->pids);
+	while(*(shell->cmds))
+	{
+		i = 0;
+		while((*(shell->cmds))->has_hd && (*(shell->cmds))->limiter_arr[i])
+		{
+			free((*(shell->cmds))->hd_arr[i]);
+			i++;
+		}
+		free_2d_char((*(shell->cmds))->tokens);
+		free_2d_char((*(shell->cmds))->args);
+		free_2d_char((*(shell->cmds))->redirs);
+		if((*(shell->cmds))->has_hd)
+			free_2d_char((*(shell->cmds))->limiter_arr);
+		free((*(shell->cmds))->hd_parsedollar);
+		free((*(shell->cmds))->file_descs);
+		free((*(shell->cmds))->path);
+		*(shell->cmds) = (*(shell->cmds))->next;
+	}
+}
 void	free_shell_data(t_shelldata *data)
 {
 	if (data)
@@ -73,7 +106,7 @@ void	handle_input_and_history(t_shelldata *shell)
 		{
 			process_input(shell);
 		}
-		free(shell->input);
+		free_input_data(shell);
 	}
 }
 
