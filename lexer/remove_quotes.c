@@ -57,7 +57,7 @@ void	copy_word_noquotes(char *dest, const char *src)
 
 static int	handle_quote_logic(int *in_quotes, int *type, char current_char)
 {
-	if (*in_quotes == 0)
+	if (in_quotes && *in_quotes == 0)
 	{
 		*in_quotes = 1;
 		*type = current_char;
@@ -78,6 +78,7 @@ static int	get_len_without_quotes(const char *str)
 
 	i = 0;
 	len = 0;
+	in_quotes = 0;
 	while (str[i])
 	{
 		if (str[i] == 39 || str[i] == 34)

@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 09:50:15 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/09 12:47:26 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/09 14:40:39 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	unset_command(t_env **env, char **args)
 
 	i = 1;
 	if (!args[1])
-		return (1);
+		return (0);
 	while (args[i])
 	{
 		equal = ft_strchr(args[i], '=');

@@ -26,7 +26,7 @@ void	free_input_data(t_shelldata *shell)
 	}
 	free(shell->pipes);
 	free(shell->pids);
-	while(*(shell->cmds))
+	while(shell->cmds && *(shell->cmds))
 	{
 		i = 0;
 		while((*(shell->cmds))->has_hd && (*(shell->cmds))->limiter_arr[i])

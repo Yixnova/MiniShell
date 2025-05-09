@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/09 14:24:22 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/09 14:39:06 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ static void	set_envp(t_shelldata *shell, t_env *env)
 		temp = temp->next;
 	}
 	temp = env;
-	if(shell->env && shell->env->envp)
-		free_2d_char(shell->env->envp);
 	shell->env->envp = ft_calloc(count + 1, sizeof(char *));
 	while(temp)
 	{
@@ -122,6 +120,7 @@ static void	run_child_process(t_cmd *cmd, t_shelldata *shell, int i, int pid)
 		check_command_existence(cmd, shell);
 		if(ft_strcmp(cmd->args[0], "export") && ft_strcmp(cmd->args[0], "unset"))
 			execute_command(cmd, shell, i);
+		exit (0);
 	}
 	shell->pids[i] = pid;
 }
@@ -156,10 +155,12 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 		shell->exit_status = export_command(&shell->env, (*cmds)->args, shell);
 		if(shell->exit_status == 0)
 			set_envp(shell, shell->env);
+		return ;
 	}
 	else if(is_simple_unset_command(*cmds, shell))
 	{
 		shell->exit_status = unset_command(&shell->env, (*cmds)->args);
+		return ;
 	}
 	while (*cmds)
 	{
