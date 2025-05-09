@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 19:10:55 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/01 13:51:03 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/09 17:00:38 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	open_files(t_cmd *cmd, t_shelldata *shell)
 			else if (redir_num(cmd->redirs[i]) == 4)
 				cmd->file_descs[n] = open(file_name, O_RDONLY);
 			if (cmd->file_descs[n] < 0)
-				open_error(file_name, redir_num(cmd->redirs[i]));
+				open_error(cmd, file_name, redir_num(cmd->redirs[i]));
 			n++;
 		}
 		i++;

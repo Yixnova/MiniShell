@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process_errors.c                                   :+:      :+:    :+:   */
+/*   process_error.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 10:53:32 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/01 13:15:26 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/05/09 16:58:36 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	open_error(char *file, int redir_num)
+void	open_error(t_cmd *cmd, char *file, int redir_num)
 {
+	(void) cmd;
 	errno = 1;
 	write(2, "minishell: ", 11);
 	write(2, file, ft_strlen(file));

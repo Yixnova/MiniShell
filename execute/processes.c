@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/09 14:39:06 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/09 16:53:30 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +114,8 @@ static void	run_child_process(t_cmd *cmd, t_shelldata *shell, int i, int pid)
 {
 	if (pid == 0)
 	{
-		pick_pipes(cmd);
-		open_files(cmd, shell);
-		pick_file_descriptors(cmd);
-		check_command_existence(cmd, shell);
+		if(cmd->exit_code != 0)
+			exit(cmd->exit_code);
 		if(ft_strcmp(cmd->args[0], "export") && ft_strcmp(cmd->args[0], "unset"))
 			execute_command(cmd, shell, i);
 		exit (0);
@@ -144,6 +142,14 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 	temp = *cmds;
 	i = 0;
 	pid = 1;
+	while (*cmds)
+	{
+		pick_pipes(*cmds);
+		open_files(*cmds, shell);
+		pick_file_descriptors(*cmds);
+		check_command_existence(*cmds, shell);
+		*cmds = (*cmds)->next;
+	}
 	if (is_simple_cd_command(*cmds, shell))
 	{
 		handle_simple_cd(*cmds, shell);
@@ -162,6 +168,7 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 		shell->exit_status = unset_command(&shell->env, (*cmds)->args);
 		return ;
 	}
+	*cmds = temp;
 	while (*cmds)
 	{
 		if (pid != 0)
@@ -175,5 +182,4 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 	}
 	*cmds = temp;
 	wait_for_children(shell);
-	*cmds = temp;
 }

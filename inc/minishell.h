@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/02 15:32:19 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/09 17:00:11 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ typedef struct s_cmd
 	int				built_in; // Komut built-in ise 1, değilse 0
 	char			*path; // Bulunan yürütülebilir dosyanın tam yolu
 	char			*faulty_token;
+	int				exit_code;
+	char			*err_msg;
+	int				err_type;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }	t_cmd;
@@ -124,7 +127,7 @@ void	free_2d_char(char **arr);
 void	close_pipes(t_shelldata *shell, int i);
 void	start_processes(t_shelldata *shell, t_cmd **cmds);
 void	invalid_file(char *file_name);
-void	open_error(char *file, int redir_num);
+void	open_error(t_cmd *cmd, char *file, int redir_num);
 char	*ft_join(char	*str, char	*joining);
 void	pick_pipes(t_cmd *cmd);
 void	pick_file_descriptors(t_cmd *cmd);
@@ -135,12 +138,12 @@ void	make_cmd_heredocs(t_cmd *cmd, t_shelldata *shell);
 int		find_command_path(t_cmd *cmd, t_shelldata *shell);
 int		is_builtin_command(const char *cmd);
 void	execve_error(void);
-void	command_not_found(char *cmd);
-void	directory_error(char *dir);
-void	access_error(char *file);
+void	command_not_found(t_cmd *tcmd, char *cmd);
+void	directory_error(t_cmd *cmd, char *dir);
+void	access_error(t_cmd *cmd, char *file);
 int		is_directory(const char *path);
-void	no_such_file(char *file);
-void	access_permission_denied(char *file);
+void	no_such_file(t_cmd *cmd, char *file);
+void	access_permission_denied(t_cmd *cmd, char *file);
 int		add_tokens(t_shelldata *data);
 int		continue_quoted_input(t_shelldata *data, int type);
 int		check_unclosed_quotes(t_shelldata *data);
