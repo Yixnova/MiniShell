@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 12:37:53 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/09 12:36:37 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/09 14:11:14 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ static int	handle_export_arg(t_env **env, char *arg, int *error)
 		key = ft_substr(arg, 0, ft_strlen(arg) - ft_strlen(equal));
 	else
 		key = ft_strdup(arg);
-	printf("%s\n", key);
-	printf("%s\n", equal + 1);
 	if (!is_valid_identifier(key))
 	{
 		print_invalid_identifier(arg);

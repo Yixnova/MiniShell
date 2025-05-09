@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/09 12:59:42 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/09 14:24:22 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,30 @@ static int	is_simple_cd_command(t_cmd *cmd, t_shelldata *shell)
 		return (0);
 	return (1);
 }
+static int	is_simple_export_command(t_cmd *cmd, t_shelldata *shell)
+{
+	if (!cmd || !cmd->args || !cmd->args[0])
+		return (0);
+	if (shell->cmd_count != 1)
+		return (0);
+	if (ft_strcmp(cmd->args[0], "export") != 0)
+		return (0);
+	if (cmd->redir_count != 0 || cmd->output_type != 0 || cmd->input_type != 0)
+		return (0);
+	return (1);
+}
+static int	is_simple_unset_command(t_cmd *cmd, t_shelldata *shell)
+{
+	if (!cmd || !cmd->args || !cmd->args[0])
+		return (0);
+	if (shell->cmd_count != 1)
+		return (0);
+	if (ft_strcmp(cmd->args[0], "unset") != 0)
+		return (0);
+	if (cmd->redir_count != 0 || cmd->output_type != 0 || cmd->input_type != 0)
+		return (0);
+	return (1);
+}
 
 static void	handle_simple_cd(t_cmd *cmd, t_shelldata *shell)
 {
@@ -90,22 +114,14 @@ static void	handle_simple_cd(t_cmd *cmd, t_shelldata *shell)
 
 static void	run_child_process(t_cmd *cmd, t_shelldata *shell, int i, int pid)
 {
-	if(pid != 0 && (!ft_strcmp(cmd->args[0], "export")))
-	{
-		shell->exit_status = export_command(&shell->env, cmd->args, shell);
-		set_envp(shell, shell->env);
-	}
-	else if(pid != 0 && (!ft_strcmp(cmd->args[0], "unset")))
-	{
-		shell->exit_status = unset_command(&shell->env, cmd->args);
-	}
-	else if (pid == 0)
+	if (pid == 0)
 	{
 		pick_pipes(cmd);
 		open_files(cmd, shell);
 		pick_file_descriptors(cmd);
 		check_command_existence(cmd, shell);
-		execute_command(cmd, shell, i);
+		if(ft_strcmp(cmd->args[0], "export") && ft_strcmp(cmd->args[0], "unset"))
+			execute_command(cmd, shell, i);
 	}
 	shell->pids[i] = pid;
 }
@@ -134,6 +150,16 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 		handle_simple_cd(*cmds, shell);
 		*cmds = temp;
 		return ;
+	}
+	if(is_simple_export_command(*cmds, shell))
+	{
+		shell->exit_status = export_command(&shell->env, (*cmds)->args, shell);
+		if(shell->exit_status == 0)
+			set_envp(shell, shell->env);
+	}
+	else if(is_simple_unset_command(*cmds, shell))
+	{
+		shell->exit_status = unset_command(&shell->env, (*cmds)->args);
 	}
 	while (*cmds)
 	{
