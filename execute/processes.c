@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/09 17:57:17 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/09 18:05:02 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,9 +146,9 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 	pid = 1;
 	while (*cmds)
 	{
+		(*cmds)->exit_code = 0;
 		if(open_files(*cmds, shell))
 		{
-			printf("here\n");
 			;
 		}
 		else if(check_command_existence(*cmds, shell))
@@ -157,7 +157,6 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 		}
 		if((*cmds)->invalid)
 			command_not_found(*cmds, (*cmds)->args[0]);
-		printf("%d %s\n", (*cmds)->exit_code, (*cmds)->err_msg);
 		*cmds = (*cmds)->next;
 	}
 	*cmds = temp;
@@ -203,5 +202,14 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 		*cmds = (*cmds)->next;
 	}
 	*cmds = temp;
+	while (*cmds)
+	{
+		if((*cmds)->err_type == 2)
+		{
+			ft_putstr_fd((*cmds)->err_msg, 2);
+			ft_putstr_fd("\n", 2);
+		}
+		*cmds = (*cmds)->next;
+	}
 	wait_for_children(shell);
 }

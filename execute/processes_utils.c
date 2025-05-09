@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:40:12 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/09 17:51:10 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/09 18:03:56 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,7 @@ int	check_command_existence(t_cmd *cmd, t_shelldata *shell)
 	else
 	{
 		if (access(cmd->path, X_OK) == 0)
-		{
-			err = 1;
-			cmd->exit_code = 1;	
-		}
+			err = 0;
 		else
 		{
 			err = access_permission_denied(cmd, cmd->args[0]);
