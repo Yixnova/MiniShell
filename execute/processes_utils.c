@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:40:12 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/02 14:43:03 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/09 17:51:10 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,32 +33,38 @@ int	is_file_dir_name(char *file)
 	return (0);
 }
 
-void	check_command_existence(t_cmd *cmd, t_shelldata *shell)
+int	check_command_existence(t_cmd *cmd, t_shelldata *shell)
 {
 	int	valid;
-
+	int	err;
+	
+	err = 0;
 	valid = find_command_path(cmd, shell);
 	if (cmd->built_in)
-		return ;
+		return (0);
 	if (!valid)
 	{
 		if (is_file_dir_name(cmd->args[0]))
 		{
 			if (is_directory(cmd->args[0]))
-				directory_error(cmd->args[0]);
+				err = directory_error(cmd, cmd->args[0]);
 			else
-				no_such_file(cmd->args[0]);
+				err = no_such_file(cmd, cmd->args[0]);
 		}
 	}
 	else
 	{
 		if (access(cmd->path, X_OK) == 0)
-			return ;
+		{
+			err = 1;
+			cmd->exit_code = 1;	
+		}
 		else
 		{
-			access_permission_denied(cmd->args[0]);
+			err = access_permission_denied(cmd, cmd->args[0]);
 		}
 	}
+	return (err);
 }
 
 void	free_2d_int(int **arr)

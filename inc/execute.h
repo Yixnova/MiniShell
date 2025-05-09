@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:45:59 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/29 17:42:51 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/05/09 17:47:54 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ void	execute_command(t_cmd *cmd, t_shelldata *shell, int i);
 int		handle_builtin_command(t_shelldata *shell, char **args);
 int		execute_builtin(t_shelldata *shell, char **args);
 int		check_builtin_and_path(t_cmd *cmd, t_shelldata *shell);
-void	check_command_existence(t_cmd *cmd, t_shelldata *shell);
+int	check_command_existence(t_cmd *cmd, t_shelldata *shell);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/09 16:53:30 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/09 17:57:17 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ static void	run_child_process(t_cmd *cmd, t_shelldata *shell, int i, int pid)
 	{
 		if(cmd->exit_code != 0)
 			exit(cmd->exit_code);
+		pick_pipes(cmd);
+		pick_file_descriptors(cmd);
 		if(ft_strcmp(cmd->args[0], "export") && ft_strcmp(cmd->args[0], "unset"))
 			execute_command(cmd, shell, i);
 		exit (0);
@@ -144,12 +146,21 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 	pid = 1;
 	while (*cmds)
 	{
-		pick_pipes(*cmds);
-		open_files(*cmds, shell);
-		pick_file_descriptors(*cmds);
-		check_command_existence(*cmds, shell);
+		if(open_files(*cmds, shell))
+		{
+			printf("here\n");
+			;
+		}
+		else if(check_command_existence(*cmds, shell))
+		{
+			;
+		}
+		if((*cmds)->invalid)
+			command_not_found(*cmds, (*cmds)->args[0]);
+		printf("%d %s\n", (*cmds)->exit_code, (*cmds)->err_msg);
 		*cmds = (*cmds)->next;
 	}
+	*cmds = temp;
 	if (is_simple_cd_command(*cmds, shell))
 	{
 		handle_simple_cd(*cmds, shell);
@@ -178,6 +189,17 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 			close((*cmds)->hd_arr[(*cmds)->hd_index][0]);
 		close_pipes(shell, i);
 		i++;
+		*cmds = (*cmds)->next;
+	}
+	*cmds = temp;
+	while (*cmds)
+	{
+		if((*cmds)->err_type == 1)
+		{
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd((*cmds)->err_msg, 2);
+			ft_putstr_fd("\n", 2);	
+		}
 		*cmds = (*cmds)->next;
 	}
 	*cmds = temp;

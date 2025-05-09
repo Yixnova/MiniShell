@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:08:21 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/09 16:58:16 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/09 17:14:32 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,6 @@ void	execute_command(t_cmd *cmd, t_shelldata *shell, int i)
 {
 	if (!cmd || !cmd->args || !cmd->args[0])
 		exit(0);
-	if (is_directory(cmd->args[0]))
-		directory_error(cmd, cmd->args[0]);
-	if (cmd->invalid)
-		command_not_found(cmd, cmd->args[0]);
 	redir_cmd(cmd, shell, i);
 	if (is_builtin_command(cmd->args[0]))
 	{

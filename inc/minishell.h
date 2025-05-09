@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/09 17:00:11 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/09 17:47:32 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,23 +127,23 @@ void	free_2d_char(char **arr);
 void	close_pipes(t_shelldata *shell, int i);
 void	start_processes(t_shelldata *shell, t_cmd **cmds);
 void	invalid_file(char *file_name);
-void	open_error(t_cmd *cmd, char *file, int redir_num);
+int		open_error(t_cmd *cmd, char *file, int redir_num);
 char	*ft_join(char	*str, char	*joining);
 void	pick_pipes(t_cmd *cmd);
 void	pick_file_descriptors(t_cmd *cmd);
-void	open_files(t_cmd *cmd, t_shelldata *shell);
+int		open_files(t_cmd *cmd, t_shelldata *shell);
 int		search_in_paths(t_cmd *cmd, t_shelldata *shell);
 void	init_parsedata(t_shelldata *shell);
 void	make_cmd_heredocs(t_cmd *cmd, t_shelldata *shell);
 int		find_command_path(t_cmd *cmd, t_shelldata *shell);
 int		is_builtin_command(const char *cmd);
 void	execve_error(void);
-void	command_not_found(t_cmd *tcmd, char *cmd);
-void	directory_error(t_cmd *cmd, char *dir);
-void	access_error(t_cmd *cmd, char *file);
+int	command_not_found(t_cmd *tcmd, char *cmd);
+int	directory_error(t_cmd *cmd, char *dir);
+int	access_error(t_cmd *cmd, char *file);
 int		is_directory(const char *path);
-void	no_such_file(t_cmd *cmd, char *file);
-void	access_permission_denied(t_cmd *cmd, char *file);
+int	no_such_file(t_cmd *cmd, char *file);
+int	access_permission_denied(t_cmd *cmd, char *file);
 int		add_tokens(t_shelldata *data);
 int		continue_quoted_input(t_shelldata *data, int type);
 int		check_unclosed_quotes(t_shelldata *data);
