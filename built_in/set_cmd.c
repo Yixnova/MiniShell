@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 09:50:15 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/25 11:29:08 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/09 12:47:26 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	unset_env(t_env **env_list, const char *key)
 	return (-1);
 }
 
-void	unset_command(t_env **env, char **args)
+int	unset_command(t_env **env, char **args)
 {
 	int		i;
 	char	*equal;
@@ -71,7 +71,7 @@ void	unset_command(t_env **env, char **args)
 
 	i = 1;
 	if (!args[1])
-		return ;
+		return (1);
 	while (args[i])
 	{
 		equal = ft_strchr(args[i], '=');
@@ -86,5 +86,5 @@ void	unset_command(t_env **env, char **args)
 			unset_env(env, args[i]);
 		i++;
 	}
-	exit(0);
+	return (0);
 }

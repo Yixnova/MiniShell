@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 12:37:53 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/26 18:54:04 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/09 12:36:37 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,46 +35,40 @@ static void	print_invalid_identifier(const char *arg)
 	ft_putstr_fd("': not a valid identifier\n", 2);
 }
 
-static void	set_env_from_equal(t_env **env, char *arg, char *equal)
+static void	set_env_from_equal(t_env **env, char *key, char *value)
 {
-	size_t	key_len;
-	char	*key;
-	char	*value;
-
-	key_len = equal - arg;
-	key = ft_strndup(arg, key_len);
-	value = ft_strdup(equal + 1);
 	if (key && value)
 		set_env(env, key, value);
 	free(key);
-	free(value);
 }
 
-static void	handle_export_arg(t_env **env, char *arg, int *error)
+static int	handle_export_arg(t_env **env, char *arg, int *error)
 {
 	char	*equal;
 	char	*key;
 
 	equal = ft_strchr(arg, '=');
 	if (equal)
-		key = ft_strndup(arg, equal - arg);
+		key = ft_substr(arg, 0, ft_strlen(arg) - ft_strlen(equal));
 	else
 		key = ft_strdup(arg);
+	printf("%s\n", key);
+	printf("%s\n", equal + 1);
 	if (!is_valid_identifier(key))
 	{
 		print_invalid_identifier(arg);
 		*error = 1;
 		free(key);
-		return ;
+		return (1);
 	}
-	free(key);
 	if (equal)
-		set_env_from_equal(env, arg, equal);
+		set_env_from_equal(env, key, equal + 1);
 	else
 		set_env(env, arg, "");
+	return (0);
 }
 
-void	export_command(t_env **env, char **args, t_shelldata *shell)
+int	export_command(t_env **env, char **args, t_shelldata *shell)
 {
 	int	i;
 	int	error;
@@ -85,15 +79,16 @@ void	export_command(t_env **env, char **args, t_shelldata *shell)
 	{
 		sort_and_print_env(env);
 		(void)shell;
-		exit(0);
+		return (0);
 	}
 	while (args[i])
 	{
-		handle_export_arg(env, args[i], &error);
+		if(handle_export_arg(env, args[i], &error))
+			return (1);
 		i++;
 	}
 	if (error)
-		exit(1);
+		return (1);
 	else
-		exit(0);
+		return (0);
 }

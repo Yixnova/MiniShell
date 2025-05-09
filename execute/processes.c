@@ -6,12 +6,37 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/02 16:04:14 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/09 12:49:46 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+static void	set_envp(t_shelldata *shell, t_env *env)
+{
+	t_env	*temp;
+	int		count;
+	int		i;
+
+	temp = env;
+	count = 0;
+	i = 0;
+	while(temp)
+	{
+		count++;
+		temp = temp->next;
+	}
+	temp = env;
+	if(shell->env && shell->env->envp)
+		free_2d_char(shell->env->envp);
+	shell->env->envp = ft_calloc(count + 1, sizeof(char *));
+	while(temp)
+	{
+		shell->env->envp[i] = ft_myjoin(temp->name, "=", temp->value);
+		temp = temp->next;
+		i++;
+	}
+}
 void	wait_for_children(t_shelldata *shell)
 {
 	int	status;
@@ -65,7 +90,17 @@ static void	handle_simple_cd(t_cmd *cmd, t_shelldata *shell)
 
 static void	run_child_process(t_cmd *cmd, t_shelldata *shell, int i, int pid)
 {
-	if (pid == 0)
+	if(pid != 0 && (!ft_strcmp(cmd->args[0], "export")))
+	{
+		shell->exit_status = export_command(&shell->env, cmd->args, shell);
+		set_envp(shell, shell->env);
+	}
+	if(pid != 0 && (!ft_strcmp(cmd->args[0], "unset")))
+	{
+		shell->exit_status = unset_command(&shell->env, cmd->args);
+		set_envp(shell, shell->env);
+	}
+	else if (pid == 0)
 	{
 		pick_pipes(cmd);
 		open_files(cmd, shell);
