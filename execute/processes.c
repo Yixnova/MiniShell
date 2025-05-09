@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/09 12:49:46 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/09 12:59:42 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,9 @@ static void	run_child_process(t_cmd *cmd, t_shelldata *shell, int i, int pid)
 		shell->exit_status = export_command(&shell->env, cmd->args, shell);
 		set_envp(shell, shell->env);
 	}
-	if(pid != 0 && (!ft_strcmp(cmd->args[0], "unset")))
+	else if(pid != 0 && (!ft_strcmp(cmd->args[0], "unset")))
 	{
 		shell->exit_status = unset_command(&shell->env, cmd->args);
-		set_envp(shell, shell->env);
 	}
 	else if (pid == 0)
 	{
