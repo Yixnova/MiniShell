@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:08:21 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/10 11:26:25 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/10 11:56:42 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,6 @@ void	redir_cmd(t_cmd *cmd, t_shelldata *shell, int i)
 	}
 	else if (cmd->output_type == 2)
 		dup2(cmd->output, 1);
-}
-
-int	is_directory(const char *path)
-{
-	struct stat	file;
-
-	if(!is_file_dir_name(path))
-		return (0);
-	if (lstat(path, &file) == 0 && S_ISDIR(file.st_mode))
-		return (1);
-	return (0);
 }
 
 void	execute_command(t_cmd *cmd, t_shelldata *shell, int i)

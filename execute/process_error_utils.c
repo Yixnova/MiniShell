@@ -5,50 +5,56 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/17 10:53:32 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/09 17:47:03 by busseven         ###   ########.fr       */
+/*   Created: 2025/05/10 11:58:28 by busseven          #+#    #+#             */
+/*   Updated: 2025/05/10 11:59:03 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
-
-int	command_not_found(t_cmd *tcmd, char *cmd)
+void	assign_error_messages(t_cmd *cmds, t_shelldata *shell)
 {
-	tcmd->err_msg = ft_strjoin(cmd, ": Command not found");
-	tcmd->err_type = 2;
-	tcmd->exit_code = 127;
-	return (1);
+	int	open_err = 0;
+	while (cmds)
+	{
+		(cmds)->exit_code = 0;
+		if(!cmds->args || !cmds->args[0] || cmds->args[0][0] == '\0')
+		return ;
+		open_err = open_files(cmds, shell);
+		if(open_err)
+		{
+			;
+		}
+		if(check_command_existence(cmds, shell))
+		{
+			;
+		}
+		if((cmds)->invalid && !is_file_dir_name(cmds->args[0]) && !open_err)
+			command_not_found(cmds, cmds->args[0]);
+		cmds = cmds->next;
+	}
 }
-
-int	directory_error(t_cmd *cmd, char *dir)
+void	display_error_messages(t_cmd *cmds)
 {
-	(void) cmd;
-	cmd->err_msg = ft_strjoin(dir, ": Is a directory");
-	cmd->exit_code = 126;
-	cmd->err_type = 1;
-	return (1);
-}
+	t_cmd	*temp;
 
-int	access_permission_denied(t_cmd *cmd, char *file)
-{
-	cmd->err_msg = ft_strjoin(file, ": Permission denied");
-	cmd->err_type = 1;
-	cmd->exit_code = 126;
-	return (1);
-}
-
-int	access_error(t_cmd *cmd, char *file)
-{
-	cmd->err_msg = ft_myjoin(file, ": ", strerror(errno));
-	cmd->err_type = 1;
-	cmd->exit_code = 126;
-	return (1);
-}
-
-int	no_such_file(t_cmd *cmd, char *file)
-{
-	cmd->err_msg = ft_strjoin(file, ": No such file or directory");
-	cmd->err_type = 1;
-	cmd->exit_code = 127;
-	return (1);
+	temp = cmds;
+	while (cmds)
+	{
+		if(cmds->err_type == 1)
+		{
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd(cmds->err_msg, 2);
+			ft_putstr_fd("\n", 2);	
+		}
+		cmds = cmds->next;
+	}
+	cmds = temp;
+	while (cmds)
+	{
+		if(cmds->err_type == 2)
+		{
+			ft_putstr_fd(cmds->err_msg, 2);
+			ft_putstr_fd("\n", 2);
+		}
+		cmds = cmds->next;
+	}
 }

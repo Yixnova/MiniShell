@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:40:12 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/10 11:46:04 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/10 12:02:00 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,6 @@ int	find_command_path(t_cmd *cmd, t_shelldata *shell)
 	if (search_in_paths(cmd, shell))
 		return (1);
 	return(0);
-}
-
-int	is_file_dir_name(const char *file)
-{
-	int	i;
-
-	i = 0;
-	while (file[i] == '.')
-		i++;
-	if (file[i] == '/')
-		return (1);
-	return (0);
 }
 
 int	check_command_existence(t_cmd *cmd, t_shelldata *shell)
@@ -64,14 +52,6 @@ int	check_command_existence(t_cmd *cmd, t_shelldata *shell)
 	return (0);
 }
 
-void	close_pipes(t_shelldata *shell, int i)
-{
-	if(i != 0)
-	{
-		close(shell->pipes[i - 1][0]);
-		close(shell->pipes[i - 1][1]);	
-	}
-}
 void	close_files(t_cmd **cmds)
 {
 	int i;
