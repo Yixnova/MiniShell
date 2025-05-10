@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/09 17:47:32 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/10 11:27:04 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,5 +151,6 @@ void	close_files(t_cmd **cmds);
 void	syntax_error_eof(void);
 int		check_pipe_error(t_shelldata *data);
 int		check_syntax_errors(t_cmd *cmd);
+int	is_file_dir_name(const char *file);
 
 #endif

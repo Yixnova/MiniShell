@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/10 11:14:34 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/10 11:34:09 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,18 +162,20 @@ void	display_error_messages(t_cmd *cmds)
 }
 void	assign_error_messages(t_cmd *cmds, t_shelldata *shell)
 {
+	int	open_err = 0;
 	while (cmds)
 	{
 		(cmds)->exit_code = 0;
-		if(open_files(cmds, shell))
+		open_err = open_files(cmds, shell);
+		if(open_err)
 		{
 			;
 		}
-		else if(check_command_existence(cmds, shell))
+		if(check_command_existence(cmds, shell))
 		{
 			;
 		}
-		if((cmds)->invalid)
+		if((cmds)->invalid && !is_file_dir_name(cmds->args[0]) && !open_err)
 			command_not_found(cmds, cmds->args[0]);
 		cmds = cmds->next;
 	}
