@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/10 09:53:00 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/10 11:10:45 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,72 @@ void	close_all_pipes(t_shelldata *shell)
 		i++;
 	}
 }
+void	display_error_messages(t_cmd *cmds)
+{
+	t_cmd	*temp;
+
+	temp = cmds;
+	while (cmds)
+	{
+		if(cmds->err_type == 1)
+		{
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd(cmds->err_msg, 2);
+			ft_putstr_fd("\n", 2);	
+		}
+		cmds = cmds->next;
+	}
+	cmds = temp;
+	while (cmds)
+	{
+		if(cmds->err_type == 2)
+		{
+			ft_putstr_fd(cmds->err_msg, 2);
+			ft_putstr_fd("\n", 2);
+		}
+		cmds = cmds->next;
+	}
+}
+void	assign_error_messages(t_cmd *cmds, t_shelldata *shell)
+{
+	while (cmds)
+	{
+		(cmds)->exit_code = 0;
+		if(open_files(cmds, shell))
+		{
+			;
+		}
+		else if(check_command_existence(cmds, shell))
+		{
+			;
+		}
+		if((cmds)->invalid)
+			command_not_found(cmds, cmds->args[0]);
+		cmds = cmds->next;
+	}
+}
+void	handle_cd_unset_export(t_cmd *cmds, t_cmd *temp, t_shelldata *shell)
+{
+	if (is_simple_cd_command(cmds, shell))
+	{
+		handle_simple_cd(cmds, shell);
+		cmds = temp;
+		return ;
+	}
+	if(is_simple_export_command(cmds, shell))
+	{
+		shell->exit_status = export_command(&shell->env, cmds->args, shell);
+		if(shell->exit_status == 0)
+			set_envp(shell, shell->env);
+		return ;
+	}
+	else if(is_simple_unset_command(cmds, shell))
+	{
+		shell->exit_status = unset_command(&shell->env, cmds->args);
+		return ;
+	}
+}
+
 void start_processes(t_shelldata *shell, t_cmd **cmds)
 {
 	int		pid;
@@ -143,41 +209,9 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 	temp = *cmds;
 	i = 0;
 	pid = 1;
-	while (*cmds)
-	{
-		(*cmds)->exit_code = 0;
-		if(open_files(*cmds, shell))
-		{
-			;
-		}
-		else if(check_command_existence(*cmds, shell))
-		{
-			;
-		}
-		if((*cmds)->invalid)
-			command_not_found(*cmds, (*cmds)->args[0]);
-		*cmds = (*cmds)->next;
-	}
-	*cmds = temp;
-	if (is_simple_cd_command(*cmds, shell))
-	{
-		handle_simple_cd(*cmds, shell);
-		*cmds = temp;
-		return ;
-	}
-	if(is_simple_export_command(*cmds, shell))
-	{
-		shell->exit_status = export_command(&shell->env, (*cmds)->args, shell);
-		if(shell->exit_status == 0)
-			set_envp(shell, shell->env);
-		return ;
-	}
-	else if(is_simple_unset_command(*cmds, shell))
-	{
-		shell->exit_status = unset_command(&shell->env, (*cmds)->args);
-		return ;
-	}
-	*cmds = temp;
+
+	assign_error_messages(*cmds, shell);
+	handle_cd_unset_export(*cmds, temp, shell);
 	while (*cmds)
 	{
 		if (pid != 0)
@@ -191,24 +225,5 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 	}
 	*cmds = temp;
 	wait_for_children(shell);
-	while (*cmds)
-	{
-		if((*cmds)->err_type == 1)
-		{
-			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd((*cmds)->err_msg, 2);
-			ft_putstr_fd("\n", 2);	
-		}
-		*cmds = (*cmds)->next;
-	}
-	*cmds = temp;
-	while (*cmds)
-	{
-		if((*cmds)->err_type == 2)
-		{
-			ft_putstr_fd((*cmds)->err_msg, 2);
-			ft_putstr_fd("\n", 2);
-		}
-		*cmds = (*cmds)->next;
-	}
+	display_error_messages(*cmds);
 }
