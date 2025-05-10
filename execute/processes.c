@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/10 11:34:09 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/10 11:52:13 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,8 @@ void	assign_error_messages(t_cmd *cmds, t_shelldata *shell)
 	while (cmds)
 	{
 		(cmds)->exit_code = 0;
+		if(!cmds->args || !cmds->args[0] || cmds->args[0][0] == '\0')
+		return ;
 		open_err = open_files(cmds, shell);
 		if(open_err)
 		{
