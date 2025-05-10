@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/09 18:05:02 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/10 09:53:00 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	wait_for_children(t_shelldata *shell)
 			}
 		}
 		n++;
-		*(shell->cmds) = (*(shell->cmds))->next;
 	}
 }
 
@@ -191,6 +190,7 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 		*cmds = (*cmds)->next;
 	}
 	*cmds = temp;
+	wait_for_children(shell);
 	while (*cmds)
 	{
 		if((*cmds)->err_type == 1)
@@ -211,5 +211,4 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 		}
 		*cmds = (*cmds)->next;
 	}
-	wait_for_children(shell);
 }
