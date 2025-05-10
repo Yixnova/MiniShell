@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:40:12 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/10 11:37:32 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/10 11:46:04 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,13 @@ int	check_command_existence(t_cmd *cmd, t_shelldata *shell)
 		if (is_directory(cmd->args[0]))
 			return (directory_error(cmd, cmd->args[0]));
 		else
-			return (no_such_file(cmd, cmd->args[0]));
+		{
+			if(access(cmd->path, F_OK) == 0)
+				return(access_permission_denied(cmd, cmd->args[0]));
+			return (no_such_file(cmd, cmd->args[0]));	
+		}
 	}
-	else
+	else if(valid)
 	{
 		if (access(cmd->path, X_OK) == 0)
 			return (0);
