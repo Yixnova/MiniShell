@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_command_path.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 13:34:02 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/01 13:31:34 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/05/10 10:26:26 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	check_builtin_and_path(t_cmd *cmd, t_shelldata *shell)
 {
-	cmd->built_in = 0;
 	if (cmd->args && cmd->args[0]
 		&& (!ft_strcmp(cmd->args[0], "echo")
 			|| !ft_strcmp(cmd->args[0], "cd")

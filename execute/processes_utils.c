@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:40:12 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/09 18:03:56 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/10 10:31:56 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@ int	is_file_dir_name(char *file)
 int	check_command_existence(t_cmd *cmd, t_shelldata *shell)
 {
 	int	valid;
-	int	err;
-	
-	err = 0;
+
 	valid = find_command_path(cmd, shell);
 	if (cmd->built_in)
 		return (0);
@@ -47,48 +45,23 @@ int	check_command_existence(t_cmd *cmd, t_shelldata *shell)
 		if (is_file_dir_name(cmd->args[0]))
 		{
 			if (is_directory(cmd->args[0]))
-				err = directory_error(cmd, cmd->args[0]);
+				return (directory_error(cmd, cmd->args[0]));
 			else
-				err = no_such_file(cmd, cmd->args[0]);
+				return (no_such_file(cmd, cmd->args[0]));
 		}
 	}
 	else
 	{
 		if (access(cmd->path, X_OK) == 0)
-			err = 0;
+			return (0);
 		else
 		{
-			err = access_permission_denied(cmd, cmd->args[0]);
+			return(access_permission_denied(cmd, cmd->args[0]));
 		}
 	}
-	return (err);
+	return (0);
 }
 
-void	free_2d_int(int **arr)
-{
-	int	i;
-
-	i = 0;
-	if (!arr)
-		return ;
-	while (arr[i])
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
-}
-
-void	free_command(t_cmd *cmd)
-{
-	free_2d_char(cmd->tokens);
-	free_2d_char(cmd->args);
-	free_2d_char(cmd->redirs);
-	free_2d_char(cmd->limiter_arr);
-	free_2d_int(cmd->hd_arr);
-	if (cmd->path)
-		free(cmd->path);
-}
 void	close_pipes(t_shelldata *shell, int i)
 {
 	if(i != 0)
