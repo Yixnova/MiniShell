@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/10 11:10:45 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/10 11:14:34 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,26 +178,27 @@ void	assign_error_messages(t_cmd *cmds, t_shelldata *shell)
 		cmds = cmds->next;
 	}
 }
-void	handle_cd_unset_export(t_cmd *cmds, t_cmd *temp, t_shelldata *shell)
+int	handle_cd_unset_export(t_cmd *cmds, t_cmd *temp, t_shelldata *shell)
 {
 	if (is_simple_cd_command(cmds, shell))
 	{
 		handle_simple_cd(cmds, shell);
 		cmds = temp;
-		return ;
+		return (1);
 	}
 	if(is_simple_export_command(cmds, shell))
 	{
 		shell->exit_status = export_command(&shell->env, cmds->args, shell);
 		if(shell->exit_status == 0)
 			set_envp(shell, shell->env);
-		return ;
+		return (1);
 	}
 	else if(is_simple_unset_command(cmds, shell))
 	{
 		shell->exit_status = unset_command(&shell->env, cmds->args);
-		return ;
+		return (1);
 	}
+	return (0);
 }
 
 void start_processes(t_shelldata *shell, t_cmd **cmds)
@@ -211,7 +212,8 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 	pid = 1;
 
 	assign_error_messages(*cmds, shell);
-	handle_cd_unset_export(*cmds, temp, shell);
+	if(handle_cd_unset_export(*cmds, temp, shell))
+		return ;
 	while (*cmds)
 	{
 		if (pid != 0)
