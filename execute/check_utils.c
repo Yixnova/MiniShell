@@ -6,9 +6,11 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 11:56:32 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/10 12:02:06 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/10 12:09:22 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../inc/minishell.h"
 
 int	is_directory(const char *path)
 {

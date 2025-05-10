@@ -6,9 +6,11 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 12:01:01 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/10 12:01:17 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/10 12:09:33 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../inc/minishell.h"
 
 void	close_all_pipes(t_shelldata *shell)
 {

@@ -6,9 +6,11 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 11:58:28 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/10 11:59:03 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/10 12:09:07 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../inc/minishell.h"
 
 void	assign_error_messages(t_cmd *cmds, t_shelldata *shell)
 {

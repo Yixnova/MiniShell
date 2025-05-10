@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/10 11:27:04 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/10 12:08:35 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,12 +138,12 @@ void	make_cmd_heredocs(t_cmd *cmd, t_shelldata *shell);
 int		find_command_path(t_cmd *cmd, t_shelldata *shell);
 int		is_builtin_command(const char *cmd);
 void	execve_error(void);
-int	command_not_found(t_cmd *tcmd, char *cmd);
-int	directory_error(t_cmd *cmd, char *dir);
-int	access_error(t_cmd *cmd, char *file);
+int		command_not_found(t_cmd *tcmd, char *cmd);
+int		directory_error(t_cmd *cmd, char *dir);
+int		access_error(t_cmd *cmd, char *file);
 int		is_directory(const char *path);
-int	no_such_file(t_cmd *cmd, char *file);
-int	access_permission_denied(t_cmd *cmd, char *file);
+int		no_such_file(t_cmd *cmd, char *file);
+int		access_permission_denied(t_cmd *cmd, char *file);
 int		add_tokens(t_shelldata *data);
 int		continue_quoted_input(t_shelldata *data, int type);
 int		check_unclosed_quotes(t_shelldata *data);
@@ -151,6 +151,12 @@ void	close_files(t_cmd **cmds);
 void	syntax_error_eof(void);
 int		check_pipe_error(t_shelldata *data);
 int		check_syntax_errors(t_cmd *cmd);
-int	is_file_dir_name(const char *file);
+int		is_file_dir_name(const char *file);
+void	display_error_messages(t_cmd *cmds);	
+void	assign_error_messages(t_cmd *cmds, t_shelldata *shell);
+int		is_simple_unset_command(t_cmd *cmd, t_shelldata *shell);
+void	set_envp(t_shelldata *shell, t_env *env);
+int		is_simple_cd_command(t_cmd *cmd, t_shelldata *shell);
+int		is_simple_export_command(t_cmd *cmd, t_shelldata *shell);
 
 #endif
