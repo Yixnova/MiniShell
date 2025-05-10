@@ -45,16 +45,6 @@ void	free_input_data(t_shelldata *shell)
 		*(shell->cmds) = (*(shell->cmds))->next;
 	}
 }
-void	free_shell_data(t_shelldata *data)
-{
-	if (data)
-	{
-		free(data->input);
-		free_token_arr(data->tokens);
-		free_env_list(data->env);
-		free(data);
-	}
-}
 
 void	disable_echoctl(void)
 {
