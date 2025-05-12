@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_error_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 11:58:28 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/10 12:09:07 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/12 14:28:43 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,25 @@
 
 void	assign_error_messages(t_cmd *cmds, t_shelldata *shell)
 {
-	int	open_err = 0;
+	int	open_err;
+
+	open_err = 0;
 	while (cmds)
 	{
 		(cmds)->exit_code = 0;
-		if(!cmds->args || !cmds->args[0] || cmds->args[0][0] == '\0')
-		return ;
+		if (!cmds->args || !cmds->args[0] || cmds->args[0][0] == '\0')
+			return ;
 		open_err = open_files(cmds, shell);
-		if(open_err)
-		{
+		if (open_err)
 			;
-		}
-		if(check_command_existence(cmds, shell))
-		{
+		if (check_command_existence(cmds, shell))
 			;
-		}
-		if((cmds)->invalid && !is_file_dir_name(cmds->args[0]) && !open_err)
+		if ((cmds)->invalid && !is_file_dir_name(cmds->args[0]) && !open_err)
 			command_not_found(cmds, cmds->args[0]);
 		cmds = cmds->next;
 	}
 }
+
 void	display_error_messages(t_cmd *cmds)
 {
 	t_cmd	*temp;
@@ -41,18 +40,18 @@ void	display_error_messages(t_cmd *cmds)
 	temp = cmds;
 	while (cmds)
 	{
-		if(cmds->err_type == 1)
+		if (cmds->err_type == 1)
 		{
 			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd(cmds->err_msg, 2);
-			ft_putstr_fd("\n", 2);	
+			ft_putstr_fd("\n", 2);
 		}
 		cmds = cmds->next;
 	}
 	cmds = temp;
 	while (cmds)
 	{
-		if(cmds->err_type == 2)
+		if (cmds->err_type == 2)
 		{
 			ft_putstr_fd(cmds->err_msg, 2);
 			ft_putstr_fd("\n", 2);

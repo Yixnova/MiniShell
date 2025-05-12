@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/10 10:18:41 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/12 14:44:31 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	tokenize_input(t_shelldata *data)
 		ft_putendl_fd("Error: Memory allocation failed", 2);
 		return (1);
 	}
-	if(check_pipe_error(data) == 1)
+	if (check_pipe_error(data) == 1)
 		return (1);
 	while (check_unclosed_quotes(data) != 0 || check_pipe_error(data) == 2)
 	{

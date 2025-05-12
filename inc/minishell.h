@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/10 12:08:35 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/12 14:41:43 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_cmd
 	int				hd_count;
 	int				redir_count;
 	int				has_hd;
-	int				*file_descs;
+	int				*des;
 	int				parse_error;
 	int				invalid; // Komut gerçekten bulunuyor mu? Yoksa error ve exit;
 	int				built_in; // Komut built-in ise 1, değilse 0
@@ -152,7 +152,7 @@ void	syntax_error_eof(void);
 int		check_pipe_error(t_shelldata *data);
 int		check_syntax_errors(t_cmd *cmd);
 int		is_file_dir_name(const char *file);
-void	display_error_messages(t_cmd *cmds);	
+void	display_error_messages(t_cmd *cmds);
 void	assign_error_messages(t_cmd *cmds, t_shelldata *shell);
 int		is_simple_unset_command(t_cmd *cmd, t_shelldata *shell);
 void	set_envp(t_shelldata *shell, t_env *env);

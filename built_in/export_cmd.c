@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 12:37:53 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/09 14:11:14 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/12 14:23:54 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	export_command(t_env **env, char **args, t_shelldata *shell)
 	}
 	while (args[i])
 	{
-		if(handle_export_arg(env, args[i], &error))
+		if (handle_export_arg(env, args[i], &error))
 			return (1);
 		i++;
 	}

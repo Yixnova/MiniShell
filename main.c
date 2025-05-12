@@ -41,7 +41,7 @@ void	free_input_data(t_shelldata *shell)
 		if((*(shell->cmds))->has_hd)
 			free_2d_char((*(shell->cmds))->limiter_arr);
 		free((*(shell->cmds))->hd_parsedollar);
-		free((*(shell->cmds))->file_descs);
+		free((*(shell->cmds))->des);
 		free((*(shell->cmds))->path);
 		*(shell->cmds) = (*(shell->cmds))->next;
 	}

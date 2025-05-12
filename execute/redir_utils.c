@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redir_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 19:10:55 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/12 09:59:37 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/12 14:50:38 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	redir_len(char *str)
+int	r_len(char *str)
 {
 	if (redir_num(str) == 1 || redir_num(str) == 4)
 		return (1);
@@ -25,12 +25,12 @@ void	not_here_doc(t_cmd *cmd, int i, int f)
 {
 	if (redir_num(cmd->redirs[i]) == 2 || redir_num(cmd->redirs[i]) == 1)
 	{
-		cmd->output = cmd->file_descs[f];
+		cmd->output = cmd->des[f];
 		cmd->output_type = 2;
 	}
 	else if (redir_num(cmd->redirs[i]) == 4)
 	{
-		cmd->input = cmd->file_descs[f];
+		cmd->input = cmd->des[f];
 		cmd->input_type = 2;
 	}
 }
@@ -77,20 +77,20 @@ int	open_files(t_cmd *cmd, t_shelldata *shell)
 
 	i = 0;
 	n = 0;
-	cmd->file_descs = ft_calloc(cmd->redir_count - cmd->hd_count, sizeof(int));
+	cmd->des = ft_calloc(cmd->redir_count - cmd->hd_count, sizeof(int));
 	while (cmd->redirs[i])
 	{
-		file_name = expand(cmd->redirs[i] + 1 + redir_len(cmd->redirs[i]), shell);
-		if(redir_num(cmd->redirs[i]) != 3)
+		file_name = expand(cmd->redirs[i] + 1 + r_len(cmd->redirs[i]), shell);
+		if (redir_num(cmd->redirs[i]) != 3)
 		{
 			if (redir_num(cmd->redirs[i]) == 1)
-				cmd->file_descs[n] = open(file_name, O_RDWR | O_CREAT | O_TRUNC, 0644);
+				cmd->des[n] = open(file_name, O_RDWR | O_CREAT | O_TRUNC, 0644);
 			else if (redir_num(cmd->redirs[i]) == 2)
-				cmd->file_descs[n] = open(file_name, O_RDWR | O_CREAT | O_APPEND, 0644);
+				cmd->des[n] = open(file_name, O_RDWR | O_CREAT | O_APPEND, 0644);
 			else if (redir_num(cmd->redirs[i]) == 4)
-				cmd->file_descs[n] = open(file_name, O_RDONLY);
-			if (cmd->file_descs[n] < 0)
-				return(open_error(cmd, file_name, redir_num(cmd->redirs[i])));
+				cmd->des[n] = open(file_name, O_RDONLY);
+			if (cmd->des[n] < 0)
+				return (open_error(cmd, file_name, redir_num(cmd->redirs[i])));
 			n++;
 		}
 		i++;

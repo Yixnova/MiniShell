@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 17:13:29 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/09 12:58:00 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/12 14:48:10 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	free_2d_char(char **arr)
 		free(arr[i]);
 		i++;
 	}
-	if(arr)
+	if (arr)
 		free(arr);
 }
 
