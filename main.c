@@ -17,7 +17,6 @@ void	free_input_data(t_shelldata *shell)
 	int	i;
 
 	i = 0;
-	free(shell->input);
 	free_2d_char(shell->tokens);
 	while(i < shell->cmd_count - 1)
 	{
@@ -103,7 +102,6 @@ void	handle_input_and_history(t_shelldata *shell)
 		i = 0;
 		while(input_arr[i])
 		{
-			printf("%s\n", input_arr[i]);
 			shell->input = input_arr[i];
 			if (!shell->input)
 			{
