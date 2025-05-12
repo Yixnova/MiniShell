@@ -117,7 +117,6 @@ void	handle_input_and_history(t_shelldata *shell)
 			i++;
 		}
 		free(read_line);
-		free_2d_char(input_arr);
 	}
 }
 
