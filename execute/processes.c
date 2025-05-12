@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/10 12:00:40 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/12 11:08:55 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,17 @@ void	wait_for_children(t_shelldata *shell)
 {
 	int	status;
 	int	pid;
-	int	old_pid;
 	int	n;
 
 	n = 0;
-	pid = -1;
 	while (n < shell->cmd_count)
 	{
-		old_pid = pid;
 		pid = wait(&status);
-		if(pid > old_pid)
+		if(pid == shell->pids[shell->cmd_count - 1])
 		{
 			if (WIFEXITED(status))
 			{
+				display_error_messages(*(shell->cmds));
 				shell->exit_status = WEXITSTATUS(status);
 			}
 		}
@@ -96,7 +94,6 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 	temp = *cmds;
 	i = 0;
 	pid = 1;
-
 	assign_error_messages(*cmds, shell);
 	if(handle_cd_unset_export(*cmds, temp, shell))
 		return ;
@@ -113,5 +110,4 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 	}
 	*cmds = temp;
 	wait_for_children(shell);
-	display_error_messages(*cmds);
 }
