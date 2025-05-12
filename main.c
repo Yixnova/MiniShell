@@ -21,7 +21,8 @@ void	free_input_data(t_shelldata *shell)
 	free_2d_char(shell->tokens);
 	while(i < shell->cmd_count - 1)
 	{
-		free(shell->pipes[i]);
+		if(shell->pipes[i])
+			free(shell->pipes[i]);
 		i++;
 	}
 	free(shell->pipes);
@@ -85,20 +86,40 @@ void	process_input(t_shelldata *shell)
 
 void	handle_input_and_history(t_shelldata *shell)
 {
+	char	*read_line;
+	char	**input_arr;
+	int		i;
+
+	i = 0;
 	while (1)
 	{
-		shell->input = readline("myshell$ ");
-		if (!shell->input)
+		read_line = readline("myshell$ ");
+		if (!read_line)
 		{
 			ft_putendl_fd("exit", 1);
 			break ;
 		}
-		if (shell->input[0] != '\0')
+		input_arr = ft_split(read_line, '\n');
+		i = 0;
+		while(input_arr[i])
 		{
-			process_input(shell);
+			printf("%s\n", input_arr[i]);
+			shell->input = input_arr[i];
+			if (!shell->input)
+			{
+				ft_putendl_fd("exit", 1);
+				break ;
+			}
+			if (shell->input[0] != '\0')
+			{
+				process_input(shell);
+			}
+			if(shell->input && shell->input[0] != '\0')
+				free_input_data(shell);
+			i++;
 		}
-		if(shell->input && shell->input[0] != '\0')
-			free_input_data(shell);
+		free(read_line);
+		free_2d_char(input_arr);
 	}
 }
 
