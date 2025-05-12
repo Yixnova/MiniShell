@@ -6,12 +6,22 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:40:12 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/10 12:25:25 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/12 09:57:42 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+int	check_permissions(t_cmd *cmd)
+{
+	if (access(cmd->path, X_OK) == 0)
+		return (0);
+	else
+	{
+		return(access_permission_denied(cmd, cmd->args[0]));
+	}
+	return (0);
+}
 int	find_command_path(t_cmd *cmd, t_shelldata *shell)
 {
 	if (check_builtin_and_path(cmd, shell))
@@ -43,12 +53,7 @@ int	check_command_existence(t_cmd *cmd, t_shelldata *shell)
 	}
 	else if(valid)
 	{
-		if (access(cmd->path, X_OK) == 0)
-			return (0);
-		else
-		{
-			return(access_permission_denied(cmd, cmd->args[0]));
-		}
+		return(check_permissions(cmd));
 	}
 	return (0);
 }
