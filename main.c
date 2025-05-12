@@ -25,7 +25,8 @@ void	free_input_data(t_shelldata *shell)
 		i++;
 	}
 	free(shell->pipes);
-	free(shell->pids);
+	if(shell->pids)
+		free(shell->pids);
 	while(shell->cmds && *(shell->cmds))
 	{
 		i = 0;
@@ -96,7 +97,8 @@ void	handle_input_and_history(t_shelldata *shell)
 		{
 			process_input(shell);
 		}
-		free_input_data(shell);
+		if(shell->input && shell->input[0] != '\0')
+			free_input_data(shell);
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 12:59:15 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/02 09:29:12 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/05/12 09:35:56 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	exit_command(char **args, t_shelldata *shell)
 		if (!is_num)
 		{
 			ft_putstr_fd("exit: numeric argument required\n", 2);
-			free_shell_data(shell);
 			exit (2);
 		}
 		if (args[2])
@@ -53,6 +52,5 @@ void	exit_command(char **args, t_shelldata *shell)
 		}
 		status = ft_atoi(args[1]);
 	}
-	free_shell_data(shell);
 	exit(status);
 }
