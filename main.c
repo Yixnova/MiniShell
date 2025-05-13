@@ -43,7 +43,7 @@ void	make_input(int *i, t_shelldata *shell, char **arr)
 	while(arr[*i] && ends_with_pipe(arr[*i]))
 	{
 		if(arr[*i] && arr[*i + 1])
-			input = ft_strjoin(input, arr[*i + 1]);
+			input = ft_myjoin(input, " ", arr[*i + 1]);
 		(*i)++;
 	}
 	shell->input = input;
@@ -97,7 +97,6 @@ void	process_input(t_shelldata *shell)
 {
 	t_cmd	*temp;
 
-	add_history(shell->input);
 	if (tokenize_input(shell))
 		return ;
 	init_parsedata(shell);
@@ -143,6 +142,13 @@ void	handle_input_and_history(t_shelldata *shell)
 			if (!shell->input)
 			{
 				ft_putendl_fd("exit", 1);
+				break ;
+			}
+			add_history(shell->input);
+			if(check_unclosed_quotes(shell))
+			{
+				ft_putstr_fd("Syntax error: unclosed quotes\n", 2);
+				shell->exit_status = 2;
 				break ;
 			}
 			if (shell->input[0] != '\0')
