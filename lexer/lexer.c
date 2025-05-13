@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/13 13:02:38 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/13 14:03:26 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int	continue_quoted_input(t_shelldata *data, int type)
 {
 	char	*line;
 
-	data->input = ft_join(data->input, "\n");
 	while (1)
 	{
 		line = readline("> ");
@@ -72,7 +71,7 @@ int	continue_quoted_input(t_shelldata *data, int type)
 			syntax_error_eof();
 			return (1);
 		}
-		data->input = ft_join(data->input, line);
+		data->input = ft_myjoin(data->input, "\n", line);
 		if (is_in_str(line, type))
 			break ;
 	}
@@ -99,8 +98,15 @@ void	free_token_arr(char **token_arr)
 int	tokenize_input(t_shelldata *data)
 {
 	char	*invalid_token;
+	int		i;
 
+	i = 0;
 	data->tokens = split_into_words(data->input);
+	if (!data->tokens)
+	{
+		ft_putendl_fd("Error: Memory allocation failed", 2);
+		return (1);
+	}
 	invalid_token = check_token_errors(data->tokens);
 	if(invalid_token)
 	{
@@ -110,10 +116,35 @@ int	tokenize_input(t_shelldata *data)
 		data->exit_status = 2;
 		return (1);
 	}
-	if (!data->tokens)
+	while(data->tokens[i])
+		i++;
+	i--;
+	while(data->tokens[i] && check_unclosed_quotes(data->tokens[i]))
 	{
-		ft_putendl_fd("Error: Memory allocation failed", 2);
-		return (1);
+		i = 0;
+		while(data->tokens[i])
+			i++;
+		i--;
+		if(data->tokens[i] && check_unclosed_quotes(data->tokens[i]))
+		{
+			if(continue_quoted_input(data, check_unclosed_quotes(data->tokens[i])))
+				return(1);
+		}
 	}
+	i = 0;
+	while(data->tokens[i])
+	{
+		i = 0;
+		while(data->tokens[i])
+			i++;
+		i--;
+		if(data->tokens[i] && is_pipe(data->tokens[i]))
+		{
+			add_tokens(data);
+		}
+		else
+			break ;
+	}
+	add_history(data->input);
 	return (0);
 }
