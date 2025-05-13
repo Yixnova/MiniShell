@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/13 14:03:26 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/13 14:22:34 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ int	tokenize_input(t_shelldata *data)
 		ft_putstr_fd(invalid_token, 2);
 		ft_putchar_fd('\n', 2);
 		data->exit_status = 2;
+		add_history(data->input);
 		return (1);
 	}
 	while(data->tokens[i])
@@ -132,6 +133,16 @@ int	tokenize_input(t_shelldata *data)
 		}
 	}
 	i = 0;
+	invalid_token = check_token_errors(data->tokens);
+	if(invalid_token)
+	{
+		ft_putstr_fd("Syntax error: invalid use of token: ", 2);
+		ft_putstr_fd(invalid_token, 2);
+		ft_putchar_fd('\n', 2);
+		data->exit_status = 2;
+		add_history(data->input);
+		return (1);
+	}
 	while(data->tokens[i])
 	{
 		i = 0;
@@ -144,6 +155,16 @@ int	tokenize_input(t_shelldata *data)
 		}
 		else
 			break ;
+	}
+	invalid_token = check_token_errors(data->tokens);
+	if(invalid_token)
+	{
+		ft_putstr_fd("Syntax error: invalid use of token: ", 2);
+		ft_putstr_fd(invalid_token, 2);
+		ft_putchar_fd('\n', 2);
+		data->exit_status = 2;
+		add_history(data->input);
+		return (1);
 	}
 	add_history(data->input);
 	return (0);
