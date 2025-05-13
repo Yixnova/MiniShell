@@ -1,4 +1,3 @@
-echo "a |
+	<	
 
-grep a" |
-cat -e
+ls

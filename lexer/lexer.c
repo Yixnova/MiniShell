@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/13 14:27:09 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/13 17:50:55 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	syntax_error_invalid_token(char *token, t_shelldata *data)
 {
 	ft_putstr_fd("Syntax error: invalid use of token: ", 2);
-	ft_putstr_fd(invalid_token, 2);
+	ft_putstr_fd(token, 2);
 	ft_putchar_fd('\n', 2);
 	data->exit_status = 2;
 	add_history(data->input);
@@ -125,6 +125,9 @@ int	tokenize_input(t_shelldata *data)
 	while(data->tokens[i] && check_unclosed_quotes(data->tokens[i]))
 	{
 		i = 0;
+		invalid_token = check_token_errors(data->tokens);
+		if(invalid_token)
+			return(syntax_error_invalid_token(invalid_token, data));
 		while(data->tokens[i])
 			i++;
 		i--;
@@ -135,12 +138,12 @@ int	tokenize_input(t_shelldata *data)
 		}
 	}
 	i = 0;
-	invalid_token = check_token_errors(data->tokens);
-	if(invalid_token)
-		return(syntax_error_invalid_token(invalid_token, data));
 	while(data->tokens[i])
 	{
 		i = 0;
+		invalid_token = check_token_errors(data->tokens);
+		if(invalid_token)
+			return(syntax_error_invalid_token(invalid_token, data));
 		while(data->tokens[i])
 			i++;
 		i--;
@@ -151,9 +154,6 @@ int	tokenize_input(t_shelldata *data)
 		else
 			break ;
 	}
-	invalid_token = check_token_errors(data->tokens);
-	if(invalid_token)
-		return(syntax_error_invalid_token(invalid_token, data));
 	add_history(data->input);
 	return (0);
 }

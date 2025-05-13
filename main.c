@@ -12,6 +12,13 @@
 
 #include "./inc/minishell.h"
 
+int	is_pipe_with_newline(char *str)
+{
+	if (!ft_strncmp(str, "|\n", ft_strlen(str)))
+		return (1);
+	return (0);
+}
+
 char	*check_token_errors(char **tokens)
 {
 	int	i;
@@ -28,9 +35,9 @@ char	*check_token_errors(char **tokens)
 			else if(!tokens[i + 1] || is_redir(tokens[i + 1]) || is_pipe(tokens[i + 1]))
 				return(tokens[i]);
 		}
-		if(is_pipe(tokens[i]))
+		if(is_pipe(tokens[i]) || is_pipe_with_newline(tokens[i]))
 		{
-			if(i == 0 || is_redir(tokens[i - 1]))
+			if(i == 0 || is_redir(tokens[i - 1]) || is_pipe(tokens[i - 1]) || is_pipe_with_newline(tokens[i - 1]))
 				return(tokens[i]);
 		}
 		i++;
