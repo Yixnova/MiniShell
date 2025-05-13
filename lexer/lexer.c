@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/13 17:50:55 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/13 17:57:21 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	add_tokens(t_shelldata *data)
 		syntax_error_eof();
 		exit(2);
 	}
-	data->input = ft_join(data->input, line);
+	data->input = ft_myjoin(data->input, " ", line);
 	free_2d_char(data->tokens);
 	data->tokens = split_into_words(data->input);
 	return (0);
