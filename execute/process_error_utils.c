@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 11:58:28 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/13 11:34:41 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/13 14:17:16 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	assign_error_messages(t_cmd *cmds, t_shelldata *shell)
 		{
 			;
 		}
-		if(check_command_existence(cmds, shell))
+		else if(check_command_existence(cmds, shell))
 		{
 			;
 		}
