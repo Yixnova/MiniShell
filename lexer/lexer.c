@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/13 11:05:08 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/13 11:29:19 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,15 @@ void	free_token_arr(char **token_arr)
 
 int	tokenize_input(t_shelldata *data)
 {
+	char	*invalid_token;
+
 	data->tokens = split_into_words(data->input);
-	if(check_token_errors(data->tokens))
+	invalid_token = check_token_errors(data->tokens);
+	if(invalid_token)
 	{
+		ft_putstr_fd("Syntax error: invalid use of token: ", 2);
+		ft_putstr_fd(invalid_token, 2);
+		ft_putchar_fd('\n', 2);
 		data->exit_status = 2;
 		return (1);
 	}

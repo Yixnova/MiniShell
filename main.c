@@ -12,7 +12,7 @@
 
 #include "./inc/minishell.h"
 
-int		check_token_errors(char **tokens)
+char	*check_token_errors(char **tokens)
 {
 	int	i;
 
@@ -22,32 +22,20 @@ int		check_token_errors(char **tokens)
 		if(is_redir(tokens[i]))
 		{
 			if(ft_strlen(tokens[i]) > 2)
-			{
-				ft_putstr_fd("Syntax error: invalid use of token\n", 2);
-				return (1);
-			}
+				return(tokens[i]);
 			else if(ft_strlen(tokens[i]) == 2 && tokens[i][0] != tokens[i][1])
-			{
-				ft_putstr_fd("Syntax error: invalid use of token\n", 2);
-				return (1);
-			}
+				return(tokens[i]);
 			else if(!tokens[i + 1] || is_redir(tokens[i + 1]) || is_pipe(tokens[i + 1]))
-			{
-				ft_putstr_fd("Syntax error: invalid use of token\n", 2);
-				return (1);
-			}
+				return(tokens[i]);
 		}
 		if(is_pipe(tokens[i]))
 		{
 			if(i == 0 || is_redir(tokens[i - 1]))
-			{
-				ft_putstr_fd("Syntax error: invalid use of token\n", 2);
-				return (1);
-			}
+				return(tokens[i]);
 		}
 		i++;
 	}
-	return (0);
+	return (NULL);
 }
 int		ends_with_pipe(char *str)
 {
