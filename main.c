@@ -12,6 +12,43 @@
 
 #include "./inc/minishell.h"
 
+int		ends_with_pipe(char *str)
+{
+	int	pipe;
+	int	i;
+
+	i = 0;
+	pipe = 0;
+	while(str[i])
+	{
+		if(str[i] == '|')
+		{
+			pipe = 1;
+			break ;
+		}
+		i++;
+	}
+	if(pipe == 0)
+		return(0);
+	i++;
+	if(str[i] == '\0' || is_all_spaces(str + i))
+		return (1);
+	return (0);
+}
+void	make_input(int *i, t_shelldata *shell, char **arr)
+{
+	char	*input;
+
+	input = arr[*i];
+	while(arr[*i] && ends_with_pipe(arr[*i]))
+	{
+		if(arr[*i] && arr[*i + 1])
+			input = ft_strjoin(input, arr[*i + 1]);
+		(*i)++;
+	}
+	shell->input = input;
+}
+
 void	free_input_data(t_shelldata *shell)
 {
 	int	i;
@@ -102,7 +139,7 @@ void	handle_input_and_history(t_shelldata *shell)
 		i = 0;
 		while(input_arr[i])
 		{
-			shell->input = input_arr[i];
+			make_input(&i, shell, input_arr);
 			if (!shell->input)
 			{
 				ft_putendl_fd("exit", 1);
