@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/13 09:46:25 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/13 11:05:08 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,11 @@ void	free_token_arr(char **token_arr)
 int	tokenize_input(t_shelldata *data)
 {
 	data->tokens = split_into_words(data->input);
+	if(check_token_errors(data->tokens))
+	{
+		data->exit_status = 2;
+		return (1);
+	}
 	if (!data->tokens)
 	{
 		ft_putendl_fd("Error: Memory allocation failed", 2);

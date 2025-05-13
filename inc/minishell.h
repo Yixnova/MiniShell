@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/10 12:08:35 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/13 11:04:53 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,5 +158,6 @@ int		is_simple_unset_command(t_cmd *cmd, t_shelldata *shell);
 void	set_envp(t_shelldata *shell, t_env *env);
 int		is_simple_cd_command(t_cmd *cmd, t_shelldata *shell);
 int		is_simple_export_command(t_cmd *cmd, t_shelldata *shell);
+int		check_token_errors(char **tokens);
 
 #endif

@@ -12,6 +12,43 @@
 
 #include "./inc/minishell.h"
 
+int		check_token_errors(char **tokens)
+{
+	int	i;
+
+	i = 0;
+	while(tokens[i])
+	{
+		if(is_redir(tokens[i]))
+		{
+			if(ft_strlen(tokens[i]) > 2)
+			{
+				ft_putstr_fd("Syntax error: invalid use of token\n", 2);
+				return (1);
+			}
+			else if(ft_strlen(tokens[i]) == 2 && tokens[i][0] != tokens[i][1])
+			{
+				ft_putstr_fd("Syntax error: invalid use of token\n", 2);
+				return (1);
+			}
+			else if(!tokens[i + 1] || is_redir(tokens[i + 1]) || is_pipe(tokens[i + 1]))
+			{
+				ft_putstr_fd("Syntax error: invalid use of token\n", 2);
+				return (1);
+			}
+		}
+		if(is_pipe(tokens[i]))
+		{
+			if(i == 0 || is_redir(tokens[i - 1]))
+			{
+				ft_putstr_fd("Syntax error: invalid use of token\n", 2);
+				return (1);
+			}
+		}
+		i++;
+	}
+	return (0);
+}
 int		ends_with_pipe(char *str)
 {
 	int	pipe;
@@ -43,7 +80,9 @@ void	make_input(int *i, t_shelldata *shell, char **arr)
 	while(arr[*i] && ends_with_pipe(arr[*i]))
 	{
 		if(arr[*i] && arr[*i + 1])
+		{
 			input = ft_myjoin(input, " ", arr[*i + 1]);
+		}
 		(*i)++;
 	}
 	shell->input = input;
@@ -61,7 +100,8 @@ void	free_input_data(t_shelldata *shell)
 			free(shell->pipes[i]);
 		i++;
 	}
-	free(shell->pipes);
+	if(shell->cmd_count > 1)
+		free(shell->pipes);
 	if(shell->pids)
 		free(shell->pids);
 	while(shell->cmds && *(shell->cmds))
@@ -136,7 +176,7 @@ void	handle_input_and_history(t_shelldata *shell)
 		}
 		input_arr = ft_split(read_line, '\n');
 		i = 0;
-		while(input_arr[i])
+		while(input_arr && input_arr[i])
 		{
 			make_input(&i, shell, input_arr);
 			if (!shell->input)
@@ -155,11 +195,10 @@ void	handle_input_and_history(t_shelldata *shell)
 			{
 				process_input(shell);
 			}
-			if(shell->input && shell->input[0] != '\0')
-				free_input_data(shell);
+			if(!input_arr || !input_arr[i])
+				break ;
 			i++;
 		}
-		free(read_line);
 	}
 }
 
