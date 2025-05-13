@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/13 11:29:19 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/13 13:02:38 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	add_tokens(t_shelldata *data)
 	return (0);
 }
 
-int	check_unclosed_quotes(t_shelldata *data)
+int	check_unclosed_quotes(char *str)
 {
 	int	type;
 	int	in_quotes;
@@ -37,16 +37,16 @@ int	check_unclosed_quotes(t_shelldata *data)
 	i = 0;
 	type = 0;
 	in_quotes = 0;
-	while (data->input[i])
+	while (str[i])
 	{
-		if (data->input[i] == 34 || data->input[i] == 39)
+		if (str[i] == 34 || str[i] == 39)
 		{
 			if (in_quotes == 0)
 			{
-				type = data->input[i];
+				type = str[i];
 				in_quotes = 1;
 			}
-			else if (in_quotes == 1 && data->input[i] == type)
+			else if (in_quotes == 1 && str[i] == type)
 				in_quotes = 0;
 		}
 		i++;

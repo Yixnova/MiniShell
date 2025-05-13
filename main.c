@@ -63,15 +63,30 @@ int		ends_with_pipe(char *str)
 void	make_input(int *i, t_shelldata *shell, char **arr)
 {
 	char	*input;
+	int		type;
 
 	input = arr[*i];
-	while(arr[*i] && ends_with_pipe(arr[*i]))
+	type = check_unclosed_quotes(input);
+	while(arr[*i] && (ends_with_pipe(arr[*i]) || type))
 	{
-		if(arr[*i] && arr[*i + 1])
+		while(arr[*i] && type)
 		{
-			input = ft_myjoin(input, " ", arr[*i + 1]);
+			type = check_unclosed_quotes(input);
+			if(arr[*i] && arr[*i + 1] && is_in_str(arr[*i + 1], type))
+			{
+				input = ft_myjoin(input, "\n", arr[*i + 1]);
+				(*i)++;
+			}
 		}
-		(*i)++;
+		while(arr[*i] && ends_with_pipe(arr[*i]))
+		{
+			type = check_unclosed_quotes(input);
+			if(arr[*i] && arr[*i + 1])
+			{
+				input = ft_myjoin(input, " ", arr[*i + 1]);
+			}
+			(*i)++;
+		}
 	}
 	shell->input = input;
 }
@@ -173,12 +188,12 @@ void	handle_input_and_history(t_shelldata *shell)
 				break ;
 			}
 			add_history(shell->input);
-			if(check_unclosed_quotes(shell))
-			{
-				ft_putstr_fd("Syntax error: unclosed quotes\n", 2);
-				shell->exit_status = 2;
-				break ;
-			}
+			// if(check_unclosed_quotes(shell))
+			// {
+			// 	ft_putstr_fd("Syntax error: unclosed quotes\n", 2);
+			// 	shell->exit_status = 2;
+			// 	break ;
+			// }
 			if (shell->input[0] != '\0')
 			{
 				process_input(shell);

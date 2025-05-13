@@ -1,3 +1,4 @@
-echo a |
+echo "a |
 
-grep a
+grep a" |
+cat -e
