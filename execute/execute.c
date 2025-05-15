@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:08:21 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/15 18:03:53 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/15 18:41:25 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,19 @@ void	execute_command(t_cmd *cmd, t_shelldata *shell, int i)
 	else if(execve(cmd->path, cmd->args, shell->env->envp) == -1)
 	{
 		printf("path: %s\n", cmd->path);
-		if(errno = EACCES && is_directory(cmd->args[0]))
+		ft_putstr_fd("minishell: ", 2);
+		if(errno = EACCES)
 		{
-			printf("is a directory\n");
-			exit(126);
+			if(is_directory(cmd->args[0]))
+			{
+				directory_error(cmd, cmd->args[0]);
+				ft_putstr_fd(cmd->err_msg, 2);
+				ft_putstr_fd("\n", 2);
+				exit(126);
+			}
 		}
-		execve_error();	
+		printf("error\n");
+		execve_error();
 	}
 	if (cmd->path)
 		free(cmd->path);
