@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:08:21 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/10 11:56:42 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/15 18:03:53 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,15 @@ void	execute_command(t_cmd *cmd, t_shelldata *shell, int i)
 		}
 	}
 	else if(execve(cmd->path, cmd->args, shell->env->envp) == -1)
-		execve_error();
+	{
+		printf("path: %s\n", cmd->path);
+		if(errno = EACCES && is_directory(cmd->args[0]))
+		{
+			printf("is a directory\n");
+			exit(126);
+		}
+		execve_error();	
+	}
 	if (cmd->path)
 		free(cmd->path);
 	exit(0);

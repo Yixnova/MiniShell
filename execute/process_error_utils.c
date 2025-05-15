@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 11:58:28 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/15 10:47:06 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/15 15:24:37 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,6 @@ void	assign_error_messages(t_cmd *cmds, t_shelldata *shell)
 }
 void	display_error_messages(t_cmd *cmds)
 {
-	t_cmd	*temp;
-
-	temp = cmds;
-	while (cmds)
-	{
-		if(cmds->err_type == 1)
-		{
-			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd(cmds->err_msg, 2);
-			ft_putstr_fd("\n", 2);	
-		}
-		cmds = cmds->next;
-	}
-	cmds = temp;
 	while (cmds)
 	{
 		if(cmds->err_type == 2)

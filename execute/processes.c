@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/12 11:08:55 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/15 18:09:30 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,15 @@ static void	handle_simple_cd(t_cmd *cmd, t_shelldata *shell)
 
 static void	run_child_process(t_cmd *cmd, t_shelldata *shell, int i, int pid)
 {
+	check_builtin_and_path(cmd, shell);
+	if(cmd->invalid && !is_file_dir_name(cmd->args[0]))
+	{
+		command_not_found(cmd, cmd->args[0]);
+	}
 	if (pid == 0)
 	{
-		if(cmd->exit_code != 0)
-			exit(cmd->exit_code);
+		if(cmd->invalid)
+			exit(127);
 		pick_pipes(cmd);
 		pick_file_descriptors(cmd);
 		if(ft_strcmp(cmd->args[0], "export") && ft_strcmp(cmd->args[0], "unset"))
@@ -94,7 +99,6 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 	temp = *cmds;
 	i = 0;
 	pid = 1;
-	assign_error_messages(*cmds, shell);
 	if(handle_cd_unset_export(*cmds, temp, shell))
 		return ;
 	while (*cmds)
