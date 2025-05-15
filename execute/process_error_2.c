@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process_error_utils.c                              :+:      :+:    :+:   */
+/*   process_error_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 10:53:32 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/09 17:47:03 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/15 13:57:15 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	command_not_found(t_cmd *tcmd, char *cmd)
 {
-	tcmd->err_msg = ft_strjoin(cmd, ": Command not found");
+	tcmd->err_msg = ft_strjoin(cmd, ": command not found");
 	tcmd->err_type = 2;
 	tcmd->exit_code = 127;
 	return (1);

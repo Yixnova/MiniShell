@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 13:34:02 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/10 11:49:31 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/15 14:10:23 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ static int	test_paths_and_set(t_cmd *cmd, char **paths)
 	while (paths[j])
 	{
 		test = ft_myjoin(paths[j], "/", cmd->args[0]);
+		cmd->path = test;
 		if (access(test, F_OK) == 0)
 		{
-			cmd->path = test;
 			cmd->invalid = 0;
 			array_free(paths);
 			return (1);
