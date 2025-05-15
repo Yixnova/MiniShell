@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 10:53:32 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/13 14:19:02 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/15 10:51:23 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	open_error(t_cmd *cmd, char *file, int redir_num)
 	(void) redir_num;
 	cmd->err_type = 1;
 	cmd->exit_code = 1;
+	if (is_directory(file))
+		return(directory_error(cmd, file));
 	cmd->err_msg = ft_myjoin(file, ": ", strerror(errno));
 	return (1);
 }
