@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 19:10:55 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/16 14:35:17 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 16:00:32 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	open_files(t_cmd *cmd, t_shelldata *shell)
 				return(open_error(cmd, file_name, redir_num(cmd->redirs[i])));
 			n++;
 		}
-		free(file_name);
+		free(expanded);
 		i++;
 	}
 	return (0);
