@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:08:21 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/16 10:19:21 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 10:23:03 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void	execute_command(t_cmd *cmd, t_shelldata *shell, int i)
 			}
 			else
 			{
+				write(2, cmd->args[0], ft_strlen(cmd->args[0]));
+				write(2, ": ", 2);
 				write(2, strerror(errno), ft_strlen(strerror(errno)));
 				write(2, "\n", 1);
 				if(!ft_strncmp("Permission", strerror(errno), 10))
