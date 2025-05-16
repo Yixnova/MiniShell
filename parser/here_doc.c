@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:23:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/16 14:31:24 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:40:56 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static char	*get_line(t_shelldata *shell, t_cmd *cmd, int h)
 {
 	if (cmd->hd_parsedollar[h])
-		return (expand(readline("> "), shell, 0));
+		return (expand(readline("> "), shell, 1));
 	else
 		return (readline("> "));
 }
@@ -69,7 +69,7 @@ void	make_cmd_heredocs(t_cmd *cmd, t_shelldata *shell)
 	if (cmd->hd_count <= 0)
 		return ;
 	count = cmd->hd_count;
-	cmd->hd_arr = ft_calloc(cmd->hd_count + 1, sizeof(int *));
+	cmd->hd_arr = ft_calloc(cmd->hd_count, sizeof(int *));
 	while (cmd)
 	{
 		while (count > 0)
