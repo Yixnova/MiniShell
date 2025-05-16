@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/16 10:15:52 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 17:35:25 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	run_child_process(t_cmd *cmd, t_shelldata *shell, int i, int pid)
 	if(cmd->args && cmd->args[0] && !is_file_dir_name(cmd->args[0]))
 		check_builtin_and_path(cmd, shell);
 	if(cmd->args && cmd->args[0] && is_file_dir_name(cmd->args[0]))
-		cmd->path = cmd->args[0];
+		cmd->path = ft_strdup(cmd->args[0]);
 	if(cmd->args && cmd->args[0] && cmd->invalid && !is_file_dir_name(cmd->args[0]))
 		command_not_found(cmd, cmd->args[0]);
 	if (pid == 0)
