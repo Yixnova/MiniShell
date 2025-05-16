@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 10:31:23 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/02 14:49:01 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 12:08:10 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void	init_parsedata(t_shelldata *shell)
 		add_cmd(shell, ft_cmdnew());
 		count--;
 	}
-	shell->pipes = ft_calloc(pipe_count, sizeof(int *));
+	if(pipe_count > 0)
+		shell->pipes = ft_calloc(pipe_count, sizeof(int *));
 	shell->pids = ft_calloc(shell->cmd_count, sizeof(int));
 	make_pipes(pipe_count, shell);
 }

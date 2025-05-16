@@ -57,6 +57,7 @@ void	free_input_data(t_shelldata *shell)
 		free(*(shell->cmds));
 		shell->cmd_count--;
 	}
+	free(shell->cmds);
 }
 void	free_shell_data(t_shelldata *shelldata)
 {
@@ -135,6 +136,7 @@ void	handle_input_and_history(t_shelldata *shell)
 		input_arr = ft_split(read_line, '\n');
 		iterate_input_arr(input_arr, shell);
 		free_2d_char(input_arr);
+		free(read_line);
 	}
 }
 
