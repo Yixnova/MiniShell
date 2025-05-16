@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/16 16:44:49 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 17:53:08 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@
 # include "expand.h"
 # include "free_functions.h"
 # include "execute.h"
+# include "utils.h"
+# include "errors.h"
+# include "parse.h"
 # include "errno.h"
 # include "termios.h"
 # include <sys/stat.h>
@@ -100,59 +103,10 @@ typedef struct s_shelldata
 	char	*read_line;
 }	t_shelldata;
 
-char	*char_to_str(char c);
-int		is_in_str(const char *str, char c);
-int		is_space_character(char c);
-int		is_all_spaces(char *line);
-int		is_empty_line(char *line);
-int		*ft_intjoin(int *arr, int n);
-
 void	handle_input_and_history(t_shelldata *shelldata);
-void	free_shell_data(t_shelldata *shelldata);
 void	sigint_handler(int signum);
 void	setup_signals(void);
-
-int		edit_cmds_arr(t_shelldata *shell, t_cmd *cmds, int i, int n);
-int		is_pipe(char *str);
-int		is_redir(char	*str);
-void	make_arg_array(t_cmd *cmd, t_shelldata *shell);
-void	make_redir_array(t_cmd *cmd, t_shelldata *shell);
-int		check_parse_errors(t_cmd *cmd);
 char	*get_next_line(int fd, int i);
-void	make_limiter_arr(t_cmd	*cmd);
-int		redir_num(char	*str);
-void	make_here_documents(t_cmd *cmd);
-t_cmd	*ft_cmdnew(void);
-void	add_cmd(t_shelldata *shell, t_cmd *new);
-void	open_all_heredoc(t_cmd *cmd);
-void	free_2d_char(char **arr);
-void	close_pipes(t_shelldata *shell, int i);
-void	start_processes(t_shelldata *shell, t_cmd **cmds);
-void	invalid_file(char *file_name);
-int		open_error(t_cmd *cmd, char *file, int redir_num);
-char	*ft_join(char	*str, char	*joining);
-void	pick_pipes(t_cmd *cmd);
-void	pick_file_descriptors(t_cmd *cmd);
-int		open_files(t_cmd *cmd, t_shelldata *shell);
-int		search_in_paths(t_cmd *cmd, t_shelldata *shell);
-void	init_parsedata(t_shelldata *shell);
-void	make_cmd_heredocs(t_cmd *cmd, t_shelldata *shell);
-int		find_command_path(t_cmd *cmd, t_shelldata *shell);
-int		is_builtin_command(const char *cmd);
-void	execve_error(void);
-int		command_not_found(t_cmd *tcmd, char *cmd);
-int		directory_error(t_cmd *cmd, char *dir);
-int		access_error(t_cmd *cmd, char *file);
-int		is_directory(const char *path);
-int		no_such_file(t_cmd *cmd, char *file);
-int		access_permission_denied(t_cmd *cmd, char *file);
-int		add_tokens(t_shelldata *data);
-int		continue_quoted_input(t_shelldata *data, int type);
-int		check_unclosed_quotes(char *str);
-void	syntax_error_eof(void);
-int		check_syntax_errors(t_cmd *cmd);
-void	make_input(int *i, t_shelldata *shell, char **arr);
 void	set_envp(t_shelldata *shell, t_env *env);
-char	*check_token_errors(char **tokens);
 
 #endif

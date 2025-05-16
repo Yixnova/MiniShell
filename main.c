@@ -52,10 +52,6 @@ void	free_input_data(t_shelldata *shell)
 	}
 	free(shell->cmds);
 }
-void	free_shell_data(t_shelldata *shelldata)
-{
-	free_input_data(shelldata);
-}
 
 void	disable_echoctl(void)
 {

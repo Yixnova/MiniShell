@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 10:53:32 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/16 10:28:30 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 17:58:09 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,6 @@ int	directory_error(t_cmd *cmd, char *dir)
 	ft_putstr_fd(cmd->err_msg, 2);
 	ft_putstr_fd("\n", 2);
 	exit(126);
-	return (1);
-}
-
-int	access_permission_denied(t_cmd *cmd, char *file)
-{
-	cmd->err_msg = ft_strjoin(file, ": Permission denied");
-	cmd->err_type = 1;
-	return (1);
-}
-
-int	access_error(t_cmd *cmd, char *file)
-{
-	cmd->err_msg = ft_myjoin(file, ": ", strerror(errno));
-	cmd->err_type = 1;
 	return (1);
 }
 

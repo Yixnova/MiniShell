@@ -7,7 +7,10 @@
 		"string_view": "c",
 		"ranges": "c",
 		"span": "c",
-		"execute.h": "c"
+		"execute.h": "c",
+		"termios.h": "c",
+		"errno.h": "c",
+		"free_functions.h": "c"
 	},
 	"C_Cpp.errorSquiggles": "disabled",
 	"github.copilot.enable": {
