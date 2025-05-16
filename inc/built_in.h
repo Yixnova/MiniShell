@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:16 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/09 12:47:48 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 16:32:37 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,5 @@ void	sort_and_print_env(t_env **env);
 int		set_env(t_env **env_list, const char *key, const char *value);
 int		unset_env(t_env **env_list, const char *key);
 int		unset_command(t_env **env, char **args);
-void	free_command(t_cmd *cmd);
 
 #endif

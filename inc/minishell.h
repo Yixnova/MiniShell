@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/16 16:10:11 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 16:44:49 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include "built_in.h"
 # include "lexing.h"
 # include "expand.h"
+# include "free_functions.h"
 # include "execute.h"
 # include "errno.h"
 # include "termios.h"
@@ -117,7 +118,6 @@ int		is_redir(char	*str);
 void	make_arg_array(t_cmd *cmd, t_shelldata *shell);
 void	make_redir_array(t_cmd *cmd, t_shelldata *shell);
 int		check_parse_errors(t_cmd *cmd);
-int		free_buffer(char *buffer, int i);
 char	*get_next_line(int fd, int i);
 void	make_limiter_arr(t_cmd	*cmd);
 int		redir_num(char	*str);
@@ -149,21 +149,10 @@ int		access_permission_denied(t_cmd *cmd, char *file);
 int		add_tokens(t_shelldata *data);
 int		continue_quoted_input(t_shelldata *data, int type);
 int		check_unclosed_quotes(char *str);
-void	close_files(t_cmd **cmds);
 void	syntax_error_eof(void);
-int		check_pipe_error(t_shelldata *data);
 int		check_syntax_errors(t_cmd *cmd);
-int		is_file_dir_name(const char *file);
-void	display_error_messages(t_cmd *cmds);	
-void	assign_error_messages(t_cmd *cmds, t_shelldata *shell);
-int		is_simple_unset_command(t_cmd *cmd, t_shelldata *shell);
-void	set_envp(t_shelldata *shell, t_env *env);
-int		is_simple_cd_command(t_cmd *cmd, t_shelldata *shell);
-int		is_simple_export_command(t_cmd *cmd, t_shelldata *shell);
-char	*check_token_errors(char **tokens);
 void	make_input(int *i, t_shelldata *shell, char **arr);
-void	free_2d_lim(char **arr, int num);
-void	free_shell(t_shelldata *shell);
-void	free_input_data(t_shelldata *shell);
+void	set_envp(t_shelldata *shell, t_env *env);
+char	*check_token_errors(char **tokens);
 
 #endif

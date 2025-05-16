@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 13:34:02 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/16 09:47:50 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 16:33:43 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	test_paths_and_set(t_cmd *cmd, char **paths)
 		if (access(test, F_OK) == 0)
 		{
 			cmd->invalid = 0;
-			array_free(paths);
+			free_2d_char(paths);
 			return (1);
 		}
 		free(test);
@@ -76,6 +76,6 @@ int	search_in_paths(t_cmd *cmd, t_shelldata *shell)
 		return (0);
 	if (test_paths_and_set(cmd, paths))
 		return (1); 
-	array_free(paths);
+	free_2d_char(paths);
 	return (0);
 }

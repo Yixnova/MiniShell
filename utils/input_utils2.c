@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:45:25 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/16 10:47:02 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 16:27:16 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,22 @@ char	*check_token_errors(char **tokens)
 	int	i;
 
 	i = 0;
-	while(tokens[i])
+	while (tokens[i])
 	{
 		if(is_redir(tokens[i]))
 		{
-			if(ft_strlen(tokens[i]) > 2)
+			if (ft_strlen(tokens[i]) > 2)
 				return(tokens[i]);
-			else if(ft_strlen(tokens[i]) == 2 && tokens[i][0] != tokens[i][1])
+			else if (ft_strlen(tokens[i]) == 2 && tokens[i][0] != tokens[i][1])
 				return(tokens[i]);
-			else if(!tokens[i + 1] || is_redir(tokens[i + 1]) || is_pipe(tokens[i + 1]))
+			else if (!tokens[i + 1] || is_redir(tokens[i + 1]) || is_pipe(tokens[i + 1]))
 				return(tokens[i]);
 		}
 		if(is_pipe(tokens[i]) || is_pipe_with_newline(tokens[i]))
 		{
-			if(i == 0 || is_redir(tokens[i - 1]) || is_pipe(tokens[i - 1]) || is_pipe_with_newline(tokens[i - 1]))
+			if(i == 0 || is_redir(tokens[i - 1]) 
+				|| is_pipe(tokens[i - 1]) 
+				|| is_pipe_with_newline(tokens[i - 1]))
 				return(tokens[i]);
 		}
 		i++;
@@ -76,23 +78,23 @@ void	make_input(int *i, t_shelldata *shell, char **arr)
 
 	input = arr[*i];
 	type = check_unclosed_quotes(input);
-	while(arr[*i] && (ends_with_pipe(arr[*i]) || type))
+	while (arr[*i] && (ends_with_pipe(arr[*i]) || type))
 	{
-		if(!arr[*i + 1])
+		if (!arr[*i + 1])
 			break ;
-		while(arr[*i] && type)
+		while (arr[*i] && type)
 		{
 			type = check_unclosed_quotes(input);
-			if(arr[*i] && arr[*i + 1] && is_in_str(arr[*i + 1], type))
+			if (arr[*i] && arr[*i + 1] && is_in_str(arr[*i + 1], type))
 			{
 				input = ft_myjoin(input, "\n", arr[*i + 1]);
 				(*i)++;
 			}
 		}
-		while(arr[*i] && ends_with_pipe(arr[*i]))
+		while (arr[*i] && ends_with_pipe(arr[*i]))
 		{
 			type = check_unclosed_quotes(input);
-			if(arr[*i] && arr[*i + 1])
+			if (arr[*i] && arr[*i + 1])
 			{
 				input = ft_myjoin(input, " ", arr[*i + 1]);
 			}

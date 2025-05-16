@@ -1,39 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_utils                                         :+:      :+:    :+:   */
+/*   free_functions.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/10 10:30:23 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/10 10:32:05 by busseven         ###   ########.fr       */
+/*   Created: 2025/05/16 16:31:29 by busseven          #+#    #+#             */
+/*   Updated: 2025/05/16 16:37:10 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#ifndef FREE_FUNCTIONS_H
+# define FREE_FUNCTIONS_EXPAND_H
 
-void	free_2d_int(int **arr)
-{
-	int	i;
+# include "../inc/minishell.h"
 
-	i = 0;
-	if (!arr)
-		return ;
-	while (arr[i])
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
-}
+void	free_cmds(t_shelldata *shell);
+void	free_2d_char(char **arr);
+void	free_shell(t_shelldata *shell);
+void	free_input_data(t_shelldata *shell);
 
-void	free_command(t_cmd *cmd)
-{
-	free_2d_char(cmd->tokens);
-	free_2d_char(cmd->args);
-	free_2d_char(cmd->redirs);
-	free_2d_char(cmd->limiter_arr);
-	free_2d_int(cmd->hd_arr);
-	if (cmd->path)
-		free(cmd->path);
-}
+int		free_buffer(char *buffer, int i);
+
+#endif

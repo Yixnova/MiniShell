@@ -6,28 +6,11 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 17:13:29 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/16 15:09:25 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 16:37:26 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-void	free_2d_lim(char **arr, int num)
-{
-	int	i;
-
-	i = 0;
-	if (!arr)
-		return ;
-	while (num > 0)
-	{
-		free(arr[i]);
-		num--;
-		i++;
-	}
-	if(arr)
-		free(arr);
-}
 
 void	free_2d_char(char **arr)
 {
