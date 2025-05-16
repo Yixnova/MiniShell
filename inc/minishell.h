@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/16 15:09:43 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 16:10:11 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ typedef struct s_shelldata
 	int			*pids;
 	int		command_index;
 	int		exit_status;
+	char	**input_arr;
+	char	*read_line;
 }	t_shelldata;
 
 char	*char_to_str(char c);
@@ -161,5 +163,7 @@ int		is_simple_export_command(t_cmd *cmd, t_shelldata *shell);
 char	*check_token_errors(char **tokens);
 void	make_input(int *i, t_shelldata *shell, char **arr);
 void	free_2d_lim(char **arr, int num);
+void	free_shell(t_shelldata *shell);
+void	free_input_data(t_shelldata *shell);
 
 #endif

@@ -12,6 +12,14 @@
 
 #include "./inc/minishell.h"
 
+void	free_shell(t_shelldata *shell)
+{
+	free_env_list(shell->env);
+	free_input_data(shell);
+	free_2d_char(shell->input_arr);
+	free(shell->read_line);
+	free(shell);
+}
 void	free_input_data(t_shelldata *shell)
 {
 	int	i;
@@ -132,21 +140,18 @@ void	iterate_input_arr(char **input_arr, t_shelldata *shell)
 
 void	handle_input_and_history(t_shelldata *shell)
 {
-	char	*read_line;
-	char	**input_arr;
-
 	while (1)
 	{
-		read_line = readline("myshell$ ");
-		if (!read_line)
+		shell->read_line = readline("myshell$ ");
+		if (!shell->read_line)
 		{
 			ft_putendl_fd("exit", 1);
 			break ;
 		}
-		input_arr = ft_split(read_line, '\n');
-		iterate_input_arr(input_arr, shell);
-		free_2d_char(input_arr);
-		free(read_line);
+		shell->input_arr = ft_split(shell->read_line, '\n');
+		iterate_input_arr(shell->input_arr, shell);
+		free_2d_char(shell->input_arr);
+		free(shell->read_line);
 	}
 }
 
