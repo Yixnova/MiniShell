@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:28:56 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/02 14:50:57 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 11:46:46 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ void	add_args(t_shelldata *shell, t_cmd *cmd)
 	n = 0;
 	while (cmd->tokens[i])
 	{
-		expanded = expand(cmd->tokens[i], shell);
+		expanded = expand(cmd->tokens[i], shell, 0);
 		if (is_redir(cmd->tokens[i]))
 			i++;
 		else if (!is_empty_str(expanded))
 		{
-			cmd->args[n] = rm_quotes(expand(cmd->tokens[i], shell));
+			cmd->args[n] = rm_quotes(expand(cmd->tokens[i], shell, 0), 1);
 			n++;
 		}
 		free(expanded);
@@ -50,7 +50,7 @@ void	make_arg_array(t_cmd *cmd, t_shelldata *shell)
 	i = 0;
 	while (cmd->tokens[i])
 	{
-		expanded = expand(cmd->tokens[i], shell);
+		expanded = expand(cmd->tokens[i], shell, 0);
 		if (is_redir(cmd->tokens[i]))
 			i++;
 		else if (!is_empty_str(expanded))

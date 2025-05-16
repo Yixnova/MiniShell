@@ -27,8 +27,8 @@ void	handle_array_quotes(char *str, int *i, int *in_quotes, int *type);
 
 void	unclosed_quotes(void);
 int		tokenize_input(t_shelldata *data);
-char	*rm_quotes(char *str);
+char	*rm_quotes(char *str, int opt);
 void	free_token_arr(char **token_arr);
-char	*expand(char *token, void *shell);
+char	*expand(char *token, void *shell, int opt);
 
 #endif

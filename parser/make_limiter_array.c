@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 14:10:31 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/02 15:26:50 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 11:47:09 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	add_limiters(t_cmd *cmd)
 			if (len > 0)
 				cmd->has_hd = 1;
 			cmd->hd_parsedollar[n] = has_no_quotes(cmd->redirs[i] + 3);
-			cmd->limiter_arr[n] = ft_substr(rm_quotes(cmd->redirs[i]), 3, len);
+			cmd->limiter_arr[n] = ft_substr(rm_quotes(cmd->redirs[i], 0), 3, len);
 			n++;
 		}
 		i++;

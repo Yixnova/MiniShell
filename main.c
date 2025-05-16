@@ -15,13 +15,17 @@
 void	free_input_data(t_shelldata *shell)
 {
 	int	i;
+	t_cmd *temp;
 
 	i = 0;
+	temp = *(shell->cmds);
 	free_2d_char(shell->tokens);
 	while(i < shell->cmd_count - 1)
 	{
 		if(shell->pipes[i])
+		{
 			free(shell->pipes[i]);
+		}
 		i++;
 	}
 	if(shell->cmd_count > 1)
@@ -43,8 +47,15 @@ void	free_input_data(t_shelldata *shell)
 			free_2d_char((*(shell->cmds))->limiter_arr);
 		free((*(shell->cmds))->hd_parsedollar);
 		free((*(shell->cmds))->file_descs);
-		free((*(shell->cmds))->path);
+		if((*(shell->cmds))->err_msg)
+			free((*(shell->cmds))->err_msg);
 		*(shell->cmds) = (*(shell->cmds))->next;
+	}
+	*(shell->cmds) = temp;
+	while(shell->cmd_count > 0)
+	{
+		free(*(shell->cmds));
+		shell->cmd_count--;
 	}
 }
 
@@ -100,6 +111,7 @@ void	iterate_input_arr(char **input_arr, t_shelldata *shell)
 		if(!input_arr || !input_arr[i])
 			return ;
 		i++;
+		free_input_data(shell);
 	}
 } 
 
@@ -118,6 +130,7 @@ void	handle_input_and_history(t_shelldata *shell)
 		}
 		input_arr = ft_split(read_line, '\n');
 		iterate_input_arr(input_arr, shell);
+		free_2d_char(input_arr);
 	}
 }
 
