@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:23:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/16 15:00:04 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 15:18:18 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ static char	*get_line(t_shelldata *shell, t_cmd *cmd, int h)
 
 	new_line = readline("> ");
 	if (cmd->hd_parsedollar[h])
-		return (expand(new_line, shell, 1));
-	else
-		return(new_line);
+	{
+		new_line = expand(new_line, shell, 1);
+	}
+	return(new_line);
 }
 
 static void	heredoc_eof(t_cmd *cmd, int line_num, int h, char *line)
@@ -47,7 +48,10 @@ static void	open_here_document(t_cmd *cmd, int h, t_shelldata *shell)
 			break ;
 		}
 		if (line[0] == '\0')
+		{
+			free(line);
 			continue ;
+		}
 		if (!ft_strncmp(line, cmd->limiter_arr[h], ft_strlen(line)))
 		{
 			free(line);

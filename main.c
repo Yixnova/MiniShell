@@ -54,6 +54,8 @@ void	free_input_data(t_shelldata *shell)
 			free((*(shell->cmds))->limiter_arr);
 			free((*(shell->cmds))->hd_arr);
 		}
+		if((*(shell->cmds))->path)
+			free((*(shell->cmds))->path);
 		*(shell->cmds) = (*(shell->cmds))->next;
 	}
 	*(shell->cmds) = temp;
