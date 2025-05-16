@@ -12,94 +12,6 @@
 
 #include "./inc/minishell.h"
 
-int	is_pipe_with_newline(char *str)
-{
-	if (!ft_strncmp(str, "|\n", ft_strlen(str)))
-		return (1);
-	return (0);
-}
-
-char	*check_token_errors(char **tokens)
-{
-	int	i;
-
-	i = 0;
-	while(tokens[i])
-	{
-		if(is_redir(tokens[i]))
-		{
-			if(ft_strlen(tokens[i]) > 2)
-				return(tokens[i]);
-			else if(ft_strlen(tokens[i]) == 2 && tokens[i][0] != tokens[i][1])
-				return(tokens[i]);
-			else if(!tokens[i + 1] || is_redir(tokens[i + 1]) || is_pipe(tokens[i + 1]))
-				return(tokens[i]);
-		}
-		if(is_pipe(tokens[i]) || is_pipe_with_newline(tokens[i]))
-		{
-			if(i == 0 || is_redir(tokens[i - 1]) || is_pipe(tokens[i - 1]) || is_pipe_with_newline(tokens[i - 1]))
-				return(tokens[i]);
-		}
-		i++;
-	}
-	return (NULL);
-}
-int		ends_with_pipe(char *str)
-{
-	int	pipe;
-	int	i;
-
-	i = 0;
-	pipe = 0;
-	while(str[i])
-	{
-		if(str[i] == '|')
-		{
-			pipe = 1;
-			break ;
-		}
-		i++;
-	}
-	if(pipe == 0)
-		return(0);
-	i++;
-	if(str[i] == '\0' || is_all_spaces(str + i))
-		return (1);
-	return (0);
-}
-void	make_input(int *i, t_shelldata *shell, char **arr)
-{
-	char	*input;
-	int		type;
-
-	input = arr[*i];
-	type = check_unclosed_quotes(input);
-	while(arr[*i] && (ends_with_pipe(arr[*i]) || type))
-	{
-		if(!arr[*i + 1])
-			break ;
-		while(arr[*i] && type)
-		{
-			type = check_unclosed_quotes(input);
-			if(arr[*i] && arr[*i + 1] && is_in_str(arr[*i + 1], type))
-			{
-				input = ft_myjoin(input, "\n", arr[*i + 1]);
-				(*i)++;
-			}
-		}
-		while(arr[*i] && ends_with_pipe(arr[*i]))
-		{
-			type = check_unclosed_quotes(input);
-			if(arr[*i] && arr[*i + 1])
-			{
-				input = ft_myjoin(input, " ", arr[*i + 1]);
-			}
-			(*i)++;
-		}
-	}
-	shell->input = input;
-}
-
 void	free_input_data(t_shelldata *shell)
 {
 	int	i;
@@ -170,14 +82,32 @@ void	process_input(t_shelldata *shell)
 	}
 	start_processes(shell, shell->cmds);
 }
+void	iterate_input_arr(char **input_arr, t_shelldata *shell)
+{
+	int	i;
+
+	i = 0;
+	while(input_arr && input_arr[i])
+	{
+		make_input(&i, shell, input_arr);
+		if (!shell->input)
+		{
+			ft_putendl_fd("exit", 1);
+			return ;
+		}
+		if (shell->input[0] != '\0')
+			process_input(shell);
+		if(!input_arr || !input_arr[i])
+			return ;
+		i++;
+	}
+} 
 
 void	handle_input_and_history(t_shelldata *shell)
 {
 	char	*read_line;
 	char	**input_arr;
-	int		i;
 
-	i = 0;
 	while (1)
 	{
 		read_line = readline("myshell$ ");
@@ -187,23 +117,7 @@ void	handle_input_and_history(t_shelldata *shell)
 			break ;
 		}
 		input_arr = ft_split(read_line, '\n');
-		i = 0;
-		while(input_arr && input_arr[i])
-		{
-			make_input(&i, shell, input_arr);
-			if (!shell->input)
-			{
-				ft_putendl_fd("exit", 1);
-				break ;
-			}
-			if (shell->input[0] != '\0')
-			{
-				process_input(shell);
-			}
-			if(!input_arr || !input_arr[i])
-				break ;
-			i++;
-		}
+		iterate_input_arr(input_arr, shell);
 	}
 }
 

@@ -6,7 +6,7 @@
 #    By: busseven <busseven@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:42:59 by busseven          #+#    #+#              #
-#    Updated: 2025/05/10 12:04:08 by busseven         ###   ########.fr        #
+#    Updated: 2025/05/16 10:44:35 by busseven         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,7 @@ SRCS =	main.c\
 		./execute/envp_utils.c \
 		./execute/pipe_utils.c \
 		./execute/process_error_2.c \
+		./utils/input_utils2.c\
 
 OBJS = $(SRCS:.c=.o)
 LIBFT = libft/libft.a

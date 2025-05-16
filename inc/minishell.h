@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/13 13:02:57 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 10:46:19 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,5 +159,6 @@ void	set_envp(t_shelldata *shell, t_env *env);
 int		is_simple_cd_command(t_cmd *cmd, t_shelldata *shell);
 int		is_simple_export_command(t_cmd *cmd, t_shelldata *shell);
 char	*check_token_errors(char **tokens);
+void	make_input(int *i, t_shelldata *shell, char **arr);
 
 #endif
