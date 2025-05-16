@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:23:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/16 15:18:18 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 18:26:43 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,7 @@ static void	open_here_document(t_cmd *cmd, int h, t_shelldata *shell)
 	{
 		line = get_line(shell, cmd, h);
 		if (!line)
-		{
-			heredoc_eof(cmd, line_num, h, line);
-			break ;
-		}
+			return (heredoc_eof(cmd, line_num, h, line));
 		if (line[0] == '\0')
 		{
 			free(line);
