@@ -152,7 +152,7 @@ void	process_input(t_shelldata *shell)
 	if (tokenize_input(shell))
 		return ;
 	init_parsedata(shell);
-	if(edit_cmds_arr(shell, *(shell->cmds), 0, 0))
+	if (edit_cmds_arr(shell, *(shell->cmds), 0, 0))
 		return ;
 	temp = *(shell->cmds);
 	while (temp)
@@ -196,12 +196,6 @@ void	handle_input_and_history(t_shelldata *shell)
 				ft_putendl_fd("exit", 1);
 				break ;
 			}
-			// if(check_unclosed_quotes(shell))
-			// {
-			// 	ft_putstr_fd("Syntax error: unclosed quotes\n", 2);
-			// 	shell->exit_status = 2;
-			// 	break ;
-			// }
 			if (shell->input[0] != '\0')
 			{
 				process_input(shell);

@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 10:53:32 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/16 10:13:39 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 10:28:30 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ int	directory_error(t_cmd *cmd, char *dir)
 	(void) cmd;
 	cmd->err_msg = ft_strjoin(dir, ": Is a directory");
 	cmd->err_type = 1;
+	ft_putstr_fd(cmd->err_msg, 2);
+	ft_putstr_fd("\n", 2);
+	exit(126);
 	return (1);
 }
 
