@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:23:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/16 11:34:47 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:31:24 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,12 @@ void	make_cmd_heredocs(t_cmd *cmd, t_shelldata *shell)
 	int	count;
 
 	h = 0;
-	count = 0;
 	if (!cmd || !cmd->limiter_arr)
 		return ;
-	while (cmd->limiter_arr[count])
-		count++;
-	if (count + 1 < 0)
+	if (cmd->hd_count <= 0)
 		return ;
-	cmd->hd_arr = ft_calloc(count + 1, sizeof(int *));
+	count = cmd->hd_count;
+	cmd->hd_arr = ft_calloc(cmd->hd_count + 1, sizeof(int *));
 	while (cmd)
 	{
 		while (count > 0)

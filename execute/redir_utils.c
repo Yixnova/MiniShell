@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 19:10:55 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/16 11:34:37 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:35:17 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ int	open_files(t_cmd *cmd, t_shelldata *shell)
 
 	i = 0;
 	n = 0;
+	if(cmd->redir_count - cmd->hd_count <= 0)
+		return (0);
 	cmd->file_descs = ft_calloc(cmd->redir_count - cmd->hd_count, sizeof(int));
 	while (cmd->redirs[i])
 	{

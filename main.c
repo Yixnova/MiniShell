@@ -35,16 +35,15 @@ void	free_input_data(t_shelldata *shell)
 	while(shell->cmds && *(shell->cmds))
 	{
 		i = 0;
-		while((*(shell->cmds))->has_hd && (*(shell->cmds))->limiter_arr[i])
+		while((*(shell->cmds))->has_hd && (*(shell->cmds))->hd_count > 0)
 		{
 			free((*(shell->cmds))->hd_arr[i]);
+			(*(shell->cmds))->hd_count--;
 			i++;
 		}
 		free_2d_char((*(shell->cmds))->tokens);
 		free_2d_char((*(shell->cmds))->args);
 		free_2d_char((*(shell->cmds))->redirs);
-		if((*(shell->cmds))->has_hd)
-			free_2d_char((*(shell->cmds))->limiter_arr);
 		free((*(shell->cmds))->hd_parsedollar);
 		free((*(shell->cmds))->file_descs);
 		if((*(shell->cmds))->err_msg)
