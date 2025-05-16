@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:23:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/16 14:40:56 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 15:00:04 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 static char	*get_line(t_shelldata *shell, t_cmd *cmd, int h)
 {
+	char	*new_line;
+
+	new_line = readline("> ");
 	if (cmd->hd_parsedollar[h])
-		return (expand(readline("> "), shell, 1));
+		return (expand(new_line, shell, 1));
 	else
-		return (readline("> "));
+		return(new_line);
 }
 
 static void	heredoc_eof(t_cmd *cmd, int line_num, int h, char *line)

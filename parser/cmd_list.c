@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/10 11:51:33 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:54:32 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	free_cmd_arr(t_cmd	**cmds)
 		free_2d_char((*cmds)->tokens);
 		free_2d_char((*cmds)->args);
 		free_2d_char((*cmds)->redirs);
-		free_2d_char((*cmds)->limiter_arr);
 		if ((*cmds)->path)
 			free((*cmds)->path);
 		free(*cmds);

@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/16 12:05:17 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 15:09:43 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,5 +160,6 @@ int		is_simple_cd_command(t_cmd *cmd, t_shelldata *shell);
 int		is_simple_export_command(t_cmd *cmd, t_shelldata *shell);
 char	*check_token_errors(char **tokens);
 void	make_input(int *i, t_shelldata *shell, char **arr);
+void	free_2d_lim(char **arr, int num);
 
 #endif

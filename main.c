@@ -38,6 +38,7 @@ void	free_input_data(t_shelldata *shell)
 		while((*(shell->cmds))->has_hd && (*(shell->cmds))->hd_count > 0)
 		{
 			free((*(shell->cmds))->hd_arr[i]);
+			free((*(shell->cmds))->limiter_arr[i]);
 			(*(shell->cmds))->hd_count--;
 			i++;
 		}
@@ -48,6 +49,11 @@ void	free_input_data(t_shelldata *shell)
 		free((*(shell->cmds))->file_descs);
 		if((*(shell->cmds))->err_msg)
 			free((*(shell->cmds))->err_msg);
+		if((*(shell->cmds))->has_hd)
+		{
+			free((*(shell->cmds))->limiter_arr);
+			free((*(shell->cmds))->hd_arr);
+		}
 		*(shell->cmds) = (*(shell->cmds))->next;
 	}
 	*(shell->cmds) = temp;
