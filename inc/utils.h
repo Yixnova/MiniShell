@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 17:38:56 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/16 17:49:50 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 18:05:33 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ int		is_simple_export_command(t_cmd *cmd, t_shelldata *shell);
 int		is_file_dir_name(const char *file);
 
 int		redir_num(char	*str);
+int		redir_len(char *str);
 
 #endif

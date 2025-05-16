@@ -6,19 +6,20 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 19:10:55 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/16 16:00:32 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 18:05:11 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	redir_len(char *str)
+void	get_fd(char *file_name, t_cmd *cmd, int i, int n)
 {
-	if (redir_num(str) == 1 || redir_num(str) == 4)
-		return (1);
-	if (redir_num(str) == 2 || redir_num(str) == 3)
-		return (2);
-	return (0);
+	if (redir_num(cmd->redirs[i]) == 1)
+		cmd->file_descs[n] = open(file_name, O_RDWR | O_CREAT | O_TRUNC, 0644);
+	else if (redir_num(cmd->redirs[i]) == 2)
+		cmd->file_descs[n] = open(file_name, O_RDWR | O_CREAT | O_APPEND, 0644);
+	else if (redir_num(cmd->redirs[i]) == 4)
+		cmd->file_descs[n] = open(file_name, O_RDONLY);
 }
 
 void	not_here_doc(t_cmd *cmd, int i, int f)
@@ -87,12 +88,7 @@ int	open_files(t_cmd *cmd, t_shelldata *shell)
 		file_name = expanded + 1 + redir_len(cmd->redirs[i]);
 		if(redir_num(cmd->redirs[i]) != 3)
 		{
-			if (redir_num(cmd->redirs[i]) == 1)
-				cmd->file_descs[n] = open(file_name, O_RDWR | O_CREAT | O_TRUNC, 0644);
-			else if (redir_num(cmd->redirs[i]) == 2)
-				cmd->file_descs[n] = open(file_name, O_RDWR | O_CREAT | O_APPEND, 0644);
-			else if (redir_num(cmd->redirs[i]) == 4)
-				cmd->file_descs[n] = open(file_name, O_RDONLY);
+			get_fd(file_name, cmd, i, n);
 			if (cmd->file_descs[n] < 0 || is_directory(file_name))
 				return(open_error(cmd, file_name, redir_num(cmd->redirs[i])));
 			n++;
