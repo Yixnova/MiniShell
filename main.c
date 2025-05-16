@@ -126,8 +126,10 @@ void	iterate_input_arr(char **input_arr, t_shelldata *shell)
 		make_input(&i, shell, input_arr);
 		if (!shell->input)
 		{
+			free_env_list(shell->env);
+			free_shell(shell);
 			ft_putendl_fd("exit", 1);
-			return ;
+			exit (0);
 		}
 		if (shell->input[0] != '\0')
 			process_input(shell);
