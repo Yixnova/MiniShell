@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 11:56:32 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/10 12:09:22 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 18:06:47 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	is_directory(const char *path)
 {
 	struct stat	file;
 
-	if(!is_file_dir_name(path))
+	if (!is_file_dir_name(path))
 		return (0);
 	if (lstat(path, &file) == 0 && S_ISDIR(file.st_mode))
 		return (1);
@@ -61,6 +61,7 @@ int	is_simple_unset_command(t_cmd *cmd, t_shelldata *shell)
 		return (0);
 	return (1);
 }
+
 int	is_file_dir_name(const char *file)
 {
 	int	i;

@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/16 17:42:52 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 18:19:33 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,38 +113,9 @@ int	tokenize_input(t_shelldata *data)
 	while(data->tokens[i])
 		i++;
 	i--;
-	while(data->tokens[i] && check_unclosed_quotes(data->tokens[i]))
-	{
-		i = 0;
-		invalid_token = check_token_errors(data->tokens);
-		if(invalid_token)
-			return(syntax_error_invalid_token(invalid_token, data));
-		while(data->tokens[i])
-			i++;
-		i--;
-		if(data->tokens[i] && check_unclosed_quotes(data->tokens[i]))
-		{
-			if(continue_quoted_input(data, check_unclosed_quotes(data->tokens[i])))
-				return(1);
-		}
-	}
 	i = 0;
-	while(data->tokens[i])
-	{
-		i = 0;
-		invalid_token = check_token_errors(data->tokens);
-		if(invalid_token)
-			return(syntax_error_invalid_token(invalid_token, data));
-		while(data->tokens[i])
-			i++;
-		i--;
-		if(data->tokens[i] && is_pipe(data->tokens[i]))
-		{
-			add_tokens(data);
-		}
-		else
-			break ;
-	}
+	if(handle_pipe(data, &i))
+		return (1);
 	add_history(data->input);
 	return (0);
 }

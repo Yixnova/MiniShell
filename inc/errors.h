@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 17:50:41 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/16 17:58:05 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 18:14:22 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@ int		directory_error(t_cmd *cmd, char *dir);
 int		no_such_file(t_cmd *cmd, char *file);
 void	syntax_error_eof(void);
 char	*check_token_errors(char **tokens);
+int		syntax_error_invalid_token(char *token, t_shelldata *data);
 
 #endif

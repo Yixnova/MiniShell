@@ -34,5 +34,7 @@ int		add_tokens(t_shelldata *data);
 int		continue_quoted_input(t_shelldata *data, int type);
 int		check_unclosed_quotes(char *str);
 void	make_input(int *i, t_shelldata *shell, char **arr);
+int		handle_pipe(t_shelldata *data, int *i);
+int		handle_quote(t_shelldata *data, int *i);
 
 #endif
