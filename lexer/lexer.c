@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/16 15:37:48 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 15:53:50 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,11 @@ int	continue_quoted_input(t_shelldata *data, int type)
 		}
 		data->input = ft_myjoin(data->input, "\n", line);
 		if (is_in_str(line, type))
+		{
+			free(line);
 			break ;
+		}
+		free(line);
 	}
 	free_2d_char(data->tokens);
 	data->tokens = split_into_words(data->input);

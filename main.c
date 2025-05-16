@@ -19,7 +19,6 @@ void	free_input_data(t_shelldata *shell)
 
 	i = 0;
 	temp = *(shell->cmds);
-	free(shell->input);
 	free_2d_char(shell->tokens);
 	while(i < shell->cmd_count - 1)
 	{
@@ -55,7 +54,7 @@ void	free_input_data(t_shelldata *shell)
 			free((*(shell->cmds))->limiter_arr);
 			free((*(shell->cmds))->hd_arr);
 		}
-		if((*(shell->cmds))->path)
+		if((*(shell->cmds))->invalid != 1)
 			free((*(shell->cmds))->path);
 		*(shell->cmds) = (*(shell->cmds))->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 10:06:33 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/02 15:34:32 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 15:51:03 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	count_words(char *str)
 	count = 0;
 	on_word = 0;
 	i = 0;
-	while (str[i])
+	while (str && str[i])
 	{
 		if (is_space_character(str[i]))
 			on_word = 0;
@@ -59,6 +59,8 @@ int	count_words(char *str)
 		}
 		skip_in_quotes(str, &i, str[i]);
 		i++;
+		if(i > (int)ft_strlen(str) - 1)
+			break ;
 	}
 	return (count);
 }
