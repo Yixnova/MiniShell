@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 10:53:32 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/15 15:21:02 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 10:03:57 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	open_error(t_cmd *cmd, char *file, int redir_num)
 	if (is_directory(file))
 		return(directory_error(cmd, file));
 	cmd->err_msg = ft_myjoin(file, ": ", strerror(errno));
+	ft_putstr_fd(cmd->err_msg, 2);
+	ft_putstr_fd("\n", 2);
 	return (1);
 }
 
@@ -30,5 +32,4 @@ void	execve_error(void)
 	write(2, "minishell: ", 11);
 	write(2, strerror(errno), ft_strlen(strerror(errno)));
 	write(2, "\n", 1);
-	exit(errno);
 }

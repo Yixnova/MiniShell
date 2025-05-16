@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:08:21 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/15 18:41:25 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/16 10:19:21 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ void	execute_command(t_cmd *cmd, t_shelldata *shell, int i)
 	}
 	else if(execve(cmd->path, cmd->args, shell->env->envp) == -1)
 	{
-		printf("path: %s\n", cmd->path);
-		ft_putstr_fd("minishell: ", 2);
+		write(2, "minishell: ", 11);
 		if(errno = EACCES)
 		{
 			if(is_directory(cmd->args[0]))
@@ -66,9 +65,22 @@ void	execute_command(t_cmd *cmd, t_shelldata *shell, int i)
 				ft_putstr_fd("\n", 2);
 				exit(126);
 			}
+			else
+			{
+				write(2, strerror(errno), ft_strlen(strerror(errno)));
+				write(2, "\n", 1);
+				if(!ft_strncmp("Permission", strerror(errno), 10))
+					exit(126);
+				else if(!ft_strncmp("No such", strerror(errno), 7))
+					exit(127);
+			}
 		}
-		printf("error\n");
-		execve_error();
+		else if(errno = ENOENT)
+		{
+			no_such_file(cmd, cmd->args[0]);
+		}
+		else
+			execve_error();
 	}
 	if (cmd->path)
 		free(cmd->path);
