@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:11:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/16 18:18:47 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 17:27:19 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,12 @@ int	handle_pipe(t_shelldata *data, int *i)
 		(*i)--;
 		if (data->tokens[*i] && is_pipe(data->tokens[*i]))
 		{
-			add_tokens(data);
+			if(add_tokens(data))
+			{
+				setup_signals();
+				return (1);
+			}
+			setup_signals();
 		}
 		else
 			return (0);

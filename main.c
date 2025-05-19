@@ -27,7 +27,8 @@ void	free_input_data(t_shelldata *shell)
 	t_cmd *temp;
 
 	i = 0;
-	temp = *(shell->cmds);
+	if(shell->cmds)
+		temp = *(shell->cmds);
 	free_2d_char(shell->tokens);
 	while(i < shell->cmd_count - 1)
 	{
@@ -42,7 +43,8 @@ void	free_input_data(t_shelldata *shell)
 	if(shell->pids)
 		free(shell->pids);
 	free_cmds(shell);
-	*(shell->cmds) = temp;
+	if(shell->cmds && temp)
+		*(shell->cmds) = temp;
 	while(shell->cmd_count > 0)
 	{
 		temp = (*(shell->cmds))->next;

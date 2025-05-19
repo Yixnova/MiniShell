@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 17:13:49 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 17:35:48 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,37 +21,49 @@ int	syntax_error_invalid_token(char *token, t_shelldata *data)
 	add_history(data->input);
 	return (1);
 }
+int	parent_process(int *fd, t_shelldata *data)
+{
+	char	*buf;
+	int		bytes;
+	int		status;
+
+	buf = ft_calloc(1, 42);
+	bytes = 1;
+	signal(SIGINT, SIG_IGN);
+	wait(&status);
+	if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
+	{
+		g_signal_flag = 1;
+		return(1);	
+	}
+	close(fd[1]);
+	while(bytes)
+	{
+		bytes = read(fd[0], buf, 42);
+		if(!bytes)
+			break ;
+		data->input = ft_myjoin(data->input, " ", buf);
+	}
+	free(buf);
+	close(fd[0]);
+	printf("input: %s\n", data->input);
+	data->tokens = split_into_words(data->input);
+	return (0);	
+}
+
 int	add_tokens(t_shelldata *data)
 {
 	char	*line;
 	int		pid;
 	int		fd[2];
-	int		bytes;
-	char	*buf;
 
 	pipe(fd);
 	pid = fork();
 	if(pid != 0)
-	{
-		buf = ft_calloc(1, 42);
-		bytes = 1;
-		wait(NULL);
-		close(fd[1]);
-		while(bytes)
-		{
-			bytes = read(fd[0], buf, 42);
-			if(!bytes)
-				break ;
-			data->input = ft_myjoin(data->input, " ", buf);
-		}
-		free(buf);
-		close(fd[0]);
-		printf("input: %s\n", data->input);
-		data->tokens = split_into_words(data->input);
-		return (0);
-	}
+		return(parent_process(fd, data));
 	else
 	{
+		setup_child_signals();
 		line = readline("> ");
 		close(fd[0]);
 		if (!line)
@@ -140,6 +152,8 @@ int	tokenize_input(t_shelldata *data)
 	while(data->tokens[i])
 		i++;
 	i--;
+	if(handle_quote(data, &i))
+		return (1);
 	i = 0;
 	if(handle_pipe(data, &i))
 		return (1);
