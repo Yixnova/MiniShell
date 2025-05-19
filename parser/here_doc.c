@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:23:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 10:40:58 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 10:49:54 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void	heredoc_eof(t_cmd *cmd, int line_num, int h, char *line)
 	printf("here-document at line %d ", line_num);
 	printf("delimited by end-of-file (wanted `%s')\n", cmd->limiter_arr[h]);
 	free(line);
+	exit(0);
 }
 
 static void	open_here_document(t_cmd *cmd, int h, t_shelldata *shell)
@@ -60,12 +61,14 @@ static void	open_here_document(t_cmd *cmd, int h, t_shelldata *shell)
 		line_num++;
 		free(line);
 	}
+	exit(0);
 }
 
 void	make_cmd_heredocs(t_cmd *cmd, t_shelldata *shell)
 {
 	int	h;
 	int	count;
+	int	pid;
 
 	h = 0;
 	if (!cmd || !cmd->limiter_arr)
@@ -78,9 +81,12 @@ void	make_cmd_heredocs(t_cmd *cmd, t_shelldata *shell)
 	{
 		while (count > 0)
 		{
+			pid = fork();
 			cmd->hd_arr[h] = ft_calloc(2, sizeof(int));
 			pipe(cmd->hd_arr[h]);
-			open_here_document(cmd, h, shell);
+			if(pid == 0)
+				open_here_document(cmd, h, shell);
+			wait(NULL);
 			count--;
 			h++;
 		}

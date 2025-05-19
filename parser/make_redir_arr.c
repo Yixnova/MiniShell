@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 15:24:35 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/16 15:06:10 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 10:44:59 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,14 @@ char	*join_space(char const *s1, char const *s2)
 	ptr[i] = 0;
 	return (ptr);
 }
+void	append_redir_withfilename(char *str, char *next, int n, t_cmd *cmd)
+{
+	char	*temp;
+
+	temp = rm_quotes(next, 0);
+	cmd->redirs[n] = join_space(str, temp);
+	free(temp);
+}
 
 void	copy_redir_tokens(t_cmd *cmd, t_shelldata *shell)
 {
@@ -47,7 +55,6 @@ void	copy_redir_tokens(t_cmd *cmd, t_shelldata *shell)
 	int		n;
 	char	*str;
 	char	*next;
-	char	*temp;
 
 	i = 0;
 	n = 0;
@@ -60,12 +67,8 @@ void	copy_redir_tokens(t_cmd *cmd, t_shelldata *shell)
 		{
 			if (!next || is_redir(next))
 				cmd->redirs[n] = ft_strdup(str);
-			else	
-			{
-				temp = rm_quotes(next, 0);
-				cmd->redirs[n] = join_space(str, temp);
-				free(temp);
-			}
+			else
+				append_redir_withfilename(str, next, n, cmd);
 			n++;
 			i += 2;
 		}
@@ -73,6 +76,7 @@ void	copy_redir_tokens(t_cmd *cmd, t_shelldata *shell)
 			i++;
 	}
 }
+
 
 void	make_redir_array(t_cmd *cmd, t_shelldata *shell)
 {

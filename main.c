@@ -20,6 +20,7 @@ void	free_shell(t_shelldata *shell)
 	free(shell->read_line);
 	free(shell);
 }
+
 void	free_input_data(t_shelldata *shell)
 {
 	int	i;
