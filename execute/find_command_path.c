@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 13:34:02 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/16 16:33:43 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:44:02 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	check_builtin_and_path(t_cmd *cmd, t_shelldata *shell)
 		cmd->path = NULL;
 		return (1);
 	}
-	if (cmd->args && cmd->args[0] && (cmd->args[0][0] == '/' || cmd->args[0][0] == '.')
+	if (cmd->args && cmd->args[0] && is_file_dir_name(cmd->args[0])
 		&& access(cmd->args[0], F_OK) == 0)
 	{
 		cmd->path = ft_strdup(cmd->args[0]);

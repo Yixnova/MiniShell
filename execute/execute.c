@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:08:21 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/16 10:29:34 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:42:56 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,9 @@ void	redir_cmd(t_cmd *cmd, t_shelldata *shell, int i)
 void	execute_command(t_cmd *cmd, t_shelldata *shell, int i)
 {
 	if (!cmd || !cmd->args || !cmd->args[0])
+		exit(0);
+	if(!ft_strcmp(cmd->args[0], "export") 
+	|| !ft_strcmp(cmd->args[0], "unset"))
 		exit(0);
 	redir_cmd(cmd, shell, i);
 	if (is_builtin_command(cmd->args[0]))
