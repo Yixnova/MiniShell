@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:08:21 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/19 19:42:56 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:56:49 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	execve_fail(t_cmd *cmd)
 {
 	write(2, "minishell: ", 11);
-	if (errno = EACCES)
+	if (errno == EACCES)
 	{
 		if (is_directory(cmd->args[0]))
 			directory_error(cmd, cmd->args[0]);
@@ -31,7 +31,7 @@ void	execve_fail(t_cmd *cmd)
 				exit(127);
 		}
 	}
-	else if (errno = ENOENT)
+	else if (errno == ENOENT)
 		no_such_file(cmd, cmd->args[0]);
 	else
 		execve_error();
@@ -68,8 +68,8 @@ void	execute_command(t_cmd *cmd, t_shelldata *shell, int i)
 {
 	if (!cmd || !cmd->args || !cmd->args[0])
 		exit(0);
-	if(!ft_strcmp(cmd->args[0], "export") 
-	|| !ft_strcmp(cmd->args[0], "unset"))
+	if (!ft_strcmp(cmd->args[0], "export")
+		|| !ft_strcmp(cmd->args[0], "unset"))
 		exit(0);
 	redir_cmd(cmd, shell, i);
 	if (is_builtin_command(cmd->args[0]))

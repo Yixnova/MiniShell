@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 19:42:15 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 20:00:59 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,14 @@ static void	run_child_process(t_cmd *cmd, t_shelldata *shell, int i, int pid)
 	if (cmd->args && cmd->args[0] && cmd->args[0][0] == '\0')
 	{
 		cmd->invalid = 1;
-		command_not_found(cmd, cmd->args[0]);	
+		command_not_found(cmd, cmd->args[0]);
 	}
-	else if (cmd->args && cmd->args[0] && cmd->invalid 
-			&& !is_file_dir_name(cmd->args[0]))
+	else if (cmd->args && cmd->args[0] && cmd->invalid
+		&& !is_file_dir_name(cmd->args[0]))
 		command_not_found(cmd, cmd->args[0]);
 	if (pid == 0)
 	{
-		if(cmd->invalid && !is_file_dir_name(cmd->args[0]))
+		if (cmd->invalid && !is_file_dir_name(cmd->args[0]))
 			exit(127);
 		pick_pipes(cmd);
 		pick_file_descriptors(cmd);
@@ -86,7 +86,7 @@ int	handle_cd_unset_export(t_cmd *cmds, t_cmd *temp, t_shelldata *shell)
 	if (is_simple_export_command(cmds, shell))
 	{
 		shell->exit_status = export_command(&shell->env, cmds->args, shell);
-		if(shell->exit_status == 0)
+		if (shell->exit_status == 0)
 			set_envp(shell, shell->env);
 		return (1);
 	}
@@ -98,7 +98,7 @@ int	handle_cd_unset_export(t_cmd *cmds, t_cmd *temp, t_shelldata *shell)
 	return (0);
 }
 
-void start_processes(t_shelldata *shell, t_cmd **cmds)
+void	start_processes(t_shelldata *shell, t_cmd **cmds)
 {
 	int		pid;
 	int		i;
@@ -108,14 +108,14 @@ void start_processes(t_shelldata *shell, t_cmd **cmds)
 	i = 0;
 	pid = 1;
 	setup_process_signals();
-	if(handle_cd_unset_export(*cmds, temp, shell))
+	if (handle_cd_unset_export(*cmds, temp, shell))
 		return ;
 	while (*cmds)
 	{
 		if (pid != 0)
 			pid = fork();
 		run_child_process(*cmds, shell, i, pid);
-		if((*cmds)->input_type == 3)
+		if ((*cmds)->input_type == 3)
 			close((*cmds)->hd_arr[(*cmds)->hd_index][0]);
 		close_pipes(shell, i);
 		i++;

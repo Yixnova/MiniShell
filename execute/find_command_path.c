@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 13:34:02 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/19 19:44:02 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:57:08 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	search_in_paths(t_cmd *cmd, t_shelldata *shell)
 	if (!paths)
 		return (0);
 	if (test_paths_and_set(cmd, paths))
-		return (1); 
+		return (1);
 	free_2d_char(paths);
 	return (0);
 }

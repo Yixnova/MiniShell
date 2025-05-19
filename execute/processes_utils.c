@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:40:12 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/16 18:04:06 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:59:46 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,21 @@
 
 void	close_files(t_cmd **cmds)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while((*cmds)->file_descs[i])
+	while ((*cmds)->file_descs[i])
 	{
 		close((*cmds)->file_descs[i]);
 		i++;
 	}
 }
+
 void	display_error_messages(t_cmd *cmds)
 {
 	while (cmds)
 	{
-		if(cmds->err_type == 2)
+		if (cmds->err_type == 2)
 		{
 			ft_putstr_fd(cmds->err_msg, 2);
 			ft_putstr_fd("\n", 2);
@@ -35,23 +36,25 @@ void	display_error_messages(t_cmd *cmds)
 		cmds = cmds->next;
 	}
 }
+
 void	close_all_pipes(t_shelldata *shell)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(i < shell->cmd_count - 1)
+	while (i < shell->cmd_count - 1)
 	{
 		free(shell->pipes[i]);
 		i++;
 	}
 }
+
 void	close_pipes(t_shelldata *shell, int i)
 {
-	if(i != 0)
+	if (i != 0)
 	{
 		close(shell->pipes[i - 1][0]);
-		close(shell->pipes[i - 1][1]);	
+		close(shell->pipes[i - 1][1]);
 	}
 }
 
