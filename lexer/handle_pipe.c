@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_quote_pipe.c                                :+:      :+:    :+:   */
+/*   handle_pipe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:11:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 19:28:03 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 20:07:37 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	handle_pipe(t_shelldata *data, int *i)
 		(*i)--;
 		if (data->tokens[*i] && is_pipe(data->tokens[*i]))
 		{
-			if(add_tokens(data))
+			if (add_tokens(data))
 			{
 				setup_signals();
 				return (1);

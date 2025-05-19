@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 19:36:19 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 20:09:12 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ int	wait_add_tokens(t_shelldata *data)
 	wait(&status);
 	if (WIFEXITED(status))
 	{
-		if(WEXITSTATUS(status) == 130)
+		if (WEXITSTATUS(status) == 130)
 		{
 			g_signal_flag = 1;
 			add_history(data->input);
 			data->exit_status = 130;
-			return(1);	
+			return (1);
 		}
-		else if(WEXITSTATUS(status) == 2)
+		else if (WEXITSTATUS(status) == 2)
 			exit(2);
 	}
 	return (0);
@@ -42,20 +42,20 @@ int	parent_process(int *fd, t_shelldata *data)
 	bytes = 1;
 	wait_add_tokens(data);
 	close(fd[1]);
-	while(bytes)
+	while (bytes)
 	{
 		bytes = read(fd[0], buf, 42);
-		if(!bytes)
+		if (!bytes)
 			break ;
 		data->input = ft_strjoin(data->input, " ");
-		data->input	= ft_join(data->input, buf);
+		data->input = ft_join(data->input, buf);
 	}
 	free(buf);
 	close(fd[0]);
 	free_2d_char(data->tokens);
 	data->tokens = split_into_words(data->input);
 	free(data->input);
-	return (0);	
+	return (0);
 }
 
 int	add_tokens(t_shelldata *data)
@@ -66,8 +66,8 @@ int	add_tokens(t_shelldata *data)
 
 	pipe(fd);
 	pid = fork();
-	if(pid != 0)
-		return(parent_process(fd, data));
+	if (pid != 0)
+		return (parent_process(fd, data));
 	else
 	{
 		setup_heredoc_signals();
@@ -127,16 +127,16 @@ int	tokenize_input(t_shelldata *data)
 		return (1);
 	}
 	invalid_token = check_token_errors(data->tokens);
-	if(invalid_token)
-		return(syntax_error_invalid_token(invalid_token, data));
+	if (invalid_token)
+		return (syntax_error_invalid_token(invalid_token, data));
 	i = 0;
-	if(handle_pipe(data, &i))
+	if (handle_pipe(data, &i))
 		return (1);
-	while(data->tokens[i])
+	while (data->tokens[i])
 		i++;
 	i--;
-	if(check_unclosed_quotes(data->tokens[i]))
-		return(quote_error(data));
+	if (check_unclosed_quotes(data->tokens[i]))
+		return (quote_error(data));
 	add_history(data->input);
 	return (0);
 }

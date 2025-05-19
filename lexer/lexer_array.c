@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 10:06:33 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/16 15:51:03 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 20:06:49 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	count_words(char *str)
 		}
 		skip_in_quotes(str, &i, str[i]);
 		i++;
-		if(i > (int)ft_strlen(str) - 1)
+		if (i > (int)ft_strlen(str) - 1)
 			break ;
 	}
 	return (count);

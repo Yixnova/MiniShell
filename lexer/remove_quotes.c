@@ -101,7 +101,7 @@ char	*rm_quotes(char *str, int opt)
 	len = get_len_without_quotes(str);
 	copy = ft_calloc(len + 1, sizeof(char));
 	copy_word_noquotes(copy, str);
-	if(opt == 1)
+	if (opt == 1)
 		free(str);
 	return (copy);
 }
