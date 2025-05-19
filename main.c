@@ -123,6 +123,9 @@ void	handle_input_and_history(t_shelldata *shell)
 		if (!shell->read_line)
 		{
 			ft_putendl_fd("exit", 1);
+			free(shell->read_line);
+			free_env_list(shell->env);
+			free(shell);
 			break ;
 		}
 		shell->input_arr = ft_split(shell->read_line, '\n');
