@@ -6,11 +6,29 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:23:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 11:14:40 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 11:50:32 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void sigint_heredoc_handler(int signum)
+{
+    (void)signum;
+    write(1, "\n", 1);
+	exit(130);
+}
+
+void setup_child_signals(void)
+{
+    struct sigaction sa;
+
+    sa.sa_handler = sigint_heredoc_handler;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = 0;
+    sigaction(SIGINT, &sa, NULL);
+    signal(SIGQUIT, SIG_IGN);
+}
 
 static char	*get_line(t_shelldata *shell, t_cmd *cmd, int h)
 {
@@ -31,6 +49,7 @@ static void	heredoc_eof(t_cmd *cmd, int line_num, int h, char *line)
 	printf("here-document at line %d ", line_num);
 	printf("delimited by end-of-file (wanted `%s')\n", cmd->limiter_arr[h]);
 	free(line);
+	exit(0);
 }
 
 static void	open_here_document(t_cmd *cmd, int h, t_shelldata *shell)
@@ -67,6 +86,7 @@ void	make_cmd_heredocs(t_cmd *cmd, t_shelldata *shell)
 	int	h;
 	int	count;
 	int	pid;
+	int	status;
 
 	h = 0;
 	if (!cmd || !cmd->limiter_arr)
@@ -84,9 +104,16 @@ void	make_cmd_heredocs(t_cmd *cmd, t_shelldata *shell)
 	}
 	pid = fork();
 	if(pid != 0)
-		wait(NULL);
+	{
+ 		signal(SIGINT, SIG_IGN);
+		wait(&status);
+   		if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
+        	g_signal_flag = 1;
+		setup_signals();
+	}
 	if(pid != 0)
 		return ;
+	setup_child_signals();
 	h = 0;
 	count = cmd->hd_count;
 	while (cmd)

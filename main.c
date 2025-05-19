@@ -67,6 +67,7 @@ void	process_input(t_shelldata *shell)
 {
 	t_cmd	*temp;
 
+	g_signal_flag = 0;
 	if (tokenize_input(shell))
 		return ;
 	init_parsedata(shell);
@@ -77,6 +78,8 @@ void	process_input(t_shelldata *shell)
 	{
 		if (temp->has_hd)
 			make_cmd_heredocs(temp, shell);
+		if(g_signal_flag == 1)
+			return ;
 		temp = temp->next;
 	}
 	if (*(shell->cmds) && (*(shell->cmds))->args
