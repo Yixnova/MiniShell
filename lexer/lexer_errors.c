@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 15:51:23 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/02 15:05:45 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 14:03:43 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	syntax_error_eof(void)
 {
 	write(2, "minishell: syntax error: unexpected end of file\n", 49);
+	write(2, "exit\n", 5);
 }
 
 int	pipe_error(void)
