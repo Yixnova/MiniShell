@@ -6,11 +6,16 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:46:07 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 18:46:46 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:12:58 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	child_sigquit_handler(int signum)
+{
+	(void)signum;
+}
 
 void	process_sigint_handler(int signum)
 {
@@ -30,7 +35,7 @@ void	setup_process_signals(void)
 	sigemptyset(&sa_int.sa_mask);
 	sa_int.sa_flags = SA_RESTART;
 	sigaction(SIGINT, &sa_int, NULL);
-	sa_quit.sa_handler = sigquit_handler;
+	sa_quit.sa_handler = child_sigquit_handler;
 	sigemptyset(&sa_quit.sa_mask);
 	sa_quit.sa_flags = SA_RESTART;
 	sigaction(SIGQUIT, &sa_quit, NULL);

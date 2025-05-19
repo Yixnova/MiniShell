@@ -6,7 +6,7 @@
 #    By: busseven <busseven@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:42:59 by busseven          #+#    #+#              #
-#    Updated: 2025/05/16 18:15:49 by busseven         ###   ########.fr        #
+#    Updated: 2025/05/19 19:12:30 by busseven         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,8 @@ SRCS =	main.c\
 		./utils/input_utils2.c\
 		./utils/free_utils.c\
 		./lexer/handle_quote_pipe.c\
+		./signals/child_signals.c\
+		./signals/here_doc_signals.c
 
 OBJS = $(SRCS:.c=.o)
 LIBFT = libft/libft.a

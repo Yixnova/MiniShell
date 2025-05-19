@@ -24,13 +24,10 @@ void	free_shell(t_shelldata *shell)
 void	free_input_data(t_shelldata *shell)
 {
 	int	i;
-	t_cmd *temp;
 	int	count;
 
 	i = 0;
 	count = shell->cmd_count;
-	if(count > 0)
-		temp = *(shell->cmds);
 	free_2d_char(shell->tokens);
 	while(i < shell->cmd_count - 1)
 	{
@@ -46,16 +43,6 @@ void	free_input_data(t_shelldata *shell)
 		free(shell->pids);
 	if(count > 0)
 		free_cmds(shell);
-	if(count > 0 && shell->cmds && temp)
-		*(shell->cmds) = temp;
-	while(shell->cmd_count > 0)
-	{
-		temp = (*(shell->cmds))->next;
-		if(shell->cmds && *(shell->cmds))
-			free(*(shell->cmds));
-		*(shell->cmds) = temp;
-		shell->cmd_count--;
-	}
 	if(count > 0)
 		free(shell->cmds);
 }

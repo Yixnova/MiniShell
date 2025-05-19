@@ -6,13 +6,13 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:44:10 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 18:46:53 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:13:11 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void sigint_heredoc_handler(int signum)
+void heredoc_sigint_handler(int signum)
 {
 	long unsigned int	len;
 

@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 10:30:23 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 11:53:39 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:11:22 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 void	free_cmds(t_shelldata *shell)
 {
 	int	i;
+	t_cmd	*temp;
 
-	while(shell->cmds && *(shell->cmds))
+	while(shell->cmd_count > 0)
 	{
 		i = 0;
 		while((*(shell->cmds))->has_hd && (*(shell->cmds))->hd_count > 0)
@@ -40,6 +41,10 @@ void	free_cmds(t_shelldata *shell)
 		}
 		if((*(shell->cmds))->invalid != 1)
 			free((*(shell->cmds))->path);
-		*(shell->cmds) = (*(shell->cmds))->next;
+		temp = (*(shell->cmds))->next;
+		if(shell->cmds && *(shell->cmds))
+			free(*(shell->cmds));
+		*(shell->cmds) = temp;
+		shell->cmd_count--;
 	}
 }

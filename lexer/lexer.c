@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 18:44:50 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:19:01 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,14 @@ int	parent_process(int *fd, t_shelldata *data)
 		bytes = read(fd[0], buf, 42);
 		if(!bytes)
 			break ;
-		data->input = ft_myjoin(data->input, " ", buf);
+		data->input = ft_strjoin(data->input, " ");
+		data->input	= ft_join(data->input, buf);
 	}
 	free(buf);
 	close(fd[0]);
-	printf("input: %s\n", data->input);
+	free_2d_char(data->tokens);
 	data->tokens = split_into_words(data->input);
+	free(data->input);
 	return (0);	
 }
 
