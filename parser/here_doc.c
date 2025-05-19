@@ -6,34 +6,41 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:23:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 13:27:08 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:28:39 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void sigint_heredoc_handler(int signum)
+void	heredoc_parent()
 {
-	long unsigned int	len;
+	int	status;
 
-	len = ft_strlen("> ") + ft_strlen(rl_line_buffer);
-	if(ft_strlen(rl_line_buffer) == 0)
-		len++;
-    (void)signum;
-	printf("\033[%luG", len);
-	printf("^C\n");
-	exit(130);
+	signal(SIGINT, SIG_IGN);
+	wait(&status);
+	if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
+		g_signal_flag = 1;
+	setup_signals();
 }
-
-void setup_child_signals(void)
+void	heredoc_child(t_cmd *cmd)
 {
-    struct sigaction sa;
+	int	h;
+	int	count;
 
-    sa.sa_handler = sigint_heredoc_handler;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = 0;
-    sigaction(SIGINT, &sa, NULL);
-    signal(SIGQUIT, SIG_IGN);
+
+	setup_child_signals();
+	h = 0;
+	count = cmd->hd_count;
+	while (cmd)
+	{
+		while (count > 0)
+		{
+			open_here_document(cmd, h, shell);
+			count--;
+			h++;
+		}
+		cmd = cmd->next;
+	}
 }
 
 static char	*get_line(t_shelldata *shell, t_cmd *cmd, int h)
@@ -92,7 +99,6 @@ void	make_cmd_heredocs(t_cmd *cmd, t_shelldata *shell)
 	int	h;
 	int	count;
 	int	pid;
-	int	status;
 
 	h = 0;
 	if (!cmd || !cmd->limiter_arr)
@@ -110,27 +116,8 @@ void	make_cmd_heredocs(t_cmd *cmd, t_shelldata *shell)
 	}
 	pid = fork();
 	if(pid != 0)
-	{
- 		signal(SIGINT, SIG_IGN);
-		wait(&status);
-   		if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
-        	g_signal_flag = 1;
-		setup_signals();
-	}
-	if(pid != 0)
-		return ;
-	setup_child_signals();
-	h = 0;
-	count = cmd->hd_count;
-	while (cmd)
-	{
-		while (count > 0)
-		{
-			open_here_document(cmd, h, shell);
-			count--;
-			h++;
-		}
-		cmd = cmd->next;
-	}
+		return(heredoc_parent());
+	else
+		return(heredoc_child(cmd));
 	exit(0);
 }
