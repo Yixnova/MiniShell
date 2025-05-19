@@ -6,12 +6,19 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 17:58:43 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:37:55 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/lexing.h"
 
+int	quote_error(t_shelldata *data)
+{
+	ft_putstr_fd("Syntax error: Unclosed quote\n", 2);
+	data->exit_status = 2;
+	add_history(data->input);
+	return (1);
+}
 int	syntax_error_invalid_token(char *token, t_shelldata *data)
 {
 	ft_putstr_fd("Syntax error: invalid use of token: ", 2);
@@ -157,11 +164,7 @@ int	tokenize_input(t_shelldata *data)
 		i++;
 	i--;
 	if(check_unclosed_quotes(data->tokens[i]))
-	{
-		printf("quote error\n");
-		add_history(data->input);
-		return (1);
-	}
+		return(quote_error(data));
 	add_history(data->input);
 	return (0);
 }

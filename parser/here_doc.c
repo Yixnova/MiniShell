@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:23:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 18:28:39 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:30:41 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,6 @@ void	heredoc_parent()
 	if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
 		g_signal_flag = 1;
 	setup_signals();
-}
-void	heredoc_child(t_cmd *cmd)
-{
-	int	h;
-	int	count;
-
-
-	setup_child_signals();
-	h = 0;
-	count = cmd->hd_count;
-	while (cmd)
-	{
-		while (count > 0)
-		{
-			open_here_document(cmd, h, shell);
-			count--;
-			h++;
-		}
-		cmd = cmd->next;
-	}
 }
 
 static char	*get_line(t_shelldata *shell, t_cmd *cmd, int h)
@@ -64,7 +44,6 @@ static void	heredoc_eof(t_cmd *cmd, int line_num, int h, char *line)
 	free(line);
 	exit(0);
 }
-
 static void	open_here_document(t_cmd *cmd, int h, t_shelldata *shell)
 {
 	char	*line;
@@ -93,6 +72,26 @@ static void	open_here_document(t_cmd *cmd, int h, t_shelldata *shell)
 		free(line);
 	}
 }
+void	heredoc_child(t_cmd *cmd, t_shelldata *shell)
+{
+	int	h;
+	int	count;
+
+
+	setup_child_signals();
+	h = 0;
+	count = cmd->hd_count;
+	while (cmd)
+	{
+		while (count > 0)
+		{
+			open_here_document(cmd, h, shell);
+			count--;
+			h++;
+		}
+		cmd = cmd->next;
+	}
+}
 
 void	make_cmd_heredocs(t_cmd *cmd, t_shelldata *shell)
 {
@@ -118,6 +117,6 @@ void	make_cmd_heredocs(t_cmd *cmd, t_shelldata *shell)
 	if(pid != 0)
 		return(heredoc_parent());
 	else
-		return(heredoc_child(cmd));
+		return(heredoc_child(cmd, shell));
 	exit(0);
 }
