@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 18:37:55 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:40:31 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,16 @@ int	parent_process(int *fd, t_shelldata *data)
 	bytes = 1;
 	signal(SIGINT, SIG_IGN);
 	wait(&status);
-	if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
+	if (WIFEXITED(status))
 	{
-		g_signal_flag = 1;
-		add_history(data->input);
-		return(1);	
+		if(WEXITSTATUS(status) == 130)
+		{
+			g_signal_flag = 1;
+			add_history(data->input);
+			return(1);	
+		}
+		else if(WEXITSTATUS(status) == 2)
+			exit(2);
 	}
 	close(fd[1]);
 	while(bytes)
