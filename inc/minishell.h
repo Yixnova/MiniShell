@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 18:31:23 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:44:33 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	sigint_handler(int signum);
 void	setup_signals(void);
 char	*get_next_line(int fd, int i);
 void	set_envp(t_shelldata *shell, t_env *env);
-void 	setup_child_signals(void);
+void 	setup_heredoc_signals(void);
 void 	setup_process_signals(void);
 
 #endif

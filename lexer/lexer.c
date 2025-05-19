@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 18:40:31 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:44:50 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	add_tokens(t_shelldata *data)
 		return(parent_process(fd, data));
 	else
 	{
-		setup_child_signals();
+		setup_heredoc_signals();
 		line = readline("> ");
 		close(fd[0]);
 		if (!line)

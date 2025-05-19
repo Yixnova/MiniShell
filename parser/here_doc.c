@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:23:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 18:30:41 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:44:41 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	heredoc_child(t_cmd *cmd, t_shelldata *shell)
 	int	count;
 
 
-	setup_child_signals();
+	setup_heredoc_signals();
 	h = 0;
 	count = cmd->hd_count;
 	while (cmd)
