@@ -25,9 +25,11 @@ void	free_input_data(t_shelldata *shell)
 {
 	int	i;
 	t_cmd *temp;
+	int	count;
 
 	i = 0;
-	if(shell->cmds)
+	count = shell->cmd_count;
+	if(count > 0)
 		temp = *(shell->cmds);
 	free_2d_char(shell->tokens);
 	while(i < shell->cmd_count - 1)
@@ -40,10 +42,11 @@ void	free_input_data(t_shelldata *shell)
 	}
 	if(shell->cmd_count > 1)
 		free(shell->pipes);
-	if(shell->pids)
+	if(shell->cmd_count > 0 && shell->pids)
 		free(shell->pids);
-	free_cmds(shell);
-	if(shell->cmds && temp)
+	if(count > 0)
+		free_cmds(shell);
+	if(count > 0 && shell->cmds && temp)
 		*(shell->cmds) = temp;
 	while(shell->cmd_count > 0)
 	{
@@ -53,7 +56,8 @@ void	free_input_data(t_shelldata *shell)
 		*(shell->cmds) = temp;
 		shell->cmd_count--;
 	}
-	free(shell->cmds);
+	if(count > 0)
+		free(shell->cmds);
 }
 
 void	disable_echoctl(void)

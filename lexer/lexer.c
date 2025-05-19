@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 17:35:48 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 17:58:43 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	parent_process(int *fd, t_shelldata *data)
 	if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
 	{
 		g_signal_flag = 1;
+		add_history(data->input);
 		return(1);	
 	}
 	close(fd[1]);
@@ -149,14 +150,18 @@ int	tokenize_input(t_shelldata *data)
 	invalid_token = check_token_errors(data->tokens);
 	if(invalid_token)
 		return(syntax_error_invalid_token(invalid_token, data));
-	while(data->tokens[i])
-		i++;
-	i--;
-	if(handle_quote(data, &i))
-		return (1);
 	i = 0;
 	if(handle_pipe(data, &i))
 		return (1);
+	while(data->tokens[i])
+		i++;
+	i--;
+	if(check_unclosed_quotes(data->tokens[i]))
+	{
+		printf("quote error\n");
+		add_history(data->input);
+		return (1);
+	}
 	add_history(data->input);
 	return (0);
 }
