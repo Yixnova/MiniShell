@@ -12,14 +12,6 @@
 
 #include "./inc/minishell.h"
 
-void	free_shell(t_shelldata *shell)
-{
-	free_env_list(shell->env);
-	free_input_data(shell);
-	free_2d_char(shell->input_arr);
-	free(shell->read_line);
-	free(shell);
-}
 
 void	free_input_data(t_shelldata *shell)
 {

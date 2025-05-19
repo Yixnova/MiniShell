@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 17:50:41 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/16 18:14:22 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:37:22 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,7 @@ int		no_such_file(t_cmd *cmd, char *file);
 void	syntax_error_eof(void);
 char	*check_token_errors(char **tokens);
 int		syntax_error_invalid_token(char *token, t_shelldata *data);
+int		quote_error(t_shelldata *data);
+void	heredoc_eof(t_cmd *cmd, int line_num, int h, char *line);
 
 #endif

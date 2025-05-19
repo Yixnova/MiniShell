@@ -6,17 +6,18 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 11:53:00 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/16 17:56:36 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:32:18 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../inc/minishell.h"
 
-int	syntax_error(char *token)
+void	heredoc_eof(t_cmd *cmd, int line_num, int h, char *line)
 {
-	write(2, "minishell: ", 12);
-	write(2, "syntax_error in token: ", 24);
-	write(2, token, ft_strlen(token));
-	write(2, "\n", 1);
-	return (1);
+	close(cmd->hd_arr[h][1]);
+	printf("warning: ");
+	printf("here-document at line %d ", line_num);
+	printf("delimited by end-of-file (wanted `%s')\n", cmd->limiter_arr[h]);
+	free(line);
+	exit(0);
 }

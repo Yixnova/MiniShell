@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 15:51:23 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 14:03:43 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:28:37 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,22 @@ int	check_pipe_error(t_shelldata *data)
 		i++;
 	}
 	return (0);
+}
+
+int	quote_error(t_shelldata *data)
+{
+	ft_putstr_fd("Syntax error: Unclosed quote\n", 2);
+	data->exit_status = 2;
+	add_history(data->input);
+	return (1);
+}
+
+int	syntax_error_invalid_token(char *token, t_shelldata *data)
+{
+	ft_putstr_fd("Syntax error: invalid use of token: ", 2);
+	ft_putstr_fd(token, 2);
+	ft_putchar_fd('\n', 2);
+	data->exit_status = 2;
+	add_history(data->input);
+	return (1);
 }

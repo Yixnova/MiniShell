@@ -6,36 +6,16 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 19:19:01 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:36:19 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/lexing.h"
 
-int	quote_error(t_shelldata *data)
+int	wait_add_tokens(t_shelldata *data)
 {
-	ft_putstr_fd("Syntax error: Unclosed quote\n", 2);
-	data->exit_status = 2;
-	add_history(data->input);
-	return (1);
-}
-int	syntax_error_invalid_token(char *token, t_shelldata *data)
-{
-	ft_putstr_fd("Syntax error: invalid use of token: ", 2);
-	ft_putstr_fd(token, 2);
-	ft_putchar_fd('\n', 2);
-	data->exit_status = 2;
-	add_history(data->input);
-	return (1);
-}
-int	parent_process(int *fd, t_shelldata *data)
-{
-	char	*buf;
-	int		bytes;
-	int		status;
+	int	status;
 
-	buf = ft_calloc(1, 42);
-	bytes = 1;
 	signal(SIGINT, SIG_IGN);
 	wait(&status);
 	if (WIFEXITED(status))
@@ -44,11 +24,23 @@ int	parent_process(int *fd, t_shelldata *data)
 		{
 			g_signal_flag = 1;
 			add_history(data->input);
+			data->exit_status = 130;
 			return(1);	
 		}
 		else if(WEXITSTATUS(status) == 2)
 			exit(2);
 	}
+	return (0);
+}
+
+int	parent_process(int *fd, t_shelldata *data)
+{
+	char	*buf;
+	int		bytes;
+
+	buf = ft_calloc(1, 42);
+	bytes = 1;
+	wait_add_tokens(data);
 	close(fd[1]);
 	while(bytes)
 	{
@@ -120,33 +112,6 @@ int	check_unclosed_quotes(char *str)
 		return (type);
 	else
 		return (0);
-}
-
-int	continue_quoted_input(t_shelldata *data, int type)
-{
-	char	*line;
-
-	while (1)
-	{
-		line = readline("> ");
-		if (!line)
-		{
-			write(2, "minishell: ", 11);
-			write(2, "unexpected EOF while looking for matching \"\'\n", 46);
-			syntax_error_eof();
-			return (1);
-		}
-		data->input = ft_myjoin(data->input, "\n", line);
-		if (is_in_str(line, type))
-		{
-			free(line);
-			break ;
-		}
-		free(line);
-	}
-	free_2d_char(data->tokens);
-	data->tokens = split_into_words(data->input);
-	return (0);
 }
 
 int	tokenize_input(t_shelldata *data)
