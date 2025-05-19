@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:23:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 12:57:51 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 13:27:08 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,14 @@
 
 void sigint_heredoc_handler(int signum)
 {
+	long unsigned int	len;
+
+	len = ft_strlen("> ") + ft_strlen(rl_line_buffer);
+	if(ft_strlen(rl_line_buffer) == 0)
+		len++;
     (void)signum;
-    write(1, "\n", 1);
+	printf("\033[%luG", len);
+	printf("^C\n");
 	exit(130);
 }
 
