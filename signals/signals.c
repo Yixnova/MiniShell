@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 08:58:49 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/19 11:49:18 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 13:22:21 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,15 @@ void	rl_replace_line(const char *text, int clear_undo)
 
 void	sigint_handler(int signum)
 {
-	(void)signum;
+	long unsigned int	len;
+
+	len = ft_strlen(rl_line_buffer) + ft_strlen("myshell$ ");
+	if(ft_strlen(rl_line_buffer) == 0)
+		len++;
 	g_signal_flag = 1;
-	write(1, "\n", 1);
+	(void)signum;
+	printf("\033[%luG", len);
+	printf("%s\n", "^C");
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
