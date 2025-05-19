@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:16 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/16 16:32:37 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 20:03:24 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 
 typedef struct s_env		t_env;
 typedef struct s_shelldata	t_shelldata;
-typedef struct s_cmd t_cmd;
+typedef struct s_cmd		t_cmd;
 
 void	pwd(void);
-int	cd_command(char *path);
+int		cd_command(char *path);
 
 void	echo_command(char **arg);
 
@@ -37,7 +37,7 @@ int		ft_strcmp(const char *s1, const char *s2);
 
 void	exit_command(char **args, t_shelldata *shell);
 
-int	export_command(t_env **env, char **args, t_shelldata *shell);
+int		export_command(t_env **env, char **args, t_shelldata *shell);
 
 void	print_sorted_env(t_env **arr, int count);
 void	bubble_sort_env(t_env **arr, int count);

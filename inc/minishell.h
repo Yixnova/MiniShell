@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 18:44:33 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 20:02:55 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,17 @@ typedef struct s_cmd
 	int				index;
 	int				output;
 	int				append;
-	int				input_type; //stdin, pipe or file or heredoc
-	int				output_type; //stdout pipe or file
+	int				input_type;
+	int				output_type;
 	int				fd_count;
 	int				hd_count;
 	int				redir_count;
 	int				has_hd;
 	int				*file_descs;
 	int				parse_error;
-	int				invalid; // Komut gerçekten bulunuyor mu? Yoksa error ve exit;
-	int				built_in; // Komut built-in ise 1, değilse 0
-	char			*path; // Bulunan yürütülebilir dosyanın tam yolu
+	int				invalid;
+	int				built_in;
+	char			*path;
 	char			*faulty_token;
 	int				exit_code;
 	char			*err_msg;
@@ -97,10 +97,10 @@ typedef struct s_shelldata
 	int			**pipes;
 	t_env		*env;
 	int			*pids;
-	int		command_index;
-	int		exit_status;
-	char	**input_arr;
-	char	*read_line;
+	int			command_index;
+	int			exit_status;
+	char		**input_arr;
+	char		*read_line;
 }	t_shelldata;
 
 void	handle_input_and_history(t_shelldata *shelldata);
@@ -108,7 +108,7 @@ void	sigint_handler(int signum);
 void	setup_signals(void);
 char	*get_next_line(int fd, int i);
 void	set_envp(t_shelldata *shell, t_env *env);
-void 	setup_heredoc_signals(void);
-void 	setup_process_signals(void);
+void	setup_heredoc_signals(void);
+void	setup_process_signals(void);
 
 #endif
