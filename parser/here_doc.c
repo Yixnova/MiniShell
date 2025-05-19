@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:23:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/16 18:26:43 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 10:40:14 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*get_line(t_shelldata *shell, t_cmd *cmd, int h)
 	char	*new_line;
 
 	new_line = readline("> ");
-	if (cmd->hd_parsedollar[h])
+	if (cmd->hd_parsedollar[h] && new_line)
 	{
 		new_line = expand(new_line, shell, 1);
 	}
