@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:23:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 10:40:14 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 10:40:58 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	open_here_document(t_cmd *cmd, int h, t_shelldata *shell)
 	char	*line;
 	int		line_num;
 
-	line_num = 0;
+	line_num = 1;
 	while (1)
 	{
 		line = get_line(shell, cmd, h);
