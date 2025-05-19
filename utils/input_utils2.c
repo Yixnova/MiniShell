@@ -6,32 +6,32 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:45:25 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 19:52:09 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 20:20:09 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../inc/minishell.h"
 
-int		ends_with_pipe(char *str)
+int	ends_with_pipe(char *str)
 {
 	int	pipe;
 	int	i;
 
 	i = 0;
 	pipe = 0;
-	while(str[i])
+	while (str[i])
 	{
-		if(str[i] == '|')
+		if (str[i] == '|')
 		{
 			pipe = 1;
 			break ;
 		}
 		i++;
 	}
-	if(pipe == 0)
-		return(0);
+	if (pipe == 0)
+		return (0);
 	i++;
-	if(str[i] == '\0' || is_all_spaces(str + i))
+	if (str[i] == '\0' || is_all_spaces(str + i))
 		return (1);
 	return (0);
 }
@@ -58,6 +58,7 @@ int	handle_pipe_and_quote(int *i, char **arr, int *type, char *input)
 	}
 	return (0);
 }
+
 int	is_pipe_with_newline(char *str)
 {
 	if (!ft_strncmp(str, "|\n", ft_strlen(str)))
@@ -72,22 +73,22 @@ char	*check_token_errors(char **tokens)
 	i = 0;
 	while (tokens[i])
 	{
-		if(is_redir(tokens[i]))
+		if (is_redir(tokens[i]))
 		{
 			if (ft_strlen(tokens[i]) > 2)
-				return(tokens[i]);
+				return (tokens[i]);
 			else if (ft_strlen(tokens[i]) == 2 && tokens[i][0] != tokens[i][1])
-				return(tokens[i]);
-			else if (!tokens[i + 1] || is_redir(tokens[i + 1]) 
-			|| is_pipe(tokens[i + 1]))
-				return(tokens[i]);
+				return (tokens[i]);
+			else if (!tokens[i + 1] || is_redir(tokens[i + 1])
+				|| is_pipe(tokens[i + 1]))
+				return (tokens[i]);
 		}
-		if(is_pipe(tokens[i]) || is_pipe_with_newline(tokens[i]))
+		if (is_pipe(tokens[i]) || is_pipe_with_newline(tokens[i]))
 		{
-			if(i == 0 || is_redir(tokens[i - 1]) 
-				|| is_pipe(tokens[i - 1]) 
+			if (i == 0 || is_redir(tokens[i - 1])
+				|| is_pipe(tokens[i - 1])
 				|| is_pipe_with_newline(tokens[i - 1]))
-				return(tokens[i]);
+				return (tokens[i]);
 		}
 		i++;
 	}

@@ -12,7 +12,6 @@
 
 #include "./inc/minishell.h"
 
-
 void	free_input_data(t_shelldata *shell)
 {
 	int	i;
@@ -21,21 +20,21 @@ void	free_input_data(t_shelldata *shell)
 	i = 0;
 	count = shell->cmd_count;
 	free_2d_char(shell->tokens);
-	while(i < shell->cmd_count - 1)
+	while (i < shell->cmd_count - 1)
 	{
-		if(shell->pipes[i])
+		if (shell->pipes[i])
 		{
 			free(shell->pipes[i]);
 		}
 		i++;
 	}
-	if(shell->cmd_count > 1)
+	if (shell->cmd_count > 1)
 		free(shell->pipes);
-	if(shell->cmd_count > 0 && shell->pids)
+	if (shell->cmd_count > 0 && shell->pids)
 		free(shell->pids);
-	if(count > 0)
+	if (count > 0)
 		free_cmds(shell);
-	if(count > 0)
+	if (count > 0)
 		free(shell->cmds);
 }
 
