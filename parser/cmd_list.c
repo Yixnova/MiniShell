@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:24:57 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/16 14:54:32 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 20:09:51 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	edit_cmds_arr(t_shelldata *shell, t_cmd *cmds, int i, int n)
 	while (shell->tokens && shell->tokens[n]
 		&& !is_pipe(shell->tokens[n]))
 		n++;
-	if(init_cmd(shell, cmds, &i, &n))
+	if (init_cmd(shell, cmds, &i, &n))
 		return (1);
 	edit_cmds_arr(shell, cmds->next, i + 1, n + 1);
 	return (0);

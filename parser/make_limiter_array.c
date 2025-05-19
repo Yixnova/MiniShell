@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 14:10:31 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/16 14:55:43 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 20:10:14 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ int	redir_num(char	*str)
 
 void	add_limiters(t_cmd *cmd)
 {
-	int	i;
-	int	n;
-	int	len;
-	char *temp;
+	int		i;
+	int		n;
+	int		len;
+	char	*temp;
 
 	i = 0;
 	n = 0;

@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 15:24:35 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 10:44:59 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 20:10:27 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ char	*join_space(char const *s1, char const *s2)
 	ptr[i] = 0;
 	return (ptr);
 }
+
 void	append_redir_withfilename(char *str, char *next, int n, t_cmd *cmd)
 {
 	char	*temp;
@@ -76,7 +77,6 @@ void	copy_redir_tokens(t_cmd *cmd, t_shelldata *shell)
 			i++;
 	}
 }
-
 
 void	make_redir_array(t_cmd *cmd, t_shelldata *shell)
 {

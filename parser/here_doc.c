@@ -6,13 +6,13 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:23:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 19:37:41 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 20:11:23 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	heredoc_parent()
+void	heredoc_parent(void)
 {
 	int	status;
 
@@ -29,10 +29,8 @@ static char	*get_line(t_shelldata *shell, t_cmd *cmd, int h)
 
 	new_line = readline("> ");
 	if (cmd->hd_parsedollar[h] && new_line)
-	{
 		new_line = expand(new_line, shell, 1);
-	}
-	return(new_line);
+	return (new_line);
 }
 
 static void	open_here_document(t_cmd *cmd, int h, t_shelldata *shell)
@@ -63,11 +61,11 @@ static void	open_here_document(t_cmd *cmd, int h, t_shelldata *shell)
 		free(line);
 	}
 }
+
 void	heredoc_child(t_cmd *cmd, t_shelldata *shell)
 {
 	int	h;
 	int	count;
-
 
 	setup_heredoc_signals();
 	h = 0;
@@ -97,7 +95,7 @@ void	make_cmd_heredocs(t_cmd *cmd, t_shelldata *shell)
 		return ;
 	count = cmd->hd_count;
 	cmd->hd_arr = ft_calloc(cmd->hd_count, sizeof(int *));
-	while(count > 0)
+	while (count > 0)
 	{
 		cmd->hd_arr[h] = ft_calloc(2, sizeof(int));
 		pipe(cmd->hd_arr[h]);
@@ -105,9 +103,9 @@ void	make_cmd_heredocs(t_cmd *cmd, t_shelldata *shell)
 		h++;
 	}
 	pid = fork();
-	if(pid != 0)
-		return(heredoc_parent());
+	if (pid != 0)
+		return (heredoc_parent());
 	else
-		return(heredoc_child(cmd, shell));
+		return (heredoc_child(cmd, shell));
 	exit(0);
 }
