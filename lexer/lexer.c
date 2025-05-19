@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 14:02:08 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 17:13:49 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,46 @@ int	syntax_error_invalid_token(char *token, t_shelldata *data)
 int	add_tokens(t_shelldata *data)
 {
 	char	*line;
+	int		pid;
+	int		fd[2];
+	int		bytes;
+	char	*buf;
 
-	line = readline("> ");
-	if (!line)
+	pipe(fd);
+	pid = fork();
+	if(pid != 0)
 	{
-		syntax_error_eof();
-		exit(2);
+		buf = ft_calloc(1, 42);
+		bytes = 1;
+		wait(NULL);
+		close(fd[1]);
+		while(bytes)
+		{
+			bytes = read(fd[0], buf, 42);
+			if(!bytes)
+				break ;
+			data->input = ft_myjoin(data->input, " ", buf);
+		}
+		free(buf);
+		close(fd[0]);
+		printf("input: %s\n", data->input);
+		data->tokens = split_into_words(data->input);
+		return (0);
 	}
-	data->input = ft_strjoin(data->input, " ");
-	data->input = ft_join(data->input, line);
-	free_2d_char(data->tokens);
-	data->tokens = split_into_words(data->input);
-	free(line);
-	return (0);
+	else
+	{
+		line = readline("> ");
+		close(fd[0]);
+		if (!line)
+		{
+			syntax_error_eof();
+			exit(2);
+		}
+		write(fd[1], line, ft_strlen(line));
+		close(fd[1]);
+		free(line);
+		exit (0);
+	}
 }
 
 int	check_unclosed_quotes(char *str)
