@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:44:10 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 20:13:07 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 20:17:24 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,19 @@ void	heredoc_sigint_handler(int signum)
 	len = ft_strlen("> ") + ft_strlen(rl_line_buffer);
 	if (ft_strlen(rl_line_buffer) == 0)
 		len++;
-    (void)signum;
+	(void)signum;
 	printf("\033[%luG", len);
 	printf("^C\n");
 	exit(130);
 }
 
-void setup_heredoc_signals(void)
+void	setup_heredoc_signals(void)
 {
-    struct sigaction sa;
+	struct sigaction	sa;
 
-    sa.sa_handler = heredoc_sigint_handler;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = 0;
-    sigaction(SIGINT, &sa, NULL);
-    signal(SIGQUIT, SIG_IGN);
+	sa.sa_handler = heredoc_sigint_handler;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = 0;
+	sigaction(SIGINT, &sa, NULL);
+	signal(SIGQUIT, SIG_IGN);
 }

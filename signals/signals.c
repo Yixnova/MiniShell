@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 08:58:49 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/19 18:46:24 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/19 20:17:40 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	g_signal_flag = 0;
 
 #ifdef __APPLE__
+
 void	rl_replace_line(const char *text, int clear_undo)
 {
 	(void)clear_undo;
@@ -28,7 +29,7 @@ void	sigint_handler(int signum)
 	long unsigned int	len;
 
 	len = ft_strlen(rl_line_buffer) + ft_strlen("myshell$ ");
-	if(ft_strlen(rl_line_buffer) == 0)
+	if (ft_strlen(rl_line_buffer) == 0)
 		len++;
 	g_signal_flag = 1;
 	(void)signum;
