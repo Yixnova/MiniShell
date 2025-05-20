@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 20:09:12 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/20 10:58:19 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	check_unclosed_quotes(char *str)
 	i = 0;
 	type = 0;
 	in_quotes = 0;
-	while (str[i])
+	while (str && !is_all_spaces(str) && str[i])
 	{
 		if (str[i] == 34 || str[i] == 39)
 		{

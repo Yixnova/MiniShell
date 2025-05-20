@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:45:25 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 20:20:09 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/20 11:00:53 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ends_with_pipe(char *str)
 int	handle_pipe_and_quote(int *i, char **arr, int *type, char *input)
 {
 	if (!arr[*i + 1])
-		return (0);
+		return (1);
 	while (arr[*i] && *type)
 	{
 		*type = check_unclosed_quotes(input);
@@ -103,6 +103,9 @@ void	make_input(int *i, t_shelldata *shell, char **arr)
 	input = arr[*i];
 	type = check_unclosed_quotes(input);
 	while (arr[*i] && (ends_with_pipe(arr[*i]) || type))
-		handle_pipe_and_quote(i, arr, &type, input);
+	{
+		if(handle_pipe_and_quote(i, arr, &type, input))
+			break ;
+	}
 	shell->input = input;
 }
