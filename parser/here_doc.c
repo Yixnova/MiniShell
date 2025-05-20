@@ -6,16 +6,17 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:23:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 20:11:23 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/20 12:10:41 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	heredoc_parent(void)
+void	heredoc_parent(int *fd)
 {
 	int	status;
 
+	close(fd[1]);
 	signal(SIGINT, SIG_IGN);
 	wait(&status);
 	if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
@@ -62,24 +63,30 @@ static void	open_here_document(t_cmd *cmd, int h, t_shelldata *shell)
 	}
 }
 
-void	heredoc_child(t_cmd *cmd, t_shelldata *shell)
+void	heredoc_child(t_cmd *cmd, t_shelldata *shell, int pid)
 {
 	int	h;
 	int	count;
 
-	setup_heredoc_signals();
+	if(pid == 0)
+		setup_heredoc_signals();
 	h = 0;
 	count = cmd->hd_count;
 	while (cmd)
 	{
 		while (count > 0)
 		{
-			open_here_document(cmd, h, shell);
+			if(pid != 0)
+				heredoc_parent(cmd->hd_arr[h]);
+			else
+				open_here_document(cmd, h, shell);
 			count--;
 			h++;
 		}
 		cmd = cmd->next;
 	}
+	if(pid == 0)
+		exit(0);
 }
 
 void	make_cmd_heredocs(t_cmd *cmd, t_shelldata *shell)
@@ -103,9 +110,5 @@ void	make_cmd_heredocs(t_cmd *cmd, t_shelldata *shell)
 		h++;
 	}
 	pid = fork();
-	if (pid != 0)
-		return (heredoc_parent());
-	else
-		return (heredoc_child(cmd, shell));
-	exit(0);
+	heredoc_child(cmd, shell, pid);
 }
