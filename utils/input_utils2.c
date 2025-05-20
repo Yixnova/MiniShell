@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:45:25 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/20 11:01:34 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/20 13:19:16 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,29 @@ int	ends_with_pipe(char *str)
 	return (0);
 }
 
-int	handle_pipe_and_quote(int *i, char **arr, int *type, char *input)
+int	handle_pipe_and_quote(int *i, char **arr, int *type, t_shelldata *shell)
 {
-	if (!arr[*i + 1])
+	int	k;
+
+	k = *i + 1;
+	while(arr[k] && arr[k][0] == '\0')
+		k++;
+	if (!arr[k])
 		return (1);
 	while (arr[*i] && *type)
 	{
-		*type = check_unclosed_quotes(input);
-		if (arr[*i] && arr[*i + 1] && is_in_str(arr[*i + 1], *type))
+		*type = check_unclosed_quotes(shell->input);
+		if (arr[*i] && arr[k] && is_in_str(arr[k], *type))
 		{
-			input = ft_myjoin(input, "\n", arr[*i + 1]);
+			shell->input = ft_myjoin(shell->input, "\n", arr[k]);
 			(*i)++;
 		}
 	}
 	while (arr[*i] && ends_with_pipe(arr[*i]))
 	{
-		*type = check_unclosed_quotes(input);
+		*type = check_unclosed_quotes(shell->input);
 		if (arr[*i] && arr[*i + 1])
-			input = ft_myjoin(input, " ", arr[*i + 1]);
+			shell->input = ft_myjoin(shell->input, " ", arr[k]);
 		(*i)++;
 	}
 	return (0);
@@ -97,15 +102,13 @@ char	*check_token_errors(char **tokens)
 
 void	make_input(int *i, t_shelldata *shell, char **arr)
 {
-	char	*input;
 	int		type;
 
-	input = arr[*i];
-	type = check_unclosed_quotes(input);
+	shell->input = arr[*i];
+	type = check_unclosed_quotes(shell->input);
 	while (arr[*i] && (ends_with_pipe(arr[*i]) || type))
 	{
-		if (handle_pipe_and_quote(i, arr, &type, input))
+		if (handle_pipe_and_quote(i, arr, &type, shell))
 			break ;
 	}
-	shell->input = input;
 }
