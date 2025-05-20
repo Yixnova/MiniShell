@@ -12,32 +12,6 @@
 
 #include "./inc/minishell.h"
 
-void	free_input_data(t_shelldata *shell)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = shell->cmd_count;
-	free_2d_char(shell->tokens);
-	while (i < shell->cmd_count - 1)
-	{
-		if (shell->pipes[i])
-		{
-			free(shell->pipes[i]);
-		}
-		i++;
-	}
-	if (shell->cmd_count > 1)
-		free(shell->pipes);
-	if (shell->cmd_count > 0 && shell->pids)
-		free(shell->pids);
-	if (count > 0)
-		free_cmds(shell);
-	if (count > 0)
-		free(shell->cmds);
-}
-
 void	disable_echoctl(void)
 {
 	struct termios	term;
@@ -62,7 +36,7 @@ void	process_input(t_shelldata *shell)
 	{
 		if (temp->has_hd)
 			make_cmd_heredocs(temp, shell);
-		if(g_signal_flag == 1)
+		if (g_signal_flag == 1)
 			return ;
 		temp = temp->next;
 	}
@@ -75,12 +49,13 @@ void	process_input(t_shelldata *shell)
 	}
 	start_processes(shell, shell->cmds);
 }
+
 void	iterate_input_arr(char **input_arr, t_shelldata *shell)
 {
 	int	i;
 
 	i = 0;
-	while(input_arr && input_arr[i])
+	while (input_arr && input_arr[i])
 	{
 		make_input(&i, shell, input_arr);
 		if (!shell->input)
@@ -92,12 +67,12 @@ void	iterate_input_arr(char **input_arr, t_shelldata *shell)
 		}
 		if (shell->input[0] != '\0')
 			process_input(shell);
-		if(!input_arr || !input_arr[i])
+		if (!input_arr || !input_arr[i])
 			return ;
 		i++;
 		free_input_data(shell);
 	}
-} 
+}
 
 void	handle_input_and_history(t_shelldata *shell)
 {
