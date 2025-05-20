@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 11:59:24 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/16 18:06:58 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/20 16:29:51 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	set_envp(t_shelldata *shell, t_env *env)
 		temp = temp->next;
 	}
 	temp = env;
+	free_2d_char(shell->env->envp);
 	shell->env->envp = ft_calloc(count + 1, sizeof(char *));
 	while (temp)
 	{
