@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 10:53:32 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 19:57:43 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/20 15:21:06 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,13 @@ int	open_error(t_cmd *cmd, char *file, int redir_num)
 	return (1);
 }
 
-void	execve_error(void)
+void	execve_error(char *cmd)
 {
-	write(2, "minishell: ", 11);
+	write(2, cmd, ft_strlen(cmd));
+	write(2, ": ", 2);
 	write(2, strerror(errno), ft_strlen(strerror(errno)));
 	write(2, "\n", 1);
+	exit(errno);
 }
 
 int	command_not_found(t_cmd *tcmd, char *cmd)

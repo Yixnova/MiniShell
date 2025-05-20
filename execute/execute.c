@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:08:21 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/20 14:25:34 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/20 15:20:39 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	execve_fail(t_cmd *cmd)
 	else if (errno == ENOENT)
 		no_such_file(cmd, cmd->args[0]);
 	else
-		execve_error();
+		execve_error(cmd->args[0]);
 }
 
 void	redir_cmd(t_cmd *cmd, t_shelldata *shell, int i)

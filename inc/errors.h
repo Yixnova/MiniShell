@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 17:50:41 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 19:37:22 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/20 15:19:03 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ typedef struct s_cmd		t_cmd;
 typedef struct s_shelldata	t_shelldata;
 
 int		open_error(t_cmd *cmd, char *file, int redir_num);
-void	execve_error(void);
+void	execve_error(char *cmd);
 int		command_not_found(t_cmd *tcmd, char *cmd);
 int		directory_error(t_cmd *cmd, char *dir);
 int		no_such_file(t_cmd *cmd, char *file);

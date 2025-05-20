@@ -91,6 +91,7 @@ void	handle_input_and_history(t_shelldata *shell)
 		iterate_input_arr(shell->input_arr, shell);
 		free_2d_char(shell->input_arr);
 		free(shell->read_line);
+		shell->iteration_count++;
 	}
 }
 
@@ -108,6 +109,7 @@ int	main(int argc, char **argv, char **envp)
 		return (EXIT_FAILURE);
 	}
 	shell->env = build_env_list(envp);
+	shell->iteration_count = 0;
 	if (!shell->env)
 	{
 		ft_putendl_fd("Error", 2);

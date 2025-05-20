@@ -6,11 +6,25 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:11:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 20:07:37 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/20 15:29:41 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../inc/minishell.h"
+
+char	*ft_myjoin_free(char *s1, const char *s2, const char *s3)
+{
+	char	*temp;
+	char	*result;
+
+	temp = ft_strjoin(s1, s2);
+	if (!temp)
+		return (NULL);
+	result = ft_strjoin(temp, s3);
+	free(temp);
+	free(s1);
+	return (result);
+}
 
 int	handle_pipe(t_shelldata *data, int *i)
 {

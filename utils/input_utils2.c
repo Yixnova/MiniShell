@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:45:25 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/20 13:19:16 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/20 15:50:21 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int	handle_pipe_and_quote(int *i, char **arr, int *type, t_shelldata *shell)
 		*type = check_unclosed_quotes(shell->input);
 		if (arr[*i] && arr[k] && is_in_str(arr[k], *type))
 		{
-			shell->input = ft_myjoin(shell->input, "\n", arr[k]);
+			shell->input = ft_join(shell->input, "\n");
+			shell->input = ft_join(shell->input, arr[k]);
 			(*i)++;
 		}
 	}
@@ -58,7 +59,10 @@ int	handle_pipe_and_quote(int *i, char **arr, int *type, t_shelldata *shell)
 	{
 		*type = check_unclosed_quotes(shell->input);
 		if (arr[*i] && arr[*i + 1])
-			shell->input = ft_myjoin(shell->input, " ", arr[k]);
+		{
+			shell->input = ft_join(shell->input, " ");
+			shell->input = ft_join(shell->input, arr[k]);
+		}
 		(*i)++;
 	}
 	return (0);
