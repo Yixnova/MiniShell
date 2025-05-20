@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/20 10:58:19 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/20 14:34:25 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	parent_process(int *fd, t_shelldata *data)
 	close(fd[0]);
 	free_2d_char(data->tokens);
 	data->tokens = split_into_words(data->input);
-	free(data->input);
 	return (0);
 }
 
@@ -137,6 +136,7 @@ int	tokenize_input(t_shelldata *data)
 	i--;
 	if (check_unclosed_quotes(data->tokens[i]))
 		return (quote_error(data));
+	printf("%s\n", data->input);
 	add_history(data->input);
 	return (0);
 }
