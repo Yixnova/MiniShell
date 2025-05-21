@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 12:59:15 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/21 12:13:15 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/21 12:26:54 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,5 @@ void	exit_command(char **args, t_shelldata *shell)
 		status = ft_atoi(args[1]);
 	}
 	free_shell(shell);
-	free(shell->input);
 	exit(status);
 }
