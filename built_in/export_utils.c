@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 16:30:37 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/22 10:12:48 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/05/21 11:55:39 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	print_sorted_env(t_env **arr, int count)
 		printf("\n");
 		i++;
 	}
+	free(arr);
 }
 
 void	bubble_sort_env(t_env **arr, int count)

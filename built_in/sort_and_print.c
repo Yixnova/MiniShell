@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 10:13:19 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/20 17:45:01 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/21 11:54:42 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ void	sort_and_print_env(t_env **env)
 	}
 	bubble_sort_env(arr, count);
 	print_sorted_env(arr, count);
-	exit(0);
+	return ;
 }
