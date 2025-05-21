@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:45:25 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/21 12:23:52 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/21 16:28:53 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,34 +33,6 @@ int	ends_with_pipe(char *str)
 	i++;
 	if (str[i] == '\0' || is_all_spaces(str + i))
 		return (1);
-	return (0);
-}
-
-int	handle_pipe_and_quote(int *i, char **arr, int *type, t_shelldata *shell)
-{
-	int	k;
-
-	k = *i + 1;
-	while (arr[k] && arr[k][0] == '\0')
-		k++;
-	if (!arr[k])
-		return (1);
-	while (arr[*i] && *type)
-	{
-		*type = check_unclosed_quotes(shell->input);
-		if (arr[*i] && arr[k] && is_in_str(arr[k], *type))
-		{
-			shell->input = ft_myjoin_free(shell->input, "\n", arr[k]);
-			(*i)++;
-		}
-	}
-	while (arr[*i] && ends_with_pipe(arr[*i]))
-	{
-		*type = check_unclosed_quotes(shell->input);
-		if (arr[*i] && arr[*i + 1])
-			shell->input = ft_myjoin_free(shell->input, " ", arr[k]);
-		(*i)++;
-	}
 	return (0);
 }
 
@@ -102,13 +74,5 @@ char	*check_token_errors(char **tokens)
 
 void	make_input(int *i, t_shelldata *shell, char **arr)
 {
-	int		type;
-
 	shell->input = ft_strdup(arr[*i]);
-	type = check_unclosed_quotes(shell->input);
-	while (arr[*i] && (ends_with_pipe(arr[*i]) || type))
-	{
-		if (handle_pipe_and_quote(i, arr, &type, shell))
-			break ;
-	}
 }

@@ -12,6 +12,37 @@
 
 #include "./inc/minishell.h"
 
+char	**make_input_arr(t_shelldata *shell, char	*line)
+{
+	int	count;
+	int	i;
+	int	type;
+	int	in_quotes;
+
+	i = 0;
+	count = 0;
+	in_quotes = 0;
+	type = 0;
+	shell->on_word = 0;
+	while(line[i])
+	{
+		if(shell->on_word == 0 && line[i][0] != '\n')
+		{
+			shell->on_word = 1;
+			count++;
+		}
+		if(in_quotes == 0 && is_in_str("\"\'", line[i]))
+		{
+			in_quotes = 1;
+			type = line[i];
+		}
+		if(shell->on_word == 1 && in_quotes == 0 && line[i] == '\n' && line[i - 1] != '|')
+		{
+			shell->on_word = 0;
+		}
+		i++;
+	}
+}
 void	disable_echoctl(void)
 {
 	struct termios	term;
@@ -87,7 +118,7 @@ void	handle_input_and_history(t_shelldata *shell)
 			free(shell);
 			break ;
 		}
-		shell->input_arr = ft_split(shell->read_line, '\n');
+		shell->input_arr = make_input_arr(shell, shell->read_line);
 		iterate_input_arr(shell->input_arr, shell);
 		free_2d_char(shell->input_arr);
 		free(shell->read_line);

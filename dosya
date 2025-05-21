@@ -5,7 +5,4 @@ ls |
 
 
 
-
-
-
-grep a
+echo a
