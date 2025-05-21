@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:43:40 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 20:00:59 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/21 11:42:12 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,13 @@ int	handle_cd_unset_export(t_cmd *cmds, t_cmd *temp, t_shelldata *shell)
 	if (is_simple_export_command(cmds, shell))
 	{
 		shell->exit_status = export_command(&shell->env, cmds->args, shell);
-		if (shell->exit_status == 0)
-			set_envp(shell, shell->env);
+		set_envp(shell, shell->env, 1);
 		return (1);
 	}
 	else if (is_simple_unset_command(cmds, shell))
 	{
 		shell->exit_status = unset_command(&shell->env, cmds->args);
+		set_envp(shell, shell->env, 1);
 		return (1);
 	}
 	return (0);

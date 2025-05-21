@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 09:39:47 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/20 16:34:07 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/21 11:28:35 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,11 @@ void	free_env_list(t_env *env_list)
 
 	while (env_list)
 	{
-		tmp = env_list;
-		env_list = env_list->next;
-		free(tmp->name);
-		free(tmp->value);
-		free(tmp);
+		tmp = env_list->next;
+		free(env_list->name);
+		free(env_list->value);
+		free(env_list);
+		env_list = tmp;
 	}
 }
 

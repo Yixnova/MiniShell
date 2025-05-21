@@ -60,7 +60,6 @@ void	iterate_input_arr(char **input_arr, t_shelldata *shell)
 		make_input(&i, shell, input_arr);
 		if (!shell->input)
 		{
-			free_env_list(shell->env);
 			free_shell(shell);
 			ft_putendl_fd("exit", 1);
 			exit (0);
@@ -83,6 +82,7 @@ void	handle_input_and_history(t_shelldata *shell)
 		{
 			ft_putendl_fd("exit", 1);
 			free(shell->read_line);
+			free_2d_char(shell->env->envp);
 			free_env_list(shell->env);
 			free(shell);
 			break ;
@@ -109,6 +109,7 @@ int	main(int argc, char **argv, char **envp)
 		return (EXIT_FAILURE);
 	}
 	shell->env = build_env_list(envp);
+	set_envp(shell, shell->env, 0);
 	shell->iteration_count = 0;
 	if (!shell->env)
 	{

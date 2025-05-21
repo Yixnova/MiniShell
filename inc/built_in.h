@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:16 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/19 20:03:24 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/21 11:37:30 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	echo_command(char **arg);
 t_env	*build_env_list(char **envp);
 t_env	*find_env(t_env *env_list, const char *key);
 t_env	*create_env_variable(const char *key, const char *value);
-void	env_command(t_env *env, char **args);
+void	env_command(t_shelldata *shell, char **args);
 
 char	*ft_strndup(const char *s, size_t n);
 t_env	*create_env_node(const char *env_entry);

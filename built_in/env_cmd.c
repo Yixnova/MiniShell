@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 12:48:33 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/04/25 11:28:18 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/21 11:33:33 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,15 @@ t_env	*create_env_variable(const char *key, const char *value)
 	return (new_node);
 }
 
-void	env_command(t_env *env, char **args)
+void	env_command(t_shelldata *shell, char **args)
 {
+	int	i;
+
+	i = 0;
 	(void)args;
-	print_env_list(env);
-	exit(0);
+	while(shell && shell->envp[i])
+	{
+		printf("%s\n", shell->envp[i]);
+		i++;
+	}
 }

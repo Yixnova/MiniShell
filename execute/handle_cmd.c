@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 09:24:57 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/16 16:33:23 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/21 11:38:09 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	execute_builtin(t_shelldata *shell, char **args)
 	else if (!ft_strcmp(args[0], "unset"))
 		unset_command(&shell->env, args);
 	else if (!ft_strcmp(args[0], "env"))
-		env_command(shell->env, args);
+		env_command(shell, args);
 	else if (!ft_strcmp(args[0], "exit"))
 		exit_command(args, shell);
 	else

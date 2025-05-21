@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 10:30:23 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/20 10:10:02 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/21 11:40:13 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	free_shell(t_shelldata *shell)
 {
+	free_2d_char(shell->envp);
 	free_env_list(shell->env);
 	free_input_data(shell);
 	free_2d_char(shell->input_arr);

@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/20 15:55:14 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/21 11:41:53 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,14 @@ typedef struct s_shelldata
 	char		**input_arr;
 	char		*read_line;
 	int			iteration_count;
+	char		**envp;
 }	t_shelldata;
 
 void	handle_input_and_history(t_shelldata *shelldata);
 void	sigint_handler(int signum);
 void	setup_signals(void);
 char	*get_next_line(int fd, int i);
-void	set_envp(t_shelldata *shell, t_env *env);
+void	set_envp(t_shelldata *shell, t_env *env, int fr);
 void	setup_heredoc_signals(void);
 void	setup_process_signals(void);
 char	*ft_myjoin_free(char *s1, const char *s2, const char *s3);
