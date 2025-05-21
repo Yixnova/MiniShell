@@ -12,7 +12,7 @@
 
 #include "./inc/minishell.h"
 
-char	**make_input_arr(t_shelldata *shell, char	*line)
+int		count_inputs(t_shelldata *shell, char *line)
 {
 	int	count;
 	int	i;
@@ -26,7 +26,7 @@ char	**make_input_arr(t_shelldata *shell, char	*line)
 	shell->on_word = 0;
 	while(line[i])
 	{
-		if(shell->on_word == 0 && line[i][0] != '\n')
+		if(shell->on_word == 0 && line[i] != '\n')
 		{
 			shell->on_word = 1;
 			count++;
@@ -36,12 +36,23 @@ char	**make_input_arr(t_shelldata *shell, char	*line)
 			in_quotes = 1;
 			type = line[i];
 		}
-		if(shell->on_word == 1 && in_quotes == 0 && line[i] == '\n' && line[i - 1] != '|')
+		if(in_quotes == 1 && line[i] == type)
 		{
-			shell->on_word = 0;
+			in_quotes = 0;
 		}
+		if(shell->on_word == 1 && in_quotes == 0 && line[i] == '\n' && line[i - 1] != '|' && line[i - 1] != '\n')
+			shell->on_word = 0;
 		i++;
 	}
+	shell->on_word = 0;
+	return (count);
+}
+char	**make_input_arr(t_shelldata *shell, char	*line)
+{
+	int	count;
+	count = count_inputs(shell, line);
+	printf("%d\n", count);
+	return (NULL);
 }
 void	disable_echoctl(void)
 {

@@ -6,3 +6,10 @@ ls |
 
 
 echo a
+
+
+ls |
+cat -e |
+grep a
+
+abd
