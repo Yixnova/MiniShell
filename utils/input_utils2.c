@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:45:25 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/20 15:50:21 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/21 12:14:46 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	make_input(int *i, t_shelldata *shell, char **arr)
 {
 	int		type;
 
-	shell->input = arr[*i];
+	shell->input = ft_strdup(arr[*i]);
 	type = check_unclosed_quotes(shell->input);
 	while (arr[*i] && (ends_with_pipe(arr[*i]) || type))
 	{
