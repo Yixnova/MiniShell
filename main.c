@@ -49,9 +49,46 @@ int		count_inputs(t_shelldata *shell, char *line)
 }
 char	**make_input_arr(t_shelldata *shell, char	*line)
 {
-	int	count;
-	count = count_inputs(shell, line);
-	printf("%d\n", count);
+	char	**arr;
+	int		i;
+	int		k;
+	int		n;
+	int		type;
+	int		in_quotes;
+
+	i = 0;
+	k = 0;
+	n = 0;
+	type = 0;
+	in_quotes = 0;
+	printf("%d\n", count_inputs(shell, line));
+	arr = ft_calloc(count_inputs(shell, line) + 1, sizeof(char *));
+	while(arr[i])
+	{
+		shell->on_word = 0;
+		while(line[n])
+		{
+			if(shell->on_word == 0 && line[n] != '\n')
+			{
+				shell->on_word = 1;
+			}
+			if(in_quotes == 0 && is_in_str("\"\'", line[n]))
+			{
+				in_quotes = 1;
+				type = line[n];
+			}
+			if(in_quotes == 1 && line[n] == type)
+			{
+				in_quotes = 0;
+			}
+			if(shell->on_word == 1 && in_quotes == 0 && line[n] == '\n' && line[n - 1] != '|' && line[n - 1] != '\n')
+				break ;
+			arr[i][k] = line[n];
+			k++;
+			n++;
+		}
+		i++;
+	}
 	return (NULL);
 }
 void	disable_echoctl(void)
