@@ -82,7 +82,7 @@ void	handle_input_and_history(t_shelldata *shell)
 		{
 			ft_putendl_fd("exit", 1);
 			free(shell->read_line);
-			free_2d_char(shell->env->envp);
+			free_2d_char(shell->envp);
 			free_env_list(shell->env);
 			free(shell);
 			break ;
