@@ -51,21 +51,24 @@ char	**make_input_arr(t_shelldata *shell, char	*line)
 {
 	char	**arr;
 	int		i;
-	int		k;
 	int		n;
+	int		count;
 	int		type;
 	int		in_quotes;
+	int		start;
 
 	i = 0;
-	k = 0;
 	n = 0;
 	type = 0;
 	in_quotes = 0;
+	start = 0;
+	count = count_inputs(shell, line);
 	printf("%d\n", count_inputs(shell, line));
-	arr = ft_calloc(count_inputs(shell, line) + 1, sizeof(char *));
-	while(arr[i])
+	arr = ft_calloc(count + 1, sizeof(char *));
+	while(count - 1 >= 0)
 	{
 		shell->on_word = 0;
+		start = n;
 		while(line[n])
 		{
 			if(shell->on_word == 0 && line[n] != '\n')
@@ -83,11 +86,12 @@ char	**make_input_arr(t_shelldata *shell, char	*line)
 			}
 			if(shell->on_word == 1 && in_quotes == 0 && line[n] == '\n' && line[n - 1] != '|' && line[n - 1] != '\n')
 				break ;
-			arr[i][k] = line[n];
-			k++;
 			n++;
 		}
+		arr[i] = ft_substr(line, start, n - start + 1);
+		printf("%s!!!!!", arr[i]);
 		i++;
+		count--;
 	}
 	return (NULL);
 }
