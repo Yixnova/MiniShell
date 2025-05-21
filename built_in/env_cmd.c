@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 12:48:33 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/21 11:33:33 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/21 12:24:54 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	env_command(t_shelldata *shell, char **args)
 
 	i = 0;
 	(void)args;
-	while(shell && shell->envp[i])
+	while (shell && shell->envp[i])
 	{
 		printf("%s\n", shell->envp[i]);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:23:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/20 12:10:41 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/21 12:24:11 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	heredoc_child(t_cmd *cmd, t_shelldata *shell, int pid)
 	int	h;
 	int	count;
 
-	if(pid == 0)
+	if (pid == 0)
 		setup_heredoc_signals();
 	h = 0;
 	count = cmd->hd_count;
@@ -76,7 +76,7 @@ void	heredoc_child(t_cmd *cmd, t_shelldata *shell, int pid)
 	{
 		while (count > 0)
 		{
-			if(pid != 0)
+			if (pid != 0)
 				heredoc_parent(cmd->hd_arr[h]);
 			else
 				open_here_document(cmd, h, shell);
@@ -85,7 +85,7 @@ void	heredoc_child(t_cmd *cmd, t_shelldata *shell, int pid)
 		}
 		cmd = cmd->next;
 	}
-	if(pid == 0)
+	if (pid == 0)
 		exit(0);
 }
 

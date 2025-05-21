@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:45:25 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/21 12:14:46 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/21 12:23:52 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	handle_pipe_and_quote(int *i, char **arr, int *type, t_shelldata *shell)
 	int	k;
 
 	k = *i + 1;
-	while(arr[k] && arr[k][0] == '\0')
+	while (arr[k] && arr[k][0] == '\0')
 		k++;
 	if (!arr[k])
 		return (1);
@@ -50,8 +50,7 @@ int	handle_pipe_and_quote(int *i, char **arr, int *type, t_shelldata *shell)
 		*type = check_unclosed_quotes(shell->input);
 		if (arr[*i] && arr[k] && is_in_str(arr[k], *type))
 		{
-			shell->input = ft_join(shell->input, "\n");
-			shell->input = ft_join(shell->input, arr[k]);
+			shell->input = ft_myjoin_free(shell->input, "\n", arr[k]);
 			(*i)++;
 		}
 	}
@@ -59,10 +58,7 @@ int	handle_pipe_and_quote(int *i, char **arr, int *type, t_shelldata *shell)
 	{
 		*type = check_unclosed_quotes(shell->input);
 		if (arr[*i] && arr[*i + 1])
-		{
-			shell->input = ft_join(shell->input, " ");
-			shell->input = ft_join(shell->input, arr[k]);
-		}
+			shell->input = ft_myjoin_free(shell->input, " ", arr[k]);
 		(*i)++;
 	}
 	return (0);
