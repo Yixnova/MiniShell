@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 10:30:23 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/21 12:16:03 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:33:36 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,5 @@ void	free_input_data(t_shelldata *shell)
 		free_cmds(shell);
 	if (count > 0)
 		free(shell->cmds);
+	free(shell->input);
 }

@@ -48,6 +48,7 @@ void	process_input(t_shelldata *shell)
 		return ;
 	}
 	start_processes(shell, shell->cmds);
+	free_input_data(shell);
 }
 
 void	iterate_input_arr(char **input_arr, t_shelldata *shell)
@@ -67,10 +68,10 @@ void	iterate_input_arr(char **input_arr, t_shelldata *shell)
 		if (!is_all_spaces(shell->input) && shell->input[0] != '\0')
 			process_input(shell);
 		if (!input_arr || !input_arr[i])
-			return ;
+			break ;
 		i++;
-		free_input_data(shell);
 	}
+	free_input_data(shell);
 }
 
 void	handle_input_and_history(t_shelldata *shell)
@@ -85,11 +86,10 @@ void	handle_input_and_history(t_shelldata *shell)
 			free_2d_char(shell->envp);
 			free_env_list(shell->env);
 			free(shell);
-			break ;
+				break ;
 		}
 		shell->input_arr = make_input_arr(shell->read_line);
 		iterate_input_arr(shell->input_arr, shell);
-		free_2d_char(shell->input_arr);
 		free(shell->read_line);
 	}
 }
