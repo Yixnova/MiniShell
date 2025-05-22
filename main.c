@@ -57,14 +57,14 @@ void	iterate_input_arr(char **input_arr, t_shelldata *shell)
 	i = 0;
 	while (input_arr && input_arr[i])
 	{
-		shell->input = input_arr[i];
+		shell->input = ft_strdup(input_arr[i]);
 		if (!shell->input)
 		{
 			free_shell(shell);
 			ft_putendl_fd("exit", 1);
 			exit (0);
 		}
-		if (shell->input[0] != '\0')
+		if (!is_all_spaces(shell->input) && shell->input[0] != '\0')
 			process_input(shell);
 		if (!input_arr || !input_arr[i])
 			return ;

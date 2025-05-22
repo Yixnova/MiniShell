@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:42:30 by busseven          #+#    #+#             */
-/*   Updated: 2025/04/09 13:28:12 by yigsahin         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:08:25 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ int	is_all_spaces(char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (!is_space_character(line[i]))
+		if (!is_space_character(line[i])
+			|| line[i] != '\n')
 			return (0);
 		i++;
 	}

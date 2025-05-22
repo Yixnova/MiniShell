@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/22 10:38:24 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:13:17 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,10 @@ int	tokenize_input(t_shelldata *data)
 	int		i;
 
 	i = 0;
+	if(is_all_spaces(data->input))
+		return (1);
+	if (check_unclosed_quotes(data->input))
+		return (quote_error(data));
 	data->tokens = split_into_words(data->input);
 	if (!data->tokens)
 	{
@@ -134,8 +138,6 @@ int	tokenize_input(t_shelldata *data)
 	while (data->tokens[i])
 		i++;
 	i--;
-	if (check_unclosed_quotes(data->tokens[i]))
-		return (quote_error(data));
 	add_history(data->input);
 	return (0);
 }
