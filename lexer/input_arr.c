@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 11:55:47 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/22 16:02:51 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/22 16:19:33 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ char	**make_input_arr(char	*line)
 		while (line[n])
 			set_input_arr_parsedata(&n, line, &data);
 		arr[i] = ft_substr(line, data.start, n - data.start + 2);
-		printf("input 1: %s\n", arr[i]);
 		arr[i] = edit_input(arr[i]);
 		i++;
 		data.count--;
