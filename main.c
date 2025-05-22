@@ -48,7 +48,6 @@ void	process_input(t_shelldata *shell)
 		return ;
 	}
 	start_processes(shell, shell->cmds);
-	free_input_data(shell);
 }
 
 void	iterate_input_arr(char **input_arr, t_shelldata *shell)
