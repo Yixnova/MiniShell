@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:45:25 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/21 16:28:53 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/22 16:58:17 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,4 @@ char	*check_token_errors(char **tokens)
 		i++;
 	}
 	return (NULL);
-}
-
-void	make_input(int *i, t_shelldata *shell, char **arr)
-{
-	shell->input = ft_strdup(arr[*i]);
 }

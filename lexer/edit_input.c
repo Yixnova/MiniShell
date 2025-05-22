@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 11:49:55 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/22 16:47:52 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/22 17:23:17 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ int		count_input_len(char *str)
 	type = 0;
 	i = 0;
 	count = ft_strlen(str);
+	printf("%d\n", count);
+	while(is_space_character(str[i]) || str[i] == '\n')
+	{
+		i++;
+		count--;
+	}
 	while(str[i])
 	{
 		if(in_quotes == 0 && is_in_str("\"\'", str[i]))
@@ -47,7 +53,7 @@ int		count_input_len(char *str)
 			in_quotes = 1;
 			type = str[i];
 		}
-		if(in_quotes == 1 && str[i] == type)
+		else if(in_quotes == 1 && str[i] == type)
 			in_quotes = 0;
 		if(in_quotes == 0 && str[i] == '\n' && i > 0 && str[i - 1] == '|')
 			;
@@ -72,6 +78,7 @@ char	*edit_input(char	*str)
 	data.count = count_input_len(str);
 	if(data.count < 1)
 		return (NULL);
+	printf("count: %d\n", data.count);
 	new = ft_calloc(data.count + 1, 1);
 	while(is_space_character(str[i]) || str[i] == '\n')
 		i++;
