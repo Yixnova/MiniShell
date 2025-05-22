@@ -12,6 +12,67 @@
 
 #include "./inc/minishell.h"
 
+char	*edit_input(char	*str)
+{
+	int		i;
+	int		n;
+	int		in_quotes;
+	int		count;
+	int		type;
+	char	*new;
+
+	i = 0;
+	count = ft_strlen(str);
+	in_quotes = 0;
+	type = 0;
+	while(str[i])
+	{
+		if(in_quotes == 0 && is_in_str("\"\'", str[i]))
+		{
+			in_quotes = 1;
+			type = str[i];
+		}
+		if(in_quotes == 1 && str[i] == type)
+		{
+			in_quotes = 0;
+		}
+		if(in_quotes == 0 && str[i] == '\n' && str[i - 1] == '|')
+			count--;
+		i++;
+	}
+	new = ft_calloc(count, 1);
+	i = 0;
+	in_quotes = 0;
+	type = 0;
+	n = 0;
+	while(str[i])
+	{
+		if(in_quotes == 0 && is_in_str("\"\'", str[i]))
+		{
+			in_quotes = 1;
+			type = str[i];
+		}
+		else if(in_quotes == 1 && str[i] == type)
+		{
+			in_quotes = 0;
+		}
+		if(in_quotes == 0 && str[i] == '\n' && str[i - 1] == '\n')
+		{
+			i++;
+			continue ;
+		}
+		else if(in_quotes == 0 && str[i] == '\n' && str[i - 1] == '|')
+		{
+			new[n] = ' ';
+		}
+		else
+			new[n] = str[i];
+		i++;
+		n++;
+	}
+	new[n] = '\0';
+	return (new);
+}
 int		count_inputs(t_shelldata *shell, char *line)
 {
 	int	count;
@@ -36,7 +97,7 @@ int		count_inputs(t_shelldata *shell, char *line)
 			in_quotes = 1;
 			type = line[i];
 		}
-		if(in_quotes == 1 && line[i] == type)
+		else if(in_quotes == 1 && line[i] == type)
 		{
 			in_quotes = 0;
 		}
@@ -80,7 +141,7 @@ char	**make_input_arr(t_shelldata *shell, char	*line)
 				in_quotes = 1;
 				type = line[n];
 			}
-			if(in_quotes == 1 && line[n] == type)
+			else if(in_quotes == 1 && line[n] == type)
 			{
 				in_quotes = 0;
 			}
@@ -89,6 +150,7 @@ char	**make_input_arr(t_shelldata *shell, char	*line)
 			n++;
 		}
 		arr[i] = ft_substr(line, start, n - start + 1);
+		arr[i] = edit_input(arr[i]);
 		printf("%s!!!!!", arr[i]);
 		i++;
 		count--;

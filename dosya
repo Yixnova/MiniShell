@@ -5,11 +5,13 @@ ls |
 
 
 
-echo a
+echo "a
 
 
 ls |
 cat -e |
-grep a
+grep a"
 
-abd
+abd | abc "he
+l
+o" |
