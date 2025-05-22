@@ -45,7 +45,7 @@ char	*edit_input(char	*str)
 	in_quotes = 0;
 	type = 0;
 	n = 0;
-	while(str[i])
+	while(str[i] && n < count)
 	{
 		if(in_quotes == 0 && is_in_str("\"\'", str[i]))
 		{
@@ -70,7 +70,7 @@ char	*edit_input(char	*str)
 		i++;
 		n++;
 	}
-	new[n] = '\0';
+	free(str);
 	return (new);
 }
 int		count_inputs(t_shelldata *shell, char *line)
@@ -124,7 +124,6 @@ char	**make_input_arr(t_shelldata *shell, char	*line)
 	in_quotes = 0;
 	start = 0;
 	count = count_inputs(shell, line);
-	printf("%d\n", count_inputs(shell, line));
 	arr = ft_calloc(count + 1, sizeof(char *));
 	while(count - 1 >= 0)
 	{
@@ -151,11 +150,10 @@ char	**make_input_arr(t_shelldata *shell, char	*line)
 		}
 		arr[i] = ft_substr(line, start, n - start + 1);
 		arr[i] = edit_input(arr[i]);
-		printf("%s!!!!!", arr[i]);
 		i++;
 		count--;
 	}
-	return (NULL);
+	return (arr);
 }
 void	disable_echoctl(void)
 {
@@ -202,7 +200,7 @@ void	iterate_input_arr(char **input_arr, t_shelldata *shell)
 	i = 0;
 	while (input_arr && input_arr[i])
 	{
-		make_input(&i, shell, input_arr);
+		shell->input = input_arr[i];
 		if (!shell->input)
 		{
 			free_shell(shell);
@@ -236,7 +234,6 @@ void	handle_input_and_history(t_shelldata *shell)
 		iterate_input_arr(shell->input_arr, shell);
 		free_2d_char(shell->input_arr);
 		free(shell->read_line);
-		shell->iteration_count++;
 	}
 }
 

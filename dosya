@@ -11,7 +11,3 @@ echo "a
 ls |
 cat -e |
 grep a"
-
-abd | abc "he
-l
-o" |
