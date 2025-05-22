@@ -35,5 +35,7 @@ int		check_unclosed_quotes(char *str);
 void	make_input(int *i, t_shelldata *shell, char **arr);
 int		handle_pipe(t_shelldata *data, int *i);
 int		handle_quote(t_shelldata *data, int *i);
+char	*edit_input(char	*str);
+char	**make_input_arr(char	*line);
 
 #endif
