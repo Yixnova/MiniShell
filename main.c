@@ -42,116 +42,110 @@ char	*edit_input(char	*str)
 {
 	int		i;
 	int		n;
-	int		in_quotes;
-	int		type;
 	char	*new;
+	t_lineparse	data;
 
 	i = 0;
-	in_quotes = 0;
-	type = 0;
+	data.in_quotes = 0;
+	data.type = 0;
 	n = 0;
-	new = ft_calloc(count_input_len(str), 1);
-	while(str[i])
+	data.count = count_input_len(str);
+	new = ft_calloc(data.count, 1);
+	while(str[i] && n < data.count)
 	{
-		if(in_quotes == 0 && is_in_str("\"\'", str[i]))
+		if(data.in_quotes == 0 && is_in_str("\"\'", str[i]))
 		{
-			in_quotes = 1;
-			type = str[i];
+			data.in_quotes = 1;
+			data.type = str[i];
 		}
-		else if(in_quotes == 1 && str[i] == type)
-			in_quotes = 0;
-		if(in_quotes == 0 && str[i] == '\n' && str[i - 1] == '\n')
+		else if(data.in_quotes == 1 && str[i] == data.type)
+			data.in_quotes = 0;
+		if(data.in_quotes == 0 && str[i] == '\n' && str[i - 1] == '\n')
 		{
 			i++;
 			continue ;
 		}
-		else if(in_quotes == 0 && str[i] == '\n' && str[i - 1] == '|')
+		else if(data.in_quotes == 0 && str[i] == '\n' && str[i - 1] == '|')
 			new[n] = ' ';
 		else
 			new[n] = str[i];
 		i++;
 		n++;
 	}
+	new[n] = '\0';
 	free(str);
 	return (new);
 }
 
-int		count_inputs(t_shelldata *shell, char *line)
+int		count_inputs(char *line)
 {
-	int	count;
 	int	i;
-	int	type;
-	int	in_quotes;
+	t_lineparse	data;
 
 	i = 0;
-	count = 0;
-	in_quotes = 0;
-	type = 0;
-	shell->on_word = 0;
+	data.count = 0;
+	data.in_quotes = 0;
+	data.type = 0;
+	data.on_word = 0;
 	while(line[i])
 	{
-		if(shell->on_word == 0 && line[i] != '\n')
+		if(data.on_word == 0 && line[i] != '\n')
 		{
-			shell->on_word = 1;
-			count++;
+			data.on_word = 1;
+			data.count++;
 		}
-		if(in_quotes == 0 && is_in_str("\"\'", line[i]))
+		if(data.in_quotes == 0 && is_in_str("\"\'", line[i]))
 		{
-			in_quotes = 1;
-			type = line[i];
+			data.in_quotes = 1;
+			data.type = line[i];
 		}
-		else if(in_quotes == 1 && line[i] == type)
-			in_quotes = 0;
-		if(shell->on_word == 1 && in_quotes == 0 && line[i] == '\n' 
+		else if(data.in_quotes == 1 && line[i] == data.type)
+			data.in_quotes = 0;
+		if(data.on_word == 1 && data.in_quotes == 0 && line[i] == '\n' 
 			&& line[i - 1] != '|' && line[i - 1] != '\n')
-			shell->on_word = 0;
+			data.on_word = 0;
 		i++;
 	}
-	shell->on_word = 0;
-	return (count);
+	return (data.count);
 }
-char	**make_input_arr(t_shelldata *shell, char	*line)
+char	**make_input_arr(char	*line)
 {
-	char	**arr;
-	int		i;
-	int		n;
-	int		count;
-	int		type;
-	int		in_quotes;
-	int		start;
+	char		**arr;
+	int			i;
+	int			n;
+	t_lineparse	data;
 
 	i = 0;
 	n = 0;
-	type = 0;
-	in_quotes = 0;
-	start = 0;
-	count = count_inputs(shell, line);
-	arr = ft_calloc(count + 1, sizeof(char *));
-	while(count - 1 >= 0)
+	data.type = 0;
+	data.in_quotes = 0;
+	data.start = 0;
+	data.count = count_inputs(line);
+	arr = ft_calloc(data.count + 1, sizeof(char *));
+	while (data.count - 1 >= 0)
 	{
-		shell->on_word = 0;
-		start = n;
-		while(line[n])
+		data.on_word = 0;
+		data.start = n;
+		while (line[n])
 		{
-			if(shell->on_word == 0 && line[n] != '\n')
+			if(data.on_word == 0 && line[n] != '\n')
+				data.on_word = 1;
+			if(data.in_quotes == 0 && is_in_str("\"\'", line[n]))
 			{
-				shell->on_word = 1;
+				data.in_quotes = 1;
+				data.type = line[n];
 			}
-			if(in_quotes == 0 && is_in_str("\"\'", line[n]))
-			{
-				in_quotes = 1;
-				type = line[n];
-			}
-			else if(in_quotes == 1 && line[n] == type)
-				in_quotes = 0;
-			if(shell->on_word == 1 && in_quotes == 0 && line[n] == '\n' && line[n - 1] != '|' && line[n - 1] != '\n')
+			else if(data.in_quotes == 1 && line[n] == data.type)
+				data.in_quotes = 0;
+			if(data.on_word == 1 && data.in_quotes == 0 && line[n] == '\n' 
+				&& line[n - 1] != '|' && line[n - 1] != '\n')
 				break ;
 			n++;
 		}
-		arr[i] = ft_substr(line, start, n - start + 1);
+		arr[i] = ft_substr(line, data.start, n - data.start + 1);
 		arr[i] = edit_input(arr[i]);
 		i++;
-		count--;
+		data.count--;
 	}
 	return (arr);
 }
@@ -230,7 +224,7 @@ void	handle_input_and_history(t_shelldata *shell)
 			free(shell);
 			break ;
 		}
-		shell->input_arr = make_input_arr(shell, shell->read_line);
+		shell->input_arr = make_input_arr(shell->read_line);
 		iterate_input_arr(shell->input_arr, shell);
 		free_2d_char(shell->input_arr);
 		free(shell->read_line);

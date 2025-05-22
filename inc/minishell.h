@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/21 11:41:53 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/22 11:40:59 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,15 @@ typedef struct s_shelldata
 	int			iteration_count;
 	char		**envp;
 }	t_shelldata;
+
+typedef struct s_lineparse
+{
+	int	on_word;
+	int	type;
+	int	in_quotes;
+	int	start;
+	int count;
+}	t_lineparse;
 
 void	handle_input_and_history(t_shelldata *shelldata);
 void	sigint_handler(int signum);
