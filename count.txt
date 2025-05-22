@@ -1,5 +1,2 @@
-ls |
+ls
 
-
-
-grep a

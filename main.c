@@ -68,9 +68,9 @@ void	iterate_input_arr(char **input_arr, t_shelldata *shell)
 			process_input(shell);
 		if (!input_arr || !input_arr[i])
 			break ;
+		free_input_data(shell);
 		i++;
 	}
-	free_input_data(shell);
 }
 
 void	handle_input_and_history(t_shelldata *shell)

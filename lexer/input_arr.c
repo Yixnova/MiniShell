@@ -6,13 +6,13 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 11:55:47 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/22 16:19:33 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/22 16:31:09 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	set_input_arr_parsedata(int *n, char *line, t_lineparse *data)
+int	set_input_arr_parsedata(int *n, char *line, t_lineparse *data)
 {
 	if (data->on_word == 0 && line[*n] != '\n')
 		data->on_word = 1;
@@ -25,8 +25,9 @@ void	set_input_arr_parsedata(int *n, char *line, t_lineparse *data)
 		data->in_quotes = 0;
 	if (data->on_word == 1 && data->in_quotes == 0 && line[*n] == '\n' 
 			&& line[*n - 1] != '|' && line[*n - 1] != '\n')
-		return ;
+		return (1);
 	(*n)++;
+	return (0);
 }
 
 
@@ -85,7 +86,10 @@ char	**make_input_arr(char	*line)
 		data.on_word = 0;
 		data.start = n;
 		while (line[n])
-			set_input_arr_parsedata(&n, line, &data);
+		{
+			if(set_input_arr_parsedata(&n, line, &data))
+				break ;	
+		}
 		arr[i] = ft_substr(line, data.start, n - data.start + 2);
 		arr[i] = edit_input(arr[i]);
 		i++;

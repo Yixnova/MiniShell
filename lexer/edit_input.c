@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 11:49:55 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/22 16:16:06 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/22 16:47:52 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ int		count_input_len(char *str)
 		}
 		if(in_quotes == 1 && str[i] == type)
 			in_quotes = 0;
-		if(in_quotes == 0 && str[i] == '\n' && i > 0 && str[i - 1] == '\n')
+		if(in_quotes == 0 && str[i] == '\n' && i > 0 && str[i - 1] == '|')
+			;
+		else if(in_quotes == 0 && str[i] == '\n')
 			count--;
 		i++;
 	}
@@ -71,11 +73,13 @@ char	*edit_input(char	*str)
 	if(data.count < 1)
 		return (NULL);
 	new = ft_calloc(data.count + 1, 1);
+	while(is_space_character(str[i]) || str[i] == '\n')
+		i++;
 	while(str[i] && n < data.count)
 	{
 		if(handle_quotes(&i, &data, str))
 			continue ;
-		else if(data.in_quotes == 0 && str[i] == '\n' && str[i - 1] == '|')
+		else if(data.in_quotes == 0 && str[i] == '\n' && i > 0 && str[i - 1] == '|')
 			new[n] = ' ';
 		else
 			new[n] = str[i];
