@@ -143,9 +143,7 @@ char	**make_input_arr(t_shelldata *shell, char	*line)
 				type = line[n];
 			}
 			else if(in_quotes == 1 && line[n] == type)
-			{
 				in_quotes = 0;
-			}
 			if(shell->on_word == 1 && in_quotes == 0 && line[n] == '\n' && line[n - 1] != '|' && line[n - 1] != '\n')
 				break ;
 			n++;
