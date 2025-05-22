@@ -59,9 +59,7 @@ char	*edit_input(char	*str)
 			type = str[i];
 		}
 		else if(in_quotes == 1 && str[i] == type)
-		{
 			in_quotes = 0;
-		}
 		if(in_quotes == 0 && str[i] == '\n' && str[i - 1] == '\n')
 		{
 			i++;
@@ -103,10 +101,9 @@ int		count_inputs(t_shelldata *shell, char *line)
 			type = line[i];
 		}
 		else if(in_quotes == 1 && line[i] == type)
-		{
 			in_quotes = 0;
-		}
-		if(shell->on_word == 1 && in_quotes == 0 && line[i] == '\n' && line[i - 1] != '|' && line[i - 1] != '\n')
+		if(shell->on_word == 1 && in_quotes == 0 && line[i] == '\n' 
+			&& line[i - 1] != '|' && line[i - 1] != '\n')
 			shell->on_word = 0;
 		i++;
 	}
