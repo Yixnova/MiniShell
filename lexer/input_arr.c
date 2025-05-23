@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 11:55:47 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/23 19:45:57 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:46:49 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	handle_quotes_count(t_lineparse *data, char *line, int *i)
 	else if (data->in_quotes == 1 && line[*i] == data->type)
 		data->in_quotes = 0;
 }
-
 
 int	count_inputs(char *line)
 {

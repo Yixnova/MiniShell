@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 11:49:55 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/23 19:15:27 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:47:23 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	check_char(t_lineparse *data, char *str)
 	if (data->in_quotes == 0 && str[data->i] == '\n'
 		&& data->i > 0 && str[data->i - 1] == '|')
 		;
-	else if (data->in_quotes == 0 && 
-		str[data->i] == '\n' && str[data->i + 1])
+	else if (data->in_quotes == 0 
+			&& str[data->i] == '\n' && str[data->i + 1])
 		data->count--;
 }
 
