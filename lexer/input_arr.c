@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 11:55:47 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/23 19:15:43 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:45:57 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	handle_quotes_count(t_lineparse *data, char *line, int *i)
 		data->in_quotes = 0;
 }
 
+
 int	count_inputs(char *line)
 {
 	int			i;
@@ -55,13 +56,7 @@ int	count_inputs(char *line)
 	data.on_word = 0;
 	while (line[i])
 	{
-		if(data.in_quotes == 0 && is_in_str("\"\'", line[i]))
-		{
-			data.in_quotes = 1;
-			data.type = line[i];
-		}
-		else if(data.in_quotes == 1 && line[i] == data.type)
-			data.in_quotes = 0;
+		handle_quotes_count(&data, line, &i);
 		if (data.on_word == 0 && line[i] != '\n')
 		{
 			data.on_word = 1;
