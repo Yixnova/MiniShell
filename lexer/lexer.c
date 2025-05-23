@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/22 16:19:28 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/23 14:22:50 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int	tokenize_input(t_shelldata *data)
 	int		i;
 
 	i = 0;
-	if(is_all_spaces(data->input))
+	if (is_all_spaces(data->input))
 		return (1);
 	if (check_unclosed_quotes(data->input))
 		return (quote_error(data));

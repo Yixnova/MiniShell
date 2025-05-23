@@ -84,7 +84,7 @@ void	handle_input_and_history(t_shelldata *shell)
 			free_2d_char(shell->envp);
 			free_env_list(shell->env);
 			free(shell);
-				break ;
+			break ;
 		}
 		shell->input_arr = make_input_arr(shell->read_line);
 		iterate_input_arr(shell->input_arr, shell);
