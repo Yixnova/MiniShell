@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 11:49:55 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/23 19:13:04 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:15:27 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int	count_input_len(char *str)
 		check_char(&data, str);
 		data.i++;
 	}
-	printf("%d\n", data.count);
 	return (data.count);
 }
 

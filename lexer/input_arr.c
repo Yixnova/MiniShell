@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 11:55:47 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/23 18:54:52 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:15:43 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ char	**make_input_arr(char	*line)
 	data.in_quotes = 0;
 	data.start = 0;
 	data.count = count_inputs(line);
-	printf("%d\n", data.count);
 	arr = ft_calloc(data.count + 1, sizeof(char *));
 	while (data.count - 1 >= 0)
 	{
