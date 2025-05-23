@@ -1,4 +1,35 @@
-ls
-ls
-lsslslsls
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ls |
+
+
+lslsslslsls |
+
+
+
+echo "a
+b 
+c"
+
+
+
+
+
+
+
+
+
+
 
