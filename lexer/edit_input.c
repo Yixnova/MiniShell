@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 11:49:55 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/23 14:25:22 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/23 18:10:42 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,6 @@ char	*edit_input(char	*str)
 	if (data.count < 1)
 		free(str);
 	new = ft_calloc(data.count + 1, 1);
-	while (is_space_character(str[data.i]) || str[data.i] == '\n')
-		data.i++;
 	while (str[data.i] && n < data.count)
 	{
 		if (handle_quotes(&data.i, &data, str))
@@ -101,5 +99,6 @@ char	*edit_input(char	*str)
 		n++;
 	}
 	free(str);
+	new = ft_strtrim_free(new, "\n\t\v ");
 	return (new);
 }

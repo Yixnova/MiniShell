@@ -6,7 +6,7 @@
 #    By: busseven <busseven@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:42:59 by busseven          #+#    #+#              #
-#    Updated: 2025/05/22 12:57:29 by busseven         ###   ########.fr        #
+#    Updated: 2025/05/23 18:10:29 by busseven         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,8 @@ SRCS =	main.c\
 		./lexer/edit_input.c\
 		./lexer/input_arr.c\
 		./signals/child_signals.c\
-		./signals/here_doc_signals.c
+		./signals/here_doc_signals.c\
+		./lexer/ft_strtrim_free.c\
 
 OBJS = $(SRCS:.c=.o)
 LIBFT = libft/libft.a
