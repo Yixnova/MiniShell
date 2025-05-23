@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 11:49:55 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/23 18:48:54 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:08:04 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	check_char(t_lineparse *data, char *str)
 	if (data->in_quotes == 0 && str[data->i] == '\n'
 		&& data->i > 0 && str[data->i - 1] == '|')
 		;
-	else if (data->in_quotes == 0 && str[data->i] == '\n')
+	else if (data->in_quotes == 0 && str[data->i] == '\n' && str[data->i + 1])
 		data->count--;
 }
 
@@ -63,16 +63,12 @@ int	count_input_len(char *str)
 	data.type = 0;
 	data.i = 0;
 	data.count = ft_strlen(str);
-	while (is_space_character(str[data.i]) || str[data.i] == '\n')
-	{
-		data.i++;
-		data.count--;
-	}
 	while (str[data.i])
 	{
 		check_char(&data, str);
 		data.i++;
 	}
+	printf("%d\n", data.count);
 	return (data.count);
 }
 
