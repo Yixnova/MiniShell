@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 11:49:55 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/23 18:10:42 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/23 18:48:54 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,6 @@ char	*edit_input(char	*str)
 		n++;
 	}
 	free(str);
-	new = ft_strtrim_free(new, "\n\t\v ");
+	new = ft_strtrim_free(new, "\a\b\n\t\v\f\r");
 	return (new);
 }

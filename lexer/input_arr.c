@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 11:55:47 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/23 14:26:44 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/23 18:54:52 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,13 @@ int	count_inputs(char *line)
 	data.on_word = 0;
 	while (line[i])
 	{
+		if(data.in_quotes == 0 && is_in_str("\"\'", line[i]))
+		{
+			data.in_quotes = 1;
+			data.type = line[i];
+		}
+		else if(data.in_quotes == 1 && line[i] == data.type)
+			data.in_quotes = 0;
 		if (data.on_word == 0 && line[i] != '\n')
 		{
 			data.on_word = 1;
@@ -81,6 +88,7 @@ char	**make_input_arr(char	*line)
 	data.in_quotes = 0;
 	data.start = 0;
 	data.count = count_inputs(line);
+	printf("%d\n", data.count);
 	arr = ft_calloc(data.count + 1, sizeof(char *));
 	while (data.count - 1 >= 0)
 	{
