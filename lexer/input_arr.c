@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 11:55:47 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/23 09:32:01 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/23 12:27:37 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	set_input_arr_parsedata(int *n, char *line, t_lineparse *data)
 		data->in_quotes = 0;
 	if (data->on_word == 1 && data->in_quotes == 0 && line[*n] == '\n' 
 			&& line[*n - 1] != '|' && line[*n - 1] != '\n')
+		return (1);
+	if(line[*n] == '\0')
 		return (1);
 	(*n)++;
 	return (0);

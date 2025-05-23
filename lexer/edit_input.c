@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 11:49:55 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/23 09:34:19 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/23 12:30:58 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char	*edit_input(char	*str)
 	n = 0;
 	data.count = count_input_len(str);
 	if(data.count < 1)
-		return (NULL);
+		free(str);
 	new = ft_calloc(data.count + 1, 1);
 	while(is_space_character(str[i]) || str[i] == '\n')
 		i++;

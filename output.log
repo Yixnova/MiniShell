@@ -1,0 +1,10 @@
+ls |
+
+
+
+
+grep a >> outfile | grep b < infile
+
+echo "a
+b
+c" | grep a

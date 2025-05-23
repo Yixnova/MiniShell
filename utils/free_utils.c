@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 10:30:23 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/22 15:33:36 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/23 12:55:23 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ void	free_input_data(t_shelldata *shell)
 
 	i = 0;
 	count = shell->cmd_count;
-	free_2d_char(shell->tokens);
+	if(shell->tokens)
+		free_2d_char(shell->tokens);
 	while (i < shell->cmd_count - 1)
 	{
 		if (shell->pipes[i])

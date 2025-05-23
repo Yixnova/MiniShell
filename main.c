@@ -66,9 +66,8 @@ void	iterate_input_arr(char **input_arr, t_shelldata *shell)
 		}
 		if (!is_all_spaces(shell->input) && shell->input[0] != '\0')
 			process_input(shell);
-		if (!input_arr || !input_arr[i])
-			break ;
 		free_input_data(shell);
+		shell->tokens = NULL;
 		i++;
 	}
 }
