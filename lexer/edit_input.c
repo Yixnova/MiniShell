@@ -6,11 +6,35 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 11:49:55 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/23 12:30:58 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/23 14:16:39 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	check_char(t_lineparse *data, char *str)
+{
+	if (data->in_quotes == 0 && is_in_str("\"\'", str[data->i]))
+	{
+		data->in_quotes = 1;
+		data->type = str[data->i];
+	}
+	else if (data->in_quotes == 1 && str[data->i] == data->type)
+		data->in_quotes = 0;
+	if (data->in_quotes == 0 && str[data->i] == '\n' 
+			&& data->i > 0 && str[data->i - 1] == '|')
+		;
+	else if (data->in_quotes == 0 && str[data->i] == '\n')
+		data->count--;
+}
+void	set_char(t_lineparse *data, int n, char *new, char *str)
+{
+	if(data->in_quotes == 0 && str[data->i] == '\n' 
+		&& data->i > 0 && str[data->i - 1] == '|')
+		new[n] = ' ';
+	else
+		new[n] = str[data->i];
+}
 
 int		handle_quotes(int *i, t_lineparse *data, char *str)
 {
@@ -31,46 +55,32 @@ int		handle_quotes(int *i, t_lineparse *data, char *str)
 
 int		count_input_len(char *str)
 {
-	int	i;
-	int	in_quotes;
-	int	count;
-	int	type;
+	t_lineparse data;
 
-	in_quotes = 0;
-	type = 0;
-	i = 0;
-	count = ft_strlen(str);
-	while(is_space_character(str[i]) || str[i] == '\n')
+	data.in_quotes = 0;
+	data.type = 0;
+	data.i = 0;
+	data.count = ft_strlen(str);
+	while (is_space_character(str[data.i]) || str[data.i] == '\n')
 	{
-		i++;
-		count--;
+		data.i++;
+		data.count--;
 	}
-	while(str[i])
+	while (str[data.i])
 	{
-		if(in_quotes == 0 && is_in_str("\"\'", str[i]))
-		{
-			in_quotes = 1;
-			type = str[i];
-		}
-		else if(in_quotes == 1 && str[i] == type)
-			in_quotes = 0;
-		if(in_quotes == 0 && str[i] == '\n' && i > 0 && str[i - 1] == '|')
-			;
-		else if(in_quotes == 0 && str[i] == '\n')
-			count--;
-		i++;
+		check_char(&data, str);
+		data.i++;
 	}
-	return (count);
+	return (data.count);
 }
 
 char	*edit_input(char	*str)
 {
-	int		i;
 	int		n;
 	char	*new;
 	t_lineparse	data;
 
-	i = 0;
+	data.i = 0;
 	data.in_quotes = 0;
 	data.type = 0;
 	n = 0;
@@ -78,20 +88,16 @@ char	*edit_input(char	*str)
 	if(data.count < 1)
 		free(str);
 	new = ft_calloc(data.count + 1, 1);
-	while(is_space_character(str[i]) || str[i] == '\n')
-		i++;
-	while(str[i] && n < data.count)
+	while(is_space_character(str[data.i]) || str[data.i] == '\n')
+		data.i++;
+	while(str[data.i] && n < data.count)
 	{
-		if(handle_quotes(&i, &data, str))
+		if(handle_quotes(&data.i, &data, str))
 			continue ;
-		else if(data.in_quotes == 0 && str[i] == '\n' && i > 0 && str[i - 1] == '|')
-			new[n] = ' ';
-		else
-			new[n] = str[i];
-		i++;
+		set_char(&data, n, new, str);
+		data.i++;
 		n++;
 	}
-	new[n] = '\0';
 	free(str);
 	return (new);
 }

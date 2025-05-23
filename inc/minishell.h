@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/23 12:53:00 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:04:14 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ typedef struct s_lineparse
 	int	in_quotes;
 	int	start;
 	int count;
+	int	i;
 }	t_lineparse;
 
 void	handle_input_and_history(t_shelldata *shelldata);

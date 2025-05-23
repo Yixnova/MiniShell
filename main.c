@@ -89,6 +89,7 @@ void	handle_input_and_history(t_shelldata *shell)
 		shell->input_arr = make_input_arr(shell->read_line);
 		iterate_input_arr(shell->input_arr, shell);
 		free_2d_char(shell->input_arr);
+		shell->input_arr = NULL;
 		free(shell->read_line);
 	}
 }
