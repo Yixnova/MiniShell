@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 10:53:32 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/20 15:21:06 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/26 13:33:54 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	command_not_found(t_cmd *tcmd, char *cmd)
 {
 	tcmd->err_msg = ft_strjoin(cmd, ": command not found");
 	tcmd->err_type = 2;
+	tcmd->invalid = 1;
 	tcmd->exit_code = 127;
 	return (1);
 }

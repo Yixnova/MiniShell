@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:45:59 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/16 17:52:22 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/26 13:29:00 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ void	pick_file_descriptors(t_cmd *cmd);
 int		open_files(t_cmd *cmd, t_shelldata *shell);
 int		search_in_paths(t_cmd *cmd, t_shelldata *shell);
 int		find_command_path(t_cmd *cmd, t_shelldata *shell);
+void	check_files_and_path(t_cmd *cmd, t_shelldata *shell, int pid);
 
 #endif

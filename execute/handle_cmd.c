@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 09:24:57 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/21 11:38:09 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/26 13:33:27 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,31 @@ int	handle_builtin_command(t_shelldata *shell, char **args)
 	if (!args || !args[0] || !is_builtin_command(args[0]))
 		return (0);
 	return (execute_builtin(shell, args));
+}
+
+void	check_files_and_path(t_cmd *cmd, t_shelldata *shell, int pid)
+{
+	if (pid == 0 && open_files(cmd, shell))
+		exit(1);
+	if (cmd->args && cmd->args[0] && !is_file_dir_name(cmd->args[0]))
+		check_builtin_and_path(cmd, shell);
+	if (cmd->args && cmd->args[0] && is_file_dir_name(cmd->args[0]))
+		cmd->path = ft_strdup(cmd->args[0]);
+	if (cmd->args && cmd->args[0] && cmd->args[0][0] == '.'
+		&& ft_strlen(cmd->args[0]) == 1)
+	{
+		if(pid == 0)
+			single_dot_error();
+		cmd->err_type = 1;	
+	}
+	else if (cmd->args && cmd->args[0] && cmd->args[0][0] == '\0')
+	{
+		cmd->invalid = 1;
+		command_not_found(cmd, cmd->args[0]);
+	}
+	else if (cmd->args && cmd->args[0] && cmd->invalid
+		&& !is_file_dir_name(cmd->args[0]))
+		command_not_found(cmd, cmd->args[0]);
+	else if (cmd->args && cmd->args[0] && is_all_dots(cmd->args[0]))
+		command_not_found(cmd, cmd->args[0]);
 }
