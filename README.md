@@ -5,3 +5,7 @@ ls
 
 echo "a			
 "
+
+hwrerwelrhw	|	
+
+grep a |
