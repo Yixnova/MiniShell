@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 11:49:55 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/26 15:30:22 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/26 18:10:13 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	check_char(t_lineparse *data, char *str)
 	else if (data->in_quotes == 1 && str[data->i] == data->type)
 		data->in_quotes = 0;
 	if (data->in_quotes == 0 && str[data->i] == '\n'
-		&& data->i > 0 && str[data->i - 1] == '|')
+		&& data->i > 0 && ends_with_pipe(str, data->i))
 		;
 	else if (data->in_quotes == 0 && str[data->i] == '\n'
 		&& str[data->i + 1])
@@ -32,7 +32,7 @@ void	check_char(t_lineparse *data, char *str)
 void	set_char(t_lineparse *data, int n, char *new, char *str)
 {
 	if (data->in_quotes == 0 && str[data->i] == '\n'
-		&& data->i > 0 && str[data->i - 1] == '|')
+		&& data->i > 0 && ends_with_pipe(str, n))
 		new[n] = ' ';
 	else
 		new[n] = str[data->i];

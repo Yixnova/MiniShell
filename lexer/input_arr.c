@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 11:55:47 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/26 15:30:52 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/26 18:09:31 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	set_input_arr_parsedata(int *n, char *line, t_lineparse *data)
 	else if (data->in_quotes == 1 && line[*n] == data->type)
 		data->in_quotes = 0;
 	if (data->on_word == 1 && data->in_quotes == 0 && line[*n] == '\n'
-		&& line[*n - 1] != '|' && line[*n - 1] != '\n')
+		&& !ends_with_pipe(line, *n) && line[*n - 1] != '\n')
 		return (1);
 	if (line[*n] == '\0')
 		return (1);
@@ -63,7 +63,7 @@ int	count_inputs(char *line)
 			data.count++;
 		}
 		if (data.on_word == 1 && data.in_quotes == 0 && line[i] == '\n'
-			&& line[i - 1] != '|' && line[i - 1] != '\n')
+			&& !ends_with_pipe(line, i) && line[i - 1] != '\n')
 			data.on_word = 0;
 		i++;
 	}
