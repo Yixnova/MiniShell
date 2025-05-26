@@ -1,7 +1,7 @@
 # MiniShell
 C Shell
-ls
-
+ls |
+		|
 
 echo "a			
-"
+" | 
