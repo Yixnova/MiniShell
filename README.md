@@ -4,6 +4,6 @@ ls
 
 echo "a
 "
-flksdkls | 			
+flksdkls |
 
 grep a
