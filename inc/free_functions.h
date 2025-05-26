@@ -6,12 +6,12 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 16:31:29 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/16 16:37:10 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/26 19:37:34 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FREE_FUNCTIONS_H
-# define FREE_FUNCTIONS_EXPAND_H
+# define FREE_FUNCTIONS_H
 
 # include "../inc/minishell.h"
 

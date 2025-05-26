@@ -6,32 +6,21 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:45:25 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/22 16:58:17 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/26 18:54:34 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../inc/minishell.h"
 
-int	ends_with_pipe(char *str)
+int	ends_with_pipe(char *str, int i)
 {
-	int	pipe;
-	int	i;
-
-	i = 0;
-	pipe = 0;
-	while (str[i])
-	{
-		if (str[i] == '|')
-		{
-			pipe = 1;
-			break ;
-		}
-		i++;
-	}
-	if (pipe == 0)
-		return (0);
-	i++;
-	if (str[i] == '\0' || is_all_spaces(str + i))
+	if (i >= 0 && str[i] == '\n')
+		i--;
+	while (i >= 0 && is_space_character(str[i]))
+		i--;
+	if (i >= 0 && str[i] == '\n')
+		i--;
+	if (i >= 0 && str[i] == '|')
 		return (1);
 	return (0);
 }

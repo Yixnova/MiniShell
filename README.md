@@ -1,10 +1,15 @@
 # MiniShell
-C Shell
-ls |
+								grep a|
 
 ls |
 
-cat -e
 
-echo "ab
-c" |
+			cat -e
+
+ls |
+
+
+
+echo "a
+b
+c"   |

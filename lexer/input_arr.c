@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 11:55:47 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/26 17:26:09 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/26 20:54:33 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,12 @@ int	set_input_arr_parsedata(int *n, char *line, t_lineparse *data)
 	else if (data->in_quotes == 1 && line[*n] == data->type)
 		data->in_quotes = 0;
 	if (data->on_word == 1 && data->in_quotes == 0 && line[*n] == '\n'
+<<<<<<< HEAD
 		&& !ends_with_pipe_index(line, *n) 
 		&& line[*n - 1] != '\n')
+=======
+		&& !ends_with_pipe(line, *n) && line[*n - 1] != '\n')
+>>>>>>> fixing_segfault
 		return (1);
 	if (line[*n] == '\0')
 		return (1);
@@ -80,8 +84,13 @@ int	count_inputs(char *line)
 			data.on_word = 1;
 			data.count++;
 		}
+<<<<<<< HEAD
 		else if (data.on_word == 1 && data.in_quotes == 0 && line[i] && line[i] == '\n'
 			&& !ends_with_pipe_index(line, i) && line[i - 1] != '\n')
+=======
+		if (data.on_word == 1 && data.in_quotes == 0 && line[i] == '\n'
+			&& !ends_with_pipe(line, i) && line[i - 1] != '\n')
+>>>>>>> fixing_segfault
 			data.on_word = 0;
 		while (data.in_quotes == 0 && is_space_character(line[i]))
 			i++;
