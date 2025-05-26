@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:25:31 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/26 13:30:16 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/26 13:35:23 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int	is_all_dots(char *str)
 	int	i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
-		if(str[i] != '.')
+		if (str[i] != '.')
 			return (0);
 		i++;
 	}

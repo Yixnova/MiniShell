@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 09:24:57 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/26 13:33:27 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/26 13:35:04 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ void	check_files_and_path(t_cmd *cmd, t_shelldata *shell, int pid)
 	if (cmd->args && cmd->args[0] && cmd->args[0][0] == '.'
 		&& ft_strlen(cmd->args[0]) == 1)
 	{
-		if(pid == 0)
+		if (pid == 0)
 			single_dot_error();
-		cmd->err_type = 1;	
+		cmd->err_type = 1;
 	}
 	else if (cmd->args && cmd->args[0] && cmd->args[0][0] == '\0')
 	{
