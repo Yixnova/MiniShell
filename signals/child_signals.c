@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:46:07 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 20:12:27 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/26 21:23:33 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 void	child_sigquit_handler(int signum)
 {
 	(void)signum;
+	printf("%s\n", "^\\Quit (core dumped)");
+	rl_on_new_line();
+	rl_replace_line("", 0);
 }
 
 void	process_sigint_handler(int signum)
