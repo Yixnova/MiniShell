@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 11:49:55 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/26 20:54:27 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/26 21:00:40 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ char	*edit_input(char	*str)
 	n = 0;
 	str = ft_strtrim_free(str, "\a\b\n\t\v\f\r");
 	data.count = count_input_len(str);
-	printf("%d\n", data.count);
 	if (data.count < 1)
 		free(str);
 	new = ft_calloc(data.count + 1, 1);
