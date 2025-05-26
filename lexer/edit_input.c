@@ -6,12 +6,22 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 11:49:55 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/26 15:30:22 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/26 16:15:27 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+int		is_all_spaces_til(char *str, int i)
+{
+	if(str[i] == '\n')
+		i--;
+	while(i > 0 && is_space_character(str[i]))
+		i--;
+	if(str[i] == '\n')
+		return (1);
+	return (0);
+}
 void	check_char(t_lineparse *data, char *str)
 {
 	if (data->in_quotes == 0 && is_in_str("\"\'", str[data->i]))
@@ -25,14 +35,15 @@ void	check_char(t_lineparse *data, char *str)
 		&& data->i > 0 && str[data->i - 1] == '|')
 		;
 	else if (data->in_quotes == 0 && str[data->i] == '\n'
-		&& str[data->i + 1])
+		&& is_all_spaces_til(str, data->i))
 		data->count--;
 }
 
 void	set_char(t_lineparse *data, int n, char *new, char *str)
 {
 	if (data->in_quotes == 0 && str[data->i] == '\n'
-		&& data->i > 0 && str[data->i - 1] == '|')
+		&& data->i > 0 && ends_with_pipe_index(str, n) 
+			&& data->i != (int)ft_strlen(str) - 1)
 		new[n] = ' ';
 	else
 		new[n] = str[data->i];
@@ -84,6 +95,7 @@ char	*edit_input(char	*str)
 	n = 0;
 	str = ft_strtrim_free(str, "\a\b\n\t\v\f\r");
 	data.count = count_input_len(str);
+	printf("%d\n", data.count);
 	if (data.count < 1)
 		free(str);
 	new = ft_calloc(data.count + 1, 1);

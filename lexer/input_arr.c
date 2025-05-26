@@ -6,12 +6,23 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 11:55:47 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/26 15:30:52 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/26 17:08:25 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+int	ends_with_pipe_index(char *str, int i)
+{
+	if(str[i] == '\n')
+		i--;
+	while(i >= 0 && is_space_character(str[i]))
+		i--;
+	if(str[i] == '|')
+		return (1);
+	else
+		return (0);
+}
 int	set_input_arr_parsedata(int *n, char *line, t_lineparse *data)
 {
 	if (data->on_word == 0 && line[*n] != '\n')
@@ -24,7 +35,8 @@ int	set_input_arr_parsedata(int *n, char *line, t_lineparse *data)
 	else if (data->in_quotes == 1 && line[*n] == data->type)
 		data->in_quotes = 0;
 	if (data->on_word == 1 && data->in_quotes == 0 && line[*n] == '\n'
-		&& line[*n - 1] != '|' && line[*n - 1] != '\n')
+		&& !ends_with_pipe_index(line, *n) 
+		&& line[*n - 1] != '\n')
 		return (1);
 	if (line[*n] == '\0')
 		return (1);
@@ -32,15 +44,20 @@ int	set_input_arr_parsedata(int *n, char *line, t_lineparse *data)
 	return (0);
 }
 
-void	handle_quotes_count(t_lineparse *data, char *line, int *i)
+int	handle_quotes_count(t_lineparse *data, char *line, int *i)
 {
 	if (data->in_quotes == 0 && is_in_str("\"\'", line[*i]))
 	{
 		data->in_quotes = 1;
 		data->type = line[*i];
+		return (1);
 	}
 	else if (data->in_quotes == 1 && line[*i] == data->type)
+	{
 		data->in_quotes = 0;
+		return (1);
+	}
+	return (0);
 }
 
 int	count_inputs(char *line)
@@ -55,16 +72,18 @@ int	count_inputs(char *line)
 	data.on_word = 0;
 	while (line[i])
 	{
-		handle_quotes_count(&data, line, &i);
-		if (data.on_word == 0 && line[i] != '\n'
-			&& !is_space_character(line[i]))
+		if(handle_quotes_count(&data, line, &i))
+			;
+		else if (data.on_word == 0 && !(line[i] == '\n'))
 		{
 			data.on_word = 1;
 			data.count++;
 		}
-		if (data.on_word == 1 && data.in_quotes == 0 && line[i] == '\n'
-			&& line[i - 1] != '|' && line[i - 1] != '\n')
+		else if (data.on_word == 1 && data.in_quotes == 0 && line[i] && line[i] == '\n'
+			&& !ends_with_pipe_index(line, i) && line[i - 1] != '\n')
 			data.on_word = 0;
+		while (data.in_quotes == 0 && is_space_character(line[i]))
+			i++;
 		i++;
 	}
 	return (data.count);
@@ -88,6 +107,7 @@ char	**make_input_arr(char	*line)
 	data.in_quotes = 0;
 	data.start = 0;
 	data.count = count_inputs(line);
+	printf("%d\n", data.count);
 	arr = ft_calloc(data.count + 1, sizeof(char *));
 	while (data.count - 1 >= 0)
 	{

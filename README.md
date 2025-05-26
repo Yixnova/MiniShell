@@ -1,11 +1,10 @@
 # MiniShell
 C Shell
-ls
+ls |
 
+ls |
 
-echo "a			
-"
+cat -e
 
-hwrerwelrhw	|	
-
-grep a |
+echo "ab
+c" |
