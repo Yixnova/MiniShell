@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:45:25 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/26 17:22:29 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/26 18:54:34 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 int	ends_with_pipe(char *str, int i)
 {
-	if(i >= 0 && str[i] == '\n')
+	if (i >= 0 && str[i] == '\n')
 		i--;
-	while(i >= 0 && is_space_character(str[i]))
+	while (i >= 0 && is_space_character(str[i]))
 		i--;
-	if(i >= 0 && str[i] == '\n')
+	if (i >= 0 && str[i] == '\n')
 		i--;
-	if(i >= 0 && str[i] == '|')
-		return(1);
-	return(0);
+	if (i >= 0 && str[i] == '|')
+		return (1);
+	return (0);
 }
 
 int	is_pipe_with_newline(char *str)
