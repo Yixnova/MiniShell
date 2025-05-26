@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 11:55:47 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/26 17:08:25 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/26 17:26:09 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 int	ends_with_pipe_index(char *str, int i)
 {
-	if(str[i] == '\n')
+	if(i >= 0 && str[i] == '\n')
 		i--;
 	while(i >= 0 && is_space_character(str[i]))
 		i--;
-	if(str[i] == '|')
-		return (1);
-	else
-		return (0);
+	if(i >= 0 && str[i] == '\n')
+		i--;
+	if(i >= 0 && str[i] == '|')
+		return(1);
+	return(0);
 }
 int	set_input_arr_parsedata(int *n, char *line, t_lineparse *data)
 {
