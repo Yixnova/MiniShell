@@ -1,7 +1,9 @@
 # MiniShell
 C Shell
-ls |
-		|
+ls
 
-echo "a			
-" | 
+echo "a
+"
+flksdkls | 			
+
+grep a
