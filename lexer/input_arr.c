@@ -6,24 +6,12 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 11:55:47 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/26 21:00:34 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/26 18:09:31 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ends_with_pipe_index(char *str, int i)
-{
-	if(i >= 0 && str[i] == '\n')
-		i--;
-	while(i >= 0 && is_space_character(str[i]))
-		i--;
-	if(i >= 0 && str[i] == '\n')
-		i--;
-	if(i >= 0 && str[i] == '|')
-		return(1);
-	return(0);
-}
 int	set_input_arr_parsedata(int *n, char *line, t_lineparse *data)
 {
 	if (data->on_word == 0 && line[*n] != '\n')
@@ -36,12 +24,7 @@ int	set_input_arr_parsedata(int *n, char *line, t_lineparse *data)
 	else if (data->in_quotes == 1 && line[*n] == data->type)
 		data->in_quotes = 0;
 	if (data->on_word == 1 && data->in_quotes == 0 && line[*n] == '\n'
-<<<<<<< HEAD
-		&& !ends_with_pipe_index(line, *n) 
-		&& line[*n - 1] != '\n')
-=======
 		&& !ends_with_pipe(line, *n) && line[*n - 1] != '\n')
->>>>>>> fixing_segfault
 		return (1);
 	if (line[*n] == '\0')
 		return (1);
@@ -49,20 +32,15 @@ int	set_input_arr_parsedata(int *n, char *line, t_lineparse *data)
 	return (0);
 }
 
-int	handle_quotes_count(t_lineparse *data, char *line, int *i)
+void	handle_quotes_count(t_lineparse *data, char *line, int *i)
 {
 	if (data->in_quotes == 0 && is_in_str("\"\'", line[*i]))
 	{
 		data->in_quotes = 1;
 		data->type = line[*i];
-		return (1);
 	}
 	else if (data->in_quotes == 1 && line[*i] == data->type)
-	{
 		data->in_quotes = 0;
-		return (1);
-	}
-	return (0);
 }
 
 int	count_inputs(char *line)
@@ -77,23 +55,16 @@ int	count_inputs(char *line)
 	data.on_word = 0;
 	while (line[i])
 	{
-		if(handle_quotes_count(&data, line, &i))
-			;
-		else if (data.on_word == 0 && !(line[i] == '\n'))
+		handle_quotes_count(&data, line, &i);
+		if (data.on_word == 0 && line[i] != '\n'
+			&& !is_space_character(line[i]))
 		{
 			data.on_word = 1;
 			data.count++;
 		}
-<<<<<<< HEAD
-		else if (data.on_word == 1 && data.in_quotes == 0 && line[i] && line[i] == '\n'
-			&& !ends_with_pipe_index(line, i) && line[i - 1] != '\n')
-=======
 		if (data.on_word == 1 && data.in_quotes == 0 && line[i] == '\n'
 			&& !ends_with_pipe(line, i) && line[i - 1] != '\n')
->>>>>>> fixing_segfault
 			data.on_word = 0;
-		while (data.in_quotes == 0 && is_space_character(line[i]))
-			i++;
 		i++;
 	}
 	return (data.count);

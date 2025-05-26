@@ -1,7 +1,6 @@
 # MiniShell
 								grep a|
 
-ls |
 
 
 			cat -e
