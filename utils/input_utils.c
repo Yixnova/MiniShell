@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:42:30 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/22 13:08:25 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/26 15:05:53 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	is_in_str(const char *str, char c)
 
 int	is_space_character(char c)
 {
-	return (c == ' ' || (c >= 9 && c <= 13));
+	return (c == ' ' || (c >= 7 && c <= 13));
 }
 
 int	is_all_spaces(char *line)
