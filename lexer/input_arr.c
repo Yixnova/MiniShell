@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 11:55:47 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/26 15:22:06 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/26 15:30:52 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ int	count_inputs(char *line)
 	while (line[i])
 	{
 		handle_quotes_count(&data, line, &i);
-		if (data.on_word == 0 && line[i] != '\n' && !is_space_character(line[i]))
+		if (data.on_word == 0 && line[i] != '\n'
+			&& !is_space_character(line[i]))
 		{
 			data.on_word = 1;
 			data.count++;
@@ -69,21 +70,25 @@ int	count_inputs(char *line)
 	return (data.count);
 }
 
+void	assign_arr_element(int n, char **arr, char *line, t_lineparse *data)
+{
+	arr[data->i] = ft_substr(line, data->start, n - data->start + 1);
+	arr[data->i] = edit_input(arr[data->i]);
+}
+
 char	**make_input_arr(char	*line)
 {
 	char		**arr;
-	int			i;
 	int			n;
 	t_lineparse	data;
 
-	i = 0;
+	data.i = 0;
 	n = 0;
 	data.type = 0;
 	data.in_quotes = 0;
 	data.start = 0;
 	data.count = count_inputs(line);
 	arr = ft_calloc(data.count + 1, sizeof(char *));
-	printf("%d\n", data.count);
 	while (data.count - 1 >= 0)
 	{
 		data.on_word = 0;
@@ -91,11 +96,10 @@ char	**make_input_arr(char	*line)
 		while (line[n])
 			if (set_input_arr_parsedata(&n, line, &data))
 				break ;
-		arr[i] = ft_substr(line, data.start, n - data.start + 1);
-		arr[i] = edit_input(arr[i]);
-		i++;
+		assign_arr_element(n, arr, line, &data);
+		data.i++;
 		data.count--;
 	}
-	arr[i] = NULL;
+	arr[data.i] = NULL;
 	return (arr);
 }

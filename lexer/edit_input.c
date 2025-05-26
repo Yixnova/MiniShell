@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 11:49:55 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/26 15:20:34 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/26 15:30:22 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ char	*edit_input(char	*str)
 		data.i++;
 		n++;
 	}
-	if(str)
+	if (str)
 		free(str);
 	return (new);
 }
