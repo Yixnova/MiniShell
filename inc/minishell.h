@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/26 18:07:45 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/27 09:32:01 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ char	*get_next_line(int fd, int i);
 void	set_envp(t_shelldata *shell, t_env *env, int fr);
 void	setup_heredoc_signals(void);
 void	setup_process_signals(void);
+void	setup_tokens_signals(void);
 char	*ft_myjoin_free(char *s1, const char *s2, const char *s3);
 char	*ft_strtrim_free(char *s1, const char *set);
 int		ends_with_pipe(char *str, int i);

@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/23 14:22:50 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/27 09:36:57 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ int	parent_process(int *fd, t_shelldata *data)
 
 	buf = ft_calloc(1, 42);
 	bytes = 1;
-	wait_add_tokens(data);
 	close(fd[1]);
+	if(wait_add_tokens(data))
+		return (1);
 	while (bytes)
 	{
 		bytes = read(fd[0], buf, 42);
@@ -69,7 +70,7 @@ int	add_tokens(t_shelldata *data)
 		return (parent_process(fd, data));
 	else
 	{
-		setup_heredoc_signals();
+		setup_tokens_signals();
 		line = readline("> ");
 		close(fd[0]);
 		if (!line)
