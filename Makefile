@@ -6,7 +6,7 @@
 #    By: busseven <busseven@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:42:59 by busseven          #+#    #+#              #
-#    Updated: 2025/05/27 09:56:17 by busseven         ###   ########.fr        #
+#    Updated: 2025/05/27 11:42:27 by busseven         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,6 @@ SRCS =	main.c\
 		./execute/processes_utils.c \
 		./execute/process_error.c\
 		./execute/find_command_path.c\
-		./history/history_file.c\
 		./parser/init_parsedata.c \
 		./execute/redir_utils.c \
 		./execute/check_utils.c \
