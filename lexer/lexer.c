@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:41:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/27 09:36:57 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/27 09:38:41 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	parent_process(int *fd, t_shelldata *data)
 	buf = ft_calloc(1, 42);
 	bytes = 1;
 	close(fd[1]);
-	if(wait_add_tokens(data))
+	if (wait_add_tokens(data))
 		return (1);
 	while (bytes)
 	{

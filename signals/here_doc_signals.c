@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:44:10 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/27 09:33:37 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/27 09:39:07 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	setup_heredoc_signals(void)
 	sigaction(SIGINT, &sa, NULL);
 	signal(SIGQUIT, SIG_IGN);
 }
+
 void	setup_tokens_signals(void)
 {
 	struct sigaction	sa;
