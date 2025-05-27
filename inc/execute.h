@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:45:59 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/26 13:29:00 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/27 09:46:38 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int		handle_builtin_command(t_shelldata *shell, char **args);
 int		execute_builtin(t_shelldata *shell, char **args);
 int		check_builtin_and_path(t_cmd *cmd, t_shelldata *shell);
 void	display_error_messages(t_cmd *cmds);
-int		check_pipe_error(t_shelldata *data);
 void	close_files(t_cmd **cmds);
 void	close_pipes(t_shelldata *shell, int i);
 void	start_processes(t_shelldata *shell, t_cmd **cmds);
