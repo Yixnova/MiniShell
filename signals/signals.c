@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 08:58:49 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/26 21:20:31 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/27 09:57:03 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,10 @@ void	sigquit_handler(int signum)
 void	setup_signals(void)
 {
 	struct sigaction	sa_int;
-	struct sigaction	sa_quit;
 
 	signal(SIGQUIT, SIG_IGN);
 	sa_int.sa_handler = sigint_handler;
 	sigemptyset(&sa_int.sa_mask);
 	sa_int.sa_flags = SA_RESTART;
 	sigaction(SIGINT, &sa_int, NULL);
-	sa_quit.sa_handler = sigquit_handler;
 }
