@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 09:39:47 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/21 11:28:35 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/30 14:26:40 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_env	*create_env_node(const char *env_entry)
 	{
 		key_len = equal_sign - env_entry;
 		node->name = ft_strndup(env_entry, key_len);
-		node->value = strdup(equal_sign + 1);
+		node->value = ft_strdup(equal_sign + 1);
 	}
 	else
 	{
