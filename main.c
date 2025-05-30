@@ -76,7 +76,7 @@ void	handle_input_and_history(t_shelldata *shell)
 {
 	while (1)
 	{
-		shell->read_line = readline("myshell$ ");
+		shell->read_line = readline("Shellter$ ");
 		if (!shell->read_line)
 		{
 			ft_putendl_fd("exit", 1);
