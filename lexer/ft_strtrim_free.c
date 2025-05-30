@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim_free.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 18:08:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/23 18:17:13 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/30 14:01:01 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../inc/minishell.h"
+#include "../inc/minishell.h"
 
 static int	checkset(char c, const char *set)
 {

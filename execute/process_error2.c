@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   process_error2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:25:31 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/26 13:35:23 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/30 14:00:04 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../inc/minishell.h"
+#include "../inc/minishell.h"
 
 void	single_dot_error(void)
 {

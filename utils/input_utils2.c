@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   input_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:45:25 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/26 18:54:34 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/30 14:00:40 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../inc/minishell.h"
+#include "../inc/minishell.h"
 
 int	ends_with_pipe(char *str, int i)
 {

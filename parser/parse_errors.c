@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_errors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 11:53:00 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/19 19:32:18 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/30 14:00:30 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../inc/minishell.h"
+#include "../inc/minishell.h"
 
 void	heredoc_eof(t_cmd *cmd, int line_num, int h, char *line)
 {

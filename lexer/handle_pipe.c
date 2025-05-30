@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   handle_pipe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:11:03 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/20 15:29:41 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/30 14:01:22 by yigsahin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../inc/minishell.h"
+#include "../inc/minishell.h"
 
 char	*ft_myjoin_free(char *s1, const char *s2, const char *s3)
 {
