@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:54:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/27 09:32:01 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/31 12:11:17 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,11 @@
 # include "utils.h"
 # include "errors.h"
 # include "parse.h"
-# include "errno.h"
-# include "termios.h"
-# include <sys/stat.h>
+# include <errno.h>
 
 # define BUFFER_SIZE 1024
 
 extern int	g_signal_flag;
-
-// types 0 = pipe, 1 = here_doc, 2 = input, 3 = output
 
 typedef struct s_cmd
 {
@@ -123,7 +119,7 @@ void	set_envp(t_shelldata *shell, t_env *env, int fr);
 void	setup_heredoc_signals(void);
 void	setup_process_signals(void);
 void	setup_tokens_signals(void);
-char	*ft_myjoin_free(char *s1, const char *s2, const char *s3);
+char	*ft_threejoin_free(char *s1, const char *s2, const char *s3);
 char	*ft_strtrim_free(char *s1, const char *set);
 int		ends_with_pipe(char *str, int i);
 

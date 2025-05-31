@@ -6,23 +6,13 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 08:58:49 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/27 09:57:03 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/31 10:54:53 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 int	g_signal_flag = 0;
-
-#ifdef __APPLE__
-
-void	rl_replace_line(const char *text, int clear_undo)
-{
-	(void)clear_undo;
-	rl_delete_text(0, rl_end);
-	rl_insert_text(text);
-}
-#endif
 
 void	sigint_handler(int signum)
 {

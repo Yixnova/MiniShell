@@ -6,13 +6,13 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 09:24:57 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/26 13:35:04 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/30 09:25:04 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/execute.h"
 
-char	*ft_myjoin(const char *s1, const char *s2, const char *s3)
+char	*ft_threejoin(const char *s1, const char *s2, const char *s3)
 {
 	char	*temp;
 	char	*result;

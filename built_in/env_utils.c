@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 09:39:47 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/21 11:28:35 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/31 11:24:36 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ t_env	*create_env_node(const char *env_entry)
 	node = malloc(sizeof(t_env));
 	if (!node)
 		return (NULL);
-	equal_sign = strchr(env_entry, '=');
+	equal_sign = ft_strchr(env_entry, '=');
 	if (equal_sign)
 	{
 		key_len = equal_sign - env_entry;
 		node->name = ft_strndup(env_entry, key_len);
-		node->value = strdup(equal_sign + 1);
+		node->value = ft_strdup(equal_sign + 1);
 	}
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 11:59:24 by busseven          #+#    #+#             */
-/*   Updated: 2025/05/21 12:24:26 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/30 09:24:51 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	set_envp(t_shelldata *shell, t_env *env, int fr)
 	shell->envp = ft_calloc(count + 1, sizeof(char *));
 	while (env)
 	{
-		shell->envp[i] = ft_myjoin(env->name, "=", env->value);
+		shell->envp[i] = ft_threejoin(env->name, "=", env->value);
 		env = env->next;
 		i++;
 	}

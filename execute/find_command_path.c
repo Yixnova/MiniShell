@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 13:34:02 by yigsahin          #+#    #+#             */
-/*   Updated: 2025/05/19 19:57:08 by busseven         ###   ########.fr       */
+/*   Updated: 2025/05/31 15:15:32 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,14 @@ static int	test_paths_and_set(t_cmd *cmd, char **paths)
 	j = 0;
 	while (paths[j])
 	{
-		test = ft_myjoin(paths[j], "/", cmd->args[0]);
+		test = ft_threejoin(paths[j], "/", cmd->args[0]);
 		cmd->path = test;
 		if (access(test, F_OK) == 0)
 		{
 			cmd->invalid = 0;
 			free_2d_char(paths);
+			if (!cmd->args || !cmd->args[0] || !cmd->args[0][0])
+				free(test);
 			return (1);
 		}
 		free(test);
