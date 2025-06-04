@@ -25,6 +25,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <fcntl.h>
+# include <errno.h>
 # include "../libft/libft.h"
 # include "built_in.h"
 # include "lexing.h"
@@ -34,7 +35,6 @@
 # include "utils.h"
 # include "errors.h"
 # include "parse.h"
-# include <errno.h>
 
 # define BUFFER_SIZE 1024
 

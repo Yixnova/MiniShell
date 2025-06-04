@@ -11,8 +11,8 @@
 # **************************************************************************** #
 
 NAME = minishell
-CC = gcc
-CFLAGS = -g -Wall -Wextra -Werror
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
 LIBS = -lreadline
 
 SRCS =	main.c\
