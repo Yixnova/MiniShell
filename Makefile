@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: busseven <busseven@student.42.fr>          +#+  +:+       +#+         #
+#    By: yigsahin <yigsahin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:42:59 by busseven          #+#    #+#              #
-#    Updated: 2025/05/31 15:01:31 by busseven         ###   ########.fr        #
+#    Updated: 2025/06/05 19:08:44 by yigsahin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 LIBS = -lreadline
+MACOS = -L/opt/homebrew/opt/readline/lib
 
 SRCS =	main.c\
 		./utils/input_utils.c\
@@ -71,7 +72,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
 	@echo "Creating executable..."
-	@$(CC) $(CFLAGS) $(OBJS) libft/libft.a -o $(NAME) $(LIBS)
+	@$(CC) $(CFLAGS) $(OBJS) libft/libft.a -o $(NAME) $(LIBS) $(MACOS)
 $(LIBFT):
 	@echo "Building libft..."
 	@make -C libft
@@ -89,6 +90,10 @@ fclean: clean
 re: fclean all
 	@echo "Rebuilding all..."
 
-comp: all clean
+clear:
+	clear
+	@echo "Everything is okay. LFG! :) -> ./minishell"
+
+comp: all clean clear
 
 .PHONY: all clean fclean re comp
